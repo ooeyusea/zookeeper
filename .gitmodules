@@ -1,3 +1,4 @@
 [submodule "depends/hnet"]
 	path = depends/hnet
 	url = https://github.com/ooeyusea/hnet.git
+	ignore = dirty
