@@ -19,7 +19,7 @@ namespace olib {
 		FileFinder() {}
 		~FileFinder() {}
 
-		void Search(const std::string& pattern, const std::function<void(const std::string& file)>& fn) {
+		void Search(const std::string& pattern, const std::function<void(const fs::path& file)>& fn) {
 			std::string::size_type star = pattern.rfind('*');
 			if (star != std::string::npos) {
 				std::string::size_type slash = pattern.rfind(SLASH, star);
@@ -33,7 +33,7 @@ namespace olib {
 		}
 
 	private:
-		void Search(const std::string& path, const std::string& pattern, const std::function<void(const std::string& file)>& fn) {
+		void Search(const std::string& path, const std::string& pattern, const std::function<void(const fs::path& file)>& fn) {
 			if (pattern == "")
 				fn(path);
 			else {
@@ -49,7 +49,7 @@ namespace olib {
 					}
 					else {
 						if (!fs::is_directory(p.path()) && Check(p.path().filename().string(), cuts))
-							fn(p.path().string());
+							fn(p.path());
 					}
 				}
 			}

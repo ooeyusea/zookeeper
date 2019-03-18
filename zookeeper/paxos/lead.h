@@ -5,21 +5,27 @@
 #include <string>
 #include "DataSet.h"
 #include "define.h"
+#include "service.h"
 
-class Lead {
-	struct Message {
+class Lead : public IServiceExecutor {
+	struct Draft {
 		int32_t id;
-		int8_t type;
+		int64_t requestId;
+		int64_t zxId;
 		std::string data;
+		std::vector<bool> vote;
 	};
 public:
-	Lead();
+	Lead(int32_t id, DataSet& dataset, int32_t serverCount);
 	~Lead();
 
-	int32_t Leading(int32_t id, int32_t peerEpoch, DataSet& dataset, int32_t votePort, int32_t serverCount);
+	int32_t Leading(int32_t peerEpoch, int32_t votePort, int32_t servicePort);
 
-	void Propose(int32_t id, const std::string& data);
-	void AckPropose(int32_t id, int64_t zxId, DataSet& dataset);
+	virtual void Propose(std::string && data, const std::function<void(bool)>& fn);
+	virtual void Read(std::string && data, std::string& result);
+
+	void Propose(int32_t id, int64_t requestId, std::string && data);
+	void AckPropose(int32_t id, int64_t zxId);
 
 	int32_t GetPeerEpoch(int32_t id, int32_t peerEpoch);
 	void WaitForNewLeader(int32_t id);
@@ -40,34 +46,43 @@ public:
 	}
 
 	inline void StartForwarding(int32_t id, int32_t fd) {
-		_forwarding[id - 1] = 0;
+		_forwarding[id - 1] = fd;
 	}
 
 private:
-	void ProcessRequest(int32_t id, DataSet& dataset, int32_t serverCount, int32_t peerEpoch);
+	void Process();
+	void LaunchNextDraft(std::unique_lock<hn_mutex>& guard);
 
-	bool StartListenFollow(int32_t id, int32_t serverCount, int32_t votePort, DataSet& dataset);
+	bool StartListenFollow(int32_t votePort);
 	void ShutdownListen();
 
-	void SendLeaderInfo(int32_t id, int32_t peerEpoch);
-	void Diff(int32_t id, DataSet& dataset, int64_t lastZxId);
-	void Trunc(int32_t id, DataSet& dataset, int64_t lastZxId);
-	void Snap(int32_t id, DataSet& dataset);
-	void Updated(int32_t id, DataSet& dataset);
-
 private:
-	hn_channel<Message, 100> _messages;
 	int32_t _fd;
 	bool _terminate = false;
+
+	int32_t _id;
+	int32_t _serverCount;
+	DataSet& _dataset;
 
 	std::vector<int32_t> _followers;
 	std::vector<int32_t> _forwarding;
 	std::atomic<int32_t> _count;
 
 	bool _waitForPeerEpoch = true;
-	int32_t peerEpoch;
+	int32_t _peerEpoch = 0;
 	std::vector<int32_t> _recvPeerEpoch;
 	std::vector<bool> _recvNewLeader;
+
+	hn_mutex _cbLock;
+	std::unordered_map<int64_t, std::function<void(bool)>> _callbacks;
+	int64_t _nextRequestId = 1;
+
+	hn_mutex _lock;
+	std::map<int64_t, Draft> _uncommit;
+
+	int64_t _nextId = 1;
+
+	ServiceProvider _service;
 };
 
 #endif //__LEAD_H__

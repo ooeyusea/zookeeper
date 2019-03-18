@@ -27,6 +27,7 @@ private:
 	std::string _ip;
 	int32_t _electionPort = 0;
 	int32_t _votePort = 0;
+	int32_t _servicePort = 0;
 
 	std::vector<Server> _servers;
 	Server * _leader = nullptr;
@@ -34,7 +35,7 @@ private:
 	Election _election;
 
 	int32_t _peerEpoch = 1;
-	DataSet _dataset;
+	DataSet * _dataset = nullptr;
 };
 
 bool ZooKeeper::Start() {
@@ -49,7 +50,7 @@ bool ZooKeeper::Start() {
 
 		_id = conf.Root()["zookeeper"][0].GetAttributeInt32("id");
 		if (_id == 0) {
-			printf("zookeeper: invalid id\n");
+			hn_error("zookeeper: invalid id");
 			return false;
 		}
 
@@ -62,39 +63,60 @@ bool ZooKeeper::Start() {
 			std::string ip = conf.Root()["zookeeper"][0]["server"][i].GetAttributeString("ip");
 			int32_t electionPort = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("election");
 			int32_t votePort = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("vote");
+			int32_t servicePort = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("service");
 
 			if (idx == _id) {
 				_ip = ip;
 				_electionPort = electionPort;
 				_votePort = votePort;
+				_servicePort = servicePort;
 			}
 			else
 				_servers.push_back({ idx, ip, electionPort, votePort });
 		}
+
+		std::string path = conf.Root()["zookeeper"][0]["state_data"][0].GetAttributeString("path");
+#ifdef linux
+		void * handle = dlopen(path, RTLD_LAZY);
+		GetFactoryFn fn = (GetFactoryFn)dlsym(handle, NAME_OF_GET_FACTORY_FN);
+#endif //linux
+
+#ifdef WIN32
+		HINSTANCE hinst = ::LoadLibrary(path.c_str());
+		GetFactoryFn fn = (GetFactoryFn)::GetProcAddress(hinst, NAME_OF_GET_FACTORY_FN);
+#endif //WIN32
+
+		if (!fn) {
+			hn_error("get state data module failed");
+			return false;
+		}
 	}
 	catch (std::exception& e) {
-		printf("zookeeper load config failed : %s\n", e.what());
+		hn_error("zookeeper load config failed : %s", e.what());
 		return false;
 	}
 
 	if (_servers.size() % 2 != 0) {
-		printf("zookeeper: server count must old\n");
+		hn_error("zookeeper: server count must old");
 		return false;
 	}
 
 #ifdef WIN32
-	if (!_dataset.Load("var/lib/zookeeper")) {
+	if (!_dataset->Load("var/lib/zookeeper")) {
 #else
-	if (!_dataset.Load("/var/lib/zookeeper")) {
+	if (!_dataset->Load("/var/lib/zookeeper")) {
 #endif
 		return false;
 	}
 
+	_peerEpoch = EPOCH_FROM_ZXID(_dataset->GetZxId());
+
 	if (!_election.Start(_servers.size() + 1, _ip, _electionPort, _servers)) {
-		printf("zookeeper: election start failed\n");
+		hn_error("zookeeper: election start failed");
 		return false;
 	}
 
+	hn_info("zookeeper started");
 	return true;
 }
 
@@ -109,7 +131,7 @@ void ZooKeeper::Run() {
 }
 
 void ZooKeeper::Elect() {
-	Vote vote = _election.LookForLeader(_id, _dataset.GetZxId(), _servers.size() + 1);
+	Vote vote = _election.LookForLeader(_id, _dataset->GetZxId(), _servers.size() + 1);
 
 	_state = (vote.voteId == _id) ? Election::LEADING : Election::FOLLOWING;
 	if (_state == Election::FOLLOWING) {
@@ -125,15 +147,15 @@ void ZooKeeper::Elect() {
 void ZooKeeper::Leading() {
 	hn_info("I'm leader\n");
 
-	Lead lead;
-	_peerEpoch = lead.Leading(_id, _peerEpoch, _dataset, _votePort, _servers.size() + 1);
+	Lead lead(_id, *_dataset, _servers.size() + 1);
+	_peerEpoch = lead.Leading(_peerEpoch, _votePort, _servicePort);
 }
 
 void ZooKeeper::Following() {
 	hn_info("I'm follower\n");
 
-	Follow follow;
-	_peerEpoch = follow.Following(_id, _peerEpoch, _dataset, _leader->ip, _leader->votePort);
+	Follow follow(_id, *_dataset);
+	_peerEpoch = follow.Following(_peerEpoch, _leader->ip, _leader->votePort, _servicePort);
 }
 
 void start(int32_t argc, char ** argv) {

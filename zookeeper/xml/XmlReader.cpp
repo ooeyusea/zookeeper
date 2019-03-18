@@ -236,9 +236,9 @@ namespace olib {
 	}
 
 	bool XmlReader::LoadInclude(const char * path) {
-		olib::FileFinder().Search(path, [this](const std::string file){
-			if (!LoadIncludeFile(file.c_str())) {
-				throw std::logic_error(std::string("load include file") + file + " failed");
+		olib::FileFinder().Search(path, [this](const fs::path file){
+			if (!LoadIncludeFile(file.string().c_str())) {
+				throw std::logic_error(std::string("load include file") + file.string() + " failed");
 			}
 		});
 

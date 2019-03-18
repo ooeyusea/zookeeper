@@ -19,6 +19,7 @@ namespace paxos_def {
 		PX_NEWLEADER,
 		PX_ACK,
 		PX_REQUEST,
+		PX_REQUEST_ACK,
 		PX_PROPOSE,
 		PX_ACK_PROPOSE,
 		PX_COMMIT,
@@ -49,12 +50,20 @@ namespace paxos_def {
 
 	struct Snap {
 		int8_t type;
+		int64_t zxId;
 		int32_t size;
 	};
 
 	struct Request {
 		int8_t type;
+		int64_t requestId;
 		int32_t size;
+	};
+
+	struct RequestAck {
+		int8_t type;
+		int64_t requestId;
+		bool success;
 	};
 
 	struct Propose {

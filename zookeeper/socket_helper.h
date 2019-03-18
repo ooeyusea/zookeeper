@@ -4,11 +4,14 @@
 
 #define TIMEOUT 5000
 struct SocketReader {
+	SocketReader(int32_t t) : timeout(t) {}
+	SocketReader() : timeout(0) {}
+
 	template <typename T>
 	void ReadType(int32_t fd, T& t) {
 		int32_t offset = 0;
 		while (offset < sizeof(T)) {
-			int32_t ret = hn_recv(fd, ((char*)&t) + offset, sizeof(T) - offset);
+			int32_t ret = hn_recv(fd, ((char*)&t) + offset, sizeof(T) - offset, timeout);
 			if (ret <= 0)
 				throw std::logic_error("read block failed");
 			else
@@ -22,7 +25,7 @@ struct SocketReader {
 
 		int32_t offset = sizeof(T);
 		while (offset < sizeof(B)) {
-			int32_t ret = hn_recv(fd, ((char*)&b) + offset, sizeof(B) - offset);
+			int32_t ret = hn_recv(fd, ((char*)&b) + offset, sizeof(B) - offset, timeout);
 			if (ret <= 0)
 				throw std::logic_error("read block failed");
 			else
@@ -36,7 +39,7 @@ struct SocketReader {
 
 		int32_t offset = 0;
 		while (offset < sizeof(T)) {
-			int32_t ret = hn_recv(fd, ((char*)&b) + offset, sizeof(T) - offset);
+			int32_t ret = hn_recv(fd, ((char*)&b) + offset, sizeof(T) - offset, timeout);
 			if (ret <= 0)
 				throw std::logic_error("read block failed");
 			else
@@ -53,7 +56,7 @@ struct SocketReader {
 
 		int32_t offset = 0;
 		while (offset < size) {
-			int32_t ret = hn_recv(fd, ((char*)data.data()) + offset, size - offset);
+			int32_t ret = hn_recv(fd, ((char*)data.data()) + offset, size - offset, timeout);
 			if (ret <= 0)
 				throw std::logic_error("read block failed");
 			else
@@ -61,6 +64,8 @@ struct SocketReader {
 		}
 		return data;
 	}
+
+	int32_t timeout;
 };
 
 #endif //__SOCKET_HELPER_H__

@@ -36,6 +36,7 @@ INCLUDE_DIRECTORIES(
 	"${PROJECT_SOURCE_DIR}/election"
 	"${PROJECT_SOURCE_DIR}/paxos"
 	"${PROJECT_SOURCE_DIR}/transaction"
+	"${PROJECT_SOURCE_DIR}/include"
 	"${PROJECT_SOURCE_DIR}/"
 )
 
@@ -63,11 +64,14 @@ SET(PAXOS
 	"${PROJECT_SOURCE_DIR}/paxos/lead.cpp"
 	"${PROJECT_SOURCE_DIR}/paxos/follow.h"
 	"${PROJECT_SOURCE_DIR}/paxos/follow.cpp"
+	"${PROJECT_SOURCE_DIR}/paxos/service.h"
+	"${PROJECT_SOURCE_DIR}/paxos/service.cpp"
 )
 
 SET(TRANSACTION
 	"${PROJECT_SOURCE_DIR}/transaction/dataset.h"
 	"${PROJECT_SOURCE_DIR}/transaction/dataset.cpp" 
+	"${PROJECT_SOURCE_DIR}/include/transaction.h"
 )
 
 SET(SRC
