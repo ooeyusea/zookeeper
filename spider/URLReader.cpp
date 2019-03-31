@@ -10,25 +10,7 @@ size_t UrlReader::UrlRequest::WriteData(void *ptr, size_t size, size_t nmemb, vo
 
 void UrlReader::UrlRequest::OnExecute() {
 	curl_easy_setopt(_curl, CURLOPT_HTTPHEADER, _headers);
-	OnExecuteExtern();
-	
 	_errCode = curl_easy_perform(_curl);
-}
-
-void UrlReader::GetRequest::OnExecuteExtern() {
-
-}
-
-void UrlReader::PutRequest::OnExecuteExtern() {
-
-}
-
-void UrlReader::DeleteRequest::OnExecuteExtern() {
-
-}
-
-void UrlReader::PostRequest::OnExecuteExtern() {
-
 }
 
 bool UrlReader::Start(const char * confPath) {
@@ -52,26 +34,10 @@ bool UrlReader::Start(const char * confPath) {
 		return false;
 	}
 
-	hn_info("mysql start complete");
+	hn_info("url reader start complete");
 	return true;
 }
 
 void UrlReader::Commit(UrlRequest& request) {
 	_queue->Call(request.GetIdx(), &request);
-}
-
-UrlReader::GetRequest UrlReader::Get(uint64_t idx, const std::string& url) {
-
-}
-
-UrlReader::PutRequest UrlReader::Put(uint64_t idx, const std::string& url) {
-
-}
-
-UrlReader::DeleteRequest UrlReader::Delete(uint64_t idx, const std::string& url) {
-
-}
-
-UrlReader::PostRequest UrlReader::Post(uint64_t idx, const std::string& url) {
-
 }

@@ -34,6 +34,7 @@ INCLUDE_DIRECTORIES(
 	"${PROJECT_SOURCE_DIR}/curl/include"
 	"${PROJECT_SOURCE_DIR}/xml"
 	"${PROJECT_SOURCE_DIR}/xml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/"
 )
 
 SET(SRC
@@ -69,7 +70,7 @@ ADD_EXECUTABLE(spider
 IF(WIN32)
 TARGET_LINK_LIBRARIES(spider
 	"${PROJECT_SOURCE_DIR}/../depends/hnet/bin/$<CONFIGURATION>/hnet.lib"
-	"${PROJECT_SOURCE_DIR}/../depends/html_parser/bin/$<CONFIGURATION>/html_parser.lib"
+	"${PROJECT_SOURCE_DIR}/../depends/htmlparser/bin/$<CONFIGURATION>/html_parser.lib"
 	"${PROJECT_SOURCE_DIR}/curl/lib/libcurl.lib"
 )
 ENDIF(WIN32)
@@ -77,7 +78,7 @@ ENDIF(WIN32)
 IF(UNIX)
 TARGET_LINK_LIBRARIES(spider
 	"${PROJECT_SOURCE_DIR}/../depends/hnet/bin/libhnet.a"
-	"${PROJECT_SOURCE_DIR}/../depends/html_parser/bin/libhtml_parser.a"
+	"${PROJECT_SOURCE_DIR}/../depends/htmlparser/bin/libhtml_parser.a"
 )
 ENDIF(UNIX)
 
