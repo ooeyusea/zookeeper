@@ -12,6 +12,8 @@ string_helper::string_helper()
 
 void string_helper::ltrim(std::string &s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
+		if (ch < 0)
+			return false;
         return !::isspace(ch);
     }));
 }
@@ -34,6 +36,8 @@ void string_helper::tolower(std::string &str)
 // trim from end (in place)
 void string_helper::rtrim(std::string &s) {
     s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
+		if (ch < 0)
+			return false;
         return !::isspace(ch);
     }).base(), s.end());
 }

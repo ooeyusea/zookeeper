@@ -13,27 +13,17 @@ void UrlReader::UrlRequest::OnExecute() {
 	_errCode = curl_easy_perform(_curl);
 }
 
-bool UrlReader::Start(const char * confPath) {
-	try {
-		olib::XmlReader conf;
-		if (!conf.LoadXml(confPath)) {
-			return false;
-		}
+bool UrlReader::Start(int32_t threadCount) {
 
-		_threadCount = conf.Root()["mysql"][0].GetAttributeInt32("thread_count");
-		hn_info("url reader thread count {}", _threadCount);
+	_threadCount = threadCount;
+	hn_info("url reader thread count {}", _threadCount);
 
-		_queue = hn_create_async(_threadCount, true, [this](void * src) {
-			UrlRequest * request = (UrlRequest*)src;
+	_queue = hn_create_async(_threadCount, true, [this](void * src) {
+		UrlRequest * request = (UrlRequest*)src;
 			
-			request->OnExecute();
-		});
-	}
-	catch (std::exception& e) {
-		hn_error("read url reader config failed {}", e.what());
-		return false;
-	}
-
+		request->OnExecute();
+	});
+	
 	hn_info("url reader start complete");
 	return true;
 }

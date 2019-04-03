@@ -24,6 +24,8 @@ public:
 
 		inline uint64_t GetIdx() const { return _idx; }
 		inline int32_t GetResult() const { return _errCode; }
+		inline bool Bad() const { return _errCode != CURLE_OK; }
+		inline const std::string& GetContent() const { return _content; }
 
 		inline UrlRequest& SetJson(bool json) {
 			if (_curl)
@@ -124,7 +126,7 @@ public:
 		return g_instance;
 	}
 
-	bool Start(const char * confPath);
+	bool Start(int32_t threadCount);
 
 	inline UrlRequest Get(uint64_t idx, const char * url) { return UrlRequest(idx, url, UrlType::URL_TYPE_GET); }
 	inline UrlRequest Put(uint64_t idx, const char * url) { return UrlRequest(idx, url, UrlType::URL_TYPE_PUT); }

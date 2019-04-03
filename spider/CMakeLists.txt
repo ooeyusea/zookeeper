@@ -34,6 +34,7 @@ INCLUDE_DIRECTORIES(
 	"${PROJECT_SOURCE_DIR}/curl/include"
 	"${PROJECT_SOURCE_DIR}/xml"
 	"${PROJECT_SOURCE_DIR}/xml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/../depends/htmlparser/htmlparser/include"
 	"${PROJECT_SOURCE_DIR}/"
 )
 
@@ -41,6 +42,8 @@ SET(SRC
 	"${PROJECT_SOURCE_DIR}/main.cpp"
 	"${PROJECT_SOURCE_DIR}/URLReader.h"
 	"${PROJECT_SOURCE_DIR}/URLReader.cpp"
+	"${PROJECT_SOURCE_DIR}/URLGraph.h"
+	"${PROJECT_SOURCE_DIR}/URLGraph.cpp"
 )
 
 SET(XML

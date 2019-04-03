@@ -11,14 +11,26 @@
 
 using namespace std;
 
+int32_t self_isaplha(int32_t ch) {
+	if (ch < 0)
+		return 1;
+	return isalpha(ch);
+}
+
+int32_t self_isdigit(int32_t ch) {
+	if (ch < 0)
+		return 0;
+	return isdigit(ch);
+}
+
 html_parser::html_parser() : token_parser(), _root_tag(nullptr)
 {
     _literals.push_back(new literal_t{">",  "<",  "",     true,  true});
     _literals.push_back(new literal_t{"\"", "\"", "\\\"", false, true});
     _literals.push_back(new literal_t{"'",  "'",  "\\'",  false, true});
 
-    _check_fns.push_back(&isalpha);
-    _check_fns.push_back(&isdigit);
+	_check_fns.push_back(&self_isaplha);
+    _check_fns.push_back(&self_isdigit);
 }
 
 html_parser::~html_parser()
