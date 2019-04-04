@@ -34,6 +34,7 @@ INCLUDE_DIRECTORIES(
 	"${PROJECT_SOURCE_DIR}/curl/include"
 	"${PROJECT_SOURCE_DIR}/xml"
 	"${PROJECT_SOURCE_DIR}/xml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/html"
 	"${PROJECT_SOURCE_DIR}/../depends/htmlparser/htmlparser/include"
 	"${PROJECT_SOURCE_DIR}/"
 )
@@ -60,14 +61,25 @@ SET(TINYXML
 	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinyxmlparser.cpp"
 )
 
+SET(HTML
+	"${PROJECT_SOURCE_DIR}/html/TokenParser.h"
+	"${PROJECT_SOURCE_DIR}/html/TokenParser.cpp"
+	"${PROJECT_SOURCE_DIR}/html/HtmlParser.h"
+	"${PROJECT_SOURCE_DIR}/html/HtmlParser.cpp"
+	"${PROJECT_SOURCE_DIR}/html/HtmlDocument.h"
+	"${PROJECT_SOURCE_DIR}/html/HtmlDocument.cpp"
+)
+
 SOURCE_GROUP(\\ FILES ${SRC})
 SOURCE_GROUP(xml FILES ${XML})
 SOURCE_GROUP(xml\\tinyxml FILES ${TINYXML})
+SOURCE_GROUP(html FILES ${HTML})
 
 ADD_EXECUTABLE(spider
 	${SRC}
 	${XML}
 	${TINYXML}
+	${HTML}
 )
 
 IF(WIN32)

@@ -19,7 +19,7 @@ void start(int32_t argc, char ** argv) {
 		try {
 			html_parser html;
 			html.set_text(content);
-			auto head = html.query("body h1.main-title").at(0);
+			auto head = html.query("body h1").at(0);
 			printf("aaaaa:%s\n", head->inner_html().c_str());
 		}
 		catch (std::exception& e) {
