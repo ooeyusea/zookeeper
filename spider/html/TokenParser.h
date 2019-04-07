@@ -12,9 +12,14 @@ namespace html_doc {
 	class TokenParser {
 	public:
 		TokenParser() {}
-		~TokenParser() {}
+		~TokenParser() {
+			if (_current) {
+				delete _current;
+				_current = nullptr;
+			}
+		}
 
-		std::vector<std::string> parse(const std::string& content);
+		std::vector<std::string> Parse(const std::string& content);
 
 	private:
 		TokenParserState * _current = nullptr;
