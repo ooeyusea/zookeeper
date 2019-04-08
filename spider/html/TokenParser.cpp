@@ -51,12 +51,12 @@ namespace html_doc {
 				return tag == *tagItr;
 			}
 		}
+		return false;
 	}
 
 	TokenParserState * StateData::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '<') {
 			tokens.push_back(_text);
-			delete this;
 			return new StateTagOpen;
 		}
 		else if (c == '\r' || c == '\n') {
@@ -71,7 +71,6 @@ namespace html_doc {
 		_text.push_back(c);
 
 		if (c == '<') {
-			delete this;
 			return new StateBeforeEndScript(std::move(_text));
 		}
 		return this;
@@ -81,7 +80,6 @@ namespace html_doc {
 		_text.push_back(c);
 
 		if (c = '/') {
-			delete this;
 			return new StateEndScriptOpen(std::move(_text));
 		}
 
@@ -89,7 +87,6 @@ namespace html_doc {
 			
 		}
 		else {
-			delete this;
 			return new StateScript(std::move(_text));
 		}
 
@@ -102,7 +99,6 @@ namespace html_doc {
 		if (std::isalpha(c)) {
 			_temp.push_back(std::tolower(c));
 
-			delete this;
 			return new StateEndScript(std::move(_text), std::move(_temp));
 		}
 
@@ -110,7 +106,6 @@ namespace html_doc {
 
 		}
 		else {
-			delete this;
 			return new StateScript(std::move(_text));
 		}
 
@@ -122,7 +117,6 @@ namespace html_doc {
 
 		if (c == '>') {
 			if (!CheckLastTag(tokens, _temp)) {
-				delete this;
 				return new StateScript(std::move(_text));
 			}
 
@@ -135,17 +129,14 @@ namespace html_doc {
 			tokens.push_back(_temp);
 			tokens.push_back(">");
 
-			delete this;
 			return new StateData;
 		}
 
 		if (c == '<') {
-			delete this;
 			return new StateBeforeEndScript(std::move(_text));
 		}
 
 		if (c == ' ' || c == '\t') {
-			delete this;
 			return new StateEndScriptClose(std::move(_text), std::move(_temp));
 		}
 
@@ -153,7 +144,6 @@ namespace html_doc {
 			_temp.push_back(std::tolower(c));
 		}
 		else {
-			delete this;
 			return new StateScript(std::move(_text));
 		}
 
@@ -164,7 +154,6 @@ namespace html_doc {
 		_text.push_back(c);
 		if (c == '>') {
 			if (!CheckLastTag(tokens, _temp)) {
-				delete this;
 				return new StateScript(std::move(_text));
 			}
 
@@ -177,48 +166,31 @@ namespace html_doc {
 			tokens.push_back(_temp);
 			tokens.push_back(">");
 
-			delete this;
 			return new StateData;
 		}
 
 		if (c == '<') {
-			delete this;
 			return new StateBeforeEndScript(std::move(_text));
 		}
 
 		if (c == ' ' || c == '\t') {
 		}
 		else {
-			delete this;
 			return new StateScript(std::move(_text));
 		}
 		return this;
 	}
 
-	TokenParserState * StateBeforeEndScript::Poll(std::vector<std::string>& tokens, char c) {
-		if (c == '<') {
-			tokens.push_back(_text);
-			delete this;
-			return new StateTagOpen;
-		}
-		else
-			_text.push_back(c); //todo
-		return this;
-	}
-
 	TokenParserState * StateTagOpen::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '!') {
-			delete this;
 			return new StateMarkupDeclarationOpen;
 		}
 
 		if (c == '/') {
-			delete this;
 			return new StateEndTagOpen;
 		}
 
 		if (std::isalpha(c)) {
-			delete this;
 			return new StateTagName(c);
 		}
 		return this;
@@ -227,12 +199,10 @@ namespace html_doc {
 	TokenParserState * StateMarkupDeclarationOpen::Poll(std::vector<std::string>& tokens, char c) {
 		_text.push_back(std::tolower(c));
 		if (_text == "--") {
-			delete this;
 			return new StateComment;
 		}
 
 		if (_text == "doctype") {
-			delete this;
 			return new StateDocType;
 		}
 
@@ -246,7 +216,6 @@ namespace html_doc {
 			tokens.push_back("doctype");
 			tokens.push_back(_text);
 			tokens.push_back(">");
-			delete this;
 			return new StateData;
 		}
 		else
@@ -256,7 +225,8 @@ namespace html_doc {
 
 	TokenParserState * StateComment::Poll(std::vector<std::string>& tokens, char c) {
 		_text.push_back(std::tolower(c));
-		if (_text.size() >= 2 && _text.at(_text.size() - 1) == '-' && _text.at(_text.size() - 2) == '-') {
+		if (_text.size() >= 3 && _text.at(_text.size() - 1) == '>' && _text.at(_text.size() - 2) == '-' && _text.at(_text.size() - 3) == '-') {
+			_text.pop_back();
 			_text.pop_back();
 			_text.pop_back();
 
@@ -266,7 +236,6 @@ namespace html_doc {
 			tokens.push_back(_text);
 			tokens.push_back("--");
 			tokens.push_back(">");
-			delete this;
 			return new StateData;
 		}
 		return this;
@@ -279,11 +248,9 @@ namespace html_doc {
 			tokens.push_back(">");
 
 			if (_text == "script" || _text == "style") {
-				delete this;
 				return new StateScript;
 			}
 			else {
-				delete this;
 				return new StateData;
 			}
 		}
@@ -293,7 +260,6 @@ namespace html_doc {
 			tokens.push_back(_text);
 			tokens.push_back("/");
 
-			delete this;
 			return new StateSelfEndTag;
 		}
 
@@ -302,11 +268,9 @@ namespace html_doc {
 			tokens.push_back(_text);
 
 			if (_text == "script" || _text == "style") {
-				delete this;
 				return new StateScriptBeforeAttrName;
 			}
 			else {
-				delete this;
 				return new StateBeforeAttrName;
 			}
 		}
@@ -319,19 +283,16 @@ namespace html_doc {
 		if (c == '>') {
 			tokens.push_back(">");
 
-			delete this;
 			return new StateData;
 		}
 
 		if (c == '/') {
 			tokens.push_back("/");
 
-			delete this;
 			return new StateSelfEndTag;
 		}
 
 		if (std::isalpha(c)) {
-			delete this;
 			return new StateAttrName(std::tolower(c));
 		}
 
@@ -343,19 +304,16 @@ namespace html_doc {
 		if (c == '>') {
 			tokens.push_back(">");
 
-			delete this;
 			return new StateScript;
 		}
 
 		if (c == '/') {
 			tokens.push_back("/");
 
-			delete this;
 			return new StateSelfEndTag;
 		}
 
 		if (std::isalpha(c)) {
-			delete this;
 			return new StateScriptAttrName(std::tolower(c));
 		}
 
@@ -364,13 +322,13 @@ namespace html_doc {
 
 	TokenParserState * StateAttrName::Poll(std::vector<std::string>& tokens, char c) {
 		if (std::isalpha(c) || c == '-' || std::isdigit(c)) {
+			_text.push_back(std::tolower(c));
 			return this;
 		}
 
 		if (c == ' ' || c == '\t') {
 			tokens.push_back(_text);
 
-			delete this;
 			return new StateBeforeAttrValueEqual;
 		}
 
@@ -378,7 +336,6 @@ namespace html_doc {
 			tokens.push_back(_text);
 			tokens.push_back("=");
 
-			delete this;
 			return new StateBeforeAttrValue;
 		}
 
@@ -388,13 +345,13 @@ namespace html_doc {
 
 	TokenParserState * StateScriptAttrName::Poll(std::vector<std::string>& tokens, char c) {
 		if (std::isalpha(c) || c == '-' || std::isdigit(c)) {
+			_text.push_back(std::tolower(c));
 			return this;
 		}
 
 		if (c == ' ' || c == '\t') {
 			tokens.push_back(_text);
 
-			delete this;
 			return new StateScriptBeforeAttrValueEqual;
 		}
 
@@ -402,7 +359,6 @@ namespace html_doc {
 			tokens.push_back(_text);
 			tokens.push_back("=");
 
-			delete this;
 			return new StateScriptBeforeAttrValue;
 		}
 
@@ -413,7 +369,6 @@ namespace html_doc {
 		if (c == '=') {
 			tokens.push_back("=");
 
-			delete this;
 			return new StateBeforeAttrValue;
 		}
 
@@ -425,7 +380,6 @@ namespace html_doc {
 		if (c == '=') {
 			tokens.push_back("=");
 
-			delete this;
 			return new StateScriptBeforeAttrValue;
 		}
 
@@ -434,13 +388,18 @@ namespace html_doc {
 
 	TokenParserState * StateBeforeAttrValue::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '\"') {
-			delete this;
 			return new StateAttrValueDoubleQuotes;
 		}
 
 		if (c == '\'') {
-			delete this;
 			return new StateAttrValueSingleQuotes;
+		}
+
+		if (c == '>') {
+			tokens.push_back("");
+			tokens.push_back(">");
+
+			return new StateData;
 		}
 
 		return this;
@@ -448,13 +407,18 @@ namespace html_doc {
 
 	TokenParserState * StateScriptBeforeAttrValue::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '\"') {
-			delete this;
 			return new StateScriptAttrValueDoubleQuotes;
 		}
 
 		if (c == '\'') {
-			delete this;
 			return new StateScriptAttrValueSingleQuotes;
+		}
+
+		if (c == '>') {
+			tokens.push_back("");
+			tokens.push_back(">");
+
+			return new StateData;
 		}
 
 		return this;
@@ -462,11 +426,8 @@ namespace html_doc {
 
 	TokenParserState * StateAttrValueDoubleQuotes::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '\"') {
-			tokens.push_back("\"");
 			tokens.push_back(_text);
-			tokens.push_back("\"");
 
-			delete this;
 			return new StateBeforeAttrName;
 		}
 
@@ -476,11 +437,8 @@ namespace html_doc {
 
 	TokenParserState * StateScriptAttrValueDoubleQuotes::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '\"') {
-			tokens.push_back("\"");
 			tokens.push_back(_text);
-			tokens.push_back("\"");
 
-			delete this;
 			return new StateScriptBeforeAttrName;
 		}
 
@@ -490,11 +448,8 @@ namespace html_doc {
 
 	TokenParserState * StateAttrValueSingleQuotes::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '\'') {
-			tokens.push_back("\'");
 			tokens.push_back(_text);
-			tokens.push_back("\'");
 
-			delete this;
 			return new StateBeforeAttrName;
 		}
 
@@ -504,11 +459,8 @@ namespace html_doc {
 
 	TokenParserState * StateScriptAttrValueSingleQuotes::Poll(std::vector<std::string>& tokens, char c) {
 		if (c == '\'') {
-			tokens.push_back("\'");
 			tokens.push_back(_text);
-			tokens.push_back("\'");
 
-			delete this;
 			return new StateScriptBeforeAttrName;
 		}
 
@@ -520,7 +472,6 @@ namespace html_doc {
 		if (c == '>') {
 			tokens.push_back(">");
 
-			delete this;
 			return new StateData;
 		}
 
@@ -529,7 +480,6 @@ namespace html_doc {
 
 	TokenParserState * StateEndTagOpen::Poll(std::vector<std::string>& tokens, char c) {
 		if (std::isalpha(c)) {
-			delete this;
 			return new StateEndTagName(c);
 		}
 
@@ -543,7 +493,6 @@ namespace html_doc {
 			tokens.push_back(_text);
 			tokens.push_back(">");
 
-			delete this;
 			return new StateData;
 		}
 
@@ -556,7 +505,6 @@ namespace html_doc {
 			tokens.push_back("/");
 			tokens.push_back(_text);
 
-			delete this;
 			return new StateEndTagNameClose;
 		}
 		return this;
@@ -566,7 +514,6 @@ namespace html_doc {
 		if (c == '>') {
 			tokens.push_back(">");
 
-			delete this;
 			return new StateData;
 		}
 
@@ -581,9 +528,16 @@ namespace html_doc {
 
 		_current = new StateData;
 
+		int32_t i = 0;
 		std::vector<std::string> ret;
-		for (auto c : content)
-			_current = _current->Poll(ret, c);
+		for (auto c : content) {
+			auto * next = _current->Poll(ret, c);
+			if (next != _current) {
+				delete _current;
+				_current = next;
+			}
+			++i;
+		}
 		
 		return ret;
 	}

@@ -19,7 +19,7 @@ void UrlGraph::Search(const char * entry, int32_t limit, int32_t processorCount)
 
 					request.Commit();
 					if (!request.Bad()) {
-						auto urls = _processFn(request.GetContent());
+						auto urls = _processFn(url, request.GetContent());
 						for (auto& newUrl : urls)
 							evts << UrlEvent{ newUrl, UES_OPEN };
 					}

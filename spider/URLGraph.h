@@ -30,7 +30,7 @@ public:
 		return g_instance;
 	}
 
-	inline UrlGraph& SetProccessor(const std::function<std::list<std::string>(const std::string&)>& fn) {
+	inline UrlGraph& SetProccessor(const std::function<std::list<std::string>(const std::string& url, const std::string&)>& fn) {
 		_processFn = fn;
 		return *this;
 	}
@@ -45,7 +45,7 @@ public:
 private:
 	UrlGraph() {}
 
-	std::function<std::list<std::string>(const std::string&)> _processFn;
+	std::function<std::list<std::string>(const std::string& url, const std::string&)> _processFn;
 
 	std::string _outputCookie;
 };

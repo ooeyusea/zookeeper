@@ -1,15 +1,21 @@
 #ifndef __HTML_DOCUMENT_H__
 #define __HTML_DOCUMENT_H__
 #include "hnet.h"
-#include <sstream>
 
 namespace html_doc {
 	inline std::vector<std::string> Split(std::string str, const char &sep) {
-		std::string temp;
 		std::vector<std::string> parts;
-		std::stringstream wss(str);
-		while (std::getline(wss, temp, ';'))
-			parts.push_back(temp);
+
+		std::string::size_type offset = 0;
+		std::string::size_type pos = str.find(sep, offset);
+		while (pos != std::string::npos) {
+			parts.push_back(str.substr(offset, pos - offset));
+			offset = pos + 1;
+
+			pos = str.find(sep, offset);
+		}
+
+		parts.push_back(str.substr(offset));
 		return parts;
 	}
 
@@ -22,6 +28,8 @@ namespace html_doc {
 		inline void SetParent(HtmlNode * parent) { _parent = parent; }
 		
 		virtual HtmlNode * Clone() = 0;
+		virtual std::string InnerHtml() = 0;
+		virtual std::string OuterHtml() = 0;
 
 	protected:
 		HtmlNode * _parent = nullptr;
@@ -35,6 +43,9 @@ namespace html_doc {
 		virtual ~HtmlText() {}
 
 		virtual HtmlNode * Clone() { return new HtmlText(_text); }
+		virtual std::string InnerHtml() { return _text; }
+		virtual std::string OuterHtml() { return _text; }
+		
 	private:
 		std::string _text;
 	};
@@ -59,6 +70,12 @@ namespace html_doc {
 
 		inline void AddAttribute(const std::string& key, std::string&& value) { _attributes[key] = value; }
 		inline const std::unordered_map<std::string, std::string>& GetAttributes() const { return _attributes; }
+		inline std::string GetAttribute(const std::string& key) const {
+			auto itr = _attributes.find(key);
+			if (itr != _attributes.end())
+				return itr->second;
+			return "";
+		}
 
 		inline void AddChild(HtmlNode * child) { _children.push_back(child); }
 		inline const std::vector<HtmlNode *>& GetChildren() const { return _children; }
@@ -67,6 +84,8 @@ namespace html_doc {
 		inline void SetCloseTag(bool val) { _hasCloseTag = val; }
 
 		virtual HtmlNode * Clone();
+		virtual std::string InnerHtml();
+		virtual std::string OuterHtml();
 
 	private:
 		std::string _id;

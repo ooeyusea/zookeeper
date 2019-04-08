@@ -6,7 +6,7 @@ namespace html_doc {
 	void LTrim(std::string &s) {
 		s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
 			if (ch < 0)
-				return false;
+				return true;
 			return !::isspace(ch);
 		}));
 	}
@@ -14,7 +14,7 @@ namespace html_doc {
 	void RTrim(std::string &s) {
 		s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
 			if (ch < 0)
-				return false;
+				return true;
 			return !::isspace(ch);
 		}).base(), s.end());
 	}
@@ -43,6 +43,54 @@ namespace html_doc {
 
 		return offset;
 	}
+
+
+	bool SkipAnnotation(std::vector<std::string> &tokens, int32_t &i) {
+		int32_t j = i;
+		if (tokens.size() > j + 3) { //<!-- -->
+			if (strncmp(tokens.at(j + 2).c_str(), "--", 2) == 0) {
+				j = j + 3;
+				while (j < tokens.size()) {
+					if (tokens.at(j) == ">") {
+						if (tokens.at(j - 1).size() >= 2 && tokens.at(j - 1).substr(tokens.at(j - 1).size() - 2, 2) == "--") {
+							i = j;
+							return true;
+						}
+					}
+					++j;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	void ReadTextNodeUntil(HtmlTag * tag, std::vector<std::string> &tokens, int32_t &i) {
+		std::string text;
+
+		int32_t j = i + 1;
+		while (j < tokens.size()) {
+			if (tokens.at(j) == "<") {
+				if (j + 3 < tokens.size()) {
+					if (tokens.at(j + 1) == "/" && tokens.at(j + 2) == tag->GetName() && tokens.at(j + 3) == ">") {
+						i = j + 3;
+
+						if (!text.empty()) {
+							HtmlText *textNode = new HtmlText(text);
+							textNode->SetParent(tag);
+							tag->AddChild(textNode);
+						}
+						tag->SetCloseTag(false);
+						return;
+					}
+				}
+			}
+
+			text.append(tokens.at(j));
+			++j;
+		}
+	}
+
 
 	HtmlTag * ParseTagBegin(std::vector<std::string>& tokens, int32_t &i) {
 		i++;
@@ -120,7 +168,11 @@ namespace html_doc {
 				if (tokens.size() <= i + 1)
 					throw std::logic_error("Unexpected end of document");
 
-				if (tokens.at(i + 1) == "/") {
+				if (tokens.at(i + 1) == "!") {
+					if (SkipAnnotation(tokens, i))
+						continue;
+				}
+				else if (tokens.at(i + 1) == "/") {
 					stack.pop();
 				}
 				else {
@@ -139,10 +191,19 @@ namespace html_doc {
 
 			token = tokens.at(i);
 			if (token == ">") {
+				if (!stack.empty()) {
+					if (stack.top()->GetName() == "script" || stack.top()->GetName() == "style") {
+						ReadTextNodeUntil(stack.top(), tokens, i);
+						stack.pop();
+						continue;
+					}
+				}
+
 				if (tokens.size() > i + 1 && tokens.at(i + 1) != "<") {
 					auto& text = Trim(tokens.at(i + 1));
 					if (std::any_of(text.begin(), text.end(), &iswalpha)) {
 						HtmlText *textNode = new HtmlText(text);
+						textNode->SetParent(stack.top());
 						stack.top()->AddChild(textNode);
 					}
 				}

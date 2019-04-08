@@ -18,41 +18,104 @@ namespace html_doc {
 		return tag;
 	}
 
+	std::string HtmlTag::InnerHtml() {
+		std::string text;
+		for (auto * child : _children) {
+			text += child->OuterHtml();
+		}
+		return text;
+	}
+
+	std::string HtmlTag::OuterHtml() {
+		std::string text = "<" + _name;
+
+		if (!_id.empty()) {
+			text += " id=\"" + _id + "\"";
+		}
+
+		if (!_classes.empty()) {
+			text += " class=\"";
+			for (auto& c : _classes) {
+				text += " " + c;
+			}
+			text += "\"";
+		}
+
+		for (auto itr = _attributes.begin(); itr != _attributes.end(); ++itr) {
+			text += " " + itr->first + "=\"" + itr->second + "\"";
+		}
+
+		if (!_hasCloseTag && _children.empty()) {
+			text += " />";
+		}
+		else {
+			text += ">";
+			for (auto * child : _children) {
+				text += child->OuterHtml();
+			}
+			text += "</" + _name + ">";
+		}
+
+		return text;
+	}
+
 	class Query {
 		struct QueryRule {
 			std::string id;
 			std::string tagName;
 			std::vector<std::string> classes;
-			bool is_child;
+			bool isChild = false;
 		};
 	public:
 		Query(const std::string& q) {
 			std::vector<std::string> tokens = Split(q, ' ');
 
-			QueryRule rule;
 			for (auto& token : tokens) {
-				if (token == ".") {
-					rule.classes.push_back(_tokens.at(i));
-					continue;
-				}
-				if (t == "#") {
-					++i;
-					last_rule->id = _tokens.at(i);
-					continue;
-				}
-				if (t == ">") {
-					rl.push_back(last_rule);
-					last_rule = new query_rule_t;
-					last_rule->is_child = true;
-					continue;
+				QueryRule rule;
+
+				std::string::size_type offset = 0;
+				while (offset < token.size()) {
+					char c = token.at(offset);
+					if (c == '>') {
+						++offset;
+
+						_rules.push_back(rule);
+
+						rule.isChild = true;
+						rule.id.clear();
+						rule.tagName.clear();
+						rule.classes.clear();
+						continue;
+					}
+
+					if (c == '.' ||  c == '#') {
+						++offset;
+					}
+
+					std::string::size_type start = offset;
+					for (; offset < token.size(); ++offset) {
+						if (!std::isalnum(token.at(offset)) && token.at(offset) != '-' && token.at(offset) != '_') {
+							if (c == '.')
+								rule.classes.push_back(token.substr(start, offset - start));
+							else if (c == '#')
+								rule.id = token.substr(start, offset - start);
+							else
+								rule.tagName = token.substr(start, offset - start);
+							break;
+						}
+					}
+
+					if (offset == token.size()) {
+						if (c == '.')
+							rule.classes.push_back(token.substr(start, offset - start));
+						else if (c == '#')
+							rule.id = token.substr(start, offset - start);
+						else
+							rule.tagName = token.substr(start, offset - start);
+					}
 				}
 
-				if (last_rule->is_valid())
-					rl.push_back(last_rule);
-				last_rule = new query_rule_t;
-				last_rule->is_child = false;
-				last_rule->tag_name = t;
-				rules.push_back(rl);
+				_rules.push_back(rule);
 			}
 		}
 
@@ -77,6 +140,11 @@ namespace html_doc {
 	void Query::Search(std::vector<HtmlTag*>& tags, HtmlTag * tag, int32_t rule) {
 		if (rule >= _rules.size())
 			return;
+
+		//if (tag->GetName() == "h1") {
+		//	int a = 0;
+		//	++a;
+		//}
 
 		int32_t nextRule = rule;
 		const QueryRule& r = _rules.at(rule);
