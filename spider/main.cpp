@@ -31,6 +31,8 @@ void start(int32_t argc, char ** argv) {
 		//outfile.flush();
 		//outfile.close();
 
+		printf("%lld:%s\n", content.size(), url.c_str());
+
 		std::list<std::string> ret;
 		auto doc = html_doc::HtmlParser().Parse(content);
 		try {

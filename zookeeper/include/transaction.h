@@ -9,7 +9,6 @@ struct IStateData {
 
 	virtual bool LoadFromFile(const std::string& path) = 0;
 	virtual bool SaveToFile(const std::string& path) = 0;
-	virtual void CopyFrom(IStateData * stateData) = 0;
 
 	virtual bool PreCheck(const std::string& data) = 0;
 	virtual void Apply(const std::string& data) = 0;
