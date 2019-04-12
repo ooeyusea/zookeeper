@@ -33,6 +33,8 @@ INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../../depends/hnet/coroutine/include"
 	"${PROJECT_SOURCE_DIR}/../common/xml"
 	"${PROJECT_SOURCE_DIR}/../common/xml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/../common/protobuf/include"
+	"${PROJECT_SOURCE_DIR}/../common/"
 	"${PROJECT_SOURCE_DIR}/"
 )
 
@@ -54,6 +56,24 @@ SET(TINYXML
 	"${PROJECT_SOURCE_DIR}/../common/xml/tinyxml/tinyxmlparser.cpp"
 )
 
+SET(EVENT
+	"${PROJECT_SOURCE_DIR}/../common/event/EventDispatcher.h"
+)
+
+SET(EVENT_IMPL
+	"${PROJECT_SOURCE_DIR}/../common/event/impl/AsyncEventDispatcher.h"
+	"${PROJECT_SOURCE_DIR}/../common/event/impl/AsyncEventDispatcher.cpp"
+)
+
+SET(RPC
+	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.h"
+	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.cpp"
+)
+
+SET(PROTO
+	"${PROJECT_SOURCE_DIR}/../common/proto/NMProtocol.proto"
+)
+
 SET(COMMON
 )
 
@@ -61,25 +81,40 @@ SOURCE_GROUP(\\ FILES ${SRC})
 SOURCE_GROUP(common FILES ${COMMON})
 SOURCE_GROUP(common\\xml FILES ${XML})
 SOURCE_GROUP(common\\xml\\tinyxml FILES ${TINYXML})
+SOURCE_GROUP(common\\event FILES ${EVENT})
+SOURCE_GROUP(common\\event\\impl FILES ${EVENT_IMPL})
+SOURCE_GROUP(common\\rpc FILES ${RPC})
+SOURCE_GROUP(common\\proto FILES ${PROTO})
 
 ADD_EXECUTABLE(nodemanager
 	${SRC}
 	${XML}
 	${TINYXML}
 	${COMMON}
+	${EVENT}
+	${EVENT_IMPL}
+	${RPC}
+	${PROTO}
 )
 
 IF(WIN32)
 TARGET_LINK_LIBRARIES(nodemanager
-	"${PROJECT_SOURCE_DIR}/../depends/hnet/bin/$<CONFIGURATION>/hnet.lib"
+	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/$<CONFIGURATION>/hnet.lib"
+	"${PROJECT_SOURCE_DIR}/../common/protobuf/lib/libprotobuf.lib"
 )
+
+ADD_CUSTOM_COMMAND(TARGET nodemanager
+    PRE_BUILD
+    COMMAND ${PROJECT_SOURCE_DIR}/../common/protobuf/bin/protoc.exe -I=${PROJECT_SOURCE_DIR}/../common/proto/ --cpp_out=${PROJECT_SOURCE_DIR}/../common/proto/ NMProtocol.proto
+)
+
 SET_PROPERTY(TARGET nodemanager PROPERTY FOLDER "yarn")
 ENDIF(WIN32)
 
 IF(UNIX)
 TARGET_LINK_LIBRARIES(nodemanager
-	"${PROJECT_SOURCE_DIR}/../depends/hnet/bin/libhnet.a"
+	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/libhnet.a"
 )
 ENDIF(UNIX)
 
-SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../bin")
+SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../../bin")
