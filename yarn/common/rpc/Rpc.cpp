@@ -1,6 +1,4 @@
 #include "Rpc.h"
-#include "google/protobuf/descriptor.h"
-#include "google/protobuf/message.h"
 #include "socket_helper.h"
 
 namespace yarn {
@@ -23,34 +21,74 @@ namespace yarn {
 										const google::protobuf::Message* request,
 										google::protobuf::Message* response,
 										google::protobuf::Closure* done) {
+			try {
+				std::string data = request->SerializeAsString();
 
-			
+				RpcHeader header;
+				header.size = data.size();
+				header.method = method->index();
+				header.service = string_helper::BKDRHash(method->service()->full_name().c_str());
+
+				volatile int32_t fd = _fd;
+
+				std::unique_lock<hn_mutex> writeLock(_writeMutex);
+				hn_send(fd, (const char*)&header, sizeof(header));
+				hn_send(fd, data.data(), data.size());
+
+				std::unique_lock<hn_mutex> readLock(_readMutex);
+				writeLock.unlock();
+
+				RpcRet ret;
+				socket_helper::SocketReader().ReadType(fd, ret);
+				std::string out = socket_helper::SocketReader().ReadBlock(fd, ret.size);
+
+				readLock.unlock();
+				
+				if (!response->ParseFromString(out)) {
+					controller->SetFailed("parse response failed");
+				}
+			}
+			catch (std::exception& e) {
+				hn_error("call method %s", e.what());
+				controller->SetFailed(e.what());
+			}
 		}
 
+		void YarnRpcChannel::Start(const std::string& ip, int32_t port, const std::function<void()>& fn) {
+			hn_fork[ip, port, this, fn]{
+				while (!_terminate) {
+					if (_fd <= 0 || !hn_test_fd(_fd)) {
+						hn_close(_fd);
 
-		bool YarnRpcServer::Start(const char * ip, int32_t port) {
-			_fd = hn_listen(ip, port);
+						_fd = hn_connect(ip.c_str(), port);
+						fn();
+					}
+
+					hn_sleep 100;
+				}
+			};
+		}
+
+		bool YarnRpcServer::Start(const std::string& ip, int32_t port) {
+			_fd = hn_listen(ip.c_str(), port);
 			if (_fd <= 0)
 				return false;
 
-			++_threadCount;
-			hn_fork[this]{
-				while (true) {
-					int32_t remoteFd = hn_accept(_fd);
-					if (remoteFd < 0)
-						break;
+			while (true) {
+				int32_t remoteFd = hn_accept(_fd);
+				if (remoteFd < 0)
+					break;
 
-					++_threadCount;
-					hn_fork[remoteFd, this]{
-						DealConn(remoteFd);
+				++_threadCount;
+				hn_fork[remoteFd, this]{
+					DealConn(remoteFd);
 						
-						hn_close(remoteFd);
-						--_threadCount;
-					};
-				}
+					hn_close(remoteFd);
+					--_threadCount;
+				};
+			}
 
-				--_threadCount;
-			};
+			return true;
 		}
 	
 		void YarnRpcServer::Stop() {

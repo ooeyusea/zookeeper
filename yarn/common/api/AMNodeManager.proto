@@ -1,0 +1,16 @@
+syntax = "proto2";
+option cc_generic_services = true;
+
+package yarn.api;
+
+message SearchRequest {
+	required string query = 1;
+}
+
+message SearchResponse {
+	required string result = 1;
+}
+
+service ContainerManagementService {
+	rpc Search (SearchRequest) returns (SearchResponse);
+}

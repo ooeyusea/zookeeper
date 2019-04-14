@@ -2,6 +2,8 @@
 #define __YARN_RPC_H__
 #include "hnet.h"
 #include "google/protobuf/service.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/message.h"
 #include "string_id.h"
 
 namespace yarn {
@@ -17,10 +19,18 @@ namespace yarn {
 									google::protobuf::Message* response,
 									google::protobuf::Closure* done);
 
-			void Start(const char * ip, int32_t port);
+			void Start(const std::string& ip, int32_t port, const std::function<void ()>& fn);
+			inline void Stop() {
+				_terminate = true;
+				hn_sleep 500;
+			}
 
 		private:
 			int32_t _fd = -1;
+			bool _terminate = false;
+
+			hn_mutex _writeMutex;
+			hn_mutex _readMutex;
 		};
 
 		class YarnRpcController : public google::protobuf::RpcController {
@@ -66,7 +76,7 @@ namespace yarn {
 				_services[hash] = service;
 			}
 
-			bool Start(const char * ip, int32_t port);
+			bool Start(const std::string& ip, int32_t port);
 			void Stop();
 
 		private:

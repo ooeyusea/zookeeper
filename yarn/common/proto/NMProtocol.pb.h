@@ -30,6 +30,8 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
+#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -41,7 +43,7 @@ struct TableStruct_NMProtocol_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[2]
+  static const ::google::protobuf::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -50,44 +52,83 @@ struct TableStruct_NMProtocol_2eproto {
 void AddDescriptors_NMProtocol_2eproto();
 namespace yarn {
 namespace proto {
-class SearchRequest;
-class SearchRequestDefaultTypeInternal;
-extern SearchRequestDefaultTypeInternal _SearchRequest_default_instance_;
-class SearchResponse;
-class SearchResponseDefaultTypeInternal;
-extern SearchResponseDefaultTypeInternal _SearchResponse_default_instance_;
+class Container;
+class ContainerDefaultTypeInternal;
+extern ContainerDefaultTypeInternal _Container_default_instance_;
+class ContainerCommand;
+class ContainerCommandDefaultTypeInternal;
+extern ContainerCommandDefaultTypeInternal _ContainerCommand_default_instance_;
+class HeartBeatRequest;
+class HeartBeatRequestDefaultTypeInternal;
+extern HeartBeatRequestDefaultTypeInternal _HeartBeatRequest_default_instance_;
+class HeartBeatResponse;
+class HeartBeatResponseDefaultTypeInternal;
+extern HeartBeatResponseDefaultTypeInternal _HeartBeatResponse_default_instance_;
+class RegisterNMRequest;
+class RegisterNMRequestDefaultTypeInternal;
+extern RegisterNMRequestDefaultTypeInternal _RegisterNMRequest_default_instance_;
+class RegisterNMResponse;
+class RegisterNMResponseDefaultTypeInternal;
+extern RegisterNMResponseDefaultTypeInternal _RegisterNMResponse_default_instance_;
+class Resource;
+class ResourceDefaultTypeInternal;
+extern ResourceDefaultTypeInternal _Resource_default_instance_;
 }  // namespace proto
 }  // namespace yarn
 namespace google {
 namespace protobuf {
-template<> ::yarn::proto::SearchRequest* Arena::CreateMaybeMessage<::yarn::proto::SearchRequest>(Arena*);
-template<> ::yarn::proto::SearchResponse* Arena::CreateMaybeMessage<::yarn::proto::SearchResponse>(Arena*);
+template<> ::yarn::proto::Container* Arena::CreateMaybeMessage<::yarn::proto::Container>(Arena*);
+template<> ::yarn::proto::ContainerCommand* Arena::CreateMaybeMessage<::yarn::proto::ContainerCommand>(Arena*);
+template<> ::yarn::proto::HeartBeatRequest* Arena::CreateMaybeMessage<::yarn::proto::HeartBeatRequest>(Arena*);
+template<> ::yarn::proto::HeartBeatResponse* Arena::CreateMaybeMessage<::yarn::proto::HeartBeatResponse>(Arena*);
+template<> ::yarn::proto::RegisterNMRequest* Arena::CreateMaybeMessage<::yarn::proto::RegisterNMRequest>(Arena*);
+template<> ::yarn::proto::RegisterNMResponse* Arena::CreateMaybeMessage<::yarn::proto::RegisterNMResponse>(Arena*);
+template<> ::yarn::proto::Resource* Arena::CreateMaybeMessage<::yarn::proto::Resource>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace yarn {
 namespace proto {
 
+enum ContainerCommandType {
+  INIT = 0,
+  CLEANUP = 1
+};
+bool ContainerCommandType_IsValid(int value);
+const ContainerCommandType ContainerCommandType_MIN = INIT;
+const ContainerCommandType ContainerCommandType_MAX = CLEANUP;
+const int ContainerCommandType_ARRAYSIZE = ContainerCommandType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ContainerCommandType_descriptor();
+inline const ::std::string& ContainerCommandType_Name(ContainerCommandType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ContainerCommandType_descriptor(), value);
+}
+inline bool ContainerCommandType_Parse(
+    const ::std::string& name, ContainerCommandType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ContainerCommandType>(
+    ContainerCommandType_descriptor(), name, value);
+}
 // ===================================================================
 
-class SearchRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.SearchRequest) */ {
+class Resource :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.Resource) */ {
  public:
-  SearchRequest();
-  virtual ~SearchRequest();
+  Resource();
+  virtual ~Resource();
 
-  SearchRequest(const SearchRequest& from);
+  Resource(const Resource& from);
 
-  inline SearchRequest& operator=(const SearchRequest& from) {
+  inline Resource& operator=(const Resource& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  SearchRequest(SearchRequest&& from) noexcept
-    : SearchRequest() {
+  Resource(Resource&& from) noexcept
+    : Resource() {
     *this = ::std::move(from);
   }
 
-  inline SearchRequest& operator=(SearchRequest&& from) noexcept {
+  inline Resource& operator=(Resource&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -106,34 +147,34 @@ class SearchRequest :
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const SearchRequest& default_instance();
+  static const Resource& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SearchRequest* internal_default_instance() {
-    return reinterpret_cast<const SearchRequest*>(
-               &_SearchRequest_default_instance_);
+  static inline const Resource* internal_default_instance() {
+    return reinterpret_cast<const Resource*>(
+               &_Resource_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  void Swap(SearchRequest* other);
-  friend void swap(SearchRequest& a, SearchRequest& b) {
+  void Swap(Resource* other);
+  friend void swap(Resource& a, Resource& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline SearchRequest* New() const final {
-    return CreateMaybeMessage<SearchRequest>(nullptr);
+  inline Resource* New() const final {
+    return CreateMaybeMessage<Resource>(nullptr);
   }
 
-  SearchRequest* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<SearchRequest>(arena);
+  Resource* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Resource>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const SearchRequest& from);
-  void MergeFrom(const SearchRequest& from);
+  void CopyFrom(const Resource& from);
+  void MergeFrom(const Resource& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -155,7 +196,7 @@ class SearchRequest :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SearchRequest* other);
+  void InternalSwap(Resource* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -171,52 +212,71 @@ class SearchRequest :
 
   // accessors -------------------------------------------------------
 
-  // required string query = 1;
-  bool has_query() const;
-  void clear_query();
-  static const int kQueryFieldNumber = 1;
-  const ::std::string& query() const;
-  void set_query(const ::std::string& value);
-  #if LANG_CXX11
-  void set_query(::std::string&& value);
-  #endif
-  void set_query(const char* value);
-  void set_query(const char* value, size_t size);
-  ::std::string* mutable_query();
-  ::std::string* release_query();
-  void set_allocated_query(::std::string* query);
+  // required int32 cpu = 1;
+  bool has_cpu() const;
+  void clear_cpu();
+  static const int kCpuFieldNumber = 1;
+  ::google::protobuf::int32 cpu() const;
+  void set_cpu(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:yarn.proto.SearchRequest)
+  // required int32 res = 2;
+  bool has_res() const;
+  void clear_res();
+  static const int kResFieldNumber = 2;
+  ::google::protobuf::int32 res() const;
+  void set_res(::google::protobuf::int32 value);
+
+  // required int32 virt = 3;
+  bool has_virt() const;
+  void clear_virt();
+  static const int kVirtFieldNumber = 3;
+  ::google::protobuf::int32 virt() const;
+  void set_virt(::google::protobuf::int32 value);
+
+  // required int32 disk = 4;
+  bool has_disk() const;
+  void clear_disk();
+  static const int kDiskFieldNumber = 4;
+  ::google::protobuf::int32 disk() const;
+  void set_disk(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.Resource)
  private:
   class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr query_;
+  ::google::protobuf::int32 cpu_;
+  ::google::protobuf::int32 res_;
+  ::google::protobuf::int32 virt_;
+  ::google::protobuf::int32 disk_;
   friend struct ::TableStruct_NMProtocol_2eproto;
 };
 // -------------------------------------------------------------------
 
-class SearchResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.SearchResponse) */ {
+class RegisterNMRequest :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.RegisterNMRequest) */ {
  public:
-  SearchResponse();
-  virtual ~SearchResponse();
+  RegisterNMRequest();
+  virtual ~RegisterNMRequest();
 
-  SearchResponse(const SearchResponse& from);
+  RegisterNMRequest(const RegisterNMRequest& from);
 
-  inline SearchResponse& operator=(const SearchResponse& from) {
+  inline RegisterNMRequest& operator=(const RegisterNMRequest& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  SearchResponse(SearchResponse&& from) noexcept
-    : SearchResponse() {
+  RegisterNMRequest(RegisterNMRequest&& from) noexcept
+    : RegisterNMRequest() {
     *this = ::std::move(from);
   }
 
-  inline SearchResponse& operator=(SearchResponse&& from) noexcept {
+  inline RegisterNMRequest& operator=(RegisterNMRequest&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -235,34 +295,34 @@ class SearchResponse :
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const SearchResponse& default_instance();
+  static const RegisterNMRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SearchResponse* internal_default_instance() {
-    return reinterpret_cast<const SearchResponse*>(
-               &_SearchResponse_default_instance_);
+  static inline const RegisterNMRequest* internal_default_instance() {
+    return reinterpret_cast<const RegisterNMRequest*>(
+               &_RegisterNMRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  void Swap(SearchResponse* other);
-  friend void swap(SearchResponse& a, SearchResponse& b) {
+  void Swap(RegisterNMRequest* other);
+  friend void swap(RegisterNMRequest& a, RegisterNMRequest& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline SearchResponse* New() const final {
-    return CreateMaybeMessage<SearchResponse>(nullptr);
+  inline RegisterNMRequest* New() const final {
+    return CreateMaybeMessage<RegisterNMRequest>(nullptr);
   }
 
-  SearchResponse* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<SearchResponse>(arena);
+  RegisterNMRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<RegisterNMRequest>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const SearchResponse& from);
-  void MergeFrom(const SearchResponse& from);
+  void CopyFrom(const RegisterNMRequest& from);
+  void MergeFrom(const RegisterNMRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -284,7 +344,7 @@ class SearchResponse :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SearchResponse* other);
+  void InternalSwap(RegisterNMRequest* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -300,31 +360,824 @@ class SearchResponse :
 
   // accessors -------------------------------------------------------
 
-  // required string result = 1;
-  bool has_result() const;
-  void clear_result();
-  static const int kResultFieldNumber = 1;
-  const ::std::string& result() const;
-  void set_result(const ::std::string& value);
+  // required string name = 1;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
   #if LANG_CXX11
-  void set_result(::std::string&& value);
+  void set_name(::std::string&& value);
   #endif
-  void set_result(const char* value);
-  void set_result(const char* value, size_t size);
-  ::std::string* mutable_result();
-  ::std::string* release_result();
-  void set_allocated_result(::std::string* result);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
 
-  // @@protoc_insertion_point(class_scope:yarn.proto.SearchResponse)
+  // required string ip = 2;
+  bool has_ip() const;
+  void clear_ip();
+  static const int kIpFieldNumber = 2;
+  const ::std::string& ip() const;
+  void set_ip(const ::std::string& value);
+  #if LANG_CXX11
+  void set_ip(::std::string&& value);
+  #endif
+  void set_ip(const char* value);
+  void set_ip(const char* value, size_t size);
+  ::std::string* mutable_ip();
+  ::std::string* release_ip();
+  void set_allocated_ip(::std::string* ip);
+
+  // required .yarn.proto.Resource resource = 4;
+  bool has_resource() const;
+  void clear_resource();
+  static const int kResourceFieldNumber = 4;
+  const ::yarn::proto::Resource& resource() const;
+  ::yarn::proto::Resource* release_resource();
+  ::yarn::proto::Resource* mutable_resource();
+  void set_allocated_resource(::yarn::proto::Resource* resource);
+
+  // required int32 port = 3;
+  bool has_port() const;
+  void clear_port();
+  static const int kPortFieldNumber = 3;
+  ::google::protobuf::int32 port() const;
+  void set_port(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.RegisterNMRequest)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr ip_;
+  ::yarn::proto::Resource* resource_;
+  ::google::protobuf::int32 port_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RegisterNMResponse :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.RegisterNMResponse) */ {
+ public:
+  RegisterNMResponse();
+  virtual ~RegisterNMResponse();
+
+  RegisterNMResponse(const RegisterNMResponse& from);
+
+  inline RegisterNMResponse& operator=(const RegisterNMResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  RegisterNMResponse(RegisterNMResponse&& from) noexcept
+    : RegisterNMResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline RegisterNMResponse& operator=(RegisterNMResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const RegisterNMResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RegisterNMResponse* internal_default_instance() {
+    return reinterpret_cast<const RegisterNMResponse*>(
+               &_RegisterNMResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  void Swap(RegisterNMResponse* other);
+  friend void swap(RegisterNMResponse& a, RegisterNMResponse& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RegisterNMResponse* New() const final {
+    return CreateMaybeMessage<RegisterNMResponse>(nullptr);
+  }
+
+  RegisterNMResponse* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<RegisterNMResponse>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const RegisterNMResponse& from);
+  void MergeFrom(const RegisterNMResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RegisterNMResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int32 reserve = 1;
+  bool has_reserve() const;
+  void clear_reserve();
+  static const int kReserveFieldNumber = 1;
+  ::google::protobuf::int32 reserve() const;
+  void set_reserve(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.RegisterNMResponse)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr result_;
+  ::google::protobuf::int32 reserve_;
   friend struct ::TableStruct_NMProtocol_2eproto;
 };
+// -------------------------------------------------------------------
+
+class Container :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.Container) */ {
+ public:
+  Container();
+  virtual ~Container();
+
+  Container(const Container& from);
+
+  inline Container& operator=(const Container& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  Container(Container&& from) noexcept
+    : Container() {
+    *this = ::std::move(from);
+  }
+
+  inline Container& operator=(Container&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const Container& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Container* internal_default_instance() {
+    return reinterpret_cast<const Container*>(
+               &_Container_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  void Swap(Container* other);
+  friend void swap(Container& a, Container& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Container* New() const final {
+    return CreateMaybeMessage<Container>(nullptr);
+  }
+
+  Container* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Container>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const Container& from);
+  void MergeFrom(const Container& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Container* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required string name = 1;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // required .yarn.proto.Resource used = 3;
+  bool has_used() const;
+  void clear_used();
+  static const int kUsedFieldNumber = 3;
+  const ::yarn::proto::Resource& used() const;
+  ::yarn::proto::Resource* release_used();
+  ::yarn::proto::Resource* mutable_used();
+  void set_allocated_used(::yarn::proto::Resource* used);
+
+  // required int32 status = 2;
+  bool has_status() const;
+  void clear_status();
+  static const int kStatusFieldNumber = 2;
+  ::google::protobuf::int32 status() const;
+  void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.Container)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::yarn::proto::Resource* used_;
+  ::google::protobuf::int32 status_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HeartBeatRequest :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.HeartBeatRequest) */ {
+ public:
+  HeartBeatRequest();
+  virtual ~HeartBeatRequest();
+
+  HeartBeatRequest(const HeartBeatRequest& from);
+
+  inline HeartBeatRequest& operator=(const HeartBeatRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  HeartBeatRequest(HeartBeatRequest&& from) noexcept
+    : HeartBeatRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline HeartBeatRequest& operator=(HeartBeatRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const HeartBeatRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const HeartBeatRequest* internal_default_instance() {
+    return reinterpret_cast<const HeartBeatRequest*>(
+               &_HeartBeatRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  void Swap(HeartBeatRequest* other);
+  friend void swap(HeartBeatRequest& a, HeartBeatRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline HeartBeatRequest* New() const final {
+    return CreateMaybeMessage<HeartBeatRequest>(nullptr);
+  }
+
+  HeartBeatRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<HeartBeatRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const HeartBeatRequest& from);
+  void MergeFrom(const HeartBeatRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HeartBeatRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .yarn.proto.Container containers = 2;
+  int containers_size() const;
+  void clear_containers();
+  static const int kContainersFieldNumber = 2;
+  ::yarn::proto::Container* mutable_containers(int index);
+  ::google::protobuf::RepeatedPtrField< ::yarn::proto::Container >*
+      mutable_containers();
+  const ::yarn::proto::Container& containers(int index) const;
+  ::yarn::proto::Container* add_containers();
+  const ::google::protobuf::RepeatedPtrField< ::yarn::proto::Container >&
+      containers() const;
+
+  // required string name = 1;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.HeartBeatRequest)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::RepeatedPtrField< ::yarn::proto::Container > containers_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ContainerCommand :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.ContainerCommand) */ {
+ public:
+  ContainerCommand();
+  virtual ~ContainerCommand();
+
+  ContainerCommand(const ContainerCommand& from);
+
+  inline ContainerCommand& operator=(const ContainerCommand& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ContainerCommand(ContainerCommand&& from) noexcept
+    : ContainerCommand() {
+    *this = ::std::move(from);
+  }
+
+  inline ContainerCommand& operator=(ContainerCommand&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const ContainerCommand& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ContainerCommand* internal_default_instance() {
+    return reinterpret_cast<const ContainerCommand*>(
+               &_ContainerCommand_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  void Swap(ContainerCommand* other);
+  friend void swap(ContainerCommand& a, ContainerCommand& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ContainerCommand* New() const final {
+    return CreateMaybeMessage<ContainerCommand>(nullptr);
+  }
+
+  ContainerCommand* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ContainerCommand>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ContainerCommand& from);
+  void MergeFrom(const ContainerCommand& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ContainerCommand* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required string name = 1;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // optional .yarn.proto.Resource need = 3;
+  bool has_need() const;
+  void clear_need();
+  static const int kNeedFieldNumber = 3;
+  const ::yarn::proto::Resource& need() const;
+  ::yarn::proto::Resource* release_need();
+  ::yarn::proto::Resource* mutable_need();
+  void set_allocated_need(::yarn::proto::Resource* need);
+
+  // required .yarn.proto.ContainerCommandType type = 2;
+  bool has_type() const;
+  void clear_type();
+  static const int kTypeFieldNumber = 2;
+  ::yarn::proto::ContainerCommandType type() const;
+  void set_type(::yarn::proto::ContainerCommandType value);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.ContainerCommand)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::yarn::proto::Resource* need_;
+  int type_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HeartBeatResponse :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.HeartBeatResponse) */ {
+ public:
+  HeartBeatResponse();
+  virtual ~HeartBeatResponse();
+
+  HeartBeatResponse(const HeartBeatResponse& from);
+
+  inline HeartBeatResponse& operator=(const HeartBeatResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  HeartBeatResponse(HeartBeatResponse&& from) noexcept
+    : HeartBeatResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline HeartBeatResponse& operator=(HeartBeatResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const HeartBeatResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const HeartBeatResponse* internal_default_instance() {
+    return reinterpret_cast<const HeartBeatResponse*>(
+               &_HeartBeatResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(HeartBeatResponse* other);
+  friend void swap(HeartBeatResponse& a, HeartBeatResponse& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline HeartBeatResponse* New() const final {
+    return CreateMaybeMessage<HeartBeatResponse>(nullptr);
+  }
+
+  HeartBeatResponse* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<HeartBeatResponse>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const HeartBeatResponse& from);
+  void MergeFrom(const HeartBeatResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HeartBeatResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .yarn.proto.ContainerCommand commands = 3;
+  int commands_size() const;
+  void clear_commands();
+  static const int kCommandsFieldNumber = 3;
+  ::yarn::proto::ContainerCommand* mutable_commands(int index);
+  ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContainerCommand >*
+      mutable_commands();
+  const ::yarn::proto::ContainerCommand& commands(int index) const;
+  ::yarn::proto::ContainerCommand* add_commands();
+  const ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContainerCommand >&
+      commands() const;
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.HeartBeatResponse)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContainerCommand > commands_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// ===================================================================
+
+class ResourceTrackerService_Stub;
+
+class ResourceTrackerService : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline ResourceTrackerService() {};
+ public:
+  virtual ~ResourceTrackerService();
+
+  typedef ResourceTrackerService_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void RegisterNM(::google::protobuf::RpcController* controller,
+                       const ::yarn::proto::RegisterNMRequest* request,
+                       ::yarn::proto::RegisterNMResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void HeartBeat(::google::protobuf::RpcController* controller,
+                       const ::yarn::proto::HeartBeatRequest* request,
+                       ::yarn::proto::HeartBeatResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ResourceTrackerService);
+};
+
+class ResourceTrackerService_Stub : public ResourceTrackerService {
+ public:
+  ResourceTrackerService_Stub(::google::protobuf::RpcChannel* channel);
+  ResourceTrackerService_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~ResourceTrackerService_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements ResourceTrackerService ------------------------------------------
+
+  void RegisterNM(::google::protobuf::RpcController* controller,
+                       const ::yarn::proto::RegisterNMRequest* request,
+                       ::yarn::proto::RegisterNMResponse* response,
+                       ::google::protobuf::Closure* done);
+  void HeartBeat(::google::protobuf::RpcController* controller,
+                       const ::yarn::proto::HeartBeatRequest* request,
+                       ::yarn::proto::HeartBeatResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ResourceTrackerService_Stub);
+};
+
+
 // ===================================================================
 
 
@@ -334,130 +1187,682 @@ class SearchResponse :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// SearchRequest
+// Resource
 
-// required string query = 1;
-inline bool SearchRequest::has_query() const {
+// required int32 cpu = 1;
+inline bool Resource::has_cpu() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void SearchRequest::clear_query() {
-  query_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void Resource::clear_cpu() {
+  cpu_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::std::string& SearchRequest::query() const {
-  // @@protoc_insertion_point(field_get:yarn.proto.SearchRequest.query)
-  return query_.GetNoArena();
+inline ::google::protobuf::int32 Resource::cpu() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.Resource.cpu)
+  return cpu_;
 }
-inline void SearchRequest::set_query(const ::std::string& value) {
+inline void Resource::set_cpu(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000001u;
-  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.proto.SearchRequest.query)
+  cpu_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.Resource.cpu)
 }
-#if LANG_CXX11
-inline void SearchRequest::set_query(::std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  query_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.SearchRequest.query)
+
+// required int32 res = 2;
+inline bool Resource::has_res() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
-#endif
-inline void SearchRequest::set_query(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.proto.SearchRequest.query)
+inline void Resource::clear_res() {
+  res_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
 }
-inline void SearchRequest::set_query(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.proto.SearchRequest.query)
+inline ::google::protobuf::int32 Resource::res() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.Resource.res)
+  return res_;
 }
-inline ::std::string* SearchRequest::mutable_query() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:yarn.proto.SearchRequest.query)
-  return query_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void Resource::set_res(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000002u;
+  res_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.Resource.res)
 }
-inline ::std::string* SearchRequest::release_query() {
-  // @@protoc_insertion_point(field_release:yarn.proto.SearchRequest.query)
-  if (!has_query()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return query_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+// required int32 virt = 3;
+inline bool Resource::has_virt() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void SearchRequest::set_allocated_query(::std::string* query) {
-  if (query != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  query_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), query);
-  // @@protoc_insertion_point(field_set_allocated:yarn.proto.SearchRequest.query)
+inline void Resource::clear_virt() {
+  virt_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::google::protobuf::int32 Resource::virt() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.Resource.virt)
+  return virt_;
+}
+inline void Resource::set_virt(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000004u;
+  virt_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.Resource.virt)
+}
+
+// required int32 disk = 4;
+inline bool Resource::has_disk() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Resource::clear_disk() {
+  disk_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::google::protobuf::int32 Resource::disk() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.Resource.disk)
+  return disk_;
+}
+inline void Resource::set_disk(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000008u;
+  disk_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.Resource.disk)
 }
 
 // -------------------------------------------------------------------
 
-// SearchResponse
+// RegisterNMRequest
 
-// required string result = 1;
-inline bool SearchResponse::has_result() const {
+// required string name = 1;
+inline bool RegisterNMRequest::has_name() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void SearchResponse::clear_result() {
-  result_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void RegisterNMRequest::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::std::string& SearchResponse::result() const {
-  // @@protoc_insertion_point(field_get:yarn.proto.SearchResponse.result)
-  return result_.GetNoArena();
+inline const ::std::string& RegisterNMRequest::name() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.RegisterNMRequest.name)
+  return name_.GetNoArena();
 }
-inline void SearchResponse::set_result(const ::std::string& value) {
+inline void RegisterNMRequest::set_name(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
-  result_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.proto.SearchResponse.result)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.RegisterNMRequest.name)
 }
 #if LANG_CXX11
-inline void SearchResponse::set_result(::std::string&& value) {
+inline void RegisterNMRequest::set_name(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
-  result_.SetNoArena(
+  name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.SearchResponse.result)
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.RegisterNMRequest.name)
 }
 #endif
-inline void SearchResponse::set_result(const char* value) {
+inline void RegisterNMRequest::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
-  result_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.proto.SearchResponse.result)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.RegisterNMRequest.name)
 }
-inline void SearchResponse::set_result(const char* value, size_t size) {
+inline void RegisterNMRequest::set_name(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
-  result_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.proto.SearchResponse.result)
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.RegisterNMRequest.name)
 }
-inline ::std::string* SearchResponse::mutable_result() {
+inline ::std::string* RegisterNMRequest::mutable_name() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:yarn.proto.SearchResponse.result)
-  return result_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:yarn.proto.RegisterNMRequest.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SearchResponse::release_result() {
-  // @@protoc_insertion_point(field_release:yarn.proto.SearchResponse.result)
-  if (!has_result()) {
+inline ::std::string* RegisterNMRequest::release_name() {
+  // @@protoc_insertion_point(field_release:yarn.proto.RegisterNMRequest.name)
+  if (!has_name()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000001u;
-  return result_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SearchResponse::set_allocated_result(::std::string* result) {
-  if (result != nullptr) {
+inline void RegisterNMRequest::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  result_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), result);
-  // @@protoc_insertion_point(field_set_allocated:yarn.proto.SearchResponse.result)
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.RegisterNMRequest.name)
+}
+
+// required string ip = 2;
+inline bool RegisterNMRequest::has_ip() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void RegisterNMRequest::clear_ip() {
+  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::std::string& RegisterNMRequest::ip() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.RegisterNMRequest.ip)
+  return ip_.GetNoArena();
+}
+inline void RegisterNMRequest::set_ip(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.RegisterNMRequest.ip)
+}
+#if LANG_CXX11
+inline void RegisterNMRequest::set_ip(::std::string&& value) {
+  _has_bits_[0] |= 0x00000002u;
+  ip_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.RegisterNMRequest.ip)
+}
+#endif
+inline void RegisterNMRequest::set_ip(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000002u;
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.RegisterNMRequest.ip)
+}
+inline void RegisterNMRequest::set_ip(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000002u;
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.RegisterNMRequest.ip)
+}
+inline ::std::string* RegisterNMRequest::mutable_ip() {
+  _has_bits_[0] |= 0x00000002u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.RegisterNMRequest.ip)
+  return ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RegisterNMRequest::release_ip() {
+  // @@protoc_insertion_point(field_release:yarn.proto.RegisterNMRequest.ip)
+  if (!has_ip()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  return ip_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RegisterNMRequest::set_allocated_ip(::std::string* ip) {
+  if (ip != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.RegisterNMRequest.ip)
+}
+
+// required int32 port = 3;
+inline bool RegisterNMRequest::has_port() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void RegisterNMRequest::clear_port() {
+  port_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::google::protobuf::int32 RegisterNMRequest::port() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.RegisterNMRequest.port)
+  return port_;
+}
+inline void RegisterNMRequest::set_port(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000008u;
+  port_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.RegisterNMRequest.port)
+}
+
+// required .yarn.proto.Resource resource = 4;
+inline bool RegisterNMRequest::has_resource() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void RegisterNMRequest::clear_resource() {
+  if (resource_ != nullptr) resource_->Clear();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const ::yarn::proto::Resource& RegisterNMRequest::resource() const {
+  const ::yarn::proto::Resource* p = resource_;
+  // @@protoc_insertion_point(field_get:yarn.proto.RegisterNMRequest.resource)
+  return p != nullptr ? *p : *reinterpret_cast<const ::yarn::proto::Resource*>(
+      &::yarn::proto::_Resource_default_instance_);
+}
+inline ::yarn::proto::Resource* RegisterNMRequest::release_resource() {
+  // @@protoc_insertion_point(field_release:yarn.proto.RegisterNMRequest.resource)
+  _has_bits_[0] &= ~0x00000004u;
+  ::yarn::proto::Resource* temp = resource_;
+  resource_ = nullptr;
+  return temp;
+}
+inline ::yarn::proto::Resource* RegisterNMRequest::mutable_resource() {
+  _has_bits_[0] |= 0x00000004u;
+  if (resource_ == nullptr) {
+    auto* p = CreateMaybeMessage<::yarn::proto::Resource>(GetArenaNoVirtual());
+    resource_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:yarn.proto.RegisterNMRequest.resource)
+  return resource_;
+}
+inline void RegisterNMRequest::set_allocated_resource(::yarn::proto::Resource* resource) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete resource_;
+  }
+  if (resource) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      resource = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, resource, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  resource_ = resource;
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.RegisterNMRequest.resource)
+}
+
+// -------------------------------------------------------------------
+
+// RegisterNMResponse
+
+// required int32 reserve = 1;
+inline bool RegisterNMResponse::has_reserve() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void RegisterNMResponse::clear_reserve() {
+  reserve_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::google::protobuf::int32 RegisterNMResponse::reserve() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.RegisterNMResponse.reserve)
+  return reserve_;
+}
+inline void RegisterNMResponse::set_reserve(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000001u;
+  reserve_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.RegisterNMResponse.reserve)
+}
+
+// -------------------------------------------------------------------
+
+// Container
+
+// required string name = 1;
+inline bool Container::has_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Container::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::std::string& Container::name() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.Container.name)
+  return name_.GetNoArena();
+}
+inline void Container::set_name(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.Container.name)
+}
+#if LANG_CXX11
+inline void Container::set_name(::std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.Container.name)
+}
+#endif
+inline void Container::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.Container.name)
+}
+inline void Container::set_name(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.Container.name)
+}
+inline ::std::string* Container::mutable_name() {
+  _has_bits_[0] |= 0x00000001u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.Container.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* Container::release_name() {
+  // @@protoc_insertion_point(field_release:yarn.proto.Container.name)
+  if (!has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Container::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.Container.name)
+}
+
+// required int32 status = 2;
+inline bool Container::has_status() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Container::clear_status() {
+  status_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::google::protobuf::int32 Container::status() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.Container.status)
+  return status_;
+}
+inline void Container::set_status(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000004u;
+  status_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.Container.status)
+}
+
+// required .yarn.proto.Resource used = 3;
+inline bool Container::has_used() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Container::clear_used() {
+  if (used_ != nullptr) used_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::yarn::proto::Resource& Container::used() const {
+  const ::yarn::proto::Resource* p = used_;
+  // @@protoc_insertion_point(field_get:yarn.proto.Container.used)
+  return p != nullptr ? *p : *reinterpret_cast<const ::yarn::proto::Resource*>(
+      &::yarn::proto::_Resource_default_instance_);
+}
+inline ::yarn::proto::Resource* Container::release_used() {
+  // @@protoc_insertion_point(field_release:yarn.proto.Container.used)
+  _has_bits_[0] &= ~0x00000002u;
+  ::yarn::proto::Resource* temp = used_;
+  used_ = nullptr;
+  return temp;
+}
+inline ::yarn::proto::Resource* Container::mutable_used() {
+  _has_bits_[0] |= 0x00000002u;
+  if (used_ == nullptr) {
+    auto* p = CreateMaybeMessage<::yarn::proto::Resource>(GetArenaNoVirtual());
+    used_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:yarn.proto.Container.used)
+  return used_;
+}
+inline void Container::set_allocated_used(::yarn::proto::Resource* used) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete used_;
+  }
+  if (used) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      used = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, used, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  used_ = used;
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.Container.used)
+}
+
+// -------------------------------------------------------------------
+
+// HeartBeatRequest
+
+// required string name = 1;
+inline bool HeartBeatRequest::has_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void HeartBeatRequest::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::std::string& HeartBeatRequest::name() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.HeartBeatRequest.name)
+  return name_.GetNoArena();
+}
+inline void HeartBeatRequest::set_name(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.HeartBeatRequest.name)
+}
+#if LANG_CXX11
+inline void HeartBeatRequest::set_name(::std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.HeartBeatRequest.name)
+}
+#endif
+inline void HeartBeatRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.HeartBeatRequest.name)
+}
+inline void HeartBeatRequest::set_name(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.HeartBeatRequest.name)
+}
+inline ::std::string* HeartBeatRequest::mutable_name() {
+  _has_bits_[0] |= 0x00000001u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.HeartBeatRequest.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* HeartBeatRequest::release_name() {
+  // @@protoc_insertion_point(field_release:yarn.proto.HeartBeatRequest.name)
+  if (!has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void HeartBeatRequest::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.HeartBeatRequest.name)
+}
+
+// repeated .yarn.proto.Container containers = 2;
+inline int HeartBeatRequest::containers_size() const {
+  return containers_.size();
+}
+inline void HeartBeatRequest::clear_containers() {
+  containers_.Clear();
+}
+inline ::yarn::proto::Container* HeartBeatRequest::mutable_containers(int index) {
+  // @@protoc_insertion_point(field_mutable:yarn.proto.HeartBeatRequest.containers)
+  return containers_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::yarn::proto::Container >*
+HeartBeatRequest::mutable_containers() {
+  // @@protoc_insertion_point(field_mutable_list:yarn.proto.HeartBeatRequest.containers)
+  return &containers_;
+}
+inline const ::yarn::proto::Container& HeartBeatRequest::containers(int index) const {
+  // @@protoc_insertion_point(field_get:yarn.proto.HeartBeatRequest.containers)
+  return containers_.Get(index);
+}
+inline ::yarn::proto::Container* HeartBeatRequest::add_containers() {
+  // @@protoc_insertion_point(field_add:yarn.proto.HeartBeatRequest.containers)
+  return containers_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::yarn::proto::Container >&
+HeartBeatRequest::containers() const {
+  // @@protoc_insertion_point(field_list:yarn.proto.HeartBeatRequest.containers)
+  return containers_;
+}
+
+// -------------------------------------------------------------------
+
+// ContainerCommand
+
+// required string name = 1;
+inline bool ContainerCommand::has_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ContainerCommand::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::std::string& ContainerCommand::name() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.name)
+  return name_.GetNoArena();
+}
+inline void ContainerCommand::set_name(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.name)
+}
+#if LANG_CXX11
+inline void ContainerCommand::set_name(::std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.ContainerCommand.name)
+}
+#endif
+inline void ContainerCommand::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.ContainerCommand.name)
+}
+inline void ContainerCommand::set_name(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.ContainerCommand.name)
+}
+inline ::std::string* ContainerCommand::mutable_name() {
+  _has_bits_[0] |= 0x00000001u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ContainerCommand::release_name() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.name)
+  if (!has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ContainerCommand::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.name)
+}
+
+// required .yarn.proto.ContainerCommandType type = 2;
+inline bool ContainerCommand::has_type() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ContainerCommand::clear_type() {
+  type_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::yarn::proto::ContainerCommandType ContainerCommand::type() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.type)
+  return static_cast< ::yarn::proto::ContainerCommandType >(type_);
+}
+inline void ContainerCommand::set_type(::yarn::proto::ContainerCommandType value) {
+  assert(::yarn::proto::ContainerCommandType_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  type_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.type)
+}
+
+// optional .yarn.proto.Resource need = 3;
+inline bool ContainerCommand::has_need() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ContainerCommand::clear_need() {
+  if (need_ != nullptr) need_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::yarn::proto::Resource& ContainerCommand::need() const {
+  const ::yarn::proto::Resource* p = need_;
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.need)
+  return p != nullptr ? *p : *reinterpret_cast<const ::yarn::proto::Resource*>(
+      &::yarn::proto::_Resource_default_instance_);
+}
+inline ::yarn::proto::Resource* ContainerCommand::release_need() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.need)
+  _has_bits_[0] &= ~0x00000002u;
+  ::yarn::proto::Resource* temp = need_;
+  need_ = nullptr;
+  return temp;
+}
+inline ::yarn::proto::Resource* ContainerCommand::mutable_need() {
+  _has_bits_[0] |= 0x00000002u;
+  if (need_ == nullptr) {
+    auto* p = CreateMaybeMessage<::yarn::proto::Resource>(GetArenaNoVirtual());
+    need_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.need)
+  return need_;
+}
+inline void ContainerCommand::set_allocated_need(::yarn::proto::Resource* need) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete need_;
+  }
+  if (need) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      need = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, need, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  need_ = need;
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.need)
+}
+
+// -------------------------------------------------------------------
+
+// HeartBeatResponse
+
+// repeated .yarn.proto.ContainerCommand commands = 3;
+inline int HeartBeatResponse::commands_size() const {
+  return commands_.size();
+}
+inline void HeartBeatResponse::clear_commands() {
+  commands_.Clear();
+}
+inline ::yarn::proto::ContainerCommand* HeartBeatResponse::mutable_commands(int index) {
+  // @@protoc_insertion_point(field_mutable:yarn.proto.HeartBeatResponse.commands)
+  return commands_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContainerCommand >*
+HeartBeatResponse::mutable_commands() {
+  // @@protoc_insertion_point(field_mutable_list:yarn.proto.HeartBeatResponse.commands)
+  return &commands_;
+}
+inline const ::yarn::proto::ContainerCommand& HeartBeatResponse::commands(int index) const {
+  // @@protoc_insertion_point(field_get:yarn.proto.HeartBeatResponse.commands)
+  return commands_.Get(index);
+}
+inline ::yarn::proto::ContainerCommand* HeartBeatResponse::add_commands() {
+  // @@protoc_insertion_point(field_add:yarn.proto.HeartBeatResponse.commands)
+  return commands_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContainerCommand >&
+HeartBeatResponse::commands() const {
+  // @@protoc_insertion_point(field_list:yarn.proto.HeartBeatResponse.commands)
+  return commands_;
 }
 
 #ifdef __GNUC__
@@ -465,11 +1870,33 @@ inline void SearchResponse::set_allocated_result(::std::string* result) {
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace proto
 }  // namespace yarn
+
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::yarn::proto::ContainerCommandType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::yarn::proto::ContainerCommandType>() {
+  return ::yarn::proto::ContainerCommandType_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 
