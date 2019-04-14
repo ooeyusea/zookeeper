@@ -40,6 +40,12 @@ INCLUDE_DIRECTORIES(
 
 SET(SRC
 	"${PROJECT_SOURCE_DIR}/main.cpp"
+	"${PROJECT_SOURCE_DIR}/NodeManager.h"
+	"${PROJECT_SOURCE_DIR}/NodeManager.cpp"
+	"${PROJECT_SOURCE_DIR}/NodeUpdateService.h"
+	"${PROJECT_SOURCE_DIR}/NodeUpdateService.cpp"
+	"${PROJECT_SOURCE_DIR}/ContainerManager.h"
+	"${PROJECT_SOURCE_DIR}/ContainerManager.cpp"
 )
 
 SET(XML
@@ -72,9 +78,19 @@ SET(RPC
 
 SET(PROTO
 	"${PROJECT_SOURCE_DIR}/../common/proto/NMProtocol.proto"
+	"${PROJECT_SOURCE_DIR}/../common/proto/NMProtocol.pb.h"
+	"${PROJECT_SOURCE_DIR}/../common/proto/NMProtocol.pb.cc"
+)
+
+SET(API
+	"${PROJECT_SOURCE_DIR}/../common/api/AMNodeManager.proto"
+	"${PROJECT_SOURCE_DIR}/../common/api/AMNodeManager.pb.h"
+	"${PROJECT_SOURCE_DIR}/../common/api/AMNodeManager.pb.cc"
 )
 
 SET(COMMON
+	"${PROJECT_SOURCE_DIR}/../common/Configuration.h"
+	"${PROJECT_SOURCE_DIR}/../common/Configuration.cpp"
 )
 
 SOURCE_GROUP(\\ FILES ${SRC})
@@ -85,6 +101,7 @@ SOURCE_GROUP(common\\event FILES ${EVENT})
 SOURCE_GROUP(common\\event\\impl FILES ${EVENT_IMPL})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
 SOURCE_GROUP(common\\proto FILES ${PROTO})
+SOURCE_GROUP(common\\api FILES ${API})
 
 ADD_EXECUTABLE(nodemanager
 	${SRC}
@@ -95,17 +112,23 @@ ADD_EXECUTABLE(nodemanager
 	${EVENT_IMPL}
 	${RPC}
 	${PROTO}
+	${API}
 )
 
 IF(WIN32)
 TARGET_LINK_LIBRARIES(nodemanager
 	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/$<CONFIGURATION>/hnet.lib"
-	"${PROJECT_SOURCE_DIR}/../common/protobuf/lib/libprotobuf.lib"
+	"${PROJECT_SOURCE_DIR}/../common/protobuf/lib/$<CONFIGURATION>/libprotobuf.lib"
 )
 
 ADD_CUSTOM_COMMAND(TARGET nodemanager
     PRE_BUILD
     COMMAND ${PROJECT_SOURCE_DIR}/../common/protobuf/bin/protoc.exe -I=${PROJECT_SOURCE_DIR}/../common/proto/ --cpp_out=${PROJECT_SOURCE_DIR}/../common/proto/ NMProtocol.proto
+)
+
+ADD_CUSTOM_COMMAND(TARGET nodemanager
+    PRE_BUILD
+    COMMAND ${PROJECT_SOURCE_DIR}/../common/protobuf/bin/protoc.exe -I=${PROJECT_SOURCE_DIR}/../common/api/ --cpp_out=${PROJECT_SOURCE_DIR}/../common/api/ AMNodeManager.proto
 )
 
 SET_PROPERTY(TARGET nodemanager PROPERTY FOLDER "yarn")
