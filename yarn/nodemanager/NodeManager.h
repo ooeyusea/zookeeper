@@ -4,30 +4,33 @@
 #include "api/AMNodeManager.pb.h"
 #include "rpc/Rpc.h"
 #include "event/impl/AsyncEventDispatcher.h"
+#include "ContainerManager.h"
+#include "NodeUpdateService.h"
+#include "AMService.h"
+#include "Configuration.h"
 
 namespace yarn {
-	class YarnConfiguration;
 	class NodeManager {
 	public:
-		NodeManager() : _containerManager(*this), _nodeUpdateService(*this) {}
+		NodeManager() : _config(false), _containerManager(*this), _nodeUpdateService(*this), _amService(*this) {}
 		virtual ~NodeManager() {}
 
-		bool Start(const YarnConfiguration & config);
+		bool Start(const char * path);
 
+		inline const YarnConfiguration& GetConfiguration() const { return _config; }
 		inline ContainerManager& GetContainerManager() { return _containerManager; }
 		inline NodeUpdateService& GetNodeUpdateService() { return _nodeUpdateService; }
+		inline AMService& GetAMService() { return _amService; }
+
+		inline event::AsyncEventDispatcher& GetDispatcher() { return _dispatcher; }
 
 	private:
-		rpc::YarnRpcServer _server;
-		rpc::YarnRpcChannel _channel;
 		event::AsyncEventDispatcher _dispatcher;
-
-		std::string _name;
-		std::string _ip;
-		int32_t _port;
 		
+		YarnConfiguration _config;
 		ContainerManager _containerManager;
 		NodeUpdateService _nodeUpdateService;
+		AMService _amService;
 	};
 }
 

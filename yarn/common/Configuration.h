@@ -11,12 +11,31 @@ namespace yarn {
 
 		bool Initialize(const olib::IXmlObject& object);
 
-		const std::string& GetName() const { return _name; }
-		const std::string& GetIp() const { return _ip; }
-		int32_t GetPort() const { return _port; }
+		inline const std::string& GetName() const { return _name; }
+		inline const std::string& GetIp() const { return _ip; }
+		inline int32_t GetPort() const { return _port; }
+
+		inline int32_t GetHeartBeatInterval() const { return _heartBeatInterval; }
 
 	private:
 		std::string _name;
+		std::string _ip;
+		int32_t _port;
+
+		int32_t _heartBeatInterval;
+	};
+
+	class YarResourceManagerConfiguration {
+	public:
+		YarResourceManagerConfiguration() {}
+		~YarResourceManagerConfiguration() {}
+
+		bool Initialize(const olib::IXmlObject& object);
+
+		inline const std::string& GetIp() const { return _ip; }
+		inline int32_t GetPort() const { return _port; }
+
+	private:
 		std::string _ip;
 		int32_t _port;
 	};
@@ -28,11 +47,14 @@ namespace yarn {
 
 		bool LoadFrom(const char * path);
 
-		const YarnNodeManagerConfiguration& GetNodeManager() const { return _node; }
+		inline const YarnNodeManagerConfiguration& GetNodeManager() const { return _node; }
+		inline const YarResourceManagerConfiguration& GetResourceManager() const { return _resouce; }
 
 	private:
 		bool _isRm = false;
+
 		YarnNodeManagerConfiguration _node;
+		YarResourceManagerConfiguration _resouce;
 	};
 }
 

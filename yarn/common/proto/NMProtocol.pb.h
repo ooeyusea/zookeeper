@@ -954,10 +954,25 @@ class ContainerCommand :
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // optional .yarn.proto.Resource need = 3;
+  // optional string application = 3;
+  bool has_application() const;
+  void clear_application();
+  static const int kApplicationFieldNumber = 3;
+  const ::std::string& application() const;
+  void set_application(const ::std::string& value);
+  #if LANG_CXX11
+  void set_application(::std::string&& value);
+  #endif
+  void set_application(const char* value);
+  void set_application(const char* value, size_t size);
+  ::std::string* mutable_application();
+  ::std::string* release_application();
+  void set_allocated_application(::std::string* application);
+
+  // optional .yarn.proto.Resource need = 4;
   bool has_need() const;
   void clear_need();
-  static const int kNeedFieldNumber = 3;
+  static const int kNeedFieldNumber = 4;
   const ::yarn::proto::Resource& need() const;
   ::yarn::proto::Resource* release_need();
   ::yarn::proto::Resource* mutable_need();
@@ -981,6 +996,7 @@ class ContainerCommand :
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr application_;
   ::yarn::proto::Resource* need_;
   int type_;
   friend struct ::TableStruct_NMProtocol_2eproto;
@@ -1765,11 +1781,11 @@ inline void ContainerCommand::set_allocated_name(::std::string* name) {
 
 // required .yarn.proto.ContainerCommandType type = 2;
 inline bool ContainerCommand::has_type() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void ContainerCommand::clear_type() {
   type_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::yarn::proto::ContainerCommandType ContainerCommand::type() const {
   // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.type)
@@ -1777,18 +1793,78 @@ inline ::yarn::proto::ContainerCommandType ContainerCommand::type() const {
 }
 inline void ContainerCommand::set_type(::yarn::proto::ContainerCommandType value) {
   assert(::yarn::proto::ContainerCommandType_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   type_ = value;
   // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.type)
 }
 
-// optional .yarn.proto.Resource need = 3;
-inline bool ContainerCommand::has_need() const {
+// optional string application = 3;
+inline bool ContainerCommand::has_application() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ContainerCommand::clear_application() {
+  application_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::std::string& ContainerCommand::application() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.application)
+  return application_.GetNoArena();
+}
+inline void ContainerCommand::set_application(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.application)
+}
+#if LANG_CXX11
+inline void ContainerCommand::set_application(::std::string&& value) {
+  _has_bits_[0] |= 0x00000002u;
+  application_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.ContainerCommand.application)
+}
+#endif
+inline void ContainerCommand::set_application(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000002u;
+  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.ContainerCommand.application)
+}
+inline void ContainerCommand::set_application(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000002u;
+  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.ContainerCommand.application)
+}
+inline ::std::string* ContainerCommand::mutable_application() {
+  _has_bits_[0] |= 0x00000002u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.application)
+  return application_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ContainerCommand::release_application() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.application)
+  if (!has_application()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  return application_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ContainerCommand::set_allocated_application(::std::string* application) {
+  if (application != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  application_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), application);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.application)
+}
+
+// optional .yarn.proto.Resource need = 4;
+inline bool ContainerCommand::has_need() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void ContainerCommand::clear_need() {
   if (need_ != nullptr) need_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline const ::yarn::proto::Resource& ContainerCommand::need() const {
   const ::yarn::proto::Resource* p = need_;
@@ -1798,13 +1874,13 @@ inline const ::yarn::proto::Resource& ContainerCommand::need() const {
 }
 inline ::yarn::proto::Resource* ContainerCommand::release_need() {
   // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.need)
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::yarn::proto::Resource* temp = need_;
   need_ = nullptr;
   return temp;
 }
 inline ::yarn::proto::Resource* ContainerCommand::mutable_need() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   if (need_ == nullptr) {
     auto* p = CreateMaybeMessage<::yarn::proto::Resource>(GetArenaNoVirtual());
     need_ = p;
@@ -1823,9 +1899,9 @@ inline void ContainerCommand::set_allocated_need(::yarn::proto::Resource* need) 
       need = ::google::protobuf::internal::GetOwnedMessage(
           message_arena, need, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   need_ = need;
   // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.need)

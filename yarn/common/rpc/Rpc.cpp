@@ -74,19 +74,25 @@ namespace yarn {
 			if (_fd <= 0)
 				return false;
 
-			while (true) {
-				int32_t remoteFd = hn_accept(_fd);
-				if (remoteFd < 0)
-					break;
+			++_threadCount;
+			hn_fork[this]{
+				while (true) {
+					int32_t remoteFd = hn_accept(_fd);
+					if (remoteFd < 0)
+						break;
 
-				++_threadCount;
-				hn_fork[remoteFd, this]{
-					DealConn(remoteFd);
-						
-					hn_close(remoteFd);
-					--_threadCount;
-				};
-			}
+					++_threadCount;
+					hn_fork[remoteFd, this]{
+						DealConn(remoteFd);
+
+						hn_close(remoteFd);
+						--_threadCount;
+					};
+				}
+
+				hn_close(_fd);
+				--_threadCount;
+			};
 
 			return true;
 		}

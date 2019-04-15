@@ -6,6 +6,15 @@ namespace yarn {
 		_ip = object["address"][0].GetAttributeString("ip");
 		_port = object["address"][0].GetAttributeInt32("port");
 
+		_heartBeatInterval = object["service"][0]["heart_beart"][0].GetAttributeInt32("interval");
+
+		return true;
+	}
+
+	bool YarResourceManagerConfiguration::Initialize(const olib::IXmlObject& object) {
+		_ip = object["address"][0].GetAttributeString("ip");
+		_port = object["address"][0].GetAttributeInt32("port");
+
 		return true;
 	}
 
@@ -22,6 +31,8 @@ namespace yarn {
 					return false;
 			}
 
+			if (!_resouce.Initialize(conf.Root()["resource_manager"][0]))
+				return false;
 
 		}
 		catch (std::exception& e) {

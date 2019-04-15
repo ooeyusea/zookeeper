@@ -13,22 +13,21 @@ namespace yarn {
 			struct EventUnit {
 				int32_t * typeReflection;
 				int64_t type;
-				void * e;
+				EventBase * e;
 			};
 		public:
 			AsyncEventDispatcher() {}
 			virtual ~AsyncEventDispatcher() {}
 
-			void Start(int32_t threadCount);
+			void Start();
 			void Stop();
 
 		protected:
-			virtual void Dispatch(int32_t * key, int64_t type, void * p);
+			virtual void Dispatch(int32_t * key, int64_t type, EventBase * p);
 
 		private:
 			hn_channel<EventUnit, EVENT_DISPATCHER_QUEUE_SIZE> _channel;
 			hn_channel<bool, -1> _closeCh;
-			int32_t _threadCount;
 		};
 	}
 }

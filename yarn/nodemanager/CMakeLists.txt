@@ -42,6 +42,8 @@ SET(SRC
 	"${PROJECT_SOURCE_DIR}/main.cpp"
 	"${PROJECT_SOURCE_DIR}/NodeManager.h"
 	"${PROJECT_SOURCE_DIR}/NodeManager.cpp"
+	"${PROJECT_SOURCE_DIR}/AMService.h"
+	"${PROJECT_SOURCE_DIR}/AMService.cpp"
 	"${PROJECT_SOURCE_DIR}/NodeUpdateService.h"
 	"${PROJECT_SOURCE_DIR}/NodeUpdateService.cpp"
 	"${PROJECT_SOURCE_DIR}/ContainerManager.h"
@@ -64,6 +66,7 @@ SET(TINYXML
 
 SET(EVENT
 	"${PROJECT_SOURCE_DIR}/../common/event/EventDispatcher.h"
+	"${PROJECT_SOURCE_DIR}/event/ContainerEvent.h"
 )
 
 SET(EVENT_IMPL

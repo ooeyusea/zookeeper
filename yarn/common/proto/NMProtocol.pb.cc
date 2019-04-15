@@ -229,10 +229,12 @@ const ::google::protobuf::uint32 TableStruct_NMProtocol_2eproto::offsets[] PROTO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::yarn::proto::ContainerCommand, name_),
   PROTOBUF_FIELD_OFFSET(::yarn::proto::ContainerCommand, type_),
+  PROTOBUF_FIELD_OFFSET(::yarn::proto::ContainerCommand, application_),
   PROTOBUF_FIELD_OFFSET(::yarn::proto::ContainerCommand, need_),
   0,
-  2,
+  3,
   1,
+  2,
   PROTOBUF_FIELD_OFFSET(::yarn::proto::HeartBeatResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::yarn::proto::HeartBeatResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -247,8 +249,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 26, 32, sizeof(::yarn::proto::RegisterNMResponse)},
   { 33, 41, sizeof(::yarn::proto::Container)},
   { 44, 51, sizeof(::yarn::proto::HeartBeatRequest)},
-  { 53, 61, sizeof(::yarn::proto::ContainerCommand)},
-  { 64, 70, sizeof(::yarn::proto::HeartBeatResponse)},
+  { 53, 62, sizeof(::yarn::proto::ContainerCommand)},
+  { 66, 72, sizeof(::yarn::proto::HeartBeatResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -277,23 +279,23 @@ const char descriptor_table_protodef_NMProtocol_2eproto[] =
   "Container\022\014\n\004name\030\001 \002(\t\022\016\n\006status\030\002 \002(\005\022"
   "\"\n\004used\030\003 \002(\0132\024.yarn.proto.Resource\"K\n\020H"
   "eartBeatRequest\022\014\n\004name\030\001 \002(\t\022)\n\ncontain"
-  "ers\030\002 \003(\0132\025.yarn.proto.Container\"t\n\020Cont"
-  "ainerCommand\022\014\n\004name\030\001 \002(\t\022.\n\004type\030\002 \002(\016"
-  "2 .yarn.proto.ContainerCommandType\022\"\n\004ne"
-  "ed\030\003 \001(\0132\024.yarn.proto.Resource\"C\n\021HeartB"
-  "eatResponse\022.\n\010commands\030\003 \003(\0132\034.yarn.pro"
-  "to.ContainerCommand*-\n\024ContainerCommandT"
-  "ype\022\010\n\004INIT\020\000\022\013\n\007CLEANUP\020\0012\257\001\n\026ResourceT"
-  "rackerService\022K\n\nRegisterNM\022\035.yarn.proto"
-  ".RegisterNMRequest\032\036.yarn.proto.Register"
-  "NMResponse\022H\n\tHeartBeat\022\034.yarn.proto.Hea"
-  "rtBeatRequest\032\035.yarn.proto.HeartBeatResp"
-  "onseB\003\200\001\001"
+  "ers\030\002 \003(\0132\025.yarn.proto.Container\"\211\001\n\020Con"
+  "tainerCommand\022\014\n\004name\030\001 \002(\t\022.\n\004type\030\002 \002("
+  "\0162 .yarn.proto.ContainerCommandType\022\023\n\013a"
+  "pplication\030\003 \001(\t\022\"\n\004need\030\004 \001(\0132\024.yarn.pr"
+  "oto.Resource\"C\n\021HeartBeatResponse\022.\n\010com"
+  "mands\030\003 \003(\0132\034.yarn.proto.ContainerComman"
+  "d*-\n\024ContainerCommandType\022\010\n\004INIT\020\000\022\013\n\007C"
+  "LEANUP\020\0012\257\001\n\026ResourceTrackerService\022K\n\nR"
+  "egisterNM\022\035.yarn.proto.RegisterNMRequest"
+  "\032\036.yarn.proto.RegisterNMResponse\022H\n\tHear"
+  "tBeat\022\034.yarn.proto.HeartBeatRequest\032\035.ya"
+  "rn.proto.HeartBeatResponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_NMProtocol_2eproto = {
   false, InitDefaults_NMProtocol_2eproto, 
   descriptor_table_protodef_NMProtocol_2eproto,
-  "NMProtocol.proto", &assign_descriptors_table_NMProtocol_2eproto, 809,
+  "NMProtocol.proto", &assign_descriptors_table_NMProtocol_2eproto, 831,
 };
 
 void AddDescriptors_NMProtocol_2eproto() {
@@ -2425,11 +2427,14 @@ class ContainerCommand::HasBitSetters {
     msg->_has_bits_[0] |= 0x00000001u;
   }
   static void set_has_type(ContainerCommand* msg) {
-    msg->_has_bits_[0] |= 0x00000004u;
+    msg->_has_bits_[0] |= 0x00000008u;
+  }
+  static void set_has_application(ContainerCommand* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
   }
   static const ::yarn::proto::Resource& need(const ContainerCommand* msg);
   static void set_has_need(ContainerCommand* msg) {
-    msg->_has_bits_[0] |= 0x00000002u;
+    msg->_has_bits_[0] |= 0x00000004u;
   }
 };
 
@@ -2440,6 +2445,7 @@ ContainerCommand::HasBitSetters::need(const ContainerCommand* msg) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ContainerCommand::kNameFieldNumber;
 const int ContainerCommand::kTypeFieldNumber;
+const int ContainerCommand::kApplicationFieldNumber;
 const int ContainerCommand::kNeedFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -2457,6 +2463,10 @@ ContainerCommand::ContainerCommand(const ContainerCommand& from)
   if (from.has_name()) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  application_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_application()) {
+    application_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.application_);
+  }
   if (from.has_need()) {
     need_ = new ::yarn::proto::Resource(*from.need_);
   } else {
@@ -2470,6 +2480,7 @@ void ContainerCommand::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_ContainerCommand_NMProtocol_2eproto.base);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  application_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&need_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&type_) -
       reinterpret_cast<char*>(&need_)) + sizeof(type_));
@@ -2482,6 +2493,7 @@ ContainerCommand::~ContainerCommand() {
 
 void ContainerCommand::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  application_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete need_;
 }
 
@@ -2501,11 +2513,14 @@ void ContainerCommand::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       name_.ClearNonDefaultToEmptyNoArena();
     }
     if (cached_has_bits & 0x00000002u) {
+      application_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(need_ != nullptr);
       need_->Clear();
     }
@@ -2556,9 +2571,25 @@ const char* ContainerCommand::_InternalParse(const char* begin, const char* end,
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // optional .yarn.proto.Resource need = 3;
+      // optional string application = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("yarn.proto.ContainerCommand.application");
+        object = msg->mutable_application();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // optional .yarn.proto.Resource need = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         parser_till_end = ::yarn::proto::Resource::_InternalParse;
@@ -2637,9 +2668,24 @@ bool ContainerCommand::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .yarn.proto.Resource need = 3;
+      // optional string application = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_application()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->application().data(), static_cast<int>(this->application().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "yarn.proto.ContainerCommand.application");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional .yarn.proto.Resource need = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_need()));
         } else {
@@ -2687,15 +2733,25 @@ void ContainerCommand::SerializeWithCachedSizes(
   }
 
   // required .yarn.proto.ContainerCommandType type = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       2, this->type(), output);
   }
 
-  // optional .yarn.proto.Resource need = 3;
+  // optional string application = 3;
   if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->application().data(), static_cast<int>(this->application().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "yarn.proto.ContainerCommand.application");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->application(), output);
+  }
+
+  // optional .yarn.proto.Resource need = 4;
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, HasBitSetters::need(this), output);
+      4, HasBitSetters::need(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2724,16 +2780,27 @@ void ContainerCommand::SerializeWithCachedSizes(
   }
 
   // required .yarn.proto.ContainerCommandType type = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       2, this->type(), target);
   }
 
-  // optional .yarn.proto.Resource need = 3;
+  // optional string application = 3;
   if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->application().data(), static_cast<int>(this->application().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "yarn.proto.ContainerCommand.application");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->application(), target);
+  }
+
+  // optional .yarn.proto.Resource need = 4;
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, HasBitSetters::need(this), target);
+        4, HasBitSetters::need(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2772,7 +2839,7 @@ size_t ContainerCommand::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000005) ^ 0x00000005) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00000009) ^ 0x00000009) == 0) {  // All required fields are present.
     // required string name = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2789,14 +2856,23 @@ size_t ContainerCommand::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .yarn.proto.Resource need = 3;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000002u) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *need_);
-  }
+  if (cached_has_bits & 0x00000006u) {
+    // optional string application = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->application());
+    }
 
+    // optional .yarn.proto.Resource need = 4;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *need_);
+    }
+
+  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -2825,15 +2901,19 @@ void ContainerCommand::MergeFrom(const ContainerCommand& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
     }
     if (cached_has_bits & 0x00000002u) {
-      mutable_need()->::yarn::proto::Resource::MergeFrom(from.need());
+      _has_bits_[0] |= 0x00000002u;
+      application_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.application_);
     }
     if (cached_has_bits & 0x00000004u) {
+      mutable_need()->::yarn::proto::Resource::MergeFrom(from.need());
+    }
+    if (cached_has_bits & 0x00000008u) {
       type_ = from.type_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -2855,7 +2935,7 @@ void ContainerCommand::CopyFrom(const ContainerCommand& from) {
 }
 
 bool ContainerCommand::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
+  if ((_has_bits_[0] & 0x00000009) != 0x00000009) return false;
   if (has_need()) {
     if (!this->need_->IsInitialized()) return false;
   }
@@ -2871,6 +2951,8 @@ void ContainerCommand::InternalSwap(ContainerCommand* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  application_.Swap(&other->application_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(need_, other->need_);
   swap(type_, other->type_);

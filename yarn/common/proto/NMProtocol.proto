@@ -40,7 +40,8 @@ enum ContainerCommandType {
 message ContainerCommand {
 	required string name = 1;
 	required ContainerCommandType type = 2;
-	optional Resource need = 3;
+	optional string application = 3;
+	optional Resource need = 4;
 }
 
 message HeartBeatResponse {

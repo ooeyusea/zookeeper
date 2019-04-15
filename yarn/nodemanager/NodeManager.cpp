@@ -2,18 +2,20 @@
 #include "Configuration.h"
 
 namespace yarn {
-	bool NodeManager::Start(const YarnConfiguration & config) {
-		_name = config.GetNodeManager().GetName();
-		_ip = config.GetNodeManager().GetIp();
-		_port = config.GetNodeManager().GetPort();
-
-		if (!_nodeUpdateService.Start(config)) {
-			hn_error("start rpc server failed");
+	bool NodeManager::Start(const char * path) {
+		if (!_config.LoadFrom(path))
 			return false;
-		}
+		hn_info("load configuration success");
 
-		_containerManager.AddTo(_dispatcher);
-		_server.AddService(_containerManager);
-		return _server.Start(_ip, _port);
+		if (!_amService.Start(_config))
+			return false;
+		hn_info("start am service success");
+
+		_nodeUpdateService.Start(_config);
+		hn_info("start node heart-beat service success");
+
+		_containerManager.Start(_config);
+		hn_info("start container manager success");
+		return true;
 	}
 }

@@ -12,12 +12,26 @@ namespace yarn {
 		template <typename T> 
 		int32_t TypeReflection<T>::key;
 
-		template <typename T, T t>
-		struct Event {
+		struct EventBase {
+			virtual ~EventBase() {}
+
+			virtual void Release() = 0;
+		};
+
+		template <typename T, T t, typename E>
+		struct Event : public EventBase {
 			virtual ~Event() {}
 
 			typedef T event_type;
 			static const event_type type = t;
+
+			E e;
+
+			template <typename... Args>
+			Event(Args... args) : e(args...) {}
+
+			template <typename... Args>
+			static Event * Create(Args... args) { new Event(args...); }
 
 			virtual void Release() { delete this; }
 		};
@@ -30,7 +44,7 @@ namespace yarn {
 			template <typename E> 
 			void Register(const std::function<void (E * e)>& fn) {
 				printf("%lld\n", (int64_t)&TypeReflection<typename E::event_type>::key);
-				_functions[&TypeReflection<typename E::event_type>::key][(int64_t)E::type].push_back([fn](void * e) {
+				_functions[&TypeReflection<typename E::event_type>::key][(int64_t)E::type].push_back([fn](EventBase * e) {
 					fn(static_cast<E*>(e));
 				});
 			}
@@ -41,10 +55,10 @@ namespace yarn {
 			}
 
 		protected:
-			virtual void Dispatch(int32_t * key, int64_t type, void * p) = 0;
+			virtual void Dispatch(int32_t * key, int64_t type, EventBase * p) = 0;
 
 		protected:
-			std::unordered_map<int32_t *, std::unordered_map<int32_t, std::vector<std::function<void(void * e)>>>> _functions;
+			std::unordered_map<int32_t *, std::unordered_map<int32_t, std::vector<std::function<void(EventBase * e)>>>> _functions;
 		};
 	}
 }
