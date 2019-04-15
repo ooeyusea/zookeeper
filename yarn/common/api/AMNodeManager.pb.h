@@ -302,21 +302,6 @@ class ContainerStartParam :
   ::std::string* release_cmd();
   void set_allocated_cmd(::std::string* cmd);
 
-  // required string token = 6;
-  bool has_token() const;
-  void clear_token();
-  static const int kTokenFieldNumber = 6;
-  const ::std::string& token() const;
-  void set_token(const ::std::string& value);
-  #if LANG_CXX11
-  void set_token(::std::string&& value);
-  #endif
-  void set_token(const char* value);
-  void set_token(const char* value, size_t size);
-  ::std::string* mutable_token();
-  ::std::string* release_token();
-  void set_allocated_token(::std::string* token);
-
   // @@protoc_insertion_point(class_scope:yarn.api.ContainerStartParam)
  private:
   class HasBitSetters;
@@ -332,7 +317,6 @@ class ContainerStartParam :
   ::google::protobuf::internal::ArenaStringPtr resource_;
   ::google::protobuf::internal::ArenaStringPtr md5_;
   ::google::protobuf::internal::ArenaStringPtr cmd_;
-  ::google::protobuf::internal::ArenaStringPtr token_;
   friend struct ::TableStruct_AMNodeManager_2eproto;
 };
 // -------------------------------------------------------------------
@@ -439,10 +423,10 @@ class StartContainerRequest :
 
   // accessors -------------------------------------------------------
 
-  // repeated .yarn.api.ContainerStartParam containers = 2;
+  // repeated .yarn.api.ContainerStartParam containers = 3;
   int containers_size() const;
   void clear_containers();
-  static const int kContainersFieldNumber = 2;
+  static const int kContainersFieldNumber = 3;
   ::yarn::api::ContainerStartParam* mutable_containers(int index);
   ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam >*
       mutable_containers();
@@ -466,15 +450,34 @@ class StartContainerRequest :
   ::std::string* release_application();
   void set_allocated_application(::std::string* application);
 
+  // required string token = 2;
+  bool has_token() const;
+  void clear_token();
+  static const int kTokenFieldNumber = 2;
+  const ::std::string& token() const;
+  void set_token(const ::std::string& value);
+  #if LANG_CXX11
+  void set_token(::std::string&& value);
+  #endif
+  void set_token(const char* value);
+  void set_token(const char* value, size_t size);
+  ::std::string* mutable_token();
+  ::std::string* release_token();
+  void set_allocated_token(::std::string* token);
+
   // @@protoc_insertion_point(class_scope:yarn.api.StartContainerRequest)
  private:
   class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam > containers_;
   ::google::protobuf::internal::ArenaStringPtr application_;
+  ::google::protobuf::internal::ArenaStringPtr token_;
   friend struct ::TableStruct_AMNodeManager_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1503,66 +1506,6 @@ inline void ContainerStartParam::set_allocated_cmd(::std::string* cmd) {
   // @@protoc_insertion_point(field_set_allocated:yarn.api.ContainerStartParam.cmd)
 }
 
-// required string token = 6;
-inline bool ContainerStartParam::has_token() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void ContainerStartParam::clear_token() {
-  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline const ::std::string& ContainerStartParam::token() const {
-  // @@protoc_insertion_point(field_get:yarn.api.ContainerStartParam.token)
-  return token_.GetNoArena();
-}
-inline void ContainerStartParam::set_token(const ::std::string& value) {
-  _has_bits_[0] |= 0x00000010u;
-  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.token)
-}
-#if LANG_CXX11
-inline void ContainerStartParam::set_token(::std::string&& value) {
-  _has_bits_[0] |= 0x00000010u;
-  token_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.ContainerStartParam.token)
-}
-#endif
-inline void ContainerStartParam::set_token(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000010u;
-  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.ContainerStartParam.token)
-}
-inline void ContainerStartParam::set_token(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000010u;
-  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.ContainerStartParam.token)
-}
-inline ::std::string* ContainerStartParam::mutable_token() {
-  _has_bits_[0] |= 0x00000010u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.ContainerStartParam.token)
-  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ContainerStartParam::release_token() {
-  // @@protoc_insertion_point(field_release:yarn.api.ContainerStartParam.token)
-  if (!has_token()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000010u;
-  return token_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ContainerStartParam::set_allocated_token(::std::string* token) {
-  if (token != nullptr) {
-    _has_bits_[0] |= 0x00000010u;
-  } else {
-    _has_bits_[0] &= ~0x00000010u;
-  }
-  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.ContainerStartParam.token)
-}
-
 // -------------------------------------------------------------------
 
 // StartContainerRequest
@@ -1627,7 +1570,67 @@ inline void StartContainerRequest::set_allocated_application(::std::string* appl
   // @@protoc_insertion_point(field_set_allocated:yarn.api.StartContainerRequest.application)
 }
 
-// repeated .yarn.api.ContainerStartParam containers = 2;
+// required string token = 2;
+inline bool StartContainerRequest::has_token() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void StartContainerRequest::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::std::string& StartContainerRequest::token() const {
+  // @@protoc_insertion_point(field_get:yarn.api.StartContainerRequest.token)
+  return token_.GetNoArena();
+}
+inline void StartContainerRequest::set_token(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.api.StartContainerRequest.token)
+}
+#if LANG_CXX11
+inline void StartContainerRequest::set_token(::std::string&& value) {
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.api.StartContainerRequest.token)
+}
+#endif
+inline void StartContainerRequest::set_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.api.StartContainerRequest.token)
+}
+inline void StartContainerRequest::set_token(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.api.StartContainerRequest.token)
+}
+inline ::std::string* StartContainerRequest::mutable_token() {
+  _has_bits_[0] |= 0x00000002u;
+  // @@protoc_insertion_point(field_mutable:yarn.api.StartContainerRequest.token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* StartContainerRequest::release_token() {
+  // @@protoc_insertion_point(field_release:yarn.api.StartContainerRequest.token)
+  if (!has_token()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  return token_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void StartContainerRequest::set_allocated_token(::std::string* token) {
+  if (token != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:yarn.api.StartContainerRequest.token)
+}
+
+// repeated .yarn.api.ContainerStartParam containers = 3;
 inline int StartContainerRequest::containers_size() const {
   return containers_.size();
 }

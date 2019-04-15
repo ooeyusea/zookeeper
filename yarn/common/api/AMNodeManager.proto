@@ -9,12 +9,12 @@ message ContainerStartParam {
 	required string md5 = 3;
 	repeated string environment = 4;
 	required string cmd = 5;
-	required string token = 6;
 }
 
 message StartContainerRequest {
 	required string application = 1;
-	repeated ContainerStartParam containers = 2;
+	required string token = 2;
+	repeated ContainerStartParam containers = 3;
 }
 
 message StartContainerResponse {

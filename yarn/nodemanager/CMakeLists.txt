@@ -64,6 +64,10 @@ SET(TINYXML
 	"${PROJECT_SOURCE_DIR}/../common/xml/tinyxml/tinyxmlparser.cpp"
 )
 
+SET(FSM
+	"${PROJECT_SOURCE_DIR}/../common/fsm/fsm.h"
+)
+
 SET(EVENT
 	"${PROJECT_SOURCE_DIR}/../common/event/EventDispatcher.h"
 	"${PROJECT_SOURCE_DIR}/event/ContainerEvent.h"
@@ -102,6 +106,7 @@ SOURCE_GROUP(common\\xml FILES ${XML})
 SOURCE_GROUP(common\\xml\\tinyxml FILES ${TINYXML})
 SOURCE_GROUP(common\\event FILES ${EVENT})
 SOURCE_GROUP(common\\event\\impl FILES ${EVENT_IMPL})
+SOURCE_GROUP(common\\fsm FILES ${FSM})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
 SOURCE_GROUP(common\\proto FILES ${PROTO})
 SOURCE_GROUP(common\\api FILES ${API})
@@ -116,6 +121,7 @@ ADD_EXECUTABLE(nodemanager
 	${RPC}
 	${PROTO}
 	${API}
+	${FSM}
 )
 
 IF(WIN32)

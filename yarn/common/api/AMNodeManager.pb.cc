@@ -173,21 +173,21 @@ const ::google::protobuf::uint32 TableStruct_AMNodeManager_2eproto::offsets[] PR
   PROTOBUF_FIELD_OFFSET(::yarn::api::ContainerStartParam, md5_),
   PROTOBUF_FIELD_OFFSET(::yarn::api::ContainerStartParam, environment_),
   PROTOBUF_FIELD_OFFSET(::yarn::api::ContainerStartParam, cmd_),
-  PROTOBUF_FIELD_OFFSET(::yarn::api::ContainerStartParam, token_),
   0,
   1,
   2,
   ~0u,
   3,
-  4,
   PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerRequest, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerRequest, application_),
+  PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerRequest, token_),
   PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerRequest, containers_),
   0,
+  1,
   ~0u,
   PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::yarn::api::StartContainerResponse, _internal_metadata_),
@@ -226,8 +226,8 @@ const ::google::protobuf::uint32 TableStruct_AMNodeManager_2eproto::offsets[] PR
   ~0u,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 11, sizeof(::yarn::api::ContainerStartParam)},
-  { 17, 24, sizeof(::yarn::api::StartContainerRequest)},
+  { 0, 10, sizeof(::yarn::api::ContainerStartParam)},
+  { 15, 23, sizeof(::yarn::api::StartContainerRequest)},
   { 26, 32, sizeof(::yarn::api::StartContainerResponse)},
   { 33, 39, sizeof(::yarn::api::StopContainerRequest)},
   { 40, 46, sizeof(::yarn::api::StopContainerResponse)},
@@ -252,12 +252,12 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_AMNodeManager_2eproto[] =
-  "\n\023AMNodeManager.proto\022\010yarn.api\"s\n\023Conta"
+  "\n\023AMNodeManager.proto\022\010yarn.api\"d\n\023Conta"
   "inerStartParam\022\014\n\004name\030\001 \002(\t\022\020\n\010resource"
   "\030\002 \002(\t\022\013\n\003md5\030\003 \002(\t\022\023\n\013environment\030\004 \003(\t"
-  "\022\013\n\003cmd\030\005 \002(\t\022\r\n\005token\030\006 \002(\t\"_\n\025StartCon"
-  "tainerRequest\022\023\n\013application\030\001 \002(\t\0221\n\nco"
-  "ntainers\030\002 \003(\0132\035.yarn.api.ContainerStart"
+  "\022\013\n\003cmd\030\005 \002(\t\"n\n\025StartContainerRequest\022\023"
+  "\n\013application\030\001 \002(\t\022\r\n\005token\030\002 \002(\t\0221\n\nco"
+  "ntainers\030\003 \003(\0132\035.yarn.api.ContainerStart"
   "Param\"$\n\026StartContainerResponse\022\n\n\002ok\030\001 "
   "\002(\010\"$\n\024StopContainerRequest\022\014\n\004name\030\001 \002("
   "\t\"#\n\025StopContainerResponse\022\n\n\002ok\030\001 \002(\010\"*"
@@ -336,9 +336,6 @@ class ContainerStartParam::HasBitSetters {
   static void set_has_cmd(ContainerStartParam* msg) {
     msg->_has_bits_[0] |= 0x00000008u;
   }
-  static void set_has_token(ContainerStartParam* msg) {
-    msg->_has_bits_[0] |= 0x00000010u;
-  }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -347,7 +344,6 @@ const int ContainerStartParam::kResourceFieldNumber;
 const int ContainerStartParam::kMd5FieldNumber;
 const int ContainerStartParam::kEnvironmentFieldNumber;
 const int ContainerStartParam::kCmdFieldNumber;
-const int ContainerStartParam::kTokenFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ContainerStartParam::ContainerStartParam()
@@ -377,10 +373,6 @@ ContainerStartParam::ContainerStartParam(const ContainerStartParam& from)
   if (from.has_cmd()) {
     cmd_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.cmd_);
   }
-  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_token()) {
-    token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
-  }
   // @@protoc_insertion_point(copy_constructor:yarn.api.ContainerStartParam)
 }
 
@@ -391,7 +383,6 @@ void ContainerStartParam::SharedCtor() {
   resource_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   md5_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   cmd_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 ContainerStartParam::~ContainerStartParam() {
@@ -404,7 +395,6 @@ void ContainerStartParam::SharedDtor() {
   resource_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   md5_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   cmd_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void ContainerStartParam::SetCachedSize(int size) const {
@@ -424,7 +414,7 @@ void ContainerStartParam::Clear() {
 
   environment_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       name_.ClearNonDefaultToEmptyNoArena();
     }
@@ -436,9 +426,6 @@ void ContainerStartParam::Clear() {
     }
     if (cached_has_bits & 0x00000008u) {
       cmd_.ClearNonDefaultToEmptyNoArena();
-    }
-    if (cached_has_bits & 0x00000010u) {
-      token_.ClearNonDefaultToEmptyNoArena();
     }
   }
   _has_bits_.Clear();
@@ -532,22 +519,6 @@ const char* ContainerStartParam::_InternalParse(const char* begin, const char* e
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("yarn.api.ContainerStartParam.cmd");
         object = msg->mutable_cmd();
-        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
-          goto string_till_end;
-        }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
-        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
-        ptr += size;
-        break;
-      }
-      // required string token = 6;
-      case 6: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
-        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("yarn.api.ContainerStartParam.token");
-        object = msg->mutable_token();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
           parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
           goto string_till_end;
@@ -667,21 +638,6 @@ bool ContainerStartParam::MergePartialFromCodedStream(
         break;
       }
 
-      // required string token = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_token()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->token().data(), static_cast<int>(this->token().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "yarn.api.ContainerStartParam.token");
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -760,16 +716,6 @@ void ContainerStartParam::SerializeWithCachedSizes(
       5, this->cmd(), output);
   }
 
-  // required string token = 6;
-  if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->token().data(), static_cast<int>(this->token().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "yarn.api.ContainerStartParam.token");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->token(), output);
-  }
-
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -838,17 +784,6 @@ void ContainerStartParam::SerializeWithCachedSizes(
         5, this->cmd(), target);
   }
 
-  // required string token = 6;
-  if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->token().data(), static_cast<int>(this->token().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "yarn.api.ContainerStartParam.token");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->token(), target);
-  }
-
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -889,13 +824,6 @@ size_t ContainerStartParam::RequiredFieldsByteSizeFallback() const {
         this->cmd());
   }
 
-  if (has_token()) {
-    // required string token = 6;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->token());
-  }
-
   return total_size;
 }
 size_t ContainerStartParam::ByteSizeLong() const {
@@ -907,7 +835,7 @@ size_t ContainerStartParam::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x0000001f) ^ 0x0000001f) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
     // required string name = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -927,11 +855,6 @@ size_t ContainerStartParam::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->cmd());
-
-    // required string token = 6;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->token());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -977,7 +900,7 @@ void ContainerStartParam::MergeFrom(const ContainerStartParam& from) {
 
   environment_.MergeFrom(from.environment_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
@@ -993,10 +916,6 @@ void ContainerStartParam::MergeFrom(const ContainerStartParam& from) {
     if (cached_has_bits & 0x00000008u) {
       _has_bits_[0] |= 0x00000008u;
       cmd_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.cmd_);
-    }
-    if (cached_has_bits & 0x00000010u) {
-      _has_bits_[0] |= 0x00000010u;
-      token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
     }
   }
 }
@@ -1016,7 +935,7 @@ void ContainerStartParam::CopyFrom(const ContainerStartParam& from) {
 }
 
 bool ContainerStartParam::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   return true;
 }
 
@@ -1037,8 +956,6 @@ void ContainerStartParam::InternalSwap(ContainerStartParam* other) {
     GetArenaNoVirtual());
   cmd_.Swap(&other->cmd_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
-  token_.Swap(&other->token_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
 }
 
 ::google::protobuf::Metadata ContainerStartParam::GetMetadata() const {
@@ -1056,10 +973,14 @@ class StartContainerRequest::HasBitSetters {
   static void set_has_application(StartContainerRequest* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
+  static void set_has_token(StartContainerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int StartContainerRequest::kApplicationFieldNumber;
+const int StartContainerRequest::kTokenFieldNumber;
 const int StartContainerRequest::kContainersFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1078,6 +999,10 @@ StartContainerRequest::StartContainerRequest(const StartContainerRequest& from)
   if (from.has_application()) {
     application_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.application_);
   }
+  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_token()) {
+    token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
+  }
   // @@protoc_insertion_point(copy_constructor:yarn.api.StartContainerRequest)
 }
 
@@ -1085,6 +1010,7 @@ void StartContainerRequest::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_StartContainerRequest_AMNodeManager_2eproto.base);
   application_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 StartContainerRequest::~StartContainerRequest() {
@@ -1094,6 +1020,7 @@ StartContainerRequest::~StartContainerRequest() {
 
 void StartContainerRequest::SharedDtor() {
   application_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void StartContainerRequest::SetCachedSize(int size) const {
@@ -1113,8 +1040,13 @@ void StartContainerRequest::Clear() {
 
   containers_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    application_.ClearNonDefaultToEmptyNoArena();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      application_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      token_.ClearNonDefaultToEmptyNoArena();
+    }
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -1149,9 +1081,25 @@ const char* StartContainerRequest::_InternalParse(const char* begin, const char*
         ptr += size;
         break;
       }
-      // repeated .yarn.api.ContainerStartParam containers = 2;
+      // required string token = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("yarn.api.StartContainerRequest.token");
+        object = msg->mutable_token();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // repeated .yarn.api.ContainerStartParam containers = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
         do {
           ptr = ::google::protobuf::io::ReadSize(ptr, &size);
           GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
@@ -1162,7 +1110,7 @@ const char* StartContainerRequest::_InternalParse(const char* begin, const char*
           GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
               {parser_till_end, object}, ptr - size, ptr));
           if (ptr >= end) break;
-        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 18 && (ptr += 1));
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 26 && (ptr += 1));
         break;
       }
       default: {
@@ -1214,9 +1162,24 @@ bool StartContainerRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .yarn.api.ContainerStartParam containers = 2;
+      // required string token = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_token()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->token().data(), static_cast<int>(this->token().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "yarn.api.StartContainerRequest.token");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .yarn.api.ContainerStartParam containers = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                 input, add_containers()));
         } else {
@@ -1263,11 +1226,21 @@ void StartContainerRequest::SerializeWithCachedSizes(
       1, this->application(), output);
   }
 
-  // repeated .yarn.api.ContainerStartParam containers = 2;
+  // required string token = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->token().data(), static_cast<int>(this->token().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "yarn.api.StartContainerRequest.token");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->token(), output);
+  }
+
+  // repeated .yarn.api.ContainerStartParam containers = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->containers_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2,
+      3,
       this->containers(static_cast<int>(i)),
       output);
   }
@@ -1297,12 +1270,23 @@ void StartContainerRequest::SerializeWithCachedSizes(
         1, this->application(), target);
   }
 
-  // repeated .yarn.api.ContainerStartParam containers = 2;
+  // required string token = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->token().data(), static_cast<int>(this->token().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "yarn.api.StartContainerRequest.token");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->token(), target);
+  }
+
+  // repeated .yarn.api.ContainerStartParam containers = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->containers_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, this->containers(static_cast<int>(i)), target);
+        3, this->containers(static_cast<int>(i)), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1313,6 +1297,26 @@ void StartContainerRequest::SerializeWithCachedSizes(
   return target;
 }
 
+size_t StartContainerRequest::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:yarn.api.StartContainerRequest)
+  size_t total_size = 0;
+
+  if (has_application()) {
+    // required string application = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->application());
+  }
+
+  if (has_token()) {
+    // required string token = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->token());
+  }
+
+  return total_size;
+}
 size_t StartContainerRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:yarn.api.StartContainerRequest)
   size_t total_size = 0;
@@ -1322,17 +1326,25 @@ size_t StartContainerRequest::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  // required string application = 1;
-  if (has_application()) {
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required string application = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->application());
+
+    // required string token = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->token());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
   }
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .yarn.api.ContainerStartParam containers = 2;
+  // repeated .yarn.api.ContainerStartParam containers = 3;
   {
     unsigned int count = static_cast<unsigned int>(this->containers_size());
     total_size += 1UL * count;
@@ -1371,9 +1383,16 @@ void StartContainerRequest::MergeFrom(const StartContainerRequest& from) {
   (void) cached_has_bits;
 
   containers_.MergeFrom(from.containers_);
-  if (from.has_application()) {
-    _has_bits_[0] |= 0x00000001u;
-    application_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.application_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _has_bits_[0] |= 0x00000001u;
+      application_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.application_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _has_bits_[0] |= 0x00000002u;
+      token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
+    }
   }
 }
 
@@ -1392,7 +1411,7 @@ void StartContainerRequest::CopyFrom(const StartContainerRequest& from) {
 }
 
 bool StartContainerRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   if (!::google::protobuf::internal::AllAreInitialized(this->containers())) return false;
   return true;
 }
@@ -1407,6 +1426,8 @@ void StartContainerRequest::InternalSwap(StartContainerRequest* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   CastToBase(&containers_)->InternalSwap(CastToBase(&other->containers_));
   application_.Swap(&other->application_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  token_.Swap(&other->token_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }
 

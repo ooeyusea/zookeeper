@@ -7,8 +7,6 @@ namespace yarn {
 			hn_error("start am service rpc failed");
 			return false;
 		}
-
-		hn_error("start am service success");
 		return true;
 	}
 

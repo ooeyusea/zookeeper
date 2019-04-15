@@ -37,11 +37,23 @@ enum ContainerCommandType {
 	CLEANUP = 1;
 }
 
-message ContainerCommand {
+message ContrainerNeed {
 	required string name = 1;
-	required ContainerCommandType type = 2;
-	optional string application = 3;
-	optional Resource need = 4;
+	required Resource need = 2;
+}
+
+message InitContrainerCommand {
+	required string application = 1;
+	required string token = 2;
+	repeated ContrainerNeed containers = 3;
+}
+
+message ContainerCommand {
+	required ContainerCommandType type = 1;
+	oneof CommandGroup {
+		InitContrainerCommand init = 2;
+		string cleanup = 3;
+	}
 }
 
 message HeartBeatResponse {

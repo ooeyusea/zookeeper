@@ -43,7 +43,7 @@ struct TableStruct_NMProtocol_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[7]
+  static const ::google::protobuf::internal::ParseTable schema[9]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -58,12 +58,18 @@ extern ContainerDefaultTypeInternal _Container_default_instance_;
 class ContainerCommand;
 class ContainerCommandDefaultTypeInternal;
 extern ContainerCommandDefaultTypeInternal _ContainerCommand_default_instance_;
+class ContrainerNeed;
+class ContrainerNeedDefaultTypeInternal;
+extern ContrainerNeedDefaultTypeInternal _ContrainerNeed_default_instance_;
 class HeartBeatRequest;
 class HeartBeatRequestDefaultTypeInternal;
 extern HeartBeatRequestDefaultTypeInternal _HeartBeatRequest_default_instance_;
 class HeartBeatResponse;
 class HeartBeatResponseDefaultTypeInternal;
 extern HeartBeatResponseDefaultTypeInternal _HeartBeatResponse_default_instance_;
+class InitContrainerCommand;
+class InitContrainerCommandDefaultTypeInternal;
+extern InitContrainerCommandDefaultTypeInternal _InitContrainerCommand_default_instance_;
 class RegisterNMRequest;
 class RegisterNMRequestDefaultTypeInternal;
 extern RegisterNMRequestDefaultTypeInternal _RegisterNMRequest_default_instance_;
@@ -79,8 +85,10 @@ namespace google {
 namespace protobuf {
 template<> ::yarn::proto::Container* Arena::CreateMaybeMessage<::yarn::proto::Container>(Arena*);
 template<> ::yarn::proto::ContainerCommand* Arena::CreateMaybeMessage<::yarn::proto::ContainerCommand>(Arena*);
+template<> ::yarn::proto::ContrainerNeed* Arena::CreateMaybeMessage<::yarn::proto::ContrainerNeed>(Arena*);
 template<> ::yarn::proto::HeartBeatRequest* Arena::CreateMaybeMessage<::yarn::proto::HeartBeatRequest>(Arena*);
 template<> ::yarn::proto::HeartBeatResponse* Arena::CreateMaybeMessage<::yarn::proto::HeartBeatResponse>(Arena*);
+template<> ::yarn::proto::InitContrainerCommand* Arena::CreateMaybeMessage<::yarn::proto::InitContrainerCommand>(Arena*);
 template<> ::yarn::proto::RegisterNMRequest* Arena::CreateMaybeMessage<::yarn::proto::RegisterNMRequest>(Arena*);
 template<> ::yarn::proto::RegisterNMResponse* Arena::CreateMaybeMessage<::yarn::proto::RegisterNMResponse>(Arena*);
 template<> ::yarn::proto::Resource* Arena::CreateMaybeMessage<::yarn::proto::Resource>(Arena*);
@@ -837,6 +845,309 @@ class HeartBeatRequest :
 };
 // -------------------------------------------------------------------
 
+class ContrainerNeed :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.ContrainerNeed) */ {
+ public:
+  ContrainerNeed();
+  virtual ~ContrainerNeed();
+
+  ContrainerNeed(const ContrainerNeed& from);
+
+  inline ContrainerNeed& operator=(const ContrainerNeed& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ContrainerNeed(ContrainerNeed&& from) noexcept
+    : ContrainerNeed() {
+    *this = ::std::move(from);
+  }
+
+  inline ContrainerNeed& operator=(ContrainerNeed&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const ContrainerNeed& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ContrainerNeed* internal_default_instance() {
+    return reinterpret_cast<const ContrainerNeed*>(
+               &_ContrainerNeed_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  void Swap(ContrainerNeed* other);
+  friend void swap(ContrainerNeed& a, ContrainerNeed& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ContrainerNeed* New() const final {
+    return CreateMaybeMessage<ContrainerNeed>(nullptr);
+  }
+
+  ContrainerNeed* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ContrainerNeed>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ContrainerNeed& from);
+  void MergeFrom(const ContrainerNeed& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ContrainerNeed* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required string name = 1;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // required .yarn.proto.Resource need = 2;
+  bool has_need() const;
+  void clear_need();
+  static const int kNeedFieldNumber = 2;
+  const ::yarn::proto::Resource& need() const;
+  ::yarn::proto::Resource* release_need();
+  ::yarn::proto::Resource* mutable_need();
+  void set_allocated_need(::yarn::proto::Resource* need);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.ContrainerNeed)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::yarn::proto::Resource* need_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InitContrainerCommand :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.InitContrainerCommand) */ {
+ public:
+  InitContrainerCommand();
+  virtual ~InitContrainerCommand();
+
+  InitContrainerCommand(const InitContrainerCommand& from);
+
+  inline InitContrainerCommand& operator=(const InitContrainerCommand& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  InitContrainerCommand(InitContrainerCommand&& from) noexcept
+    : InitContrainerCommand() {
+    *this = ::std::move(from);
+  }
+
+  inline InitContrainerCommand& operator=(InitContrainerCommand&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const InitContrainerCommand& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const InitContrainerCommand* internal_default_instance() {
+    return reinterpret_cast<const InitContrainerCommand*>(
+               &_InitContrainerCommand_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(InitContrainerCommand* other);
+  friend void swap(InitContrainerCommand& a, InitContrainerCommand& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline InitContrainerCommand* New() const final {
+    return CreateMaybeMessage<InitContrainerCommand>(nullptr);
+  }
+
+  InitContrainerCommand* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<InitContrainerCommand>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const InitContrainerCommand& from);
+  void MergeFrom(const InitContrainerCommand& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InitContrainerCommand* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .yarn.proto.ContrainerNeed containers = 3;
+  int containers_size() const;
+  void clear_containers();
+  static const int kContainersFieldNumber = 3;
+  ::yarn::proto::ContrainerNeed* mutable_containers(int index);
+  ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContrainerNeed >*
+      mutable_containers();
+  const ::yarn::proto::ContrainerNeed& containers(int index) const;
+  ::yarn::proto::ContrainerNeed* add_containers();
+  const ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContrainerNeed >&
+      containers() const;
+
+  // required string application = 1;
+  bool has_application() const;
+  void clear_application();
+  static const int kApplicationFieldNumber = 1;
+  const ::std::string& application() const;
+  void set_application(const ::std::string& value);
+  #if LANG_CXX11
+  void set_application(::std::string&& value);
+  #endif
+  void set_application(const char* value);
+  void set_application(const char* value, size_t size);
+  ::std::string* mutable_application();
+  ::std::string* release_application();
+  void set_allocated_application(::std::string* application);
+
+  // required string token = 2;
+  bool has_token() const;
+  void clear_token();
+  static const int kTokenFieldNumber = 2;
+  const ::std::string& token() const;
+  void set_token(const ::std::string& value);
+  #if LANG_CXX11
+  void set_token(::std::string&& value);
+  #endif
+  void set_token(const char* value);
+  void set_token(const char* value, size_t size);
+  ::std::string* mutable_token();
+  ::std::string* release_token();
+  void set_allocated_token(::std::string* token);
+
+  // @@protoc_insertion_point(class_scope:yarn.proto.InitContrainerCommand)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContrainerNeed > containers_;
+  ::google::protobuf::internal::ArenaStringPtr application_;
+  ::google::protobuf::internal::ArenaStringPtr token_;
+  friend struct ::TableStruct_NMProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ContainerCommand :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.proto.ContainerCommand) */ {
  public:
@@ -876,13 +1187,19 @@ class ContainerCommand :
   }
   static const ContainerCommand& default_instance();
 
+  enum CommandGroupCase {
+    kInit = 2,
+    kCleanup = 3,
+    COMMANDGROUP_NOT_SET = 0,
+  };
+
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
   static inline const ContainerCommand* internal_default_instance() {
     return reinterpret_cast<const ContainerCommand*>(
                &_ContainerCommand_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   void Swap(ContainerCommand* other);
   friend void swap(ContainerCommand& a, ContainerCommand& b) {
@@ -939,66 +1256,59 @@ class ContainerCommand :
 
   // accessors -------------------------------------------------------
 
-  // required string name = 1;
-  bool has_name() const;
-  void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
-
-  // optional string application = 3;
-  bool has_application() const;
-  void clear_application();
-  static const int kApplicationFieldNumber = 3;
-  const ::std::string& application() const;
-  void set_application(const ::std::string& value);
-  #if LANG_CXX11
-  void set_application(::std::string&& value);
-  #endif
-  void set_application(const char* value);
-  void set_application(const char* value, size_t size);
-  ::std::string* mutable_application();
-  ::std::string* release_application();
-  void set_allocated_application(::std::string* application);
-
-  // optional .yarn.proto.Resource need = 4;
-  bool has_need() const;
-  void clear_need();
-  static const int kNeedFieldNumber = 4;
-  const ::yarn::proto::Resource& need() const;
-  ::yarn::proto::Resource* release_need();
-  ::yarn::proto::Resource* mutable_need();
-  void set_allocated_need(::yarn::proto::Resource* need);
-
-  // required .yarn.proto.ContainerCommandType type = 2;
+  // required .yarn.proto.ContainerCommandType type = 1;
   bool has_type() const;
   void clear_type();
-  static const int kTypeFieldNumber = 2;
+  static const int kTypeFieldNumber = 1;
   ::yarn::proto::ContainerCommandType type() const;
   void set_type(::yarn::proto::ContainerCommandType value);
 
+  // optional .yarn.proto.InitContrainerCommand init = 2;
+  bool has_init() const;
+  void clear_init();
+  static const int kInitFieldNumber = 2;
+  const ::yarn::proto::InitContrainerCommand& init() const;
+  ::yarn::proto::InitContrainerCommand* release_init();
+  ::yarn::proto::InitContrainerCommand* mutable_init();
+  void set_allocated_init(::yarn::proto::InitContrainerCommand* init);
+
+  // optional string cleanup = 3;
+  bool has_cleanup() const;
+  void clear_cleanup();
+  static const int kCleanupFieldNumber = 3;
+  const ::std::string& cleanup() const;
+  void set_cleanup(const ::std::string& value);
+  #if LANG_CXX11
+  void set_cleanup(::std::string&& value);
+  #endif
+  void set_cleanup(const char* value);
+  void set_cleanup(const char* value, size_t size);
+  ::std::string* mutable_cleanup();
+  ::std::string* release_cleanup();
+  void set_allocated_cleanup(::std::string* cleanup);
+
+  void clear_CommandGroup();
+  CommandGroupCase CommandGroup_case() const;
   // @@protoc_insertion_point(class_scope:yarn.proto.ContainerCommand)
  private:
   class HasBitSetters;
+  void set_has_init();
+  void set_has_cleanup();
 
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
+  inline bool has_CommandGroup() const;
+  inline void clear_has_CommandGroup();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
-  ::google::protobuf::internal::ArenaStringPtr application_;
-  ::yarn::proto::Resource* need_;
   int type_;
+  union CommandGroupUnion {
+    CommandGroupUnion() {}
+    ::yarn::proto::InitContrainerCommand* init_;
+    ::google::protobuf::internal::ArenaStringPtr cleanup_;
+  } CommandGroup_;
+  ::google::protobuf::uint32 _oneof_case_[1];
+
   friend struct ::TableStruct_NMProtocol_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1048,7 +1358,7 @@ class HeartBeatResponse :
                &_HeartBeatResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   void Swap(HeartBeatResponse* other);
   friend void swap(HeartBeatResponse& a, HeartBeatResponse& b) {
@@ -1717,178 +2027,99 @@ HeartBeatRequest::containers() const {
 
 // -------------------------------------------------------------------
 
-// ContainerCommand
+// ContrainerNeed
 
 // required string name = 1;
-inline bool ContainerCommand::has_name() const {
+inline bool ContrainerNeed::has_name() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ContainerCommand::clear_name() {
+inline void ContrainerNeed::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::std::string& ContainerCommand::name() const {
-  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.name)
+inline const ::std::string& ContrainerNeed::name() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContrainerNeed.name)
   return name_.GetNoArena();
 }
-inline void ContainerCommand::set_name(const ::std::string& value) {
+inline void ContrainerNeed::set_name(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.name)
+  // @@protoc_insertion_point(field_set:yarn.proto.ContrainerNeed.name)
 }
 #if LANG_CXX11
-inline void ContainerCommand::set_name(::std::string&& value) {
+inline void ContrainerNeed::set_name(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.ContainerCommand.name)
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.ContrainerNeed.name)
 }
 #endif
-inline void ContainerCommand::set_name(const char* value) {
+inline void ContrainerNeed::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.proto.ContainerCommand.name)
+  // @@protoc_insertion_point(field_set_char:yarn.proto.ContrainerNeed.name)
 }
-inline void ContainerCommand::set_name(const char* value, size_t size) {
+inline void ContrainerNeed::set_name(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.proto.ContainerCommand.name)
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.ContrainerNeed.name)
 }
-inline ::std::string* ContainerCommand::mutable_name() {
+inline ::std::string* ContrainerNeed::mutable_name() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.name)
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContrainerNeed.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ContainerCommand::release_name() {
-  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.name)
+inline ::std::string* ContrainerNeed::release_name() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContrainerNeed.name)
   if (!has_name()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000001u;
   return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ContainerCommand::set_allocated_name(::std::string* name) {
+inline void ContrainerNeed::set_allocated_name(::std::string* name) {
   if (name != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.name)
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContrainerNeed.name)
 }
 
-// required .yarn.proto.ContainerCommandType type = 2;
-inline bool ContainerCommand::has_type() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void ContainerCommand::clear_type() {
-  type_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline ::yarn::proto::ContainerCommandType ContainerCommand::type() const {
-  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.type)
-  return static_cast< ::yarn::proto::ContainerCommandType >(type_);
-}
-inline void ContainerCommand::set_type(::yarn::proto::ContainerCommandType value) {
-  assert(::yarn::proto::ContainerCommandType_IsValid(value));
-  _has_bits_[0] |= 0x00000008u;
-  type_ = value;
-  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.type)
-}
-
-// optional string application = 3;
-inline bool ContainerCommand::has_application() const {
+// required .yarn.proto.Resource need = 2;
+inline bool ContrainerNeed::has_need() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ContainerCommand::clear_application() {
-  application_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline const ::std::string& ContainerCommand::application() const {
-  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.application)
-  return application_.GetNoArena();
-}
-inline void ContainerCommand::set_application(const ::std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
-  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.application)
-}
-#if LANG_CXX11
-inline void ContainerCommand::set_application(::std::string&& value) {
-  _has_bits_[0] |= 0x00000002u;
-  application_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.ContainerCommand.application)
-}
-#endif
-inline void ContainerCommand::set_application(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000002u;
-  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.proto.ContainerCommand.application)
-}
-inline void ContainerCommand::set_application(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000002u;
-  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.proto.ContainerCommand.application)
-}
-inline ::std::string* ContainerCommand::mutable_application() {
-  _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.application)
-  return application_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ContainerCommand::release_application() {
-  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.application)
-  if (!has_application()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return application_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ContainerCommand::set_allocated_application(::std::string* application) {
-  if (application != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  application_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), application);
-  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.application)
-}
-
-// optional .yarn.proto.Resource need = 4;
-inline bool ContainerCommand::has_need() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void ContainerCommand::clear_need() {
+inline void ContrainerNeed::clear_need() {
   if (need_ != nullptr) need_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::yarn::proto::Resource& ContainerCommand::need() const {
+inline const ::yarn::proto::Resource& ContrainerNeed::need() const {
   const ::yarn::proto::Resource* p = need_;
-  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.need)
+  // @@protoc_insertion_point(field_get:yarn.proto.ContrainerNeed.need)
   return p != nullptr ? *p : *reinterpret_cast<const ::yarn::proto::Resource*>(
       &::yarn::proto::_Resource_default_instance_);
 }
-inline ::yarn::proto::Resource* ContainerCommand::release_need() {
-  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.need)
-  _has_bits_[0] &= ~0x00000004u;
+inline ::yarn::proto::Resource* ContrainerNeed::release_need() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContrainerNeed.need)
+  _has_bits_[0] &= ~0x00000002u;
   ::yarn::proto::Resource* temp = need_;
   need_ = nullptr;
   return temp;
 }
-inline ::yarn::proto::Resource* ContainerCommand::mutable_need() {
-  _has_bits_[0] |= 0x00000004u;
+inline ::yarn::proto::Resource* ContrainerNeed::mutable_need() {
+  _has_bits_[0] |= 0x00000002u;
   if (need_ == nullptr) {
     auto* p = CreateMaybeMessage<::yarn::proto::Resource>(GetArenaNoVirtual());
     need_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.need)
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContrainerNeed.need)
   return need_;
 }
-inline void ContainerCommand::set_allocated_need(::yarn::proto::Resource* need) {
+inline void ContrainerNeed::set_allocated_need(::yarn::proto::Resource* need) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete need_;
@@ -1899,14 +2130,333 @@ inline void ContainerCommand::set_allocated_need(::yarn::proto::Resource* need) 
       need = ::google::protobuf::internal::GetOwnedMessage(
           message_arena, need, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000002u;
   }
   need_ = need;
-  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.need)
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContrainerNeed.need)
 }
 
+// -------------------------------------------------------------------
+
+// InitContrainerCommand
+
+// required string application = 1;
+inline bool InitContrainerCommand::has_application() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void InitContrainerCommand::clear_application() {
+  application_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::std::string& InitContrainerCommand::application() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.InitContrainerCommand.application)
+  return application_.GetNoArena();
+}
+inline void InitContrainerCommand::set_application(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.InitContrainerCommand.application)
+}
+#if LANG_CXX11
+inline void InitContrainerCommand::set_application(::std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  application_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.InitContrainerCommand.application)
+}
+#endif
+inline void InitContrainerCommand::set_application(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.InitContrainerCommand.application)
+}
+inline void InitContrainerCommand::set_application(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.InitContrainerCommand.application)
+}
+inline ::std::string* InitContrainerCommand::mutable_application() {
+  _has_bits_[0] |= 0x00000001u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.InitContrainerCommand.application)
+  return application_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* InitContrainerCommand::release_application() {
+  // @@protoc_insertion_point(field_release:yarn.proto.InitContrainerCommand.application)
+  if (!has_application()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return application_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitContrainerCommand::set_allocated_application(::std::string* application) {
+  if (application != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  application_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), application);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.InitContrainerCommand.application)
+}
+
+// required string token = 2;
+inline bool InitContrainerCommand::has_token() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void InitContrainerCommand::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::std::string& InitContrainerCommand::token() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.InitContrainerCommand.token)
+  return token_.GetNoArena();
+}
+inline void InitContrainerCommand::set_token(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.InitContrainerCommand.token)
+}
+#if LANG_CXX11
+inline void InitContrainerCommand::set_token(::std::string&& value) {
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.InitContrainerCommand.token)
+}
+#endif
+inline void InitContrainerCommand::set_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.InitContrainerCommand.token)
+}
+inline void InitContrainerCommand::set_token(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000002u;
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.InitContrainerCommand.token)
+}
+inline ::std::string* InitContrainerCommand::mutable_token() {
+  _has_bits_[0] |= 0x00000002u;
+  // @@protoc_insertion_point(field_mutable:yarn.proto.InitContrainerCommand.token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* InitContrainerCommand::release_token() {
+  // @@protoc_insertion_point(field_release:yarn.proto.InitContrainerCommand.token)
+  if (!has_token()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  return token_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitContrainerCommand::set_allocated_token(::std::string* token) {
+  if (token != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.InitContrainerCommand.token)
+}
+
+// repeated .yarn.proto.ContrainerNeed containers = 3;
+inline int InitContrainerCommand::containers_size() const {
+  return containers_.size();
+}
+inline void InitContrainerCommand::clear_containers() {
+  containers_.Clear();
+}
+inline ::yarn::proto::ContrainerNeed* InitContrainerCommand::mutable_containers(int index) {
+  // @@protoc_insertion_point(field_mutable:yarn.proto.InitContrainerCommand.containers)
+  return containers_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContrainerNeed >*
+InitContrainerCommand::mutable_containers() {
+  // @@protoc_insertion_point(field_mutable_list:yarn.proto.InitContrainerCommand.containers)
+  return &containers_;
+}
+inline const ::yarn::proto::ContrainerNeed& InitContrainerCommand::containers(int index) const {
+  // @@protoc_insertion_point(field_get:yarn.proto.InitContrainerCommand.containers)
+  return containers_.Get(index);
+}
+inline ::yarn::proto::ContrainerNeed* InitContrainerCommand::add_containers() {
+  // @@protoc_insertion_point(field_add:yarn.proto.InitContrainerCommand.containers)
+  return containers_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::yarn::proto::ContrainerNeed >&
+InitContrainerCommand::containers() const {
+  // @@protoc_insertion_point(field_list:yarn.proto.InitContrainerCommand.containers)
+  return containers_;
+}
+
+// -------------------------------------------------------------------
+
+// ContainerCommand
+
+// required .yarn.proto.ContainerCommandType type = 1;
+inline bool ContainerCommand::has_type() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ContainerCommand::clear_type() {
+  type_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::yarn::proto::ContainerCommandType ContainerCommand::type() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.type)
+  return static_cast< ::yarn::proto::ContainerCommandType >(type_);
+}
+inline void ContainerCommand::set_type(::yarn::proto::ContainerCommandType value) {
+  assert(::yarn::proto::ContainerCommandType_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  type_ = value;
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.type)
+}
+
+// optional .yarn.proto.InitContrainerCommand init = 2;
+inline bool ContainerCommand::has_init() const {
+  return CommandGroup_case() == kInit;
+}
+inline void ContainerCommand::set_has_init() {
+  _oneof_case_[0] = kInit;
+}
+inline void ContainerCommand::clear_init() {
+  if (has_init()) {
+    delete CommandGroup_.init_;
+    clear_has_CommandGroup();
+  }
+}
+inline ::yarn::proto::InitContrainerCommand* ContainerCommand::release_init() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.init)
+  if (has_init()) {
+    clear_has_CommandGroup();
+      ::yarn::proto::InitContrainerCommand* temp = CommandGroup_.init_;
+    CommandGroup_.init_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::yarn::proto::InitContrainerCommand& ContainerCommand::init() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.init)
+  return has_init()
+      ? *CommandGroup_.init_
+      : *reinterpret_cast< ::yarn::proto::InitContrainerCommand*>(&::yarn::proto::_InitContrainerCommand_default_instance_);
+}
+inline ::yarn::proto::InitContrainerCommand* ContainerCommand::mutable_init() {
+  if (!has_init()) {
+    clear_CommandGroup();
+    set_has_init();
+    CommandGroup_.init_ = CreateMaybeMessage< ::yarn::proto::InitContrainerCommand >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.init)
+  return CommandGroup_.init_;
+}
+
+// optional string cleanup = 3;
+inline bool ContainerCommand::has_cleanup() const {
+  return CommandGroup_case() == kCleanup;
+}
+inline void ContainerCommand::set_has_cleanup() {
+  _oneof_case_[0] = kCleanup;
+}
+inline void ContainerCommand::clear_cleanup() {
+  if (has_cleanup()) {
+    CommandGroup_.cleanup_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    clear_has_CommandGroup();
+  }
+}
+inline const ::std::string& ContainerCommand::cleanup() const {
+  // @@protoc_insertion_point(field_get:yarn.proto.ContainerCommand.cleanup)
+  if (has_cleanup()) {
+    return CommandGroup_.cleanup_.GetNoArena();
+  }
+  return *&::google::protobuf::internal::GetEmptyStringAlreadyInited();
+}
+inline void ContainerCommand::set_cleanup(const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.cleanup)
+  if (!has_cleanup()) {
+    clear_CommandGroup();
+    set_has_cleanup();
+    CommandGroup_.cleanup_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  CommandGroup_.cleanup_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.cleanup)
+}
+#if LANG_CXX11
+inline void ContainerCommand::set_cleanup(::std::string&& value) {
+  // @@protoc_insertion_point(field_set:yarn.proto.ContainerCommand.cleanup)
+  if (!has_cleanup()) {
+    clear_CommandGroup();
+    set_has_cleanup();
+    CommandGroup_.cleanup_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  CommandGroup_.cleanup_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:yarn.proto.ContainerCommand.cleanup)
+}
+#endif
+inline void ContainerCommand::set_cleanup(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  if (!has_cleanup()) {
+    clear_CommandGroup();
+    set_has_cleanup();
+    CommandGroup_.cleanup_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  CommandGroup_.cleanup_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:yarn.proto.ContainerCommand.cleanup)
+}
+inline void ContainerCommand::set_cleanup(const char* value, size_t size) {
+  if (!has_cleanup()) {
+    clear_CommandGroup();
+    set_has_cleanup();
+    CommandGroup_.cleanup_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  CommandGroup_.cleanup_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:yarn.proto.ContainerCommand.cleanup)
+}
+inline ::std::string* ContainerCommand::mutable_cleanup() {
+  if (!has_cleanup()) {
+    clear_CommandGroup();
+    set_has_cleanup();
+    CommandGroup_.cleanup_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_mutable:yarn.proto.ContainerCommand.cleanup)
+  return CommandGroup_.cleanup_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ContainerCommand::release_cleanup() {
+  // @@protoc_insertion_point(field_release:yarn.proto.ContainerCommand.cleanup)
+  if (has_cleanup()) {
+    clear_has_CommandGroup();
+    return CommandGroup_.cleanup_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  } else {
+    return nullptr;
+  }
+}
+inline void ContainerCommand::set_allocated_cleanup(::std::string* cleanup) {
+  if (has_CommandGroup()) {
+    clear_CommandGroup();
+  }
+  if (cleanup != nullptr) {
+    set_has_cleanup();
+    CommandGroup_.cleanup_.UnsafeSetDefault(cleanup);
+  }
+  // @@protoc_insertion_point(field_set_allocated:yarn.proto.ContainerCommand.cleanup)
+}
+
+inline bool ContainerCommand::has_CommandGroup() const {
+  return CommandGroup_case() != COMMANDGROUP_NOT_SET;
+}
+inline void ContainerCommand::clear_has_CommandGroup() {
+  _oneof_case_[0] = COMMANDGROUP_NOT_SET;
+}
+inline ContainerCommand::CommandGroupCase ContainerCommand::CommandGroup_case() const {
+  return ContainerCommand::CommandGroupCase(_oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // HeartBeatResponse
@@ -1944,6 +2494,10 @@ HeartBeatResponse::commands() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
