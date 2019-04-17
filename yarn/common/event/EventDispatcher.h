@@ -31,7 +31,7 @@ namespace yarn {
 			Event(Args... args) : e(args...) {}
 
 			template <typename... Args>
-			static Event * Create(Args... args) { new Event(args...); }
+			static Event * Create(Args... args) { return new Event(args...); }
 
 			virtual void Release() { delete this; }
 		};

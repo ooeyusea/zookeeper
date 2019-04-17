@@ -71,6 +71,7 @@ SET(FSM
 SET(EVENT
 	"${PROJECT_SOURCE_DIR}/../common/event/EventDispatcher.h"
 	"${PROJECT_SOURCE_DIR}/event/ContainerEvent.h"
+	"${PROJECT_SOURCE_DIR}/event/ResourceEvent.h"
 )
 
 SET(EVENT_IMPL
@@ -100,6 +101,25 @@ SET(COMMON
 	"${PROJECT_SOURCE_DIR}/../common/Configuration.cpp"
 )
 
+SET(APPLICATION
+	"${PROJECT_SOURCE_DIR}/application/Application.h"
+	"${PROJECT_SOURCE_DIR}/application/Application.cpp"
+)
+
+SET(RES
+	"${PROJECT_SOURCE_DIR}/resource/Resource.h"
+	"${PROJECT_SOURCE_DIR}/resource/Resource.cpp"
+	"${PROJECT_SOURCE_DIR}/resource/ResourceDownloader.h"
+	"${PROJECT_SOURCE_DIR}/resource/ResourceDownloader.cpp"
+	"${PROJECT_SOURCE_DIR}/resource/ResourceCleaner.h"
+	"${PROJECT_SOURCE_DIR}/resource/ResourceCleaner.cpp"
+	"${PROJECT_SOURCE_DIR}/resource/ResourceManager.h"
+	"${PROJECT_SOURCE_DIR}/resource/ResourceManager.cpp"
+)
+
+SET(CONTAINER
+)
+
 SOURCE_GROUP(\\ FILES ${SRC})
 SOURCE_GROUP(common FILES ${COMMON})
 SOURCE_GROUP(common\\xml FILES ${XML})
@@ -110,6 +130,9 @@ SOURCE_GROUP(common\\fsm FILES ${FSM})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
 SOURCE_GROUP(common\\proto FILES ${PROTO})
 SOURCE_GROUP(common\\api FILES ${API})
+SOURCE_GROUP(application FILES ${APPLICATION})
+SOURCE_GROUP(resource FILES ${RES})
+SOURCE_GROUP(container FILES ${CONTAINER})
 
 ADD_EXECUTABLE(nodemanager
 	${SRC}
@@ -122,6 +145,9 @@ ADD_EXECUTABLE(nodemanager
 	${PROTO}
 	${API}
 	${FSM}
+	${APPLICATION}
+	${RES}
+	${CONTAINER}
 )
 
 IF(WIN32)

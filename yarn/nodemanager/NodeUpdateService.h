@@ -3,14 +3,13 @@
 #include "hnet.h"
 #include "rpc/Rpc.h"
 #include "proto/NMProtocol.pb.h"
+#include "singleton.h"
 
 namespace yarn {
 	class YarnConfiguration;
-	class NodeManager;
-
-	class NodeUpdateService {
+	class NodeUpdateService : public Singleton<NodeUpdateService> {
 	public:
-		NodeUpdateService(NodeManager& nm) : _nm(nm) {}
+		NodeUpdateService() {}
 		~NodeUpdateService() {}
 
 		void Start(const YarnConfiguration& config);
@@ -20,8 +19,6 @@ namespace yarn {
 		void HeartBeat();
 
 	private:
-		NodeManager& _nm;
-		
 		rpc::YarnRpcChannel _channel;
 		proto::ResourceTrackerService * _service = nullptr;
 

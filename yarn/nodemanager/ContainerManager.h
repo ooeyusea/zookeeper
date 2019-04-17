@@ -2,20 +2,19 @@
 #define __CONTAINER_MANAGER_H__
 #include "hnet.h"
 #include "proto/NMProtocol.pb.h"
+#include "singleton.h"
 
 namespace yarn {
-	class NodeManager;
 	class YarnConfiguration;
-	class ContainerManager {
+	class ContainerManager : public Singleton<ContainerManager> {
 	public:
-		ContainerManager(NodeManager& nm) : _nm(nm) {}
+		ContainerManager() {}
 		~ContainerManager() {}
 
 		void Start(const YarnConfiguration& config);
 
 		void Pack(proto::HeartBeatRequest& request);
 	private:
-		NodeManager& _nm;
 	};
 }
 

@@ -4,13 +4,14 @@
 #include "api/AMNodeManager.pb.h"
 #include "proto/NMProtocol.pb.h"
 #include "rpc/Rpc.h"
+#include "singleton.h"
 
 namespace yarn {
 	class NodeManager;
 	class YarnConfiguration;
-	class AMService : public api::ContainerManagementService {
+	class AMService : public api::ContainerManagementService, public Singleton<AMService>{
 	public:
-		AMService(NodeManager& nm) : _nm(nm) {}
+		AMService() {}
 		~AMService() {}
 
 		bool Start(const YarnConfiguration & config);
@@ -29,8 +30,6 @@ namespace yarn {
 			::google::protobuf::Closure* done);
 
 	private:
-		NodeManager& _nm;
-
 		rpc::YarnRpcServer _server;
 	};
 }

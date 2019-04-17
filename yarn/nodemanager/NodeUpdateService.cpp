@@ -1,6 +1,7 @@
 #include "NodeUpdateService.h"
 #include "Configuration.h"
 #include "NodeManager.h"
+#include "ContainerManager.h"
 #include "event/ContainerEvent.h"
 
 namespace yarn {
@@ -9,9 +10,9 @@ namespace yarn {
 
 		_channel.Start(config.GetResourceManager().GetIp(), config.GetResourceManager().GetPort(), [this] {
 			proto::RegisterNMRequest request;
-			request.set_name(_nm.GetConfiguration().GetNodeManager().GetName());
-			request.set_ip(_nm.GetConfiguration().GetNodeManager().GetIp());
-			request.set_port(_nm.GetConfiguration().GetNodeManager().GetPort());
+			request.set_name(NodeManager::Instance().GetConfiguration().GetNodeManager().GetName());
+			request.set_ip(NodeManager::Instance().GetConfiguration().GetNodeManager().GetIp());
+			request.set_port(NodeManager::Instance().GetConfiguration().GetNodeManager().GetPort());
 
 			rpc::YarnRpcController controller;
 			proto::RegisterNMResponse response;
@@ -31,9 +32,9 @@ namespace yarn {
 	void NodeUpdateService::HeartBeat() {
 		for (auto t : *_ticker) {
 			proto::HeartBeatRequest request;
-			request.set_name(_nm.GetConfiguration().GetNodeManager().GetName());
+			request.set_name(NodeManager::Instance().GetConfiguration().GetNodeManager().GetName());
 
-			_nm.GetContainerManager().Pack(request);
+			ContainerManager::Instance().Pack(request);
 
 			rpc::YarnRpcController controller;
 			proto::HeartBeatResponse response;
