@@ -31,8 +31,9 @@ ENDIF(WIN32)
 
 INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../depends/hnet/coroutine/include"
-	"${PROJECT_SOURCE_DIR}/xml"
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/../olib/include/"
+	"${PROJECT_SOURCE_DIR}/../olib/include/xml"
+	"${PROJECT_SOURCE_DIR}/../olib/includexml/tinyxml"
 	"${PROJECT_SOURCE_DIR}/election"
 	"${PROJECT_SOURCE_DIR}/paxos"
 	"${PROJECT_SOURCE_DIR}/transaction"
@@ -41,17 +42,12 @@ INCLUDE_DIRECTORIES(
 )
 
 SET(XML
-	"${PROJECT_SOURCE_DIR}/xml/XmlReader.h"
-	"${PROJECT_SOURCE_DIR}/xml/XmlReader.cpp"
+	"${PROJECT_SOURCE_DIR}/../olib/include/xml/XmlReader.h"
 )
 
 SET(TINYXML
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinystr.cpp"
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinystr.h"
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinyxml.cpp"
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinyxml.h"
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinyxmlerror.cpp"
-	"${PROJECT_SOURCE_DIR}/xml/tinyxml/tinyxmlparser.cpp"
+	"${PROJECT_SOURCE_DIR}/../olib/include/xml/tinyxml/tinystr.h"
+	"${PROJECT_SOURCE_DIR}/../olib/include/xml/tinyxml/tinyxml.h"
 )
 SET(ELECTION
 	"${PROJECT_SOURCE_DIR}/election/election.h"
@@ -76,12 +72,11 @@ SET(TRANSACTION
 
 SET(SRC
 	"${PROJECT_SOURCE_DIR}/util.h"
-	"${PROJECT_SOURCE_DIR}/socket_helper.h"
 	"${PROJECT_SOURCE_DIR}/main.cpp"
 )
 
-SOURCE_GROUP(xml FILES ${XML})
-SOURCE_GROUP(xml\\tinyxml FILES ${TINYXML})
+SOURCE_GROUP(olib\\xml FILES ${XML})
+SOURCE_GROUP(olib\\xml\\tinyxml FILES ${TINYXML})
 SOURCE_GROUP(election FILES ${ELECTION})
 SOURCE_GROUP(paxos FILES ${PAXOS})
 SOURCE_GROUP(transaction FILES ${TRANSACTION})
