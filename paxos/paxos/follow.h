@@ -19,6 +19,7 @@ namespace paxos {
 		int32_t Following(int32_t peerEpoch, const std::string& leaderIp, int32_t leaderPort);
 
 		virtual void Propose(std::string && data, ITransaction * transaction);
+		std::tuple<ITransaction*, hn_co> PopRequest(int64_t requestId);
 
 	private:
 		void RegisterToLeader(int32_t& peerEpoch);

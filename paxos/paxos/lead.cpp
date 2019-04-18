@@ -313,14 +313,15 @@ namespace paxos {
 				int64_t requestId = itr->second.requestId;
 				ITransaction * transaction = nullptr;
 				hn_co co = nullptr;
-				if (id == _id)
+				int32_t fromId = itr->second.id;
+				if (fromId == _id)
 					std::tie(transaction, co) = PopRequest(requestId);
 
 				_dataset.Commit(zxId, transaction);
-				int32_t id = itr->second.id;
+				
 				_uncommit.erase(zxId);
 
-				paxos_def::Commit commit{ paxos_def::PX_COMMIT, zxId };
+				paxos_def::Commit commit{ paxos_def::PX_COMMIT, zxId, fromId, requestId };
 				for (auto fd : _forwarding) {
 					if (fd > 0) {
 						hn_send(fd, (const char*)&commit, sizeof(commit));

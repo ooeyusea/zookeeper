@@ -67,6 +67,23 @@ namespace paxos {
 		hn_block;
 	}
 
+	std::tuple<ITransaction*, hn_co> Follow::PopRequest(int64_t requestId) {
+		ITransaction * transaction = nullptr;
+		hn_co co = nullptr;
+
+		{
+			std::lock_guard<hn_mutex> guard(_lock);
+			auto itr = _callbacks.find(requestId);
+			if (itr != _callbacks.end()) {
+				transaction = itr->second.transaction;
+				co = itr->second.co;
+
+				_callbacks.erase(itr);
+			}
+		}
+		return std::make_tuple(transaction, co);
+	}
+
 	void Follow::RegisterToLeader(int32_t& peerEpoch) {
 		paxos_def::FollowInfo info = { paxos_def::PX_FOLLOW_INFO, peerEpoch };
 		hn_send(_fd, (const char*)&info, sizeof(info));
@@ -173,8 +190,8 @@ namespace paxos {
 					hn_send(_fd, (const char *)&type, sizeof(type));
 				}
 				break;
-			case paxos_def::PX_REQUEST_ACK: {
-					paxos_def::RequestAck ack = { paxos_def::PX_REQUEST_ACK };
+			case paxos_def::PX_REQUEST_FAIL: {
+					paxos_def::RequestFail ack = { paxos_def::PX_REQUEST_FAIL };
 					olib::SocketReader().ReadRest<int8_t>(_fd, ack);
 
 					std::lock_guard<hn_mutex> guard(_lock);
