@@ -1,5 +1,5 @@
-#ifndef __UTIL_H__
-#define __UTIL_H__
+#ifndef __TIME_HELPER_H__
+#define __TIME_HELPER_H__
 #include "hnet.h"
 #include <chrono>
 
@@ -13,4 +13,4 @@ namespace olib {
 	}
 }
 
-#endif
+#endif //__TIME_HELPER_H__

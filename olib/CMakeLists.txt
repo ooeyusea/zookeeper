@@ -53,6 +53,7 @@ SET(TINYXML
 
 SET(SRC
 	"${PROJECT_SOURCE_DIR}/include/coroutine_waiter.h"
+	"${PROJECT_SOURCE_DIR}/include/function_helper.h"
 	"${PROJECT_SOURCE_DIR}/include/file_system.h"
 	"${PROJECT_SOURCE_DIR}/include/socket_helper.h"
 	"${PROJECT_SOURCE_DIR}/include/time_helper.h"

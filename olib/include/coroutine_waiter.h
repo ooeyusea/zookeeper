@@ -1,5 +1,5 @@
-#ifndef __UTIL_H__
-#define __UTIL_H__
+#ifndef __COROUTINE_WAITER_H__
+#define __COROUTINE_WAITER_H__
 #include "hnet.h"
 #include <chrono>
 
@@ -28,4 +28,4 @@ namespace olib {
 	}
 }
 
-#endif
+#endif //__COROUTINE_WAITER_H__

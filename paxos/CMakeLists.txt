@@ -33,7 +33,7 @@ INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../depends/hnet/coroutine/include"
 	"${PROJECT_SOURCE_DIR}/../olib/include/"
 	"${PROJECT_SOURCE_DIR}/../olib/include/xml"
-	"${PROJECT_SOURCE_DIR}/../olib/includexml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/../olib/include/xml/tinyxml"
 	"${PROJECT_SOURCE_DIR}/election"
 	"${PROJECT_SOURCE_DIR}/paxos"
 	"${PROJECT_SOURCE_DIR}/transaction"
@@ -67,10 +67,12 @@ SET(PAXOS
 SET(TRANSACTION
 	"${PROJECT_SOURCE_DIR}/transaction/dataset.h"
 	"${PROJECT_SOURCE_DIR}/transaction/dataset.cpp" 
-	"${PROJECT_SOURCE_DIR}/include/transaction.h"
 )
 
 SET(SRC
+	"${PROJECT_SOURCE_DIR}/include/paxos.h"
+	"${PROJECT_SOURCE_DIR}/PaxosImpl.cpp"
+	"${PROJECT_SOURCE_DIR}/PaxosImpl.h"
 	"${PROJECT_SOURCE_DIR}/util.h"
 	"${PROJECT_SOURCE_DIR}/main.cpp"
 )

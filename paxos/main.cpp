@@ -7,6 +7,77 @@
 #include "lead.h"
 #include "follow.h"
 #include "dataset.h"
+#include "paxos.h"
+
+namespace paxos {
+	bool Paxos::Start(IStateData * data, const std::string& path) {
+		try {
+			olib::XmlReader conf;
+			if (conf.LoadXml(path.c_str()))
+				return false;
+
+			_id = conf.Root()["zookeeper"][0].GetAttributeInt32("id");
+			if (_id == 0) {
+				hn_error("zookeeper: invalid id");
+				return false;
+			}
+
+			const auto& servers = conf.Root()["zookeeper"][0]["server"];
+			for (int32_t i = 0; i < servers.Count(); ++i) {
+
+				int32_t idx = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("id");
+				std::string ip = conf.Root()["zookeeper"][0]["server"][i].GetAttributeString("ip");
+				int32_t electionPort = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("election");
+				int32_t votePort = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("vote");
+				int32_t servicePort = conf.Root()["zookeeper"][0]["server"][i].GetAttributeInt32("service");
+
+				if (idx == _id) {
+					_ip = ip;
+					_electionPort = electionPort;
+					_votePort = votePort;
+					_servicePort = servicePort;
+				}
+				else
+					_servers.push_back({ idx, ip, electionPort, votePort });
+			}
+		}
+		catch (std::exception& e) {
+			hn_error("zookeeper load config failed : %s", e.what());
+			return false;
+		}
+
+		if (_servers.size() % 2 != 0) {
+			hn_error("zookeeper: server count must old");
+			return false;
+		}
+
+#ifdef WIN32
+		if (!_dataset->Load("var/lib/zookeeper")) {
+#else
+		if (!_dataset->Load("/var/lib/zookeeper")) {
+#endif
+			return false;
+		}
+
+		_peerEpoch = EPOCH_FROM_ZXID(_dataset->GetZxId());
+
+		if (!_election.Start(_servers.size() + 1, _ip, _electionPort, _servers)) {
+			hn_error("zookeeper: election start failed");
+			return false;
+		}
+
+		hn_info("zookeeper started");
+		return true;
+	}
+
+	void Paxos::DoTransaction(ITransaction * transaction, const char * param, int32_t size) {
+	}
+
+
+	Paxos::Paxos() {
+
+	}
+}
 
 class ZooKeeper {
 public:
