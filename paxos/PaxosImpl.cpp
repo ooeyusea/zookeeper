@@ -1,5 +1,7 @@
 #include "PaxosImpl.h"
 #include "XmlReader.h"
+#include "lead.h"
+#include "follow.h"
 
 namespace paxos {
 	PaxosImpl::PaxosImpl(IStateData * data) {
@@ -31,13 +33,11 @@ namespace paxos {
 				std::string ip = conf.Root()["paxos"][0]["server"][i].GetAttributeString("ip");
 				int32_t electionPort = conf.Root()["paxos"][0]["server"][i].GetAttributeInt32("election");
 				int32_t votePort = conf.Root()["paxos"][0]["server"][i].GetAttributeInt32("vote");
-				int32_t servicePort = conf.Root()["paxos"][0]["server"][i].GetAttributeInt32("service");
 
 				if (idx == _id) {
 					_ip = ip;
 					_electionPort = electionPort;
 					_votePort = votePort;
-					_servicePort = servicePort;
 				}
 				else
 					_servers.push_back({ idx, ip, electionPort, votePort });
@@ -59,6 +59,16 @@ namespace paxos {
 				hn_error("paxos: election start failed");
 				return false;
 			}
+
+			hn_fork[this]{
+				while (true) {
+					switch (_state) {
+					case Election::LOOKING: Elect(); break;
+					case Election::FOLLOWING: Following(); break;
+					case Election::LEADING: Leading(); break;
+					}
+				}
+			};
 
 			hn_info("paxos started");
 		}
@@ -93,5 +103,33 @@ namespace paxos {
 
 		if (!success)
 			throw std::logic_error("do failed");
+	}
+
+	void PaxosImpl::Elect() {
+		Vote vote = _election.LookForLeader(_id, _dataset->GetZxId(), _servers.size() + 1);
+
+		_state = (vote.voteId == _id) ? Election::LEADING : Election::FOLLOWING;
+		if (_state == Election::FOLLOWING) {
+			for (auto& server : _servers) {
+				if (server.id == vote.idx) {
+					_leader = &server;
+					break;
+				}
+			}
+		}
+	}
+
+	void PaxosImpl::Leading() {
+		hn_info("I'm leader\n");
+
+		paxos::Lead lead(_id, *_dataset, _servers.size() + 1);
+		_peerEpoch = lead.Leading(_peerEpoch, _votePort);
+	}
+
+	void PaxosImpl::Following() {
+		hn_info("I'm follower\n");
+
+		paxos::Follow follow(_id, *_dataset);
+		_peerEpoch = follow.Following(_peerEpoch, _leader->ip, _leader->votePort);
 	}
 }

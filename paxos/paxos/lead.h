@@ -16,14 +16,20 @@ namespace paxos {
 			std::string data;
 			std::vector<bool> vote;
 		};
+
+		struct TransactionCall {
+			ITransaction * transaction;
+			hn_co co;
+		};
+
 	public:
 		Lead(int32_t id, DataSet& dataset, int32_t serverCount);
 		~Lead();
 
-		int32_t Leading(int32_t peerEpoch, int32_t votePort, int32_t servicePort);
+		int32_t Leading(int32_t peerEpoch, int32_t votePort);
 
-		virtual void Propose(std::string && data, const std::function<void(bool)>& fn);
-		virtual void Read(std::string && data, std::string& result);
+		virtual void Propose(std::string && data, ITransaction * transaction);
+		std::tuple<ITransaction*, hn_co> PopRequest(int64_t requestId);
 
 		void Propose(int32_t id, int64_t requestId, std::string && data);
 		void AckPropose(int32_t id, int64_t zxId);
@@ -52,7 +58,7 @@ namespace paxos {
 
 	private:
 		void Process();
-		void LaunchNextDraft(std::unique_lock<hn_mutex>& guard);
+		bool LaunchNextDraft(std::unique_lock<hn_mutex>& guard);
 
 		bool StartListenFollow(int32_t votePort);
 		void ShutdownListen();
@@ -75,15 +81,13 @@ namespace paxos {
 		std::vector<bool> _recvNewLeader;
 
 		hn_mutex _cbLock;
-		std::unordered_map<int64_t, std::function<void(bool)>> _callbacks;
+		std::unordered_map<int64_t, TransactionCall> _callbacks;
 		int64_t _nextRequestId = 1;
 
 		hn_mutex _lock;
 		std::map<int64_t, Draft> _uncommit;
 
 		int64_t _nextId = 1;
-
-		ServiceProvider _service;
 	};
 }
 

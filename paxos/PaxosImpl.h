@@ -18,13 +18,17 @@ namespace paxos {
 		virtual void DoTransaction(ITransaction * transaction, const char * param, int32_t size);
 
 	private:
+		void Elect();
+		void Leading();
+		void Following();
+
+	private:
 		int8_t _state = Election::LOOKING;
 		int32_t _id = 0;
 		int32_t _clientPort = 0;
 		std::string _ip;
 		int32_t _electionPort = 0;
 		int32_t _votePort = 0;
-		int32_t _servicePort = 0;
 
 		std::vector<Server> _servers;
 		Server * _leader = nullptr;

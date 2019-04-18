@@ -189,20 +189,20 @@ namespace paxos {
 			switch (type) {
 			case paxos_def::PX_PONG: break;
 			case paxos_def::PX_REQUEST: {
-				paxos_def::Request info = { paxos_def::PX_REQUEST };
-				olib::SocketReader().ReadRest<int8_t>(_fd, info);
+					paxos_def::Request info = { paxos_def::PX_REQUEST };
+					olib::SocketReader().ReadRest<int8_t>(_fd, info);
 
-				std::string data = olib::SocketReader().ReadBlock(_fd, info.size);
-				_lead.Propose(_id, info.requestId, std::move(data));
-			}
-										break;
+					std::string data = olib::SocketReader().ReadBlock(_fd, info.size);
+					_lead.Propose(_id, info.requestId, std::move(data));
+				}
+				break;
 			case paxos_def::PX_ACK_PROPOSE: {
-				paxos_def::ProposeAck info = { paxos_def::PX_ACK_PROPOSE };
-				olib::SocketReader().ReadRest<int8_t>(_fd, info);
+					paxos_def::ProposeAck info = { paxos_def::PX_ACK_PROPOSE };
+					olib::SocketReader().ReadRest<int8_t>(_fd, info);
 
-				_lead.AckPropose(_id, info.zxId);
-			}
-											break;
+					_lead.AckPropose(_id, info.zxId);
+				}
+				break;
 			default:
 				hn_warn("unexcept message");
 				break;
@@ -222,15 +222,14 @@ namespace paxos {
 	Lead::Lead(int32_t id, DataSet& dataset, int32_t serverCount)
 		: _id(id)
 		, _serverCount(serverCount)
-		, _dataset(dataset)
-		, _service(*this) {
+		, _dataset(dataset) {
 	}
 
 	Lead::~Lead() {
 
 	}
 
-	int32_t Lead::Leading(int32_t peerEpoch, int32_t votePort, int32_t servicePort) {
+	int32_t Lead::Leading(int32_t peerEpoch, int32_t votePort) {
 		if (!StartListenFollow(votePort))
 			return peerEpoch;
 
@@ -239,37 +238,47 @@ namespace paxos {
 
 			WaitForNewLeader(_id);
 
-			if (!_service.Start(servicePort))
-				return peerEpoch;
-
+			_active = true;
 			Process();
 
-			_service.Stop();
 			_dataset.Flush();
 		}
 		catch (std::exception& e) {
 			hn_error("leading exception {}", e.what());
 		}
 
-		_service.Stop();
+		_active = false;
 		ShutdownListen();
 
 		return peerEpoch;
 	}
 
-	void Lead::Propose(std::string && data, const std::function<void(bool)>& fn) {
+	void Lead::Propose(std::string && data, ITransaction * transaction) {
 		int64_t requestId = 0;
 		{
-			std::lock_guard<hn_mutex> guard(_lock);
+			std::lock_guard<hn_mutex> cbGuard(_cbLock);
 			requestId = _nextRequestId++;
-			_callbacks[requestId] = fn;
+			_callbacks[requestId] = { transaction, hn_current };
 		}
 
 		Propose(_id, requestId, std::forward<std::string>(data));
 	}
 
-	void Lead::Read(std::string && data, std::string& result) {
-		_dataset.Read(std::forward<std::string>(data), result);
+	std::tuple<ITransaction*, hn_co> Lead::PopRequest(int64_t requestId) {
+		ITransaction * transaction = nullptr;
+		hn_co co = nullptr;
+
+		{
+			std::lock_guard<hn_mutex> cbGuard(_cbLock);
+			auto itr = _callbacks.find(requestId);
+			if (itr != _callbacks.end()) {
+				transaction = itr->second.transaction;
+				co = itr->second.co;
+
+				_callbacks.erase(itr);
+			}
+		}
+		return std::make_tuple(transaction, co);
 	}
 
 	void Lead::Propose(int32_t id, int64_t requestId, std::string && data) {
@@ -280,8 +289,17 @@ namespace paxos {
 		_uncommit[zxId].vote.resize(_forwarding.size());
 		_uncommit[zxId].vote[id - 1] = true;
 
-		if (_uncommit.size() == 1)
-			LaunchNextDraft(guard);
+		if (_uncommit.size() == 1) {
+			if (!LaunchNextDraft(guard)) {
+				bool& success = *static_cast<bool*>(hn_get(hn_current));
+				success = false;
+				return;
+			}
+		}
+		else
+			guard.unlock();
+
+		hn_block;
 	}
 
 	void Lead::AckPropose(int32_t id, int64_t zxId) {
@@ -292,8 +310,13 @@ namespace paxos {
 
 			int32_t count = std::count(itr->second.vote.begin(), itr->second.vote.end(), true);
 			if (count >= (int32_t)itr->second.vote.size() / 2 + 1) {
-				_dataset.Commit(zxId);
 				int64_t requestId = itr->second.requestId;
+				ITransaction * transaction = nullptr;
+				hn_co co = nullptr;
+				if (id == _id)
+					std::tie(transaction, co) = PopRequest(requestId);
+
+				_dataset.Commit(zxId, transaction);
 				int32_t id = itr->second.id;
 				_uncommit.erase(zxId);
 
@@ -304,13 +327,13 @@ namespace paxos {
 					}
 				}
 
-				if (id == _id) {
-					std::lock_guard<hn_mutex> cbGuard(_cbLock);
-					auto itr = _callbacks.find(requestId);
-					if (itr != _callbacks.end()) {
-						itr->second(true);
-						_callbacks.erase(requestId);
-					}
+				if (!_uncommit.empty())
+					LaunchNextDraft(guard);
+
+				guard.unlock();
+
+				if (co) {
+					hn_resume(co);
 				}
 				else {
 					paxos_def::RequestAck ack = { paxos_def::PX_REQUEST_ACK, requestId, true };
@@ -320,9 +343,6 @@ namespace paxos {
 						hn_send(fd, (const char*)&ack, sizeof(ack));
 					}
 				}
-
-				if (!_uncommit.empty())
-					LaunchNextDraft(guard);
 			}
 		}
 	}
@@ -382,9 +402,9 @@ namespace paxos {
 	}
 
 	void Lead::Process() {
-		int64_t tick = zookeeper::GetTickCount();
+		int64_t tick = olib::GetTickCount();
 		while (true) {
-			int64_t now = zookeeper::GetTickCount();
+			int64_t now = olib::GetTickCount();
 
 			int32_t count = (int32_t)_forwarding.size() - std::count(_forwarding.begin(), _forwarding.end(), 0);
 			if (count > (int32_t)_forwarding.size() / 2 + 1)
@@ -396,11 +416,12 @@ namespace paxos {
 		}
 	}
 
-	void Lead::LaunchNextDraft(std::unique_lock<hn_mutex>& guard) {
+	bool Lead::LaunchNextDraft(std::unique_lock<hn_mutex>& guard) {
+		bool ok = true;
 		while (!_uncommit.empty()) {
 			int64_t zxId = _uncommit.begin()->first;
 			std::string& data = _uncommit.begin()->second.data;
-			if (_dataset.CheckOrDrop(data) && _dataset.Propose(zxId, data)) {
+			if (_dataset.Propose(zxId, data)) {
 				std::string buf;
 				buf.reserve(data.size() + sizeof(paxos_def::Propose));
 				buf.resize(sizeof(paxos_def::Propose));
@@ -425,6 +446,7 @@ namespace paxos {
 				_uncommit.erase(zxId);
 
 				guard.unlock();
+				ok = false;
 
 				if (id != _id) {
 					paxos_def::RequestAck ack = { paxos_def::PX_REQUEST_ACK, requestId, false };
@@ -434,16 +456,9 @@ namespace paxos {
 						hn_send(fd, (const char*)&ack, sizeof(ack));
 					}
 				}
-				else {
-					std::lock_guard<hn_mutex> cbGuard(_cbLock);
-					auto itr = _callbacks.find(requestId);
-					if (itr != _callbacks.end()) {
-						itr->second(false);
-						_callbacks.erase(requestId);
-					}
-				}
 			}
 		}
+		return ok;
 	}
 
 	bool Lead::StartListenFollow(int32_t votePort) {
