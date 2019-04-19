@@ -3,7 +3,7 @@
 #created:2015-07-08 09:38:00
 
 cmake_minimum_required(VERSION 2.8)
-PROJECT(storm)
+PROJECT(master)
 IF(UNIX)
     SET(CMAKE_CXX_COMPILER "/usr/bin/g++")
     SET(CMAKE_CXX_FLAGS "-Wall -std=c++17 -lpthread -lcurl -rdynamic -ldl -Dlinux -Wl,-rpath,./")
@@ -31,7 +31,10 @@ ENDIF(WIN32)
 
 INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../../depends/hnet/coroutine/include"
-	"${PROJECT_SOURCE_DIR}/../../zookeeper/include"
+	"${PROJECT_SOURCE_DIR}/../../paxos/include"
+	"${PROJECT_SOURCE_DIR}/../../olib/include/"
+	"${PROJECT_SOURCE_DIR}/../../olib/include/xml"
+	"${PROJECT_SOURCE_DIR}/"
 )
 
 SET(SRC
@@ -42,9 +45,26 @@ SET(SRC
 
 SOURCE_GROUP(\\ FILES ${SRC})
 
-ADD_LIBRARY(master SHARED
+ADD_EXECUTABLE(master
 	${SRC}
 )
 
+IF(WIN32)
+TARGET_LINK_LIBRARIES(master
+	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/$<CONFIGURATION>/hnet.lib"
+	"${PROJECT_SOURCE_DIR}/../../bin/$<CONFIGURATION>/paxos.lib"
+	"${PROJECT_SOURCE_DIR}/../../bin/$<CONFIGURATION>/olib.lib"
+)
+
 SET_PROPERTY(TARGET master PROPERTY FOLDER "ofs")
+ENDIF(WIN32)
+
+IF(UNIX)
+TARGET_LINK_LIBRARIES(master
+	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/libhnet.a"
+	"${PROJECT_SOURCE_DIR}/../../bin/libpaxos.a"
+	"${PROJECT_SOURCE_DIR}/../../bin/libolib.a"
+)
+ENDIF(UNIX)
+
 SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../../bin")

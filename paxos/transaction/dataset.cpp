@@ -27,7 +27,7 @@ namespace paxos {
 		auto itr = snapers.begin();
 		while (itr != snapers.end()) {
 			char file[1024];
-			snprintf(file, sizeof(file), "%s%d.snap", path.c_str(), *itr);
+			snprintf(file, sizeof(file), "%s%lld.snap", path.c_str(), *itr);
 
 			if (_stateData->LoadFromFile(file)) {
 				_minZxId = *itr;
@@ -53,7 +53,7 @@ namespace paxos {
 				for (auto log2 : logdatas) {
 					if (log2 >= log) {
 						char file[1024];
-						snprintf(file, sizeof(file), "%s%d.logdata", path.c_str(), log2);
+						snprintf(file, sizeof(file), "%s%lld.logdata", path.c_str(), log2);
 						fs::remove(file);
 					}
 				}
@@ -78,7 +78,7 @@ namespace paxos {
 		return true;
 	}
 
-	void DataSet::Commit(int64_t zxId, ITransaction* transaction = nullptr) {
+	void DataSet::Commit(int64_t zxId, ITransaction* transaction) {
 		std::lock_guard<hn_shared_mutex> guard(_mutex);
 
 		if (_uncommit.empty() || _uncommit.begin()->zxId != zxId) {
@@ -189,7 +189,7 @@ namespace paxos {
 			int64_t logId = atoll(filePath.filename().stem().string().c_str());
 			if (logId > _zxId) {
 				char file[1024];
-				snprintf(file, sizeof(file), "%s%d.logdata", _path.c_str(), logId);
+				snprintf(file, sizeof(file), "%s%lld.logdata", _path.c_str(), logId);
 
 				if (!fs::remove(file)) {
 					hn_error("remove logdata {} failed", logId);
@@ -220,7 +220,7 @@ namespace paxos {
 
 	bool DataSet::LoadLogData(int64_t fileId) {
 		char file[1024];
-		snprintf(file, sizeof(file), "%s%d.logdata", _path.c_str(), fileId);
+		snprintf(file, sizeof(file), "%s%lld.logdata", _path.c_str(), fileId);
 
 		if (_lastLogFile) {
 			fclose(_lastLogFile);
@@ -233,7 +233,7 @@ namespace paxos {
 			return false;
 		}
 
-		if (!fread(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
+		if (fread(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
 			hn_error("invalid log data file {}", fileId);
 			return false;
 		}
@@ -272,7 +272,7 @@ namespace paxos {
 
 	void DataSet::TruncFile(int64_t fileId, int64_t start) {
 		char file[1024];
-		snprintf(file, sizeof(file), "%s%d.logdata", _path.c_str(), fileId);
+		snprintf(file, sizeof(file), "%s%lld.logdata", _path.c_str(), fileId);
 
 		_lastLogFile = fopen(file, "rb+");
 		if (!_lastLogFile) {
@@ -281,7 +281,7 @@ namespace paxos {
 			throw std::logic_error("trunc log data file failed");
 		}
 
-		if (!fread(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
+		if (fread(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
 			hn_error("invalid log data file {}", fileId);
 			fclose(_lastLogFile);
 			_lastLogFile = nullptr;
@@ -304,7 +304,7 @@ namespace paxos {
 		_logFileheader.count = count;
 
 		fseek(_lastLogFile, 0, SEEK_SET);
-		if (!fwrite(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
+		if (fwrite(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
 			hn_error("update log data file {} header failed", fileId);
 			throw std::logic_error("trunc log data file failed");
 		}
@@ -327,7 +327,7 @@ namespace paxos {
 			_logFileheader.count = 0;
 
 			char file[1024];
-			snprintf(file, sizeof(file), "%s%d.logdata", _path.c_str(), bill.zxId);
+			snprintf(file, sizeof(file), "%s%lld.logdata", _path.c_str(), bill.zxId);
 
 			_lastLogFile = fopen(file, "rb+");
 			if (!_lastLogFile)
@@ -343,13 +343,13 @@ namespace paxos {
 			_logFileheader.logs[idx].offset = _logFileheader.logs[idx - 1].offset + _logFileheader.logs[idx - 1].size;
 
 		fseek(_lastLogFile, _logFileheader.logs[idx].offset, SEEK_SET);
-		if (!fwrite(bill.data.data(), bill.data.size(), 1, _lastLogFile)) {
+		if (fwrite(bill.data.data(), bill.data.size(), 1, _lastLogFile) < 1) {
 			hn_error("log data file {} append log {} failed", _logFileheader.start, bill.zxId);
 			return false;
 		}
 
 		fseek(_lastLogFile, 0, SEEK_SET);
-		if (!fwrite(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
+		if (fwrite(&_logFileheader, sizeof(_logFileheader), 1, _lastLogFile) < 1) {
 			hn_error("update log data file {} header failed", _logFileheader.start);
 			return false;
 		}
@@ -358,7 +358,7 @@ namespace paxos {
 	}
 
 	void DataSet::Apply(const Bill& bill, ITransaction * transaction) {
-		hn_istream stream(bill.data.c_str(), bill.data.size());
+		hn_istream stream(bill.data.c_str(), (int32_t)bill.data.size());
 		hn_iachiver ar(stream, 0);
 
 		int32_t type;
@@ -377,7 +377,7 @@ namespace paxos {
 	}
 
 	void DataSet::Rollback(const Bill& bill) {
-		hn_istream stream(bill.data.c_str(), bill.data.size());
+		hn_istream stream(bill.data.c_str(), (int32_t)bill.data.size());
 		hn_iachiver ar(stream, 0);
 
 		int32_t type;

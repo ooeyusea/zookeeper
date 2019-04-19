@@ -8,7 +8,8 @@
 #include "service.h"
 
 namespace paxos {
-	class Lead : public IServiceExecutor {
+	class PaxosImpl;
+	class Lead : public ServiceExecutor {
 		struct Draft {
 			int32_t id;
 			int64_t requestId;
@@ -17,19 +18,13 @@ namespace paxos {
 			std::vector<bool> vote;
 		};
 
-		struct TransactionCall {
-			ITransaction * transaction;
-			hn_co co;
-		};
-
 	public:
 		Lead(int32_t id, DataSet& dataset, int32_t serverCount);
 		~Lead();
 
-		int32_t Leading(int32_t peerEpoch, int32_t votePort);
+		int32_t Leading(int32_t peerEpoch, int32_t votePort, PaxosImpl * impl);
 
 		virtual void Propose(std::string && data, ITransaction * transaction);
-		std::tuple<ITransaction*, hn_co> PopRequest(int64_t requestId);
 
 		void Propose(int32_t id, int64_t requestId, std::string && data);
 		void AckPropose(int32_t id, int64_t zxId);
@@ -79,10 +74,6 @@ namespace paxos {
 		int32_t _peerEpoch = 0;
 		std::vector<int32_t> _recvPeerEpoch;
 		std::vector<bool> _recvNewLeader;
-
-		hn_mutex _cbLock;
-		std::unordered_map<int64_t, TransactionCall> _callbacks;
-		int64_t _nextRequestId = 1;
 
 		hn_mutex _lock;
 		std::map<int64_t, Draft> _uncommit;

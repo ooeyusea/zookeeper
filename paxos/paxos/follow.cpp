@@ -1,6 +1,7 @@
 #include "follow.h"
 #include "define.h"
 #include "socket_helper.h"
+#include "PaxosImpl.h"
 
 #define FIRST_SLEEP_INTERVAL 50
 #define TRY_COUNT 5
@@ -16,7 +17,7 @@ namespace paxos {
 
 	}
 
-	int32_t Follow::Following(int32_t peerEpoch, const std::string& leaderIp, int32_t leaderPort) {
+	int32_t Follow::Following(int32_t peerEpoch, const std::string& leaderIp, int32_t leaderPort, PaxosImpl * impl) {
 		for (int32_t i = 0; i < TRY_COUNT; ++i) {
 			hn_sleep FIRST_SLEEP_INTERVAL;
 
@@ -36,24 +37,23 @@ namespace paxos {
 			SyncWithLeader();
 
 			_active = true;
+			impl->SetExecutor(this);
+
 			ProcossPropose();
+
+			_active = false;
+			impl->SetExecutor(nullptr);
 		}
 		catch (std::exception& e) {
 			hn_error("follow exception: {}", e.what());
 		}
 
-		_active = false;
 		hn_close(_fd);
 		return peerEpoch;
 	}
 
 	void Follow::Propose(std::string && data, ITransaction * transaction) {
-		int64_t requestId = 0;
-		{
-			std::lock_guard<hn_mutex> guard(_lock);
-			requestId = _nextRequestId++;
-			_callbacks[requestId] = { transaction, hn_current };
-		}
+		int64_t requestId = PushRequest(transaction);
 
 		std::string buf;
 		buf.resize(sizeof(paxos_def::Request));
@@ -62,26 +62,9 @@ namespace paxos {
 		paxos_def::Request& info = *(paxos_def::Request*)buf.data();
 		info = { paxos_def::PX_REQUEST, requestId, (int32_t)data.size() };
 
-		hn_send(_fd, buf.data(), buf.size());
+		hn_send(_fd, buf.data(), (int32_t)buf.size());
 
 		hn_block;
-	}
-
-	std::tuple<ITransaction*, hn_co> Follow::PopRequest(int64_t requestId) {
-		ITransaction * transaction = nullptr;
-		hn_co co = nullptr;
-
-		{
-			std::lock_guard<hn_mutex> guard(_lock);
-			auto itr = _callbacks.find(requestId);
-			if (itr != _callbacks.end()) {
-				transaction = itr->second.transaction;
-				co = itr->second.co;
-
-				_callbacks.erase(itr);
-			}
-		}
-		return std::make_tuple(transaction, co);
 	}
 
 	void Follow::RegisterToLeader(int32_t& peerEpoch) {
@@ -182,7 +165,16 @@ namespace paxos {
 					paxos_def::Commit commit = { paxos_def::PX_COMMIT };
 					olib::SocketReader().ReadRest<int8_t>(_fd, commit);
 
-					_dataset.Commit(commit.zxId);
+					ITransaction * transaction = nullptr;
+					hn_co co = nullptr;
+					if (commit.fromId == _id)
+						std::tie(transaction, co) = PopRequest(commit.requestId);
+
+					_dataset.Commit(commit.zxId, transaction);
+
+					if (co) {
+						hn_resume(co);
+					}
 				}
 				break;
 			case paxos_def::PX_PING: {
@@ -194,11 +186,14 @@ namespace paxos {
 					paxos_def::RequestFail ack = { paxos_def::PX_REQUEST_FAIL };
 					olib::SocketReader().ReadRest<int8_t>(_fd, ack);
 
-					std::lock_guard<hn_mutex> guard(_lock);
-					auto itr = _callbacks.find(ack.requestId);
-					if (itr != _callbacks.end()) {
-						itr->second(ack.success);
-						_callbacks.erase(ack.requestId);
+					ITransaction * transaction = nullptr;
+					hn_co co = nullptr;
+					std::tie(transaction, co) = PopRequest(ack.requestId);
+					if (co) {
+						bool& success = *static_cast<bool*>(hn_get(co));
+						success = false;
+
+						hn_resume(co);
 					}
 				}
 				break;

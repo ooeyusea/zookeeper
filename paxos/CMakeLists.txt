@@ -33,7 +33,6 @@ INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../depends/hnet/coroutine/include"
 	"${PROJECT_SOURCE_DIR}/../olib/include/"
 	"${PROJECT_SOURCE_DIR}/../olib/include/xml"
-	"${PROJECT_SOURCE_DIR}/../olib/include/xml/tinyxml"
 	"${PROJECT_SOURCE_DIR}/election"
 	"${PROJECT_SOURCE_DIR}/paxos"
 	"${PROJECT_SOURCE_DIR}/transaction"
@@ -45,10 +44,6 @@ SET(XML
 	"${PROJECT_SOURCE_DIR}/../olib/include/xml/XmlReader.h"
 )
 
-SET(TINYXML
-	"${PROJECT_SOURCE_DIR}/../olib/include/xml/tinyxml/tinystr.h"
-	"${PROJECT_SOURCE_DIR}/../olib/include/xml/tinyxml/tinyxml.h"
-)
 SET(ELECTION
 	"${PROJECT_SOURCE_DIR}/election/election.h"
 	"${PROJECT_SOURCE_DIR}/election/election.cpp"
@@ -71,14 +66,13 @@ SET(TRANSACTION
 
 SET(SRC
 	"${PROJECT_SOURCE_DIR}/include/paxos.h"
+	"${PROJECT_SOURCE_DIR}/paxos.cpp"
 	"${PROJECT_SOURCE_DIR}/PaxosImpl.cpp"
 	"${PROJECT_SOURCE_DIR}/PaxosImpl.h"
 	"${PROJECT_SOURCE_DIR}/util.h"
-	"${PROJECT_SOURCE_DIR}/main.cpp"
 )
 
 SOURCE_GROUP(olib\\xml FILES ${XML})
-SOURCE_GROUP(olib\\xml\\tinyxml FILES ${TINYXML})
 SOURCE_GROUP(election FILES ${ELECTION})
 SOURCE_GROUP(paxos FILES ${PAXOS})
 SOURCE_GROUP(transaction FILES ${TRANSACTION})
@@ -87,10 +81,9 @@ SOURCE_GROUP(\\ FILES ${SRC})
 ADD_LIBRARY(paxos STATIC
 	${SRC}
 	${XML}
-	${TINYXML}
 	${ELECTION}
 	${PAXOS}
 	${TRANSACTION}
 )
 
-SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../bin")
+SET(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../bin")

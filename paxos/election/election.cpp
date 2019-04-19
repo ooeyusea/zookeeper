@@ -158,7 +158,7 @@ namespace paxos {
 						try {
 							ch << vote;
 						}
-						catch (hn_channel_close_exception& e) {
+						catch (hn_channel_close_exception&) {
 
 						}
 					}

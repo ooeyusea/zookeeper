@@ -1,42 +1,16 @@
-#ifndef _OFS_MASTER_H_
-#define _OFS_MASTER_H_
-#include "transaction.h"
+#ifndef __OFS_MASTER_H__
+#define __OFS_MASTER_H__
+#include "paxos.h"
 
 namespace ofs {
-	class Master : public IStateData {
+	class Master {
 	public:
 		Master();
 		virtual ~Master() {}
 
-		virtual void Release() { delete this; }
-
-		virtual bool LoadFromFile(const std::string& path);
-		virtual bool SaveToFile(const std::string& path);
-
-		virtual bool PreCheck(const std::string& data);
-		virtual void Apply(const std::string& data);
-		virtual void Rollback(const std::string& data);
-
-		virtual void BuildFromData(const std::string& data);
-		virtual void GetData(std::string& data);
-
-		virtual std::string Read(const std::string& data);
-
+		bool Start();
 	private:
-	};
-
-	class MasterFactory : public IStateDataFactory {
-	public:
-		MasterFactory() {}
-		virtual ~MasterFactory() {}
-
-		virtual IStateData * Create() {
-			return new Master;
-		}
-
-	private:
-
 	};
 }
 
-#endif //_OFS_MASTER_H_
+#endif //__OFS_MASTER_H__

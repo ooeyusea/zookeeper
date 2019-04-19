@@ -1,6 +1,7 @@
 #include "lead.h"
 #include "util.h"
 #include "socket_helper.h"
+#include "PaxosImpl.h"
 
 #define HEARTBET 200
 #define HALF_BROKEN_CHECK_INTERVAL 1000
@@ -76,11 +77,11 @@ namespace paxos {
 
 			Process();
 		}
-		catch (hn_channel_close_exception& e) {
+		catch (hn_channel_close_exception&) {
 			hn_info("message channel close {}", _id);
 		}
 		catch (std::exception & e) {
-			hn_info("follower close {}", _id);
+			hn_info("follower close {} for {}", _id, e.what());
 		}
 
 		if (_id > 0)
@@ -135,7 +136,7 @@ namespace paxos {
 					propose = { paxos_def::PX_PROPOSE, zxId, (int32_t)data.size() };
 					buf.append(data.data(), data.size());
 
-					hn_send(_fd, buf.data(), buf.size());
+					hn_send(_fd, buf.data(), (int32_t)buf.size());
 
 					paxos_def::Commit commit = { paxos_def::PX_COMMIT, zxId };
 					hn_send(_fd, (const char*)&commit, sizeof(commit));
@@ -156,7 +157,7 @@ namespace paxos {
 			propose = { paxos_def::PX_PROPOSE, zxId, (int32_t)data.size() };
 			buf.append(data.data(), data.size());
 
-			hn_send(_fd, buf.data(), buf.size());
+			hn_send(_fd, buf.data(), (int32_t)buf.size());
 			return true;
 		});
 
@@ -176,7 +177,7 @@ namespace paxos {
 		_dataset.GetSnap(data);
 		snap.size = (int32_t)(data.size() - sizeof(paxos_def::Snap));
 
-		hn_send(_fd, data.data(), data.size());
+		hn_send(_fd, data.data(), (int32_t)data.size());
 	}
 
 	void FollowHandler::Process() {
@@ -229,7 +230,7 @@ namespace paxos {
 
 	}
 
-	int32_t Lead::Leading(int32_t peerEpoch, int32_t votePort) {
+	int32_t Lead::Leading(int32_t peerEpoch, int32_t votePort, PaxosImpl * impl) {
 		if (!StartListenFollow(votePort))
 			return peerEpoch;
 
@@ -239,7 +240,12 @@ namespace paxos {
 			WaitForNewLeader(_id);
 
 			_active = true;
+			impl->SetExecutor(this);
+
 			Process();
+
+			_active = false;
+			impl->SetExecutor(nullptr);
 
 			_dataset.Flush();
 		}
@@ -247,38 +253,13 @@ namespace paxos {
 			hn_error("leading exception {}", e.what());
 		}
 
-		_active = false;
 		ShutdownListen();
-
 		return peerEpoch;
 	}
 
 	void Lead::Propose(std::string && data, ITransaction * transaction) {
-		int64_t requestId = 0;
-		{
-			std::lock_guard<hn_mutex> cbGuard(_cbLock);
-			requestId = _nextRequestId++;
-			_callbacks[requestId] = { transaction, hn_current };
-		}
-
+		int64_t requestId = PushRequest(transaction);
 		Propose(_id, requestId, std::forward<std::string>(data));
-	}
-
-	std::tuple<ITransaction*, hn_co> Lead::PopRequest(int64_t requestId) {
-		ITransaction * transaction = nullptr;
-		hn_co co = nullptr;
-
-		{
-			std::lock_guard<hn_mutex> cbGuard(_cbLock);
-			auto itr = _callbacks.find(requestId);
-			if (itr != _callbacks.end()) {
-				transaction = itr->second.transaction;
-				co = itr->second.co;
-
-				_callbacks.erase(itr);
-			}
-		}
-		return std::make_tuple(transaction, co);
 	}
 
 	void Lead::Propose(int32_t id, int64_t requestId, std::string && data) {
@@ -290,11 +271,8 @@ namespace paxos {
 		_uncommit[zxId].vote[id - 1] = true;
 
 		if (_uncommit.size() == 1) {
-			if (!LaunchNextDraft(guard)) {
-				bool& success = *static_cast<bool*>(hn_get(hn_current));
-				success = false;
+			if (!LaunchNextDraft(guard))
 				return;
-			}
 		}
 		else
 			guard.unlock();
@@ -308,7 +286,7 @@ namespace paxos {
 		if (itr != _uncommit.end() && itr->first == zxId) {
 			itr->second.vote[id - 1] = true;
 
-			int32_t count = std::count(itr->second.vote.begin(), itr->second.vote.end(), true);
+			int32_t count = (int32_t)std::count(itr->second.vote.begin(), itr->second.vote.end(), true);
 			if (count >= (int32_t)itr->second.vote.size() / 2 + 1) {
 				int64_t requestId = itr->second.requestId;
 				ITransaction * transaction = nullptr;
@@ -337,7 +315,7 @@ namespace paxos {
 					hn_resume(co);
 				}
 				else {
-					paxos_def::RequestAck ack = { paxos_def::PX_REQUEST_ACK, requestId, true };
+					paxos_def::RequestFail ack = { paxos_def::PX_REQUEST_FAIL, requestId };
 
 					int32_t fd = _forwarding[id - 1];
 					if (fd > 0) {
@@ -407,7 +385,7 @@ namespace paxos {
 		while (true) {
 			int64_t now = olib::GetTickCount();
 
-			int32_t count = (int32_t)_forwarding.size() - std::count(_forwarding.begin(), _forwarding.end(), 0);
+			int32_t count = (int32_t)_forwarding.size() - (int32_t)std::count(_forwarding.begin(), _forwarding.end(), 0);
 			if (count > (int32_t)_forwarding.size() / 2 + 1)
 				tick = now;
 			else if (now >= tick + HALF_BROKEN_CHECK_INTERVAL)
@@ -435,7 +413,7 @@ namespace paxos {
 
 				for (auto fd : _forwarding) {
 					if (fd > 0) {
-						hn_send(fd, buf.data(), buf.size());
+						hn_send(fd, buf.data(), (int32_t)buf.size());
 					}
 				}
 
@@ -447,14 +425,26 @@ namespace paxos {
 				_uncommit.erase(zxId);
 
 				guard.unlock();
-				ok = false;
 
+				ok = false;
 				if (id != _id) {
-					paxos_def::RequestAck ack = { paxos_def::PX_REQUEST_ACK, requestId, false };
+					paxos_def::RequestFail ack = { paxos_def::PX_REQUEST_FAIL, requestId };
 
 					int32_t fd = _forwarding[id - 1];
 					if (fd > 0) {
 						hn_send(fd, (const char*)&ack, sizeof(ack));
+					}
+				}
+				else {
+					ITransaction * transaction = nullptr;
+					hn_co co = nullptr;
+					std::tie(transaction, co) = PopRequest(requestId);
+					if (co) {
+						bool& success = *static_cast<bool*>(hn_get(co));
+						success = false;
+
+						if (co != hn_current)
+							hn_resume(co);
 					}
 				}
 			}

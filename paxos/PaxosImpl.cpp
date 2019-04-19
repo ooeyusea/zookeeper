@@ -55,7 +55,7 @@ namespace paxos {
 
 			_peerEpoch = EPOCH_FROM_ZXID(_dataset->GetZxId());
 
-			if (!_election.Start(_servers.size() + 1, _ip, _electionPort, _servers)) {
+			if (!_election.Start((int32_t)_servers.size() + 1, _ip, _electionPort, _servers)) {
 				hn_error("paxos: election start failed");
 				return false;
 			}
@@ -76,6 +76,8 @@ namespace paxos {
 			hn_error("paxos load config failed : %s", e.what());
 			return false;
 		}
+
+		return true;
 	}
 
 	void PaxosImpl::RegisterLogType(ITransaction * transaction) {
@@ -84,29 +86,19 @@ namespace paxos {
 
 	void PaxosImpl::DoTransaction(ITransaction * transaction, const char * param, int32_t size) {
 		bool success = false;
-		int64_t transactionId = 0;
-		{
-			std::lock_guard<hn_mutex> guard(_mutex);
-			while (true) {
-				transactionId = _nextTransaction++;
-				if (_waitTransactions.find(transactionId) == _waitTransactions.end()) {
-					hn_set(&success);
-					_waitTransactions[transactionId] = { transaction, hn_current, olib::GetTickCount() };
-					break;
-				}
-			}
-		}
+		hn_set(&success);
 
-
-
-		hn_block;
+		if (_executor && _executor->IsActive())
+			_executor->Propose(std::string(param, size), transaction);
+		else
+			success = false;
 
 		if (!success)
 			throw std::logic_error("do failed");
 	}
 
 	void PaxosImpl::Elect() {
-		Vote vote = _election.LookForLeader(_id, _dataset->GetZxId(), _servers.size() + 1);
+		Vote vote = _election.LookForLeader(_id, _dataset->GetZxId(), (int32_t)_servers.size() + 1);
 
 		_state = (vote.voteId == _id) ? Election::LEADING : Election::FOLLOWING;
 		if (_state == Election::FOLLOWING) {
@@ -122,14 +114,16 @@ namespace paxos {
 	void PaxosImpl::Leading() {
 		hn_info("I'm leader\n");
 
-		paxos::Lead lead(_id, *_dataset, _servers.size() + 1);
-		_peerEpoch = lead.Leading(_peerEpoch, _votePort);
+		paxos::Lead lead(_id, *_dataset, (int32_t)_servers.size() + 1);
+		_peerEpoch = lead.Leading(_peerEpoch, _votePort, this);
+		lead.ClearRequest();
 	}
 
 	void PaxosImpl::Following() {
 		hn_info("I'm follower\n");
 
 		paxos::Follow follow(_id, *_dataset);
-		_peerEpoch = follow.Following(_peerEpoch, _leader->ip, _leader->votePort);
+		_peerEpoch = follow.Following(_peerEpoch, _leader->ip, _leader->votePort, this);
+		follow.ClearRequest();
 	}
 }

@@ -32,7 +32,7 @@ ENDIF(WIN32)
 INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../depends/hnet/coroutine/include"
 	"${PROJECT_SOURCE_DIR}/include/xml"
-	"${PROJECT_SOURCE_DIR}/include/xml/tinyxml"
+	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml"
 	"${PROJECT_SOURCE_DIR}/include/"
 	"${PROJECT_SOURCE_DIR}/src"
 )
@@ -44,9 +44,9 @@ SET(XML
 
 SET(TINYXML
 	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml/tinystr.cpp"
-	"${PROJECT_SOURCE_DIR}/include/xml/tinyxml/tinystr.h"
+	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml/tinystr.h"
 	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml/tinyxml.cpp"
-	"${PROJECT_SOURCE_DIR}/include/xml/tinyxml/tinyxml.h"
+	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml/tinyxml.h"
 	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml/tinyxmlerror.cpp"
 	"${PROJECT_SOURCE_DIR}/src/xml/tinyxml/tinyxmlparser.cpp"
 )
@@ -69,4 +69,4 @@ ADD_LIBRARY(olib STATIC
 	${TINYXML}
 )
 
-SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../bin")
+SET(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/../bin")

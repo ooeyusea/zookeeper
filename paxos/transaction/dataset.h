@@ -17,7 +17,7 @@ namespace paxos {
 
 	struct LogDataFileHeader {
 		int64_t start;
-		int64_t count;
+		int32_t count;
 		LogDataFileLogDesc logs[SINGLE_LOG_FILE_COUNT];
 	};
 #pragma pack(pop)

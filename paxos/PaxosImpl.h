@@ -5,6 +5,7 @@
 #include "paxos.h"
 #include "dataset.h"
 #include "election.h"
+#include "service.h"
 
 namespace paxos {
 	class PaxosImpl : public IPaxosImpl {
@@ -16,6 +17,8 @@ namespace paxos {
 
 		virtual void RegisterLogType(ITransaction * transaction);
 		virtual void DoTransaction(ITransaction * transaction, const char * param, int32_t size);
+
+		inline void SetExecutor(ServiceExecutor * executor) { _executor = executor; }
 
 	private:
 		void Elect();
@@ -37,6 +40,8 @@ namespace paxos {
 
 		int32_t _peerEpoch = 1;
 		DataSet * _dataset = nullptr;
+
+		ServiceExecutor * _executor = nullptr;
 	};
 }
 

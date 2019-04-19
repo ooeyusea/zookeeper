@@ -42,7 +42,7 @@ namespace paxos {
 
 	template <typename T, int32_t logType>
 	class Transcation : public ITransaction {
-		typename typename TranscationActionType<T>::return_type result_type;
+		typedef typename TranscationActionType<T>::return_type result_type;
 	public:
 		Transcation() : ITransaction(logType) {}
 		virtual ~Transcation() {}
@@ -81,7 +81,7 @@ namespace paxos {
 	struct IPaxosImpl {
 		virtual ~IPaxosImpl() {}
 
-		virtual bool Start(IStateData * data, const std::string& path) = 0;
+		virtual bool Start(const std::string& path) = 0;
 
 		virtual void RegisterLogType(ITransaction * transaction) = 0;
 		virtual void DoTransaction(ITransaction * transaction, const char * param, int32_t size) = 0;
@@ -89,48 +89,7 @@ namespace paxos {
 
 	class Paxos {
 	public:
-		template <int32_t size, typename T, typename R, typename... FixArgs>
-		struct PaxosDo {
-			Paxos& p;
-			PaxosDo(Paxos& p_) : p(p_) {}
-
-			template <typename... Args>
-			inline R Do(Args... args) {
-				char buff[size];
-				hn_ostream stream(buff, size);
-				hn_oachiver ar(stream, 0);
-
-				R r;
-				T t;
-				t.SetResult(&r);
-				ar << t.GetType();
-				olib::ParamPacker<IStateData*>::Dealer<typename TranscationActionType<T>::action_type>::invoke(ar, args...);
-
-				p.DoTransaction(&t, buff, (int32_t)stream.size());
-				return ret;
-			}
-		};
-
-		template <int32_t size, typename T, typename... FixArgs>
-		struct PaxosDo<size, T, void, FixArgs...> {
-			Paxos& p;
-			PaxosDo(Paxos& p_) : p(p_) {}
-
-			template <typename... Args>
-			inline void Do(Args... args) {
-				char buff[size];
-				hn_ostream stream(buff, size);
-				hn_oachiver ar(stream, 0);
-
-				T t;
-				ar << t.GetType();
-				olib::ParamPacker<IStateData*>::Dealer<typename TranscationActionType<T>::action_type>::invoke(ar, args...);
-
-				p.DoTransaction(&t, buff, (int32_t)stream.size());
-			}
-		};
-
-		Paxos();
+		Paxos(IStateData * data);
 		~Paxos() {}
 
 		inline Paxos& RegisterLogType(ITransaction * transaction) {
@@ -138,13 +97,8 @@ namespace paxos {
 			return *this;
 		}
 
-		template <int32_t size, typename T>
-		PaxosDo<size, T, typename TranscationActionType<T>::result_type, IStateData *> GetPaxosDo{
-			return PaxosDo<size, T, typename TranscationActionType<T>::result_type, IStateData *>(*this);
-		}
-
-		inline bool Start(IStateData * data, const std::string& path) {
-			return _impl->Start(data, path);
+		inline bool Start(const std::string& path) {
+			return _impl->Start(path);
 		}
 
 		inline void DoTransaction(ITransaction * transaction, const char * param, int32_t size) {
@@ -154,6 +108,52 @@ namespace paxos {
 	private:
 		IPaxosImpl * _impl = nullptr;
 	};
+
+	template <int32_t size, typename T, typename R, typename... FixArgs>
+	struct PaxosDo {
+		Paxos& p;
+		PaxosDo(Paxos& p_) : p(p_) {}
+
+		template <typename... Args>
+		inline R Do(Args... args) {
+			char buff[size];
+			hn_ostream stream(buff, size);
+			hn_oachiver ar(stream, 0);
+
+			R r;
+			T t;
+			t.SetResult(&r);
+			ar << t.GetType();
+			olib::ParamPacker<IStateData*>::Dealer<typename TranscationActionType<T>::action_type>::invoke(ar, args...);
+
+			p.DoTransaction(&t, buff, (int32_t)stream.size());
+			return ret;
+		}
+	};
+
+	template <int32_t size, typename T, typename... FixArgs>
+	struct PaxosDo<size, T, void, FixArgs...> {
+		Paxos& p;
+		PaxosDo(Paxos& p_) : p(p_) {}
+
+		template <typename... Args>
+		inline void Do(Args... args) {
+			char buff[size];
+			hn_ostream stream(buff, size);
+			hn_oachiver ar(stream, 0);
+
+			T t;
+			ar << t.GetType();
+			olib::ParamPacker<IStateData*>::Dealer<typename TranscationActionType<T>::action_type>::invoke(ar, args...);
+
+			p.DoTransaction(&t, buff, (int32_t)stream.size());
+		}
+	};
+
+	template <int32_t size, typename T>
+	PaxosDo<size, T, typename TranscationActionType<T>::result_type, IStateData *> BuildCall(Paxos& paxos){
+		return PaxosDo<size, T, typename TranscationActionType<T>::result_type, IStateData *>(paxos);
+	}
 }
 
 #endif //__PAXOS_H__

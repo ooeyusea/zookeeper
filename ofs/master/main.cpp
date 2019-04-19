@@ -1,8 +1,12 @@
-#include "transaction.h"
-#include "TestStateData.h"
+#include "hnet.h"
+#include "OfsMaster.h"
 
-GET_DLL_ENTRANCE;
+void start(int32_t argc, char ** argv) {
+	ofs::Master master;
+	if (!master.Start()) {
+		hn_error("master start failed");
+		return;
+	}
 
-extern "C" ZK_EXPORT IStateDataFactory * GET_FACTORY_FN() {
-	return new test::TestStateDataFactory;
+	hn_info("master start success");
 }

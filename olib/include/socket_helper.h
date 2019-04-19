@@ -2,7 +2,6 @@
 #define __SOCKET_HELPER_H__
 #include "hnet.h"
 
-#define TIMEOUT 5000
 namespace olib {
 	struct SocketReader {
 		SocketReader(int32_t t) : timeout(t) {}
