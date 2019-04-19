@@ -31,7 +31,6 @@ ENDIF(WIN32)
 
 INCLUDE_DIRECTORIES(
     "${PROJECT_SOURCE_DIR}/../../depends/hnet/coroutine/include"
-	"${PROJECT_SOURCE_DIR}/../../paxos/include"
 	"${PROJECT_SOURCE_DIR}/../../olib/include/"
 	"${PROJECT_SOURCE_DIR}/../../olib/include/xml"
 	"${PROJECT_SOURCE_DIR}/"
@@ -43,16 +42,30 @@ SET(SRC
 	"${PROJECT_SOURCE_DIR}/OfsMaster.cpp"
 )
 
+SET(FILE_SYSTEM
+	"${PROJECT_SOURCE_DIR}/file/FileService.h"
+	"${PROJECT_SOURCE_DIR}/file/FileService.cpp"
+	"${PROJECT_SOURCE_DIR}/file/Node.h"
+	"${PROJECT_SOURCE_DIR}/file/Node.cpp"
+	"${PROJECT_SOURCE_DIR}/file/Directory.h"
+	"${PROJECT_SOURCE_DIR}/file/Directory.cpp"
+	"${PROJECT_SOURCE_DIR}/file/File.h"
+	"${PROJECT_SOURCE_DIR}/file/File.cpp"
+	"${PROJECT_SOURCE_DIR}/file/FileSystem.h"
+	"${PROJECT_SOURCE_DIR}/file/FileSystem.cpp"
+)
+
 SOURCE_GROUP(\\ FILES ${SRC})
+SOURCE_GROUP(file FILES ${FILE_SYSTEM})
 
 ADD_EXECUTABLE(master
 	${SRC}
+	${FILE_SYSTEM}
 )
 
 IF(WIN32)
 TARGET_LINK_LIBRARIES(master
 	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/$<CONFIGURATION>/hnet.lib"
-	"${PROJECT_SOURCE_DIR}/../../bin/$<CONFIGURATION>/paxos.lib"
 	"${PROJECT_SOURCE_DIR}/../../bin/$<CONFIGURATION>/olib.lib"
 )
 
@@ -62,7 +75,6 @@ ENDIF(WIN32)
 IF(UNIX)
 TARGET_LINK_LIBRARIES(master
 	"${PROJECT_SOURCE_DIR}/../../depends/hnet/bin/libhnet.a"
-	"${PROJECT_SOURCE_DIR}/../../bin/libpaxos.a"
 	"${PROJECT_SOURCE_DIR}/../../bin/libolib.a"
 )
 ENDIF(UNIX)

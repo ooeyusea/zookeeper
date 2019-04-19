@@ -1,6 +1,6 @@
 #ifndef __OFS_MASTER_H__
 #define __OFS_MASTER_H__
-#include "hnet.h"
+#include "paxos.h"
 
 namespace ofs {
 	class Master {
