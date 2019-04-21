@@ -1,12 +1,7 @@
-#include "OfsMaster.h"
+#include "File.h"
 
 namespace ofs {
-	Master::Master() {
+	void File::ClearChunk() {
 
-	}
-
-	bool Master::Start() {
-		return true;
 	}
 }
-

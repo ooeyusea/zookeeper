@@ -4,33 +4,27 @@
 #include "Node.h"
 
 namespace ofs {
-	struct LockContinue {
-		int32_t errCode = 0;
-		hn_co co = hn_current;
-		User * user;
-		std::string& path;
-		bool read;
-	};
-
 	class Directory : public Node {
 	public:
-		Directory() : Node(true) {
-			_size = 0;
-		}
+		Directory() : Node(true) {}
 
 		~Directory() {}
 
 		virtual void DoNotWantToObject() {}
 
+		int32_t FindNode(User * user, const char * path, const std::function<int32_t(User * user, const char * path)>& fn);
+
 		int32_t CreateNode(User * user, const char * path, int16_t authority, bool dir);
 		int32_t Remove(User * user, const char * parttern);
 
-		int32_t Lock(User * user, const char * path, bool read, LockContinue& ret);
-		void UnLock(User * user, const char * path);
-
-		void ContinueLock(LockContinue& ret);
+		std::vector<Node*> List(User * user, const char * parttern);
+		int32_t Open(User * user, const char * path, bool write);
+		int32_t Close(User * user, int32_t fd);
 
 		inline bool Empty() const { return _children.empty(); }
+
+	private:
+		int32_t Close(User * user, const char * path, bool write);
 
 	private:
 		std::unordered_map<std::string, Node*> _children;

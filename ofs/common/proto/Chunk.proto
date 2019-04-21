@@ -1,0 +1,66 @@
+syntax = "proto2";
+option cc_generic_services = true;
+
+package yarn.proto;
+
+message Resource {
+	required int32 cpu = 1;
+	required int32 res = 2;
+	required int32 virt = 3;
+	required int32 disk = 4;
+}
+
+message RegisterNMRequest {
+	required string name = 1;
+	required string ip = 2;
+	required int32 port = 3;
+	required Resource resource = 4;
+}
+
+message RegisterNMResponse {
+	required int32 reserve = 1;
+}
+
+message Container {
+	required string name = 1;
+	required int32 status = 2;
+	required Resource used = 3;
+}
+
+message HeartBeatRequest {
+	required string name = 1;
+	repeated Container containers = 2;
+}
+
+enum ContainerCommandType {
+	INIT = 0;
+	CLEANUP = 1;
+}
+
+message ContrainerNeed {
+	required string name = 1;
+	required Resource need = 2;
+}
+
+message InitContrainerCommand {
+	required string application = 1;
+	required string token = 2;
+	repeated ContrainerNeed containers = 3;
+}
+
+message ContainerCommand {
+	required ContainerCommandType type = 1;
+	oneof CommandGroup {
+		InitContrainerCommand init = 2;
+		string cleanup = 3;
+	}
+}
+
+message HeartBeatResponse {
+	repeated ContainerCommand commands = 3;
+}
+
+service ResourceTrackerService {
+	rpc RegisterNM (RegisterNMRequest) returns (RegisterNMResponse);
+	rpc HeartBeat (HeartBeatRequest) returns (HeartBeatResponse);
+}

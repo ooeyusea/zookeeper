@@ -1,23 +1,22 @@
 #ifndef __FILE_SYSTEM_H__
 #define __FILE_SYSTEM_H__
-#include "paxos.h"
+#include "hnet.h"
+#include "Directory.h"
+#include "singleton.h"
 
 namespace ofs {
-	class FileSystem : public paxos::IStateData {
+	class FileSystem : public olib::Singleton<FileSystem> {
 	public:
 		FileSystem() {}
 		~FileSystem() {}
 
-		virtual void Release() {}
+		bool LoadFromFile(const std::string& path);
+		bool SaveToFile(const std::string& path);
 
-		virtual bool LoadFromFile(const std::string& path);
-		virtual bool SaveToFile(const std::string& path);
-
-		virtual void BuildFromData(const std::string& data);
-		virtual void GetData(std::string& data);
+		Directory& Root() { return _root; }
 
 	private:
-
+		Directory _root;
 	};
 }
 

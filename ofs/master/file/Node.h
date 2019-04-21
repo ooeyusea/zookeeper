@@ -6,7 +6,7 @@ namespace ofs {
 	class User;
 	class Node {
 	public:
-		Node(bool dir) : _dir(dir) {}
+		Node(bool dir) : _dir(dir), _mutex(true) {}
 		virtual ~Node() {}
 
 		virtual void DoNotWantToObject() = 0;
@@ -28,6 +28,9 @@ namespace ofs {
 
 		inline bool IsDir() const { return _dir; }
 
+		inline int64_t GetCreateTime() const { return _createTime; }
+		inline void SetCreateTime(int64_t val) { _createTime = val; _updateTime = val; }
+
 		inline int64_t GetUpdateTime() const { return _updateTime; }
 		inline void SetUpdateTime(int64_t val) { _updateTime = val; }
 
@@ -36,7 +39,21 @@ namespace ofs {
 		inline void SetParent(Node * val) { _parent = val; }
 		inline Node * GetParent() const { return _parent; }
 
-		bool CheckLock(User * user, bool read);
+		bool CheckAuthority(User * user, bool read);
+
+		inline void Lock(bool write) {
+			if (write)
+				_mutex.lock();
+			else
+				_mutex.lock_shared();
+		}
+
+		inline void Unlock(bool write) {
+			if (write)
+				_mutex.unlock();
+			else
+				_mutex.unlock_shared();
+		}
 
 	protected:
 		std::string _name;
@@ -44,10 +61,12 @@ namespace ofs {
 		std::string _ownerGroup;
 		int16_t _authority;
 		bool _dir;
+		int64_t _createTime;
 		int64_t _updateTime;
-		int32_t _size;
+		int32_t _size = 0;
 
 		Node * _parent = nullptr;
+		hn_shared_mutex _mutex;
 	};
 }
 

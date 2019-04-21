@@ -1,0 +1,104 @@
+syntax = "proto2";
+option cc_generic_services = true;
+
+package ofs.api;
+
+enum ErrorCode {
+	EC_NONE = 0;
+	EC_FILE_NOT_EIXST = 1;
+	EC_FILE_EIXST = 2;
+	EC_PERMISSION_DENY = 3;
+	EC_DIR_NOT_EMPTY = 4;
+	EC_AUTHORITY_EXPIRE = 5;
+	EC_IS_DIR = 6;
+}
+
+message LoginReq {
+	required string name = 1;
+	required string password = 2;
+}
+
+message LoginResponse {
+	required ErrorCode errCode = 1;
+	optional string token = 2;
+}
+
+message MakeDirRequest {
+	required string token = 1;
+	required int32 authority = 2;
+	required string path = 3;
+}
+
+message MakeDirResponse {
+	required ErrorCode errCode = 1; 
+}
+
+message CreateFileRequest {
+	required string token = 1;
+	required int32 authority = 2;
+	required string path = 3;
+}
+
+message CreateFileResponse {
+	required ErrorCode errCode = 1; 
+}
+
+message ListRequest {
+	required string token = 1;
+	required string path = 2;
+}
+
+message File {
+	required string name = 1;
+	required string owner = 2;
+	required string group = 3;
+	required int32 authority = 4;
+	required int32 size = 5;
+	required int64 createTime = 6;
+	required int64 updateTime = 7;
+	required bool dir = 8;
+}
+
+message ListResponse {
+	required ErrorCode errCode = 1;
+	repeated File files = 2;
+}
+
+message RemoveRequest {
+	required string token = 1;
+	required string path = 2;
+}
+
+message RemoveResponse {
+	required ErrorCode errCode = 1; 
+}
+
+message OpenRequest {
+	required string token = 1;
+	required string path = 2;
+	required bool write = 3;
+}
+
+message OpenResponse {
+	required ErrorCode errCode = 1; 
+	optional int32 fd = 2;
+}
+
+message CloseRequest {
+	required string token = 1;
+	required int32 fd = 2;
+}
+
+message CloseResponse {
+	required ErrorCode errCode = 1; 
+}
+
+service OfsFileService {
+	rpc Login (LoginReq) returns (LoginResponse);
+	rpc MakeDir (MakeDirRequest) returns (MakeDirResponse);
+	rpc CreateFile (CreateFileRequest) returns (CreateFileResponse);
+	rpc List (ListRequest) returns (ListResponse);
+	rpc Remove (RemoveRequest) returns (RemoveResponse);
+	rpc Open (OpenRequest) returns (OpenResponse);
+	rpc Close (CloseRequest) returns (CloseResponse);
+}
