@@ -645,24 +645,24 @@ const char descriptor_table_protodef_OfsMaster_2eproto[] =
   "\021\n\rAT_GROUP_READ\020\010\022\022\n\016AT_GROUP_WRITE\020\020\022\024"
   "\n\020AT_GROUP_EXECUTE\020 \022\021\n\rAT_OTHER_READ\020@\022"
   "\023\n\016AT_OTHER_WRITE\020\200\001\022\025\n\020AT_OTHER_EXECUTE"
-  "\020\200\0022\350\003\n\016OfsFileService\0222\n\005Login\022\021.ofs.ap"
+  "\020\200\0022\344\003\n\016OfsFileService\0222\n\005Login\022\021.ofs.ap"
   "i.LoginReq\032\026.ofs.api.LoginResponse\022<\n\007Ma"
   "keDir\022\027.ofs.api.MakeDirRequest\032\030.ofs.api"
-  ".MakeDirResponse\022E\n\nCreateFile\022\032.ofs.api"
-  ".CreateFileRequest\032\033.ofs.api.CreateFileR"
-  "esponse\0223\n\004List\022\024.ofs.api.ListRequest\032\025."
-  "ofs.api.ListResponse\0229\n\006Remove\022\026.ofs.api"
-  ".RemoveRequest\032\027.ofs.api.RemoveResponse\022"
-  "@\n\006Status\022\032.ofs.api.FileStatusRequest\032\032."
-  "ofs.api.FileStatusRespone\0223\n\004Read\022\024.ofs."
-  "api.ReadRequest\032\025.ofs.api.ReadResponse\0226"
-  "\n\005Write\022\025.ofs.api.WriteRequest\032\026.ofs.api"
-  ".WriteResponseB\003\200\001\001"
+  ".MakeDirResponse\022A\n\006Create\022\032.ofs.api.Cre"
+  "ateFileRequest\032\033.ofs.api.CreateFileRespo"
+  "nse\0223\n\004List\022\024.ofs.api.ListRequest\032\025.ofs."
+  "api.ListResponse\0229\n\006Remove\022\026.ofs.api.Rem"
+  "oveRequest\032\027.ofs.api.RemoveResponse\022@\n\006S"
+  "tatus\022\032.ofs.api.FileStatusRequest\032\032.ofs."
+  "api.FileStatusRespone\0223\n\004Read\022\024.ofs.api."
+  "ReadRequest\032\025.ofs.api.ReadResponse\0226\n\005Wr"
+  "ite\022\025.ofs.api.WriteRequest\032\026.ofs.api.Wri"
+  "teResponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsMaster_2eproto = {
   false, InitDefaults_OfsMaster_2eproto, 
   descriptor_table_protodef_OfsMaster_2eproto,
-  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2139,
+  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2135,
 };
 
 void AddDescriptors_OfsMaster_2eproto() {
@@ -8095,11 +8095,11 @@ void OfsFileService::MakeDir(::google::protobuf::RpcController* controller,
   done->Run();
 }
 
-void OfsFileService::CreateFile(::google::protobuf::RpcController* controller,
+void OfsFileService::Create(::google::protobuf::RpcController* controller,
                          const ::ofs::api::CreateFileRequest*,
                          ::ofs::api::CreateFileResponse*,
                          ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method CreateFile() not implemented.");
+  controller->SetFailed("Method Create() not implemented.");
   done->Run();
 }
 
@@ -8163,7 +8163,7 @@ void OfsFileService::CallMethod(const ::google::protobuf::MethodDescriptor* meth
              done);
       break;
     case 2:
-      CreateFile(controller,
+      Create(controller,
              ::google::protobuf::down_cast<const ::ofs::api::CreateFileRequest*>(request),
              ::google::protobuf::down_cast< ::ofs::api::CreateFileResponse*>(response),
              done);
@@ -8283,7 +8283,7 @@ void OfsFileService_Stub::MakeDir(::google::protobuf::RpcController* controller,
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
-void OfsFileService_Stub::CreateFile(::google::protobuf::RpcController* controller,
+void OfsFileService_Stub::Create(::google::protobuf::RpcController* controller,
                               const ::ofs::api::CreateFileRequest* request,
                               ::ofs::api::CreateFileResponse* response,
                               ::google::protobuf::Closure* done) {

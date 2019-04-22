@@ -128,7 +128,7 @@ message WriteResponse {
 service OfsFileService {
 	rpc Login (LoginReq) returns (LoginResponse);
 	rpc MakeDir (MakeDirRequest) returns (MakeDirResponse);
-	rpc CreateFile (CreateFileRequest) returns (CreateFileResponse);
+	rpc Create (CreateFileRequest) returns (CreateFileResponse);
 	rpc List (ListRequest) returns (ListResponse);
 	rpc Remove (RemoveRequest) returns (RemoveResponse);
 	rpc Status (FileStatusRequest) returns (FileStatusRespone);

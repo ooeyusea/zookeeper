@@ -22,7 +22,7 @@ namespace ofs {
 			const ::ofs::api::MakeDirRequest* request,
 			::ofs::api::MakeDirResponse* response,
 			::google::protobuf::Closure* done);
-		virtual void CreateFile(::google::protobuf::RpcController* controller,
+		virtual void Create(::google::protobuf::RpcController* controller,
 			const ::ofs::api::CreateFileRequest* request,
 			::ofs::api::CreateFileResponse* response,
 			::google::protobuf::Closure* done);
@@ -35,7 +35,7 @@ namespace ofs {
 			::ofs::api::RemoveResponse* response,
 			::google::protobuf::Closure* done);
 		virtual void Status(::google::protobuf::RpcController* controller,
-			const ::ofs::api::FileStatusRespone* request,
+			const ::ofs::api::FileStatusRequest* request,
 			::ofs::api::FileStatusRespone* response,
 			::google::protobuf::Closure* done);
 		virtual void Read(::google::protobuf::RpcController* controller,

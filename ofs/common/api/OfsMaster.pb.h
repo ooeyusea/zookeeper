@@ -2817,7 +2817,7 @@ class OfsFileService : public ::google::protobuf::Service {
                        const ::ofs::api::MakeDirRequest* request,
                        ::ofs::api::MakeDirResponse* response,
                        ::google::protobuf::Closure* done);
-  virtual void CreateFile(::google::protobuf::RpcController* controller,
+  virtual void Create(::google::protobuf::RpcController* controller,
                        const ::ofs::api::CreateFileRequest* request,
                        ::ofs::api::CreateFileResponse* response,
                        ::google::protobuf::Closure* done);
@@ -2878,7 +2878,7 @@ class OfsFileService_Stub : public OfsFileService {
                        const ::ofs::api::MakeDirRequest* request,
                        ::ofs::api::MakeDirResponse* response,
                        ::google::protobuf::Closure* done);
-  void CreateFile(::google::protobuf::RpcController* controller,
+  void Create(::google::protobuf::RpcController* controller,
                        const ::ofs::api::CreateFileRequest* request,
                        ::ofs::api::CreateFileResponse* response,
                        ::google::protobuf::Closure* done);

@@ -40,7 +40,7 @@ namespace ofs {
 		}
 	}
 
-	void ClientService::CreateFile(::google::protobuf::RpcController* controller,
+	void ClientService::Create(::google::protobuf::RpcController* controller,
 		const ::ofs::api::CreateFileRequest* request,
 		::ofs::api::CreateFileResponse* response,
 		::google::protobuf::Closure* done) {
@@ -101,7 +101,7 @@ namespace ofs {
 	}
 
 	void ClientService::Status(::google::protobuf::RpcController* controller,
-		const ::ofs::api::FileStatusRespone* request,
+		const ::ofs::api::FileStatusRequest* request,
 		::ofs::api::FileStatusRespone* response,
 		::google::protobuf::Closure* done) {
 

@@ -25,7 +25,7 @@ namespace ofs {
 	}
 
 	int32_t Directory::CreateNode(User * user, const char * path, int16_t authority, bool dir) {
-		FindNode(user, path, [authority, dir, this](User * user, const char * path) -> int32_t {
+		return FindNode(user, path, [authority, dir, this](User * user, const char * path) -> int32_t {
 			if (!CheckAuthority(user, false))
 				return api::ErrorCode::EC_PERMISSION_DENY;
 
@@ -60,7 +60,7 @@ namespace ofs {
 	}
 
 	int32_t Directory::Remove(User * user, const char * path) {
-		FindNode(user, path, [this](User * user, const char * path) -> int32_t {
+		return FindNode(user, path, [this](User * user, const char * path) -> int32_t {
 			std::unique_lock<hn_shared_mutex> guard(_mutex);
 
 			auto itr = _children.find(path);

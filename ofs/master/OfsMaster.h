@@ -10,7 +10,7 @@ namespace ofs {
 		Master();
 		virtual ~Master() {}
 
-		bool Start();
+		bool Start(const std::string& path);
 
 	private:
 	};

@@ -3,6 +3,7 @@
 #include "hnet.h"
 #include "Directory.h"
 #include "singleton.h"
+#include "XmlReader.h"
 
 namespace ofs {
 	class FileSystem : public olib::Singleton<FileSystem> {
@@ -10,6 +11,7 @@ namespace ofs {
 		FileSystem() {}
 		~FileSystem() {}
 
+		bool Start(const olib::IXmlObject& root);
 		bool LoadFromFile(const std::string& path);
 		bool SaveToFile(const std::string& path);
 

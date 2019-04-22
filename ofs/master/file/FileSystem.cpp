@@ -4,6 +4,12 @@
 #include "api/OfsMaster.pb.h"
 
 namespace ofs {
+	bool FileSystem::Start(const olib::IXmlObject& root) {
+		if (!LoadFromFile(root["data"][0]["path"][0].GetAttributeString("val")))
+			return false;
+		return true;
+	}
+
 	bool FileSystem::LoadFromFile(const std::string& path) {
 		_path = path;
 

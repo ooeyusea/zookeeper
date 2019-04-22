@@ -117,5 +117,7 @@ namespace ofs {
 
 			token.push_back('a' + c);
 		}
+
+		return token;
 	}
 }
