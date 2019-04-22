@@ -34,13 +34,17 @@ namespace ofs {
 			const ::ofs::api::RemoveRequest* request,
 			::ofs::api::RemoveResponse* response,
 			::google::protobuf::Closure* done);
-		virtual void Open(::google::protobuf::RpcController* controller,
-			const ::ofs::api::OpenRequest* request,
-			::ofs::api::OpenResponse* response,
+		virtual void Status(::google::protobuf::RpcController* controller,
+			const ::ofs::api::FileStatusRespone* request,
+			::ofs::api::FileStatusRespone* response,
 			::google::protobuf::Closure* done);
-		virtual void Close(::google::protobuf::RpcController* controller,
-			const ::ofs::api::CloseRequest* request,
-			::ofs::api::CloseResponse* response,
+		virtual void Read(::google::protobuf::RpcController* controller,
+			const ::ofs::api::ReadRequest* request,
+			::ofs::api::ReadResponse* response,
+			::google::protobuf::Closure* done);
+		virtual void Write(::google::protobuf::RpcController* controller,
+			const ::ofs::api::WriteRequest* request,
+			::ofs::api::WriteResponse* response,
 			::google::protobuf::Closure* done);
 
 	private:

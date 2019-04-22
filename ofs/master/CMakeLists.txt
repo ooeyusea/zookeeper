@@ -35,6 +35,7 @@ INCLUDE_DIRECTORIES(
 	"${PROJECT_SOURCE_DIR}/../../olib/include/xml"
 	"${PROJECT_SOURCE_DIR}/../common"
 	"${PROJECT_SOURCE_DIR}/../../third/protobuf/include"
+	"${PROJECT_SOURCE_DIR}/../../third/args/include"
 	"${PROJECT_SOURCE_DIR}/"
 )
 

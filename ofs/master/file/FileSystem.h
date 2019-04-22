@@ -1,5 +1,5 @@
-#ifndef __FILE_SYSTEM_H__
-#define __FILE_SYSTEM_H__
+#ifndef __OFS_FILE_SYSTEM_H__
+#define __OFS_FILE_SYSTEM_H__
 #include "hnet.h"
 #include "Directory.h"
 #include "singleton.h"
@@ -17,7 +17,9 @@ namespace ofs {
 
 	private:
 		Directory _root;
+
+		std::string _path;
 	};
 }
 
-#endif //__FILE_SYSTEM_H__
+#endif //__OFS_FILE_SYSTEM_H__

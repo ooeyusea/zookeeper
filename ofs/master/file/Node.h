@@ -1,6 +1,7 @@
 #ifndef __NODE_H__
 #define __NODE_H__
 #include "hnet.h"
+#include "time_helper.h"
 
 namespace ofs {
 	class User;
@@ -39,6 +40,10 @@ namespace ofs {
 		inline void SetParent(Node * val) { _parent = val; }
 		inline Node * GetParent() const { return _parent; }
 
+		inline void MarkDelete() { _delete = true; _deleteTick = olib::GetTimeStamp(); }
+		inline void Recover() { _delete = false; }
+		inline bool IsDelete() const { return _delete; }
+
 		bool CheckAuthority(User * user, bool read);
 
 		inline void Lock(bool write) {
@@ -64,6 +69,9 @@ namespace ofs {
 		int64_t _createTime;
 		int64_t _updateTime;
 		int32_t _size = 0;
+
+		bool _delete;
+		int64_t _deleteTick;
 
 		Node * _parent = nullptr;
 		hn_shared_mutex _mutex;

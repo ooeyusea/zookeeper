@@ -16,15 +16,24 @@ namespace ofs {
 		inline void SetGroup(const std::string& val) { _group = val; }
 		inline void SetGroup(std::string&& val) { _group = val; }
 
+		inline const std::string& GetPassword() const { return _password; }
+		inline void SetPassword(const std::string& val) { _password = val; }
+		inline void SetPassword(std::string&& val) { _password = val; }
+
+		inline bool IsSupper() const { return _super; }
+		inline void SetSuper(bool val) { _super = val; }
+
 		inline bool Check(const std::string& password) { return _password == password; }
 
 		inline void AddRef() { ++_count; }
 		inline void DecRef() { --_count; }
+		inline bool IsUsed() const { return _count > 0; }
 
 	private:
 		std::string _name;
 		std::string _group;
 		std::string _password;
+		bool _super = false;
 
 		int32_t _count = 0;
 	};

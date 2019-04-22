@@ -11,6 +11,20 @@ enum ErrorCode {
 	EC_DIR_NOT_EMPTY = 4;
 	EC_AUTHORITY_EXPIRE = 5;
 	EC_IS_DIR = 6;
+	EC_USER_OR_PASSWORD_ERROR = 7;
+	EC_USER_EXPIRE = 8;
+}
+
+enum AuthorityType {
+	AT_OWNER_READ = 1;
+	AT_OWNER_WRITE = 2;
+	AT_OWNER_EXECUTE = 4;
+	AT_GROUP_READ = 8;
+	AT_GROUP_WRITE = 16;
+	AT_GROUP_EXECUTE = 32;
+	AT_OTHER_READ = 64;
+	AT_OTHER_WRITE = 128;
+	AT_OTHER_EXECUTE = 256;
 }
 
 message LoginReq {
@@ -73,24 +87,42 @@ message RemoveResponse {
 	required ErrorCode errCode = 1; 
 }
 
-message OpenRequest {
+message FileStatusRequest {
 	required string token = 1;
 	required string path = 2;
-	required bool write = 3;
 }
 
-message OpenResponse {
+message FileStatusRespone {
 	required ErrorCode errCode = 1; 
-	optional int32 fd = 2;
+	optional File file = 2;
 }
 
-message CloseRequest {
+message Chunk {
+	required string id = 1;
+	required string host = 2;
+	required int32 port = 3;
+}
+
+message ReadRequest {
 	required string token = 1;
-	required int32 fd = 2;
+	required string path = 2;
+	required int32 offset = 3;
 }
 
-message CloseResponse {
+message ReadResponse {
 	required ErrorCode errCode = 1; 
+	repeated Chunk chunks = 2;
+}
+
+message WriteRequest {
+	required string token = 1;
+	required string path = 2;
+	required int32 offset = 3;
+}
+
+message WriteResponse {
+	required ErrorCode errCode = 1; 
+	repeated Chunk chunks = 2;
 }
 
 service OfsFileService {
@@ -99,6 +131,7 @@ service OfsFileService {
 	rpc CreateFile (CreateFileRequest) returns (CreateFileResponse);
 	rpc List (ListRequest) returns (ListResponse);
 	rpc Remove (RemoveRequest) returns (RemoveResponse);
-	rpc Open (OpenRequest) returns (OpenResponse);
-	rpc Close (CloseRequest) returns (CloseResponse);
+	rpc Status (FileStatusRequest) returns (FileStatusRespone);
+	rpc Read (ReadRequest) returns (ReadResponse);
+	rpc Write (WriteRequest) returns (WriteResponse);
 }

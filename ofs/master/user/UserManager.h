@@ -18,6 +18,8 @@ namespace ofs {
 		bool Start(const olib::IXmlObject& root);
 
 		std::string Login(const std::string& name, const std::string& password);
+		bool Add(const std::string& name, const std::string& group, const std::string& password);
+		bool Remove(const std::string& name);
 
 		User * Acquire(const std::string& token);
 		void Release(User * user);

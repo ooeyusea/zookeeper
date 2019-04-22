@@ -25,7 +25,7 @@ namespace ofs {
 				std::string data = request->SerializeAsString();
 
 				RpcHeader header;
-				header.size = data.size();
+				header.size = (int32_t)data.size();
 				header.method = method->index();
 				header.service = olib::BKDRHash(method->service()->full_name().c_str());
 
@@ -33,7 +33,7 @@ namespace ofs {
 
 				std::unique_lock<hn_mutex> writeLock(_writeMutex);
 				hn_send(fd, (const char*)&header, sizeof(header));
-				hn_send(fd, data.data(), data.size());
+				hn_send(fd, data.data(), (int32_t)data.size());
 
 				std::unique_lock<hn_mutex> readLock(_readMutex);
 				writeLock.unlock();
@@ -130,7 +130,7 @@ namespace ofs {
 
 									RpcRet ret{ (uint32_t)out.size(), false };
 									hn_send(fd, (const char*)&ret, sizeof(ret));
-									hn_send(fd, out.data(), out.size());
+									hn_send(fd, out.data(), (int32_t)out.size());
 
 									delete request;
 									continue;
