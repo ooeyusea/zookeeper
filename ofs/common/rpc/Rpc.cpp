@@ -54,6 +54,11 @@ namespace ofs {
 			}
 		}
 
+		bool OfsRpcChannel::Connect(const std::string& ip, int32_t port) {
+			_fd = hn_connect(ip.c_str(), port);
+			return _fd > 0;
+		}
+
 		void OfsRpcChannel::Start(const std::string& ip, int32_t port, const std::function<void()>& fn) {
 			hn_fork[ip, port, this, fn]{
 				while (!_terminate) {

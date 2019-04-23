@@ -19,6 +19,7 @@ namespace ofs {
 									google::protobuf::Message* response,
 									google::protobuf::Closure* done);
 
+			bool Connect(const std::string& ip, int32_t port);
 			void Start(const std::string& ip, int32_t port, const std::function<void ()>& fn);
 			inline void Stop() {
 				_terminate = true;
