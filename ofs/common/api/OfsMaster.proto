@@ -13,6 +13,8 @@ enum ErrorCode {
 	EC_IS_DIR = 6;
 	EC_USER_OR_PASSWORD_ERROR = 7;
 	EC_USER_EXPIRE = 8;
+	EC_IS_NOT_DIRECTORY = 9;
+	EC_ALREADY_EXIST_DELETE_FILE = 10;
 }
 
 enum AuthorityType {
@@ -40,7 +42,8 @@ message LoginResponse {
 message MakeDirRequest {
 	required string token = 1;
 	required int32 authority = 2;
-	required string path = 3;
+	required string directory = 3;
+	required string name = 4;
 }
 
 message MakeDirResponse {
@@ -50,7 +53,8 @@ message MakeDirResponse {
 message CreateFileRequest {
 	required string token = 1;
 	required int32 authority = 2;
-	required string path = 3;
+	required string directory = 3;
+	required string name = 4;
 }
 
 message CreateFileResponse {

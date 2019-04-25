@@ -12,10 +12,13 @@ namespace ofs {
 		~FileSystem() {}
 
 		bool Start(const olib::IXmlObject& root);
-		bool LoadFromFile(const std::string& path);
-		bool SaveToFile(const std::string& path);
+		void Flush();
 
 		Directory& Root() { return _root; }
+
+	private:
+		bool LoadFromFile(const std::string& path);
+		bool SaveToFile(const std::string& path);
 
 	private:
 		Directory _root;

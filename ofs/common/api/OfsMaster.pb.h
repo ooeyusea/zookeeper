@@ -142,11 +142,13 @@ enum ErrorCode {
   EC_AUTHORITY_EXPIRE = 5,
   EC_IS_DIR = 6,
   EC_USER_OR_PASSWORD_ERROR = 7,
-  EC_USER_EXPIRE = 8
+  EC_USER_EXPIRE = 8,
+  EC_IS_NOT_DIRECTORY = 9,
+  EC_ALREADY_EXIST_DELETE_FILE = 10
 };
 bool ErrorCode_IsValid(int value);
 const ErrorCode ErrorCode_MIN = EC_NONE;
-const ErrorCode ErrorCode_MAX = EC_USER_EXPIRE;
+const ErrorCode ErrorCode_MAX = EC_ALREADY_EXIST_DELETE_FILE;
 const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();
@@ -589,20 +591,35 @@ class MakeDirRequest :
   ::std::string* release_token();
   void set_allocated_token(::std::string* token);
 
-  // required string path = 3;
-  bool has_path() const;
-  void clear_path();
-  static const int kPathFieldNumber = 3;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
+  // required string directory = 3;
+  bool has_directory() const;
+  void clear_directory();
+  static const int kDirectoryFieldNumber = 3;
+  const ::std::string& directory() const;
+  void set_directory(const ::std::string& value);
   #if LANG_CXX11
-  void set_path(::std::string&& value);
+  void set_directory(::std::string&& value);
   #endif
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  void set_directory(const char* value);
+  void set_directory(const char* value, size_t size);
+  ::std::string* mutable_directory();
+  ::std::string* release_directory();
+  void set_allocated_directory(::std::string* directory);
+
+  // required string name = 4;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 4;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
 
   // required int32 authority = 2;
   bool has_authority() const;
@@ -622,7 +639,8 @@ class MakeDirRequest :
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr token_;
-  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr directory_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::int32 authority_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -866,20 +884,35 @@ class CreateFileRequest :
   ::std::string* release_token();
   void set_allocated_token(::std::string* token);
 
-  // required string path = 3;
-  bool has_path() const;
-  void clear_path();
-  static const int kPathFieldNumber = 3;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
+  // required string directory = 3;
+  bool has_directory() const;
+  void clear_directory();
+  static const int kDirectoryFieldNumber = 3;
+  const ::std::string& directory() const;
+  void set_directory(const ::std::string& value);
   #if LANG_CXX11
-  void set_path(::std::string&& value);
+  void set_directory(::std::string&& value);
   #endif
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
+  void set_directory(const char* value);
+  void set_directory(const char* value, size_t size);
+  ::std::string* mutable_directory();
+  ::std::string* release_directory();
+  void set_allocated_directory(::std::string* directory);
+
+  // required string name = 4;
+  bool has_name() const;
+  void clear_name();
+  static const int kNameFieldNumber = 4;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
 
   // required int32 authority = 2;
   bool has_authority() const;
@@ -899,7 +932,8 @@ class CreateFileRequest :
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr token_;
-  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr directory_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::int32 authority_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -3189,80 +3223,140 @@ inline void MakeDirRequest::set_allocated_token(::std::string* token) {
 
 // required int32 authority = 2;
 inline bool MakeDirRequest::has_authority() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void MakeDirRequest::clear_authority() {
   authority_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 MakeDirRequest::authority() const {
   // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.authority)
   return authority_;
 }
 inline void MakeDirRequest::set_authority(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   authority_ = value;
   // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.authority)
 }
 
-// required string path = 3;
-inline bool MakeDirRequest::has_path() const {
+// required string directory = 3;
+inline bool MakeDirRequest::has_directory() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void MakeDirRequest::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void MakeDirRequest::clear_directory() {
+  directory_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::std::string& MakeDirRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.path)
-  return path_.GetNoArena();
+inline const ::std::string& MakeDirRequest::directory() const {
+  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.directory)
+  return directory_.GetNoArena();
 }
-inline void MakeDirRequest::set_path(const ::std::string& value) {
+inline void MakeDirRequest::set_directory(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.path)
+  directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.directory)
 }
 #if LANG_CXX11
-inline void MakeDirRequest::set_path(::std::string&& value) {
+inline void MakeDirRequest::set_directory(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(
+  directory_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.MakeDirRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.MakeDirRequest.directory)
 }
 #endif
-inline void MakeDirRequest::set_path(const char* value) {
+inline void MakeDirRequest::set_directory(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.MakeDirRequest.path)
+  directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.api.MakeDirRequest.directory)
 }
-inline void MakeDirRequest::set_path(const char* value, size_t size) {
+inline void MakeDirRequest::set_directory(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.MakeDirRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.MakeDirRequest.directory)
 }
-inline ::std::string* MakeDirRequest::mutable_path() {
+inline ::std::string* MakeDirRequest::mutable_directory() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.MakeDirRequest.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:ofs.api.MakeDirRequest.directory)
+  return directory_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* MakeDirRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.MakeDirRequest.path)
-  if (!has_path()) {
+inline ::std::string* MakeDirRequest::release_directory() {
+  // @@protoc_insertion_point(field_release:ofs.api.MakeDirRequest.directory)
+  if (!has_directory()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000002u;
-  return path_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return directory_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void MakeDirRequest::set_allocated_path(::std::string* path) {
-  if (path != nullptr) {
+inline void MakeDirRequest::set_allocated_directory(::std::string* directory) {
+  if (directory != nullptr) {
     _has_bits_[0] |= 0x00000002u;
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.MakeDirRequest.path)
+  directory_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), directory);
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.MakeDirRequest.directory)
+}
+
+// required string name = 4;
+inline bool MakeDirRequest::has_name() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void MakeDirRequest::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const ::std::string& MakeDirRequest::name() const {
+  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.name)
+  return name_.GetNoArena();
+}
+inline void MakeDirRequest::set_name(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.name)
+}
+#if LANG_CXX11
+inline void MakeDirRequest::set_name(::std::string&& value) {
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.MakeDirRequest.name)
+}
+#endif
+inline void MakeDirRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.api.MakeDirRequest.name)
+}
+inline void MakeDirRequest::set_name(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.MakeDirRequest.name)
+}
+inline ::std::string* MakeDirRequest::mutable_name() {
+  _has_bits_[0] |= 0x00000004u;
+  // @@protoc_insertion_point(field_mutable:ofs.api.MakeDirRequest.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* MakeDirRequest::release_name() {
+  // @@protoc_insertion_point(field_release:ofs.api.MakeDirRequest.name)
+  if (!has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MakeDirRequest::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.MakeDirRequest.name)
 }
 
 // -------------------------------------------------------------------
@@ -3354,80 +3448,140 @@ inline void CreateFileRequest::set_allocated_token(::std::string* token) {
 
 // required int32 authority = 2;
 inline bool CreateFileRequest::has_authority() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void CreateFileRequest::clear_authority() {
   authority_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 CreateFileRequest::authority() const {
   // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.authority)
   return authority_;
 }
 inline void CreateFileRequest::set_authority(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   authority_ = value;
   // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.authority)
 }
 
-// required string path = 3;
-inline bool CreateFileRequest::has_path() const {
+// required string directory = 3;
+inline bool CreateFileRequest::has_directory() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void CreateFileRequest::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void CreateFileRequest::clear_directory() {
+  directory_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::std::string& CreateFileRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.path)
-  return path_.GetNoArena();
+inline const ::std::string& CreateFileRequest::directory() const {
+  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.directory)
+  return directory_.GetNoArena();
 }
-inline void CreateFileRequest::set_path(const ::std::string& value) {
+inline void CreateFileRequest::set_directory(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.path)
+  directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.directory)
 }
 #if LANG_CXX11
-inline void CreateFileRequest::set_path(::std::string&& value) {
+inline void CreateFileRequest::set_directory(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(
+  directory_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.CreateFileRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.CreateFileRequest.directory)
 }
 #endif
-inline void CreateFileRequest::set_path(const char* value) {
+inline void CreateFileRequest::set_directory(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.CreateFileRequest.path)
+  directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.api.CreateFileRequest.directory)
 }
-inline void CreateFileRequest::set_path(const char* value, size_t size) {
+inline void CreateFileRequest::set_directory(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.CreateFileRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.CreateFileRequest.directory)
 }
-inline ::std::string* CreateFileRequest::mutable_path() {
+inline ::std::string* CreateFileRequest::mutable_directory() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.CreateFileRequest.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:ofs.api.CreateFileRequest.directory)
+  return directory_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CreateFileRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.CreateFileRequest.path)
-  if (!has_path()) {
+inline ::std::string* CreateFileRequest::release_directory() {
+  // @@protoc_insertion_point(field_release:ofs.api.CreateFileRequest.directory)
+  if (!has_directory()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000002u;
-  return path_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return directory_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CreateFileRequest::set_allocated_path(::std::string* path) {
-  if (path != nullptr) {
+inline void CreateFileRequest::set_allocated_directory(::std::string* directory) {
+  if (directory != nullptr) {
     _has_bits_[0] |= 0x00000002u;
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.CreateFileRequest.path)
+  directory_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), directory);
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.CreateFileRequest.directory)
+}
+
+// required string name = 4;
+inline bool CreateFileRequest::has_name() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CreateFileRequest::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const ::std::string& CreateFileRequest::name() const {
+  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.name)
+  return name_.GetNoArena();
+}
+inline void CreateFileRequest::set_name(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.name)
+}
+#if LANG_CXX11
+inline void CreateFileRequest::set_name(::std::string&& value) {
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.CreateFileRequest.name)
+}
+#endif
+inline void CreateFileRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.api.CreateFileRequest.name)
+}
+inline void CreateFileRequest::set_name(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000004u;
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.CreateFileRequest.name)
+}
+inline ::std::string* CreateFileRequest::mutable_name() {
+  _has_bits_[0] |= 0x00000004u;
+  // @@protoc_insertion_point(field_mutable:ofs.api.CreateFileRequest.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CreateFileRequest::release_name() {
+  // @@protoc_insertion_point(field_release:ofs.api.CreateFileRequest.name)
+  if (!has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CreateFileRequest::set_allocated_name(::std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.CreateFileRequest.name)
 }
 
 // -------------------------------------------------------------------

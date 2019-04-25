@@ -11,6 +11,14 @@ namespace ofs {
 			User* user;
 			int64_t expire;
 		};
+
+		struct UserSaveCommand {
+			std::string name;
+			std::string group;
+			std::string password;
+			bool supper;
+		};
+
 	public:
 		UserManager() {}
 		~UserManager() {}
@@ -24,7 +32,13 @@ namespace ofs {
 		User * Acquire(const std::string& token);
 		void Release(User * user);
 
+		void CreateRootUser();
 		void ClearExpire();
+		void DoSave();
+
+		inline void SaveUser(const std::string& name, const std::string& group, const std::string& password, bool supper) {
+			_saveQueue << UserSaveCommand{ name, group, password, supper };
+		}
 
 	private:
 		std::string Generate();
@@ -37,6 +51,8 @@ namespace ofs {
 		bool _terminate = false;
 		int64_t _expire;
 		int64_t _expireCheckInterval;
+
+		hn_channel<UserSaveCommand, 100> _saveQueue;
 	};
 }
 

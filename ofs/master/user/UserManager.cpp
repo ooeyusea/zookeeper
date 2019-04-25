@@ -5,7 +5,9 @@
 namespace ofs {
 	bool UserManager::Start(const olib::IXmlObject& root) {
 		const char * path = root["user"][0].GetAttributeString("path");
-		olib::FileFinder().Search("*.user", [this](const fs::path& file) {
+
+		bool hasOne = false;
+		olib::FileFinder().Search("*.user", [this, &hasOne](const fs::path& file) {
 			olib::XmlReader conf;
 			if (!conf.LoadXml(file.string().c_str())) {
 				hn_error("load user {} failed", file.filename().string());
@@ -20,11 +22,21 @@ namespace ofs {
 				user.SetSuper(conf.Root()["super"][0].GetAttributeBoolean("val"));
 
 			_users[user.GetName()] = user;
+
+			hasOne = true;
 		});
+
+		if (!hasOne)
+			CreateRootUser();
 
 		hn_fork [this]{
 			ClearExpire();
 		};
+
+		hn_fork[this]{
+			DoSave();
+		};
+
 		return true;
 	}
 
@@ -82,6 +94,16 @@ namespace ofs {
 		user->DecRef();
 	}
 
+	void UserManager::CreateRootUser() {
+		User& root = _users["root"];
+
+		root.SetSuper(true);
+		root.SetName("root");
+		root.SetGroup("root");
+
+		SaveUser("root", "root", "", true);
+	}
+
 	void UserManager::ClearExpire() {
 		while (!_terminate) {
 			hn_sleep _expireCheckInterval;
@@ -99,6 +121,15 @@ namespace ofs {
 					_auths.erase(itr);
 				}
 			}
+		}
+	}
+
+	void UserManager::DoSave() {
+		while (!_terminate) {
+			UserSaveCommand command;
+			_saveQueue >> command;
+
+			//to do
 		}
 	}
 

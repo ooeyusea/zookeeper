@@ -2,6 +2,7 @@
 #define __NODE_H__
 #include "hnet.h"
 #include "time_helper.h"
+#include "XmlReader.h"
 
 namespace ofs {
 	class User;
@@ -11,6 +12,18 @@ namespace ofs {
 		virtual ~Node() {}
 
 		virtual void DoNotWantToObject() = 0;
+
+		template <typename AR>
+		void Archive(AR& ar) {
+			ar & _name;
+			ar & _owner;
+			ar & _ownerGroup;
+			ar & _authority;
+			ar & _createTime;
+			ar & _updateTime;
+			ar & _delete;
+			ar & _deleteTick;
+		}
 
 		inline const std::string& GetName() const { return _name; }
 		inline void SetName(const std::string& val) { _name = val; }

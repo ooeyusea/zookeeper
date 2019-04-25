@@ -2,21 +2,29 @@
 #include "file_system.h"
 #include "XmlReader.h"
 #include "api/OfsMaster.pb.h"
+#include "bufferstream.h"
+#include <fstream>
 
 namespace ofs {
 	bool FileSystem::Start(const olib::IXmlObject& root) {
-		if (!LoadFromFile(root["data"][0]["path"][0].GetAttributeString("val")))
+		_path = root["data"][0]["path"][0].GetAttributeString("val");
+		if (!LoadFromFile(_path))
 			return false;
 		return true;
 	}
 
-	bool FileSystem::LoadFromFile(const std::string& path) {
-		_path = path;
+	void FileSystem::Flush() {
+		SaveToFile(_path);
+	}
 
+	bool FileSystem::LoadFromFile(const std::string& path) {
 		if (fs::exists(path)) {
-			olib::XmlReader conf;
-			if (!conf.LoadXml(path.c_str())) {
-				hn_error("load directory file failed");
+			olib::BufferFileStream<> fp(path);
+			hyper_net::IArchiver<olib::BufferFileStream<>> ar(fp, 0);
+			ar >> _root;
+
+			if (ar.Fail()) {
+				hn_error("parse meta data file failed");
 				return false;
 			}
 
@@ -34,7 +42,12 @@ namespace ofs {
 	}
 
 	bool FileSystem::SaveToFile(const std::string& path) {
-		return false;
+		std::ofstream out(path);
+		hyper_net::OArchiver<std::ofstream> ar(out, 0);
+
+		ar << _root;
+
+		return !ar.Fail();
 	}
 
 }

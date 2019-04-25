@@ -34,7 +34,7 @@ namespace ofs {
 		if (!user)
 			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
 		else {
-			int32_t ret = FileSystem::Instance().Root().CreateNode(user, request->path().c_str(), request->authority(), true);
+			int32_t ret = FileSystem::Instance().Root().CreateNode(user, request->directory().c_str(), request->name().c_str(), request->authority(), true);
 			response->set_errcode((api::ErrorCode)ret);
 			UserManager::Instance().Release(user);
 		}
@@ -49,7 +49,7 @@ namespace ofs {
 		if (!user)
 			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
 		else {
-			int32_t ret = FileSystem::Instance().Root().CreateNode(user, request->path().c_str(), request->authority(), false);
+			int32_t ret = FileSystem::Instance().Root().CreateNode(user, request->directory().c_str(), request->name().c_str(), request->authority(), false);
 			response->set_errcode((api::ErrorCode)ret);
 			UserManager::Instance().Release(user);
 		}
@@ -110,9 +110,7 @@ namespace ofs {
 			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
 		else {
 			// because node is not delete immediately
-			Node* node = FileSystem::Instance().Root().QueryNode(user, request->path().c_str());
-			if (node) {
-				response->set_errcode(api::ErrorCode::EC_NONE);
+			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [response](User * user, Node * node) {
 				auto * n = response->mutable_file();
 
 				n->set_name(node->GetName());
@@ -123,10 +121,11 @@ namespace ofs {
 				n->set_createtime(node->GetCreateTime());
 				n->set_updatetime(node->GetUpdateTime());
 				n->set_dir(node->IsDir());
-			}
-			else {
-				response->set_errcode(api::ErrorCode::EC_PERMISSION_DENY);
-			}
+
+				return api::ErrorCode::EC_NONE;
+			});
+
+			response->set_errcode((api::ErrorCode)ret);
 
 			UserManager::Instance().Release(user);
 		}

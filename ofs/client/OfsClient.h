@@ -7,6 +7,21 @@
 namespace ofs {
 	class Client {
 		typedef void (Client::*CommandDealFuncType)(int32_t argc, char ** argv);
+
+		struct Node {
+			std::string name;
+			std::string owner;
+			std::string ownerGroup;
+			int16_t authority = 0;
+			bool dir;
+			int64_t createTime = 0;
+			int64_t updateTime = 0;
+			int32_t size = 0;
+			bool expand = false;
+
+			std::vector<Node*> children;
+		};
+
 	public:
 		Client();
 		virtual ~Client() {}
@@ -18,12 +33,29 @@ namespace ofs {
 
 	private:
 		bool Login(const std::string& username, const std::string& password);
+		bool ReadRootPath();
 
-		void ChangeDir(const std::string& path);
-		void Mkdir(const std::string& path);
-		void Touch(const std::string& path);
-		void Remove(const std::string& path);
-		void List(int32_t argc);
+		void ChangeDir(int32_t argc, char ** argv);
+		void Mkdir(int32_t argc, char ** argv);
+		void Touch(int32_t argc, char ** argv);
+		void Remove(int32_t argc, char ** argv);
+		void List(int32_t argc, char ** argv);
+
+		int32_t Expand(const char * path);
+
+		std::string FindReal(const std::string& path);
+		std::tuple<std::string, std::string> FindRealWithName(const std::string& path);
+
+		Node * GetNode(Node& node, const char * path);
+		Node * CreateNode(Node& node, const char * path);
+
+		inline std::tuple<std::string, const char*> FetchSubPath(const char * path) {
+			const char * slash = strchr(path, '/');
+			if (slash)
+				return std::make_tuple(std::string(path, slash - path), slash + 1);
+
+			return std::make_tuple(std::string(path), nullptr);
+		}
 
 	private:
 		ofs::rpc::OfsRpcChannel _channel;
@@ -37,6 +69,7 @@ namespace ofs {
 		std::unordered_map<std::string, CommandDealFuncType> _commands;
 
 		std::string _currentPath;
+		Node _root;
 	};
 }
 

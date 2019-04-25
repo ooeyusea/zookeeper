@@ -401,10 +401,12 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirRequest, token_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirRequest, authority_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirRequest, path_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirRequest, directory_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirRequest, name_),
   0,
-  2,
+  3,
   1,
+  2,
   PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::MakeDirResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -419,10 +421,12 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileRequest, token_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileRequest, authority_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileRequest, path_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileRequest, directory_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileRequest, name_),
   0,
-  2,
+  3,
   1,
+  2,
   PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::CreateFileResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -558,22 +562,22 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 7, sizeof(::ofs::api::LoginReq)},
   { 9, 16, sizeof(::ofs::api::LoginResponse)},
-  { 18, 26, sizeof(::ofs::api::MakeDirRequest)},
-  { 29, 35, sizeof(::ofs::api::MakeDirResponse)},
-  { 36, 44, sizeof(::ofs::api::CreateFileRequest)},
-  { 47, 53, sizeof(::ofs::api::CreateFileResponse)},
-  { 54, 61, sizeof(::ofs::api::ListRequest)},
-  { 63, 76, sizeof(::ofs::api::File)},
-  { 84, 91, sizeof(::ofs::api::ListResponse)},
-  { 93, 100, sizeof(::ofs::api::RemoveRequest)},
-  { 102, 108, sizeof(::ofs::api::RemoveResponse)},
-  { 109, 116, sizeof(::ofs::api::FileStatusRequest)},
-  { 118, 125, sizeof(::ofs::api::FileStatusRespone)},
-  { 127, 135, sizeof(::ofs::api::Chunk)},
-  { 138, 146, sizeof(::ofs::api::ReadRequest)},
-  { 149, 156, sizeof(::ofs::api::ReadResponse)},
-  { 158, 166, sizeof(::ofs::api::WriteRequest)},
-  { 169, 176, sizeof(::ofs::api::WriteResponse)},
+  { 18, 27, sizeof(::ofs::api::MakeDirRequest)},
+  { 31, 37, sizeof(::ofs::api::MakeDirResponse)},
+  { 38, 47, sizeof(::ofs::api::CreateFileRequest)},
+  { 51, 57, sizeof(::ofs::api::CreateFileResponse)},
+  { 58, 65, sizeof(::ofs::api::ListRequest)},
+  { 67, 80, sizeof(::ofs::api::File)},
+  { 88, 95, sizeof(::ofs::api::ListResponse)},
+  { 97, 104, sizeof(::ofs::api::RemoveRequest)},
+  { 106, 112, sizeof(::ofs::api::RemoveResponse)},
+  { 113, 120, sizeof(::ofs::api::FileStatusRequest)},
+  { 122, 129, sizeof(::ofs::api::FileStatusRespone)},
+  { 131, 139, sizeof(::ofs::api::Chunk)},
+  { 142, 150, sizeof(::ofs::api::ReadRequest)},
+  { 153, 160, sizeof(::ofs::api::ReadResponse)},
+  { 162, 170, sizeof(::ofs::api::WriteRequest)},
+  { 173, 180, sizeof(::ofs::api::WriteResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -607,62 +611,64 @@ const char descriptor_table_protodef_OfsMaster_2eproto[] =
   "\n\017OfsMaster.proto\022\007ofs.api\"*\n\010LoginReq\022\014"
   "\n\004name\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"C\n\rLoginR"
   "esponse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.Error"
-  "Code\022\r\n\005token\030\002 \001(\t\"@\n\016MakeDirRequest\022\r\n"
-  "\005token\030\001 \002(\t\022\021\n\tauthority\030\002 \002(\005\022\014\n\004path\030"
-  "\003 \002(\t\"6\n\017MakeDirResponse\022#\n\007errCode\030\001 \002("
-  "\0162\022.ofs.api.ErrorCode\"C\n\021CreateFileReque"
-  "st\022\r\n\005token\030\001 \002(\t\022\021\n\tauthority\030\002 \002(\005\022\014\n\004"
-  "path\030\003 \002(\t\"9\n\022CreateFileResponse\022#\n\007errC"
-  "ode\030\001 \002(\0162\022.ofs.api.ErrorCode\"*\n\013ListReq"
-  "uest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"\210\001\n\004Fi"
-  "le\022\014\n\004name\030\001 \002(\t\022\r\n\005owner\030\002 \002(\t\022\r\n\005group"
-  "\030\003 \002(\t\022\021\n\tauthority\030\004 \002(\005\022\014\n\004size\030\005 \002(\005\022"
-  "\022\n\ncreateTime\030\006 \002(\003\022\022\n\nupdateTime\030\007 \002(\003\022"
-  "\013\n\003dir\030\010 \002(\010\"Q\n\014ListResponse\022#\n\007errCode\030"
-  "\001 \002(\0162\022.ofs.api.ErrorCode\022\034\n\005files\030\002 \003(\013"
-  "2\r.ofs.api.File\",\n\rRemoveRequest\022\r\n\005toke"
-  "n\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"5\n\016RemoveResponse\022"
-  "#\n\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCode\"0\n\021"
-  "FileStatusRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path"
-  "\030\002 \002(\t\"U\n\021FileStatusRespone\022#\n\007errCode\030\001"
-  " \002(\0162\022.ofs.api.ErrorCode\022\033\n\004file\030\002 \001(\0132\r"
-  ".ofs.api.File\"/\n\005Chunk\022\n\n\002id\030\001 \002(\t\022\014\n\004ho"
-  "st\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\":\n\013ReadRequest\022\r\n"
-  "\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\022\016\n\006offset\030\003 \002"
-  "(\005\"S\n\014ReadResponse\022#\n\007errCode\030\001 \002(\0162\022.of"
-  "s.api.ErrorCode\022\036\n\006chunks\030\002 \003(\0132\016.ofs.ap"
-  "i.Chunk\";\n\014WriteRequest\022\r\n\005token\030\001 \002(\t\022\014"
-  "\n\004path\030\002 \002(\t\022\016\n\006offset\030\003 \002(\005\"T\n\rWriteRes"
-  "ponse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCo"
-  "de\022\036\n\006chunks\030\002 \003(\0132\016.ofs.api.Chunk*\313\001\n\tE"
-  "rrorCode\022\013\n\007EC_NONE\020\000\022\025\n\021EC_FILE_NOT_EIX"
-  "ST\020\001\022\021\n\rEC_FILE_EIXST\020\002\022\026\n\022EC_PERMISSION"
-  "_DENY\020\003\022\024\n\020EC_DIR_NOT_EMPTY\020\004\022\027\n\023EC_AUTH"
-  "ORITY_EXPIRE\020\005\022\r\n\tEC_IS_DIR\020\006\022\035\n\031EC_USER"
-  "_OR_PASSWORD_ERROR\020\007\022\022\n\016EC_USER_EXPIRE\020\010"
-  "*\310\001\n\rAuthorityType\022\021\n\rAT_OWNER_READ\020\001\022\022\n"
-  "\016AT_OWNER_WRITE\020\002\022\024\n\020AT_OWNER_EXECUTE\020\004\022"
-  "\021\n\rAT_GROUP_READ\020\010\022\022\n\016AT_GROUP_WRITE\020\020\022\024"
-  "\n\020AT_GROUP_EXECUTE\020 \022\021\n\rAT_OTHER_READ\020@\022"
-  "\023\n\016AT_OTHER_WRITE\020\200\001\022\025\n\020AT_OTHER_EXECUTE"
-  "\020\200\0022\344\003\n\016OfsFileService\0222\n\005Login\022\021.ofs.ap"
-  "i.LoginReq\032\026.ofs.api.LoginResponse\022<\n\007Ma"
-  "keDir\022\027.ofs.api.MakeDirRequest\032\030.ofs.api"
-  ".MakeDirResponse\022A\n\006Create\022\032.ofs.api.Cre"
-  "ateFileRequest\032\033.ofs.api.CreateFileRespo"
-  "nse\0223\n\004List\022\024.ofs.api.ListRequest\032\025.ofs."
-  "api.ListResponse\0229\n\006Remove\022\026.ofs.api.Rem"
-  "oveRequest\032\027.ofs.api.RemoveResponse\022@\n\006S"
-  "tatus\022\032.ofs.api.FileStatusRequest\032\032.ofs."
-  "api.FileStatusRespone\0223\n\004Read\022\024.ofs.api."
-  "ReadRequest\032\025.ofs.api.ReadResponse\0226\n\005Wr"
-  "ite\022\025.ofs.api.WriteRequest\032\026.ofs.api.Wri"
-  "teResponseB\003\200\001\001"
+  "Code\022\r\n\005token\030\002 \001(\t\"S\n\016MakeDirRequest\022\r\n"
+  "\005token\030\001 \002(\t\022\021\n\tauthority\030\002 \002(\005\022\021\n\tdirec"
+  "tory\030\003 \002(\t\022\014\n\004name\030\004 \002(\t\"6\n\017MakeDirRespo"
+  "nse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCode"
+  "\"V\n\021CreateFileRequest\022\r\n\005token\030\001 \002(\t\022\021\n\t"
+  "authority\030\002 \002(\005\022\021\n\tdirectory\030\003 \002(\t\022\014\n\004na"
+  "me\030\004 \002(\t\"9\n\022CreateFileResponse\022#\n\007errCod"
+  "e\030\001 \002(\0162\022.ofs.api.ErrorCode\"*\n\013ListReque"
+  "st\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"\210\001\n\004File"
+  "\022\014\n\004name\030\001 \002(\t\022\r\n\005owner\030\002 \002(\t\022\r\n\005group\030\003"
+  " \002(\t\022\021\n\tauthority\030\004 \002(\005\022\014\n\004size\030\005 \002(\005\022\022\n"
+  "\ncreateTime\030\006 \002(\003\022\022\n\nupdateTime\030\007 \002(\003\022\013\n"
+  "\003dir\030\010 \002(\010\"Q\n\014ListResponse\022#\n\007errCode\030\001 "
+  "\002(\0162\022.ofs.api.ErrorCode\022\034\n\005files\030\002 \003(\0132\r"
+  ".ofs.api.File\",\n\rRemoveRequest\022\r\n\005token\030"
+  "\001 \002(\t\022\014\n\004path\030\002 \002(\t\"5\n\016RemoveResponse\022#\n"
+  "\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCode\"0\n\021Fi"
+  "leStatusRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002"
+  " \002(\t\"U\n\021FileStatusRespone\022#\n\007errCode\030\001 \002"
+  "(\0162\022.ofs.api.ErrorCode\022\033\n\004file\030\002 \001(\0132\r.o"
+  "fs.api.File\"/\n\005Chunk\022\n\n\002id\030\001 \002(\t\022\014\n\004host"
+  "\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\":\n\013ReadRequest\022\r\n\005t"
+  "oken\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\022\016\n\006offset\030\003 \002(\005"
+  "\"S\n\014ReadResponse\022#\n\007errCode\030\001 \002(\0162\022.ofs."
+  "api.ErrorCode\022\036\n\006chunks\030\002 \003(\0132\016.ofs.api."
+  "Chunk\";\n\014WriteRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004"
+  "path\030\002 \002(\t\022\016\n\006offset\030\003 \002(\005\"T\n\rWriteRespo"
+  "nse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCode"
+  "\022\036\n\006chunks\030\002 \003(\0132\016.ofs.api.Chunk*\206\002\n\tErr"
+  "orCode\022\013\n\007EC_NONE\020\000\022\025\n\021EC_FILE_NOT_EIXST"
+  "\020\001\022\021\n\rEC_FILE_EIXST\020\002\022\026\n\022EC_PERMISSION_D"
+  "ENY\020\003\022\024\n\020EC_DIR_NOT_EMPTY\020\004\022\027\n\023EC_AUTHOR"
+  "ITY_EXPIRE\020\005\022\r\n\tEC_IS_DIR\020\006\022\035\n\031EC_USER_O"
+  "R_PASSWORD_ERROR\020\007\022\022\n\016EC_USER_EXPIRE\020\010\022\027"
+  "\n\023EC_IS_NOT_DIRECTORY\020\t\022 \n\034EC_ALREADY_EX"
+  "IST_DELETE_FILE\020\n*\310\001\n\rAuthorityType\022\021\n\rA"
+  "T_OWNER_READ\020\001\022\022\n\016AT_OWNER_WRITE\020\002\022\024\n\020AT"
+  "_OWNER_EXECUTE\020\004\022\021\n\rAT_GROUP_READ\020\010\022\022\n\016A"
+  "T_GROUP_WRITE\020\020\022\024\n\020AT_GROUP_EXECUTE\020 \022\021\n"
+  "\rAT_OTHER_READ\020@\022\023\n\016AT_OTHER_WRITE\020\200\001\022\025\n"
+  "\020AT_OTHER_EXECUTE\020\200\0022\344\003\n\016OfsFileService\022"
+  "2\n\005Login\022\021.ofs.api.LoginReq\032\026.ofs.api.Lo"
+  "ginResponse\022<\n\007MakeDir\022\027.ofs.api.MakeDir"
+  "Request\032\030.ofs.api.MakeDirResponse\022A\n\006Cre"
+  "ate\022\032.ofs.api.CreateFileRequest\032\033.ofs.ap"
+  "i.CreateFileResponse\0223\n\004List\022\024.ofs.api.L"
+  "istRequest\032\025.ofs.api.ListResponse\0229\n\006Rem"
+  "ove\022\026.ofs.api.RemoveRequest\032\027.ofs.api.Re"
+  "moveResponse\022@\n\006Status\022\032.ofs.api.FileSta"
+  "tusRequest\032\032.ofs.api.FileStatusRespone\0223"
+  "\n\004Read\022\024.ofs.api.ReadRequest\032\025.ofs.api.R"
+  "eadResponse\0226\n\005Write\022\025.ofs.api.WriteRequ"
+  "est\032\026.ofs.api.WriteResponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsMaster_2eproto = {
   false, InitDefaults_OfsMaster_2eproto, 
   descriptor_table_protodef_OfsMaster_2eproto,
-  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2135,
+  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2232,
 };
 
 void AddDescriptors_OfsMaster_2eproto() {
@@ -691,6 +697,8 @@ bool ErrorCode_IsValid(int value) {
     case 6:
     case 7:
     case 8:
+    case 9:
+    case 10:
       return true;
     default:
       return false;
@@ -1514,17 +1522,21 @@ class MakeDirRequest::HasBitSetters {
     msg->_has_bits_[0] |= 0x00000001u;
   }
   static void set_has_authority(MakeDirRequest* msg) {
-    msg->_has_bits_[0] |= 0x00000004u;
+    msg->_has_bits_[0] |= 0x00000008u;
   }
-  static void set_has_path(MakeDirRequest* msg) {
+  static void set_has_directory(MakeDirRequest* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_name(MakeDirRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
   }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MakeDirRequest::kTokenFieldNumber;
 const int MakeDirRequest::kAuthorityFieldNumber;
-const int MakeDirRequest::kPathFieldNumber;
+const int MakeDirRequest::kDirectoryFieldNumber;
+const int MakeDirRequest::kNameFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MakeDirRequest::MakeDirRequest()
@@ -1541,9 +1553,13 @@ MakeDirRequest::MakeDirRequest(const MakeDirRequest& from)
   if (from.has_token()) {
     token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_path()) {
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
+  directory_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_directory()) {
+    directory_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.directory_);
+  }
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_name()) {
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   authority_ = from.authority_;
   // @@protoc_insertion_point(copy_constructor:ofs.api.MakeDirRequest)
@@ -1553,7 +1569,8 @@ void MakeDirRequest::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_MakeDirRequest_OfsMaster_2eproto.base);
   token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  directory_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   authority_ = 0;
 }
 
@@ -1564,7 +1581,8 @@ MakeDirRequest::~MakeDirRequest() {
 
 void MakeDirRequest::SharedDtor() {
   token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  directory_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void MakeDirRequest::SetCachedSize(int size) const {
@@ -1583,12 +1601,15 @@ void MakeDirRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       token_.ClearNonDefaultToEmptyNoArena();
     }
     if (cached_has_bits & 0x00000002u) {
-      path_.ClearNonDefaultToEmptyNoArena();
+      directory_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      name_.ClearNonDefaultToEmptyNoArena();
     }
   }
   authority_ = 0;
@@ -1632,13 +1653,29 @@ const char* MakeDirRequest::_InternalParse(const char* begin, const char* end, v
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required string path = 3;
+      // required string directory = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.api.MakeDirRequest.path");
-        object = msg->mutable_path();
+        ctx->extra_parse_data().SetFieldName("ofs.api.MakeDirRequest.directory");
+        object = msg->mutable_directory();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // required string name = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("ofs.api.MakeDirRequest.name");
+        object = msg->mutable_name();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
           parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
           goto string_till_end;
@@ -1710,15 +1747,30 @@ bool MakeDirRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // required string path = 3;
+      // required string directory = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
+                input, this->mutable_directory()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->path().data(), static_cast<int>(this->path().length()),
+            this->directory().data(), static_cast<int>(this->directory().length()),
             ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.api.MakeDirRequest.path");
+            "ofs.api.MakeDirRequest.directory");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string name = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->name().data(), static_cast<int>(this->name().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "ofs.api.MakeDirRequest.name");
         } else {
           goto handle_unusual;
         }
@@ -1764,18 +1816,28 @@ void MakeDirRequest::SerializeWithCachedSizes(
   }
 
   // required int32 authority = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->authority(), output);
   }
 
-  // required string path = 3;
+  // required string directory = 3;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->path().data(), static_cast<int>(this->path().length()),
+      this->directory().data(), static_cast<int>(this->directory().length()),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.MakeDirRequest.path");
+      "ofs.api.MakeDirRequest.directory");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->path(), output);
+      3, this->directory(), output);
+  }
+
+  // required string name = 4;
+  if (cached_has_bits & 0x00000004u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ofs.api.MakeDirRequest.name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->name(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1804,19 +1866,30 @@ void MakeDirRequest::SerializeWithCachedSizes(
   }
 
   // required int32 authority = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->authority(), target);
   }
 
-  // required string path = 3;
+  // required string directory = 3;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->path().data(), static_cast<int>(this->path().length()),
+      this->directory().data(), static_cast<int>(this->directory().length()),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.MakeDirRequest.path");
+      "ofs.api.MakeDirRequest.directory");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->path(), target);
+        3, this->directory(), target);
+  }
+
+  // required string name = 4;
+  if (cached_has_bits & 0x00000004u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ofs.api.MakeDirRequest.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->name(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1838,11 +1911,18 @@ size_t MakeDirRequest::RequiredFieldsByteSizeFallback() const {
         this->token());
   }
 
-  if (has_path()) {
-    // required string path = 3;
+  if (has_directory()) {
+    // required string directory = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
+        this->directory());
+  }
+
+  if (has_name()) {
+    // required string name = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
   }
 
   if (has_authority()) {
@@ -1863,16 +1943,21 @@ size_t MakeDirRequest::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
     // required string token = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->token());
 
-    // required string path = 3;
+    // required string directory = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
+        this->directory());
+
+    // required string name = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
 
     // required int32 authority = 2;
     total_size += 1 +
@@ -1914,16 +1999,20 @@ void MakeDirRequest::MergeFrom(const MakeDirRequest& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
     }
     if (cached_has_bits & 0x00000002u) {
       _has_bits_[0] |= 0x00000002u;
-      path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
+      directory_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.directory_);
     }
     if (cached_has_bits & 0x00000004u) {
+      _has_bits_[0] |= 0x00000004u;
+      name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    }
+    if (cached_has_bits & 0x00000008u) {
       authority_ = from.authority_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1945,7 +2034,7 @@ void MakeDirRequest::CopyFrom(const MakeDirRequest& from) {
 }
 
 bool MakeDirRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   return true;
 }
 
@@ -1959,7 +2048,9 @@ void MakeDirRequest::InternalSwap(MakeDirRequest* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   token_.Swap(&other->token_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
-  path_.Swap(&other->path_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  directory_.Swap(&other->directory_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(authority_, other->authority_);
 }
@@ -2260,17 +2351,21 @@ class CreateFileRequest::HasBitSetters {
     msg->_has_bits_[0] |= 0x00000001u;
   }
   static void set_has_authority(CreateFileRequest* msg) {
-    msg->_has_bits_[0] |= 0x00000004u;
+    msg->_has_bits_[0] |= 0x00000008u;
   }
-  static void set_has_path(CreateFileRequest* msg) {
+  static void set_has_directory(CreateFileRequest* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_name(CreateFileRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
   }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CreateFileRequest::kTokenFieldNumber;
 const int CreateFileRequest::kAuthorityFieldNumber;
-const int CreateFileRequest::kPathFieldNumber;
+const int CreateFileRequest::kDirectoryFieldNumber;
+const int CreateFileRequest::kNameFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 CreateFileRequest::CreateFileRequest()
@@ -2287,9 +2382,13 @@ CreateFileRequest::CreateFileRequest(const CreateFileRequest& from)
   if (from.has_token()) {
     token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_path()) {
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
+  directory_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_directory()) {
+    directory_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.directory_);
+  }
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_name()) {
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   authority_ = from.authority_;
   // @@protoc_insertion_point(copy_constructor:ofs.api.CreateFileRequest)
@@ -2299,7 +2398,8 @@ void CreateFileRequest::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_CreateFileRequest_OfsMaster_2eproto.base);
   token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  directory_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   authority_ = 0;
 }
 
@@ -2310,7 +2410,8 @@ CreateFileRequest::~CreateFileRequest() {
 
 void CreateFileRequest::SharedDtor() {
   token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  directory_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void CreateFileRequest::SetCachedSize(int size) const {
@@ -2329,12 +2430,15 @@ void CreateFileRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       token_.ClearNonDefaultToEmptyNoArena();
     }
     if (cached_has_bits & 0x00000002u) {
-      path_.ClearNonDefaultToEmptyNoArena();
+      directory_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      name_.ClearNonDefaultToEmptyNoArena();
     }
   }
   authority_ = 0;
@@ -2378,13 +2482,29 @@ const char* CreateFileRequest::_InternalParse(const char* begin, const char* end
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required string path = 3;
+      // required string directory = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.api.CreateFileRequest.path");
-        object = msg->mutable_path();
+        ctx->extra_parse_data().SetFieldName("ofs.api.CreateFileRequest.directory");
+        object = msg->mutable_directory();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // required string name = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("ofs.api.CreateFileRequest.name");
+        object = msg->mutable_name();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
           parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
           goto string_till_end;
@@ -2456,15 +2576,30 @@ bool CreateFileRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // required string path = 3;
+      // required string directory = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
+                input, this->mutable_directory()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->path().data(), static_cast<int>(this->path().length()),
+            this->directory().data(), static_cast<int>(this->directory().length()),
             ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.api.CreateFileRequest.path");
+            "ofs.api.CreateFileRequest.directory");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string name = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->name().data(), static_cast<int>(this->name().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "ofs.api.CreateFileRequest.name");
         } else {
           goto handle_unusual;
         }
@@ -2510,18 +2645,28 @@ void CreateFileRequest::SerializeWithCachedSizes(
   }
 
   // required int32 authority = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->authority(), output);
   }
 
-  // required string path = 3;
+  // required string directory = 3;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->path().data(), static_cast<int>(this->path().length()),
+      this->directory().data(), static_cast<int>(this->directory().length()),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.CreateFileRequest.path");
+      "ofs.api.CreateFileRequest.directory");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->path(), output);
+      3, this->directory(), output);
+  }
+
+  // required string name = 4;
+  if (cached_has_bits & 0x00000004u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ofs.api.CreateFileRequest.name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->name(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2550,19 +2695,30 @@ void CreateFileRequest::SerializeWithCachedSizes(
   }
 
   // required int32 authority = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->authority(), target);
   }
 
-  // required string path = 3;
+  // required string directory = 3;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->path().data(), static_cast<int>(this->path().length()),
+      this->directory().data(), static_cast<int>(this->directory().length()),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.CreateFileRequest.path");
+      "ofs.api.CreateFileRequest.directory");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->path(), target);
+        3, this->directory(), target);
+  }
+
+  // required string name = 4;
+  if (cached_has_bits & 0x00000004u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ofs.api.CreateFileRequest.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->name(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2584,11 +2740,18 @@ size_t CreateFileRequest::RequiredFieldsByteSizeFallback() const {
         this->token());
   }
 
-  if (has_path()) {
-    // required string path = 3;
+  if (has_directory()) {
+    // required string directory = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
+        this->directory());
+  }
+
+  if (has_name()) {
+    // required string name = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
   }
 
   if (has_authority()) {
@@ -2609,16 +2772,21 @@ size_t CreateFileRequest::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
     // required string token = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->token());
 
-    // required string path = 3;
+    // required string directory = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
+        this->directory());
+
+    // required string name = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
 
     // required int32 authority = 2;
     total_size += 1 +
@@ -2660,16 +2828,20 @@ void CreateFileRequest::MergeFrom(const CreateFileRequest& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
     }
     if (cached_has_bits & 0x00000002u) {
       _has_bits_[0] |= 0x00000002u;
-      path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
+      directory_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.directory_);
     }
     if (cached_has_bits & 0x00000004u) {
+      _has_bits_[0] |= 0x00000004u;
+      name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    }
+    if (cached_has_bits & 0x00000008u) {
       authority_ = from.authority_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -2691,7 +2863,7 @@ void CreateFileRequest::CopyFrom(const CreateFileRequest& from) {
 }
 
 bool CreateFileRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   return true;
 }
 
@@ -2705,7 +2877,9 @@ void CreateFileRequest::InternalSwap(CreateFileRequest* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   token_.Swap(&other->token_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
-  path_.Swap(&other->path_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  directory_.Swap(&other->directory_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(authority_, other->authority_);
 }
