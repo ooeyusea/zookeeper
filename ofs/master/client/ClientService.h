@@ -12,7 +12,7 @@ namespace ofs {
 		ClientService() {}
 		~ClientService() {}
 
-		bool Start(const olib::IXmlObject& root, instruction_sequence::OfsInstructionSequence * is);
+		bool Start(const olib::IXmlObject& root);
 
 		virtual void Login(::google::protobuf::RpcController* controller,
 			const ::ofs::api::LoginReq* request,

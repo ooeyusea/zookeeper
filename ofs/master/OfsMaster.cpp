@@ -27,13 +27,8 @@ namespace ofs {
 
 			hn_info("load file system success");
 
-			if (ClientService::Instance().Start(conf.Root(), &_is))
+			if (ClientService::Instance().Start(conf.Root()))
 				return false;
-
-			if (!_is.Start()) {
-				hn_error("start instruction sequence failed");
-				return false;
-			}
 
 			hn_info("start client service success");
 		}

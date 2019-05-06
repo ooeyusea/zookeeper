@@ -50,6 +50,8 @@ namespace ofs {
 
 		template <typename Stream>
 		inline void Archive(hyper_net::OArchiver<Stream>& ar) {
+			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+
 			Node::Archive(ar);
 			ar & (int32_t)_children.size();
 			for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
@@ -77,6 +79,7 @@ namespace ofs {
 		}
 
 	private:
+		std::vector<Node*> List();
 		int32_t CreateNode(User * user, const char * name, int16_t authority, bool dir);
 
 	private:

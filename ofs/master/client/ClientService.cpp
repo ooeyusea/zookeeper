@@ -4,9 +4,8 @@
 #include "block/Block.h"
 
 namespace ofs {
-	bool ClientService::Start(const olib::IXmlObject& root, instruction_sequence::OfsInstructionSequence * is) {
+	bool ClientService::Start(const olib::IXmlObject& root) {
 		_rpc.AddService(this);
-		_rpc.AttachTo(is);
 
 		const char * host = root["client"][0].GetAttributeString("host");
 		int32_t port = root["client"][0].GetAttributeInt32("port");

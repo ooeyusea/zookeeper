@@ -8,7 +8,7 @@ namespace ofs {
 	class User;
 	class Node {
 	public:
-		Node(bool dir) : _dir(dir) {}
+		Node(bool dir) : _dir(dir), _mutex(true) {}
 		virtual ~Node() {}
 
 		virtual void DoNotWantToObject() = 0;
@@ -60,6 +60,7 @@ namespace ofs {
 		bool CheckAuthority(User * user, bool read);
 
 	protected:
+		hn_shared_mutex _mutex;
 		std::string _name;
 		std::string _owner;
 		std::string _ownerGroup;

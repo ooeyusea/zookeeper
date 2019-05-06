@@ -7,7 +7,7 @@
 
 namespace ofs {
 	int32_t Directory::CreateNode(User * user, const char * path, const char * name, int16_t authority, bool dir) {
-		return QueryNode(user, path, [authority, dir, name](User * user, Node * node) -> int32_t {
+		return QueryNode(user, path, [this, authority, dir, name](User * user, Node * node) -> int32_t {
 			if (!node->IsDir())
 				return api::ErrorCode::EC_IS_NOT_DIRECTORY;
 
@@ -33,10 +33,7 @@ namespace ofs {
 			}
 			else {
 				Directory * dir = static_cast<Directory *>(node);
-				for (auto itr = dir->_children.begin(); itr != dir->_children.end(); ++itr) {
-					if (!itr->second->IsDelete())
-						ret.emplace_back(itr->second);
-				}
+				ret = dir->List();
 			}
 			return api::ErrorCode::EC_NONE;
 		});
@@ -54,6 +51,7 @@ namespace ofs {
 		if (subDir.empty())
 			return fn(user, this);
 
+		hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 		auto itr = _children.find(subDir);
 		if (itr == _children.end() || itr->second->IsDelete())
 			return api::ErrorCode::EC_FILE_NOT_EIXST;
@@ -61,6 +59,7 @@ namespace ofs {
 		if (next && !itr->second->IsDir())
 			return api::ErrorCode::EC_FILE_NOT_EIXST;
 
+		
 		return !next ? fn(user, itr->second) : (static_cast<Directory*>(itr->second))->QueryNode(user, next, fn);
 	}
 
@@ -73,7 +72,20 @@ namespace ofs {
 		}
 	}
 
+	std::vector<Node*> Directory::List() {
+		hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+
+		std::vector<Node*> ret;
+		for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
+			if (!itr->second->IsDelete())
+				ret.emplace_back(itr->second);
+		}
+		return ret;
+	}
+
 	int32_t Directory::CreateNode(User * user, const char * name, int16_t authority, bool dir) {
+		std::lock_guard<hn_shared_mutex> guard(_mutex);
+
 		if (!CheckAuthority(user, false))
 			return api::ErrorCode::EC_PERMISSION_DENY;
 
