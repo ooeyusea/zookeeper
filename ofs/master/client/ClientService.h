@@ -12,7 +12,7 @@ namespace ofs {
 		ClientService() {}
 		~ClientService() {}
 
-		bool Start(const olib::IXmlObject& root);
+		bool Start(const olib::IXmlObject& root, instruction_sequence::OfsInstructionSequence * is);
 
 		virtual void Login(::google::protobuf::RpcController* controller,
 			const ::ofs::api::LoginReq* request,
@@ -45,6 +45,10 @@ namespace ofs {
 		virtual void Write(::google::protobuf::RpcController* controller,
 			const ::ofs::api::WriteRequest* request,
 			::ofs::api::WriteResponse* response,
+			::google::protobuf::Closure* done);
+		virtual void Append(::google::protobuf::RpcController* controller,
+			const ::ofs::api::AppendRequest* request,
+			::ofs::api::AppendResponse* response,
 			::google::protobuf::Closure* done);
 
 	private:

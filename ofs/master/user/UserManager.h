@@ -44,7 +44,6 @@ namespace ofs {
 		std::string Generate();
 
 	private:
-		hn_mutex _mutex;
 		std::unordered_map<std::string, User> _users;
 		std::unordered_map<std::string, Auth> _auths;
 

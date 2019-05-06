@@ -8,7 +8,7 @@ namespace ofs {
 	class User;
 	class Node {
 	public:
-		Node(bool dir) : _dir(dir), _mutex(true) {}
+		Node(bool dir) : _dir(dir) {}
 		virtual ~Node() {}
 
 		virtual void DoNotWantToObject() = 0;
@@ -59,20 +59,6 @@ namespace ofs {
 
 		bool CheckAuthority(User * user, bool read);
 
-		inline void Lock(bool write) {
-			if (write)
-				_mutex.lock();
-			else
-				_mutex.lock_shared();
-		}
-
-		inline void Unlock(bool write) {
-			if (write)
-				_mutex.unlock();
-			else
-				_mutex.unlock_shared();
-		}
-
 	protected:
 		std::string _name;
 		std::string _owner;
@@ -87,9 +73,7 @@ namespace ofs {
 		int64_t _deleteTick;
 
 		Node * _parent = nullptr;
-		hn_shared_mutex _mutex;
 	};
 }
 
 #endif //__NODE_H__
-

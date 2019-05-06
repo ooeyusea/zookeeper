@@ -2,27 +2,46 @@
 #define __FILE_H__
 #include "hnet.h"
 #include "Node.h"
+#include "uuid.h"
 
 namespace ofs {
+	class Block;
 	class File : public Node {
-		struct Chunk {
-			std::string meta;
-			int64_t version;
-			int32_t offset;
-			int32_t size;
-
-			std::vector<int32_t> places;
-		};
 	public:
-		File() : Node(false) {}
+		File() : Node(false) {
+			_uuid = olib::uuid::UUID::Generate();
+		}
 		~File() {}
 
 		virtual void DoNotWantToObject() {}
 
-		void ClearChunk();
+		template <typename AR>
+		inline void Archive(AR& ar) {
+			Node::Archive(ar);
+			ar & _uuid;
+		}
+
+		inline const olib::uuid::UUID& GetUUID() const { return _uuid; }
+
+
+		inline Block * GetBlock(uint32_t index) const { 
+			if (index < (uint32_t)_blocks.size())
+				return _blocks[index];
+			return nullptr;
+		}
+
+		Block * GetAppendBlock();
+
+		inline void SetBlock(uint32_t index, Block * block) {
+			if ((uint32_t)_blocks.size() <= index)
+				_blocks.resize(index + 1, nullptr);
+
+			_blocks[index] = block;
+		}
 
 	private:
-		std::vector<Chunk> _chunks;
+		olib::uuid::UUID _uuid;
+		std::vector<Block *> _blocks;
 	};
 }
 

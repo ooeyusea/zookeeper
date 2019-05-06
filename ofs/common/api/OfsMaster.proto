@@ -15,6 +15,7 @@ enum ErrorCode {
 	EC_USER_EXPIRE = 8;
 	EC_IS_NOT_DIRECTORY = 9;
 	EC_ALREADY_EXIST_DELETE_FILE = 10;
+	EC_OUT_OF_RANGE = 11;
 }
 
 enum AuthorityType {
@@ -37,6 +38,7 @@ message LoginReq {
 message LoginResponse {
 	required ErrorCode errCode = 1;
 	optional string token = 2;
+	optional int32 blockSize = 3;
 }
 
 message MakeDirRequest {
@@ -101,32 +103,51 @@ message FileStatusRespone {
 	optional File file = 2;
 }
 
-message Chunk {
-	required string id = 1;
+message UUID {
+	required int64 high = 1;
+	required int64 low = 2;
+}
+
+message EndPoint {
 	required string host = 2;
 	required int32 port = 3;
+}
+
+message Block {
+	required UUID id = 3;
+	repeated EndPoint eps = 4;
 }
 
 message ReadRequest {
 	required string token = 1;
 	required string path = 2;
-	required int32 offset = 3;
+	required int32 blockIndex = 3;
 }
 
 message ReadResponse {
 	required ErrorCode errCode = 1; 
-	repeated Chunk chunks = 2;
+	optional Block blcok = 2;
 }
 
 message WriteRequest {
 	required string token = 1;
 	required string path = 2;
-	required int32 offset = 3;
+	required int32 blockIndex = 3;
 }
 
 message WriteResponse {
 	required ErrorCode errCode = 1; 
-	repeated Chunk chunks = 2;
+	optional Block blcok = 2;
+}
+
+message AppendRequest {
+	required string token = 1;
+	required string path = 2;
+}
+
+message AppendResponse {
+	required ErrorCode errCode = 1; 
+	optional Block blcok = 2;
 }
 
 service OfsFileService {
@@ -138,4 +159,5 @@ service OfsFileService {
 	rpc Status (FileStatusRequest) returns (FileStatusRespone);
 	rpc Read (ReadRequest) returns (ReadResponse);
 	rpc Write (WriteRequest) returns (WriteResponse);
+	rpc Append (AppendRequest) returns (AppendResponse);
 }

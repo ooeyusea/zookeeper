@@ -1,10 +1,12 @@
 #include "ClientService.h"
 #include "file/FileSystem.h"
 #include "user/UserManager.h"
+#include "block/Block.h"
 
 namespace ofs {
-	bool ClientService::Start(const olib::IXmlObject& root) {
+	bool ClientService::Start(const olib::IXmlObject& root, instruction_sequence::OfsInstructionSequence * is) {
 		_rpc.AddService(this);
+		_rpc.AttachTo(is);
 
 		const char * host = root["client"][0].GetAttributeString("host");
 		int32_t port = root["client"][0].GetAttributeInt32("port");
@@ -136,12 +138,113 @@ namespace ofs {
 		::ofs::api::ReadResponse* response,
 		::google::protobuf::Closure* done) {
 
+		User * user = UserManager::Instance().Acquire(request->token());
+		if (!user)
+			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+		else {
+			// because node is not delete immediately
+			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [request, response](User * user, Node * node) {
+				if (node->IsDir())
+					return api::ErrorCode::EC_IS_DIR;
+
+				Block * block = static_cast<File*>(node)->GetBlock(request->blockindex());
+				if (!block)
+					return api::ErrorCode::EC_OUT_OF_RANGE;
+
+				auto * b = response->mutable_blcok();
+
+				auto * id = b->mutable_id();
+				id->set_high(block->GetUUID().GetHigh());
+				id->set_low(block->GetUUID().GetLow());
+
+				block->Read([b](ChunkServer * server){
+					auto * ep = b->add_eps();
+					ep->set_host(server->GetHost());
+					ep->set_port(server->GetPort());
+				});
+
+				return api::ErrorCode::EC_NONE;
+			});
+
+			response->set_errcode((api::ErrorCode)ret);
+
+			UserManager::Instance().Release(user);
+		}
 	}
 
 	void ClientService::Write(::google::protobuf::RpcController* controller,
 		const ::ofs::api::WriteRequest* request,
 		::ofs::api::WriteResponse* response,
 		::google::protobuf::Closure* done) {
+		User * user = UserManager::Instance().Acquire(request->token());
+		if (!user)
+			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+		else {
+			// because node is not delete immediately
+			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [request, response](User * user, Node * node) {
+				if (node->IsDir())
+					return api::ErrorCode::EC_IS_DIR;
 
+				Block * block = static_cast<File*>(node)->GetBlock(request->blockindex());
+				if (!block)
+					return api::ErrorCode::EC_OUT_OF_RANGE;
+
+				auto * b = response->mutable_blcok();
+
+				auto * id = b->mutable_id();
+				id->set_high(block->GetUUID().GetHigh());
+				id->set_low(block->GetUUID().GetLow());
+
+				block->Write([b](ChunkServer * server) {
+					auto * ep = b->add_eps();
+					ep->set_host(server->GetHost());
+					ep->set_port(server->GetPort());
+				});
+
+				return api::ErrorCode::EC_NONE;
+			});
+
+			response->set_errcode((api::ErrorCode)ret);
+
+			UserManager::Instance().Release(user);
+		}
+	}
+
+	void ClientService::Append(::google::protobuf::RpcController* controller,
+		const ::ofs::api::AppendRequest* request,
+		::ofs::api::AppendResponse* response,
+		::google::protobuf::Closure* done) {
+		User * user = UserManager::Instance().Acquire(request->token());
+		if (!user)
+			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+		else {
+			// because node is not delete immediately
+			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [request, response](User * user, Node * node) {
+				if (node->IsDir())
+					return api::ErrorCode::EC_IS_DIR;
+
+				Block * block = static_cast<File*>(node)->GetAppendBlock();
+				if (!block)
+					return api::ErrorCode::EC_OUT_OF_RANGE;
+
+				auto * b = response->mutable_blcok();
+
+				auto * id = b->mutable_id();
+				id->set_high(block->GetUUID().GetHigh());
+				id->set_low(block->GetUUID().GetLow());
+
+				block->Write([b](ChunkServer * server) {
+					auto * ep = b->add_eps();
+					ep->set_host(server->GetHost());
+					ep->set_port(server->GetPort());
+				});
+
+				return api::ErrorCode::EC_NONE;
+			});
+
+			response->set_errcode((api::ErrorCode)ret);
+
+			UserManager::Instance().Release(user);
+		}
 	}
 }

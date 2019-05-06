@@ -1,6 +1,7 @@
 #include "hnet.h"
 #include "OfsMaster.h"
 #include "args.h"
+#include <iostream>
 
 void start(int32_t argc, char ** argv) {
 	args::ArgumentParser parser("This is a ofs master program.", "");
@@ -36,8 +37,7 @@ void start(int32_t argc, char ** argv) {
 		path = "conf.xml";
 #endif
 
-	ofs::Master master;
-	if (!master.Start(path)) {
+	if (!ofs::Master::Instance().Start(path)) {
 		hn_error("master start failed");
 		return;
 	}

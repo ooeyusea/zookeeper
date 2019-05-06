@@ -5,6 +5,7 @@
 #include "google/protobuf/descriptor.h"
 #include "google/protobuf/message.h"
 #include "string_id.h"
+#include "instruction_sequence/InstructionSequence.h"
 
 namespace ofs {
 	namespace rpc {
@@ -36,7 +37,7 @@ namespace ofs {
 
 		class OfsRpcController : public google::protobuf::RpcController {
 		public:
-			OfsRpcController() {}
+			OfsRpcController(int32_t fd) : _fd(fd) {}
 			virtual ~OfsRpcController() {}
 
 
@@ -51,7 +52,10 @@ namespace ofs {
 			virtual bool IsCanceled() const { return false; }
 			virtual void NotifyOnCancel(google::protobuf::Closure* callback) {}
 
+			inline int32_t GetFd() const { return _fd; }
+
 		private:
+			int32_t _fd = -1;
 			bool _failed = false;
 			std::string _error;
 		};
@@ -62,7 +66,15 @@ namespace ofs {
 			virtual bool Identify(int32_t fd) = 0;
 		};
 
-		class OfsRpcServer {
+		struct RpcCommamd {
+			int32_t fd;
+			google::protobuf::Service * service;
+			const google::protobuf::MethodDescriptor * method;
+			google::protobuf::Message * request;
+			google::protobuf::Message * response;
+		};
+
+		class OfsRpcServer : public instruction_sequence::TExecutor<RpcCommamd> {
 		public:
 			OfsRpcServer() {}
 			~OfsRpcServer() {}
@@ -79,6 +91,9 @@ namespace ofs {
 
 			bool Start(const std::string& ip, int32_t port);
 			void Stop();
+
+		protected:
+			virtual void Execute(RpcCommamd& t);
 
 		private:
 			void DealConn(int32_t fd);

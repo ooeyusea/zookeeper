@@ -3,6 +3,7 @@
 #include "File.h"
 #include "api/OfsMaster.pb.h"
 #include "user/User.h"
+#include "FileSystem.h"
 
 namespace ofs {
 	int32_t Directory::CreateNode(User * user, const char * path, const char * name, int16_t authority, bool dir) {
@@ -16,8 +17,6 @@ namespace ofs {
 
 	int32_t Directory::Remove(User * user, const char * path) {
 		return QueryNode(user, path, [this](User * user, Node * node) -> int32_t {
-			std::unique_lock<hn_shared_mutex> guard(_mutex);
-
 			if (node->CheckAuthority(user, true))
 				return api::ErrorCode::EC_PERMISSION_DENY;
 
@@ -29,11 +28,15 @@ namespace ofs {
 	std::vector<Node*> Directory::List(User * user, const char * path) {
 		std::vector<Node*> ret;
 		QueryNode(user, path, [this, &ret](User * user, Node * node) -> int32_t {
-			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
-
-			for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
-				if (!itr->second->IsDelete())
-					ret.emplace_back(itr->second);
+			if (!node->IsDir()) {
+				ret.emplace_back(node);
+			}
+			else {
+				Directory * dir = static_cast<Directory *>(node);
+				for (auto itr = dir->_children.begin(); itr != dir->_children.end(); ++itr) {
+					if (!itr->second->IsDelete())
+						ret.emplace_back(itr->second);
+				}
 			}
 			return api::ErrorCode::EC_NONE;
 		});
@@ -41,8 +44,6 @@ namespace ofs {
 	}
 
 	int32_t Directory::QueryNode(User * user, const char * path, const std::function<int32_t(User * user, Node * node)>& fn) {
-		hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
-
 		if (*path == '/')
 			++path;
 
@@ -63,11 +64,18 @@ namespace ofs {
 		return !next ? fn(user, itr->second) : (static_cast<Directory*>(itr->second))->QueryNode(user, next, fn);
 	}
 
+	void Directory::BuildAllFile() {
+		for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
+			if (itr->second->IsDir())
+				static_cast<Directory*>(itr->second)->BuildAllFile();
+			else
+				FileSystem::Instance().AddFile(static_cast<File*>(itr->second));
+		}
+	}
+
 	int32_t Directory::CreateNode(User * user, const char * name, int16_t authority, bool dir) {
 		if (!CheckAuthority(user, false))
 			return api::ErrorCode::EC_PERMISSION_DENY;
-
-		std::unique_lock<hn_shared_mutex> guard(_mutex);
 
 		auto itr = _children.find(name);
 		if (itr != _children.end()) {
@@ -84,8 +92,12 @@ namespace ofs {
 		Node * node = nullptr;
 		if (dir)
 			node = new Directory;
-		else
-			node = new File;
+		else {
+			File * file = new File;
+			FileSystem::Instance().AddFile(file);
+
+			node = file;
+		}
 
 		node->SetName(name);
 		node->SetOwner(user->GetName());

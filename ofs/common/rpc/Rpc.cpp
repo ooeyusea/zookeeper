@@ -110,6 +110,20 @@ namespace ofs {
 			}
 		}
 
+		void OfsRpcServer::Execute(RpcCommamd& t) {
+			OfsRpcController controller(t.fd);
+			t.service->CallMethod(t.method, &controller, t.request, t.response, nullptr);
+
+			std::string out = t.response->SerializeAsString();
+
+			RpcRet ret{ (uint32_t)out.size(), false };
+			hn_send(t.fd, (const char*)&ret, sizeof(ret));
+			hn_send(t.fd, out.data(), (int32_t)out.size());
+
+			delete t.request;
+			delete t.response;
+		}
+
 		void OfsRpcServer::DealConn(int32_t fd) {
 			if (_identifier && !_identifier->Identify(fd))
 				return;
@@ -128,16 +142,23 @@ namespace ofs {
 								google::protobuf::Message* request = itr->second->GetRequestPrototype(methodDesc).New();
 								google::protobuf::Message* response = itr->second->GetResponsePrototype(methodDesc).New();
 								if (request->ParseFromString(data)) {
-									OfsRpcController controller;
-									itr->second->CallMethod(methodDesc, &controller, request, response, nullptr);
-									
-									std::string out = response->SerializeAsString();
+									if (_is) {
+										RpcCommamd cmd{ fd, itr->second, methodDesc, request, response };
+										Push(std::forward<RpcCommamd>(cmd));
+									}
+									else {
+										OfsRpcController controller(fd);
+										itr->second->CallMethod(methodDesc, &controller, request, response, nullptr);
 
-									RpcRet ret{ (uint32_t)out.size(), false };
-									hn_send(fd, (const char*)&ret, sizeof(ret));
-									hn_send(fd, out.data(), (int32_t)out.size());
+										std::string out = response->SerializeAsString();
 
-									delete request;
+										RpcRet ret{ (uint32_t)out.size(), false };
+										hn_send(fd, (const char*)&ret, sizeof(ret));
+										hn_send(fd, out.data(), (int32_t)out.size());
+
+										delete request;
+										delete response;
+									}
 									continue;
 								}
 							}

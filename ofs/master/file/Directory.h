@@ -30,12 +30,18 @@ namespace ofs {
 					return;
 
 				Node * node = nullptr;
-				if (dir)
-					node = new Directory;
-				else
-					node = new File;
+				if (dir) {
+					Directory * dir = new Directory;
+					ar & *dir;
 
-				ar & *node;
+					node = dir;
+				}
+				else {
+					File * file = new File;
+					ar & *file;
+
+					node = file;
+				}
 
 				node->SetParent(this);
 				_children[node->GetName()] = node;
@@ -44,12 +50,13 @@ namespace ofs {
 
 		template <typename Stream>
 		inline void Archive(hyper_net::OArchiver<Stream>& ar) {
-			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
-
 			Node::Archive(ar);
 			ar & (int32_t)_children.size();
 			for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
-				ar & *(itr->second);
+				if (itr->second->IsDir())
+					ar & *static_cast<Directory*>(itr->second);
+				else
+					ar & *static_cast<File*>(itr->second);
 			}
 		}
 
@@ -57,6 +64,7 @@ namespace ofs {
 		int32_t Remove(User * user, const char * path);
 		std::vector<Node*> List(User * user, const char * path);
 		int32_t QueryNode(User * user, const char * path, const std::function<int32_t(User * user, Node * node)>& fn);
+		void BuildAllFile();
 
 		inline bool Empty() const { return _children.empty(); }
 

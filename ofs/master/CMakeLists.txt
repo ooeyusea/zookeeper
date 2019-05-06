@@ -68,12 +68,24 @@ SET(USER
 	"${PROJECT_SOURCE_DIR}/user/User.cpp"
 )
 
+SET(BLOCK
+	"${PROJECT_SOURCE_DIR}/block/Block.h"
+	"${PROJECT_SOURCE_DIR}/block/Block.cpp"
+	"${PROJECT_SOURCE_DIR}/block/BlockManager.h"
+	"${PROJECT_SOURCE_DIR}/block/BlockManager.cpp"	
+)
+
 SET(COMMON
 )
 
 SET(RPC
 	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.h"
 	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.cpp"
+)
+
+SET(INSTRUCTION_SEQUENCE
+	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.h"
+	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.cpp"
 )
 
 SET(API
@@ -94,10 +106,12 @@ SOURCE_GROUP(\\ FILES ${SRC})
 SOURCE_GROUP(file FILES ${FILE_SYSTEM})
 SOURCE_GROUP(common FILES ${COMMON})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
+SOURCE_GROUP(common\\instruction_sequence FILES ${INSTRUCTION_SEQUENCE})
 SOURCE_GROUP(common\\api FILES ${API})
 SOURCE_GROUP(common\\proto FILES ${PROTO})
 SOURCE_GROUP(client FILES ${CLIENT} )
 SOURCE_GROUP(user FILES ${USER})
+SOURCE_GROUP(block FILES ${BLOCK})
 
 ADD_EXECUTABLE(master
 	${SRC}
@@ -105,9 +119,11 @@ ADD_EXECUTABLE(master
 	${CLIENT}
 	${COMMON}
 	${RPC}
+	${INSTRUCTION_SEQUENCE}
 	${API}
 	${PROTO}
 	${USER}
+	${BLOCK}
 )
 
 IF(WIN32)

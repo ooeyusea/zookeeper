@@ -41,7 +41,6 @@ namespace ofs {
 	}
 
 	std::string UserManager::Login(const std::string& name, const std::string& password) {
-		std::unique_lock<hn_mutex> _mutex;
 		auto itr = _users.find(name);
 		if (itr != _users.end() && itr->second.Check(password)) {
 			itr->second.AddRef();
@@ -56,7 +55,6 @@ namespace ofs {
 	}
 
 	bool UserManager::Add(const std::string& name, const std::string& group, const std::string& password) {
-		std::unique_lock<hn_mutex> _mutex;
 		auto itr = _users.find(name);
 		if (itr == _users.end()) {
 			User user;
@@ -71,7 +69,6 @@ namespace ofs {
 	}
 
 	bool UserManager::Remove(const std::string& name) {
-		std::unique_lock<hn_mutex> _mutex;
 		auto itr = _users.find(name);
 		if (itr != _users.end() && !itr->second.IsUsed()) {
 			_users.erase(itr);
@@ -81,7 +78,6 @@ namespace ofs {
 	}
 
 	User * UserManager::Acquire(const std::string& token) {
-		std::unique_lock<hn_mutex> _mutex;
 		auto itr = _auths.find(token);
 		if (itr != _auths.end()) {
 			itr->second.user->AddRef();
@@ -110,7 +106,6 @@ namespace ofs {
 
 			int64_t tick = olib::GetTickCount();
 
-			std::unique_lock<hn_mutex> _mutex;
 			auto itr2 = _auths.begin();
 			while (itr2 != _auths.end()) {
 				auto itr = itr2;
