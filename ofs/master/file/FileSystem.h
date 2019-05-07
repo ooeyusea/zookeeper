@@ -9,7 +9,7 @@
 namespace ofs {
 	class FileSystem : public olib::Singleton<FileSystem> {
 	public:
-		FileSystem() {}
+		FileSystem() : _mutex(true) {}
 		~FileSystem() {}
 
 		bool Start(const olib::IXmlObject& root);
@@ -21,7 +21,16 @@ namespace ofs {
 		inline int32_t GetBlockSize() { return _blockSize; }
 
 		inline void AddFile(File* file) {
+			std::lock_guard<hn_shared_mutex> guard(_mutex);
 			_files.insert(std::make_pair(file->GetUUID(), file));
+		}
+
+		inline File * GetFile(const olib::uuid::UUID& key) {
+			std::lock_guard<hn_shared_mutex> guard(_mutex);
+			auto itr = _files.find(key);
+			if (itr != _files.end())
+				return itr->second;
+			return nullptr;
 		}
 
 	private:
@@ -29,6 +38,8 @@ namespace ofs {
 		bool SaveToFile(const std::string& path);
 
 	private:
+		hn_shared_mutex _mutex;
+
 		Directory _root;
 
 		std::string _path;

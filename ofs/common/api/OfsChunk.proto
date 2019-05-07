@@ -1,57 +1,65 @@
 syntax = "proto2";
 option cc_generic_services = true;
 
-package yarn.api;
+package ofs.chunk_api;
 
-message ContainerStartParam {
-	required string name = 1;
-	required string resource = 2;
-	required string md5 = 3;
-	repeated string environment = 4;
-	required string cmd = 5;
+message UUID {
+	required int64 high = 1;
+	required int64 low = 2;
 }
 
-message StartContainerRequest {
-	required string application = 1;
-	required string token = 2;
-	repeated ContainerStartParam containers = 3;
+message BlockId {
+	required UUID file = 1;
+	required int32 index = 2;
 }
 
-message StartContainerResponse {
+message BlockStatus {
+	required BlockId id = 1;
+	required UUID version = 2;
+	required int32 size = 3;
+}
+
+message ReportRequest {
+	required int32 id = 1;
+	required string host = 2;
+	required int32 port = 3;
+	repeated BlockStatus blocks = 4;
+}
+
+message ReportResponse {
 	required bool ok = 1;
+	repeated BlockId needClean = 2;
+	repeated BlockId needCopy = 3;
 }
 
-message StopContainerRequest {
-	required string name = 1;
+message EndPoint {
+	required string host = 2;
+	required int32 port = 3;
 }
 
-message StopContainerResponse {
+message AskLeaseRequest {
+	required int32 id = 1;
+	required BlockId blockId = 2;
+}
+
+message AskLeaseResponse {
 	required bool ok = 1;
+	optional int64 expire = 2;
+	repeated EndPoint eps = 3;
 }
 
-message GetContainerStatusRequest {
-	repeated string names = 1;
+message CopyRequest {
+	required int32 id = 1;
+	required BlockId blockId = 2;
 }
 
-enum ContainerStatus {
-	CS_NEW = 0;
-	CS_LOCALIZING = 1;
-	CS_LOCALIZED = 2;
-	CS_LOCALIZATION_FAILED = 3;
-	CS_RUNNING = 4;
-	CS_KILLING = 5;
-	CS_EXIT_SUCCESS = 6;
-	CS_EXIT_WITH_FAITUARE = 7;
-	CS_CONTAINER_CLEANUP_WITH = 8;
-	CS_DONE = 9;
+message CopyResponse {
+	required bool ok = 1;
+	repeated EndPoint eps = 2;
 }
 
-message GetContainerStatusResponse {
-	repeated ContainerStatus status = 1;
-}
-
-service ContainerManagementService {
-	rpc StartContainer (StartContainerRequest) returns (StartContainerResponse);
-	rpc StopContainer (StopContainerRequest) returns (StopContainerResponse);
-	rpc GetContainerStatus (GetContainerStatusRequest) returns (GetContainerStatusResponse);
+service OfsChunkService {
+	rpc Report (ReportRequest) returns (ReportResponse);
+	rpc AskLease (AskLeaseRequest) returns (AskLeaseResponse);
+	rpc Copy (CopyRequest) returns (CopyResponse);
 }

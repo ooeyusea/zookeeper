@@ -19,6 +19,7 @@
 extern PROTOBUF_INTERNAL_EXPORT_OfsMaster_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_EndPoint_OfsMaster_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_OfsMaster_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_File_OfsMaster_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_OfsMaster_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_UUID_OfsMaster_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_OfsMaster_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_BlockId_OfsMaster_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_OfsMaster_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_Block_OfsMaster_2eproto;
 namespace ofs {
 namespace api {
@@ -82,6 +83,10 @@ class EndPointDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<EndPoint> _instance;
 } _EndPoint_default_instance_;
+class BlockIdDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<BlockId> _instance;
+} _BlockId_default_instance_;
 class BlockDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<Block> _instance;
@@ -324,6 +329,21 @@ static void InitDefaultsEndPoint_OfsMaster_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_EndPoint_OfsMaster_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsEndPoint_OfsMaster_2eproto}, {}};
 
+static void InitDefaultsBlockId_OfsMaster_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::ofs::api::_BlockId_default_instance_;
+    new (ptr) ::ofs::api::BlockId();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::ofs::api::BlockId::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<1> scc_info_BlockId_OfsMaster_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsBlockId_OfsMaster_2eproto}, {
+      &scc_info_UUID_OfsMaster_2eproto.base,}};
+
 static void InitDefaultsBlock_OfsMaster_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -337,7 +357,7 @@ static void InitDefaultsBlock_OfsMaster_2eproto() {
 
 ::google::protobuf::internal::SCCInfo<2> scc_info_Block_OfsMaster_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsBlock_OfsMaster_2eproto}, {
-      &scc_info_UUID_OfsMaster_2eproto.base,
+      &scc_info_BlockId_OfsMaster_2eproto.base,
       &scc_info_EndPoint_OfsMaster_2eproto.base,}};
 
 static void InitDefaultsReadRequest_OfsMaster_2eproto() {
@@ -443,6 +463,7 @@ void InitDefaults_OfsMaster_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_FileStatusRespone_OfsMaster_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_UUID_OfsMaster_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_EndPoint_OfsMaster_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_BlockId_OfsMaster_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Block_OfsMaster_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ReadRequest_OfsMaster_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ReadResponse_OfsMaster_2eproto.base);
@@ -452,7 +473,7 @@ void InitDefaults_OfsMaster_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_AppendResponse_OfsMaster_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_OfsMaster_2eproto[22];
+::google::protobuf::Metadata file_level_metadata_OfsMaster_2eproto[23];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_OfsMaster_2eproto[2];
 const ::google::protobuf::ServiceDescriptor* file_level_service_descriptors_OfsMaster_2eproto[1];
 
@@ -608,6 +629,15 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   PROTOBUF_FIELD_OFFSET(::ofs::api::EndPoint, port_),
   0,
   1,
+  PROTOBUF_FIELD_OFFSET(::ofs::api::BlockId, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::BlockId, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ofs::api::BlockId, file_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::BlockId, index_),
+  0,
+  1,
   PROTOBUF_FIELD_OFFSET(::ofs::api::Block, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::Block, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -634,7 +664,7 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, errcode_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, blcok_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, block_),
   1,
   0,
   PROTOBUF_FIELD_OFFSET(::ofs::api::WriteRequest, _has_bits_),
@@ -654,7 +684,7 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::api::WriteResponse, errcode_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::WriteResponse, blcok_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::WriteResponse, block_),
   1,
   0,
   PROTOBUF_FIELD_OFFSET(::ofs::api::AppendRequest, _has_bits_),
@@ -672,7 +702,7 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::api::AppendResponse, errcode_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::AppendResponse, blcok_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::AppendResponse, block_),
   1,
   0,
 };
@@ -692,13 +722,14 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 124, 131, sizeof(::ofs::api::FileStatusRespone)},
   { 133, 140, sizeof(::ofs::api::UUID)},
   { 142, 149, sizeof(::ofs::api::EndPoint)},
-  { 151, 158, sizeof(::ofs::api::Block)},
-  { 160, 168, sizeof(::ofs::api::ReadRequest)},
-  { 171, 178, sizeof(::ofs::api::ReadResponse)},
-  { 180, 188, sizeof(::ofs::api::WriteRequest)},
-  { 191, 198, sizeof(::ofs::api::WriteResponse)},
-  { 200, 207, sizeof(::ofs::api::AppendRequest)},
-  { 209, 216, sizeof(::ofs::api::AppendResponse)},
+  { 151, 158, sizeof(::ofs::api::BlockId)},
+  { 160, 167, sizeof(::ofs::api::Block)},
+  { 169, 177, sizeof(::ofs::api::ReadRequest)},
+  { 180, 187, sizeof(::ofs::api::ReadResponse)},
+  { 189, 197, sizeof(::ofs::api::WriteRequest)},
+  { 200, 207, sizeof(::ofs::api::WriteResponse)},
+  { 209, 216, sizeof(::ofs::api::AppendRequest)},
+  { 218, 225, sizeof(::ofs::api::AppendResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -717,6 +748,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_FileStatusRespone_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_UUID_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_EndPoint_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_BlockId_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_Block_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_ReadRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_ReadResponse_default_instance_),
@@ -729,7 +761,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_OfsMaster_2eproto = {
   {}, AddDescriptors_OfsMaster_2eproto, "OfsMaster.proto", schemas,
   file_default_instances, TableStruct_OfsMaster_2eproto::offsets,
-  file_level_metadata_OfsMaster_2eproto, 22, file_level_enum_descriptors_OfsMaster_2eproto, file_level_service_descriptors_OfsMaster_2eproto,
+  file_level_metadata_OfsMaster_2eproto, 23, file_level_enum_descriptors_OfsMaster_2eproto, file_level_service_descriptors_OfsMaster_2eproto,
 };
 
 const char descriptor_table_protodef_OfsMaster_2eproto[] =
@@ -758,51 +790,53 @@ const char descriptor_table_protodef_OfsMaster_2eproto[] =
   "pone\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCod"
   "e\022\033\n\004file\030\002 \001(\0132\r.ofs.api.File\"!\n\004UUID\022\014"
   "\n\004high\030\001 \002(\003\022\013\n\003low\030\002 \002(\003\"&\n\010EndPoint\022\014\n"
-  "\004host\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"B\n\005Block\022\031\n\002id"
-  "\030\003 \002(\0132\r.ofs.api.UUID\022\036\n\003eps\030\004 \003(\0132\021.ofs"
-  ".api.EndPoint\">\n\013ReadRequest\022\r\n\005token\030\001 "
-  "\002(\t\022\014\n\004path\030\002 \002(\t\022\022\n\nblockIndex\030\003 \002(\005\"R\n"
-  "\014ReadResponse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api"
-  ".ErrorCode\022\035\n\005blcok\030\002 \001(\0132\016.ofs.api.Bloc"
-  "k\"\?\n\014WriteRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path"
-  "\030\002 \002(\t\022\022\n\nblockIndex\030\003 \002(\005\"S\n\rWriteRespo"
-  "nse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.ErrorCode"
-  "\022\035\n\005blcok\030\002 \001(\0132\016.ofs.api.Block\",\n\rAppen"
-  "dRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"T\n"
-  "\016AppendResponse\022#\n\007errCode\030\001 \002(\0162\022.ofs.a"
-  "pi.ErrorCode\022\035\n\005blcok\030\002 \001(\0132\016.ofs.api.Bl"
-  "ock*\233\002\n\tErrorCode\022\013\n\007EC_NONE\020\000\022\025\n\021EC_FIL"
-  "E_NOT_EIXST\020\001\022\021\n\rEC_FILE_EIXST\020\002\022\026\n\022EC_P"
-  "ERMISSION_DENY\020\003\022\024\n\020EC_DIR_NOT_EMPTY\020\004\022\027"
-  "\n\023EC_AUTHORITY_EXPIRE\020\005\022\r\n\tEC_IS_DIR\020\006\022\035"
-  "\n\031EC_USER_OR_PASSWORD_ERROR\020\007\022\022\n\016EC_USER"
-  "_EXPIRE\020\010\022\027\n\023EC_IS_NOT_DIRECTORY\020\t\022 \n\034EC"
-  "_ALREADY_EXIST_DELETE_FILE\020\n\022\023\n\017EC_OUT_O"
-  "F_RANGE\020\013*\310\001\n\rAuthorityType\022\021\n\rAT_OWNER_"
-  "READ\020\001\022\022\n\016AT_OWNER_WRITE\020\002\022\024\n\020AT_OWNER_E"
-  "XECUTE\020\004\022\021\n\rAT_GROUP_READ\020\010\022\022\n\016AT_GROUP_"
-  "WRITE\020\020\022\024\n\020AT_GROUP_EXECUTE\020 \022\021\n\rAT_OTHE"
-  "R_READ\020@\022\023\n\016AT_OTHER_WRITE\020\200\001\022\025\n\020AT_OTHE"
-  "R_EXECUTE\020\200\0022\237\004\n\016OfsFileService\0222\n\005Login"
-  "\022\021.ofs.api.LoginReq\032\026.ofs.api.LoginRespo"
-  "nse\022<\n\007MakeDir\022\027.ofs.api.MakeDirRequest\032"
-  "\030.ofs.api.MakeDirResponse\022A\n\006Create\022\032.of"
-  "s.api.CreateFileRequest\032\033.ofs.api.Create"
-  "FileResponse\0223\n\004List\022\024.ofs.api.ListReque"
-  "st\032\025.ofs.api.ListResponse\0229\n\006Remove\022\026.of"
-  "s.api.RemoveRequest\032\027.ofs.api.RemoveResp"
-  "onse\022@\n\006Status\022\032.ofs.api.FileStatusReque"
-  "st\032\032.ofs.api.FileStatusRespone\0223\n\004Read\022\024"
-  ".ofs.api.ReadRequest\032\025.ofs.api.ReadRespo"
-  "nse\0226\n\005Write\022\025.ofs.api.WriteRequest\032\026.of"
-  "s.api.WriteResponse\0229\n\006Append\022\026.ofs.api."
-  "AppendRequest\032\027.ofs.api.AppendResponseB\003"
-  "\200\001\001"
+  "\004host\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"5\n\007BlockId\022\033\n\004"
+  "file\030\001 \002(\0132\r.ofs.api.UUID\022\r\n\005index\030\002 \002(\005"
+  "\"E\n\005Block\022\034\n\002id\030\001 \002(\0132\020.ofs.api.BlockId\022"
+  "\036\n\003eps\030\002 \003(\0132\021.ofs.api.EndPoint\">\n\013ReadR"
+  "equest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\022\022\n\nb"
+  "lockIndex\030\003 \002(\005\"R\n\014ReadResponse\022#\n\007errCo"
+  "de\030\001 \002(\0162\022.ofs.api.ErrorCode\022\035\n\005block\030\002 "
+  "\001(\0132\016.ofs.api.Block\"\?\n\014WriteRequest\022\r\n\005t"
+  "oken\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\022\022\n\nblockIndex\030\003"
+  " \002(\005\"S\n\rWriteResponse\022#\n\007errCode\030\001 \002(\0162\022"
+  ".ofs.api.ErrorCode\022\035\n\005block\030\002 \001(\0132\016.ofs."
+  "api.Block\",\n\rAppendRequest\022\r\n\005token\030\001 \002("
+  "\t\022\014\n\004path\030\002 \002(\t\"T\n\016AppendResponse\022#\n\007err"
+  "Code\030\001 \002(\0162\022.ofs.api.ErrorCode\022\035\n\005block\030"
+  "\002 \001(\0132\016.ofs.api.Block*\263\002\n\tErrorCode\022\013\n\007E"
+  "C_NONE\020\000\022\025\n\021EC_FILE_NOT_EIXST\020\001\022\021\n\rEC_FI"
+  "LE_EIXST\020\002\022\026\n\022EC_PERMISSION_DENY\020\003\022\024\n\020EC"
+  "_DIR_NOT_EMPTY\020\004\022\027\n\023EC_AUTHORITY_EXPIRE\020"
+  "\005\022\r\n\tEC_IS_DIR\020\006\022\035\n\031EC_USER_OR_PASSWORD_"
+  "ERROR\020\007\022\022\n\016EC_USER_EXPIRE\020\010\022\027\n\023EC_IS_NOT"
+  "_DIRECTORY\020\t\022 \n\034EC_ALREADY_EXIST_DELETE_"
+  "FILE\020\n\022\023\n\017EC_OUT_OF_RANGE\020\013\022\026\n\022EC_BLOCK_"
+  "NOT_READY\020\014*\310\001\n\rAuthorityType\022\021\n\rAT_OWNE"
+  "R_READ\020\001\022\022\n\016AT_OWNER_WRITE\020\002\022\024\n\020AT_OWNER"
+  "_EXECUTE\020\004\022\021\n\rAT_GROUP_READ\020\010\022\022\n\016AT_GROU"
+  "P_WRITE\020\020\022\024\n\020AT_GROUP_EXECUTE\020 \022\021\n\rAT_OT"
+  "HER_READ\020@\022\023\n\016AT_OTHER_WRITE\020\200\001\022\025\n\020AT_OT"
+  "HER_EXECUTE\020\200\0022\237\004\n\016OfsFileService\0222\n\005Log"
+  "in\022\021.ofs.api.LoginReq\032\026.ofs.api.LoginRes"
+  "ponse\022<\n\007MakeDir\022\027.ofs.api.MakeDirReques"
+  "t\032\030.ofs.api.MakeDirResponse\022A\n\006Create\022\032."
+  "ofs.api.CreateFileRequest\032\033.ofs.api.Crea"
+  "teFileResponse\0223\n\004List\022\024.ofs.api.ListReq"
+  "uest\032\025.ofs.api.ListResponse\0229\n\006Remove\022\026."
+  "ofs.api.RemoveRequest\032\027.ofs.api.RemoveRe"
+  "sponse\022@\n\006Status\022\032.ofs.api.FileStatusReq"
+  "uest\032\032.ofs.api.FileStatusRespone\0223\n\004Read"
+  "\022\024.ofs.api.ReadRequest\032\025.ofs.api.ReadRes"
+  "ponse\0226\n\005Write\022\025.ofs.api.WriteRequest\032\026."
+  "ofs.api.WriteResponse\0229\n\006Append\022\026.ofs.ap"
+  "i.AppendRequest\032\027.ofs.api.AppendResponse"
+  "B\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsMaster_2eproto = {
   false, InitDefaults_OfsMaster_2eproto, 
   descriptor_table_protodef_OfsMaster_2eproto,
-  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2563,
+  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2645,
 };
 
 void AddDescriptors_OfsMaster_2eproto() {
@@ -834,6 +868,7 @@ bool ErrorCode_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
       return true;
     default:
       return false;
@@ -7068,19 +7103,392 @@ void EndPoint::InternalSwap(EndPoint* other) {
 
 // ===================================================================
 
-void Block::InitAsDefaultInstance() {
-  ::ofs::api::_Block_default_instance_._instance.get_mutable()->id_ = const_cast< ::ofs::api::UUID*>(
+void BlockId::InitAsDefaultInstance() {
+  ::ofs::api::_BlockId_default_instance_._instance.get_mutable()->file_ = const_cast< ::ofs::api::UUID*>(
       ::ofs::api::UUID::internal_default_instance());
+}
+class BlockId::HasBitSetters {
+ public:
+  static const ::ofs::api::UUID& file(const BlockId* msg);
+  static void set_has_file(BlockId* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static void set_has_index(BlockId* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::ofs::api::UUID&
+BlockId::HasBitSetters::file(const BlockId* msg) {
+  return *msg->file_;
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BlockId::kFileFieldNumber;
+const int BlockId::kIndexFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BlockId::BlockId()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ofs.api.BlockId)
+}
+BlockId::BlockId(const BlockId& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_file()) {
+    file_ = new ::ofs::api::UUID(*from.file_);
+  } else {
+    file_ = nullptr;
+  }
+  index_ = from.index_;
+  // @@protoc_insertion_point(copy_constructor:ofs.api.BlockId)
+}
+
+void BlockId::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_BlockId_OfsMaster_2eproto.base);
+  ::memset(&file_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&index_) -
+      reinterpret_cast<char*>(&file_)) + sizeof(index_));
+}
+
+BlockId::~BlockId() {
+  // @@protoc_insertion_point(destructor:ofs.api.BlockId)
+  SharedDtor();
+}
+
+void BlockId::SharedDtor() {
+  if (this != internal_default_instance()) delete file_;
+}
+
+void BlockId::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const BlockId& BlockId::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_BlockId_OfsMaster_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void BlockId::Clear() {
+// @@protoc_insertion_point(message_clear_start:ofs.api.BlockId)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(file_ != nullptr);
+    file_->Clear();
+  }
+  index_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* BlockId::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<BlockId*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // required .ofs.api.UUID file = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::ofs::api::UUID::_InternalParse;
+        object = msg->mutable_file();
+        if (size > end - ptr) goto len_delim_till_end;
+        ptr += size;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+            {parser_till_end, object}, ptr - size, ptr));
+        break;
+      }
+      // required int32 index = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        msg->set_index(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool BlockId::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ofs.api.BlockId)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .ofs.api.UUID file = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_file()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int32 index = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+          HasBitSetters::set_has_index(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &index_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ofs.api.BlockId)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ofs.api.BlockId)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void BlockId::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ofs.api.BlockId)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required .ofs.api.UUID file = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, HasBitSetters::file(this), output);
+  }
+
+  // required int32 index = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->index(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:ofs.api.BlockId)
+}
+
+::google::protobuf::uint8* BlockId::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ofs.api.BlockId)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required .ofs.api.UUID file = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, HasBitSetters::file(this), target);
+  }
+
+  // required int32 index = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->index(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ofs.api.BlockId)
+  return target;
+}
+
+size_t BlockId::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:ofs.api.BlockId)
+  size_t total_size = 0;
+
+  if (has_file()) {
+    // required .ofs.api.UUID file = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *file_);
+  }
+
+  if (has_index()) {
+    // required int32 index = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->index());
+  }
+
+  return total_size;
+}
+size_t BlockId::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ofs.api.BlockId)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required .ofs.api.UUID file = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *file_);
+
+    // required int32 index = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->index());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void BlockId::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ofs.api.BlockId)
+  GOOGLE_DCHECK_NE(&from, this);
+  const BlockId* source =
+      ::google::protobuf::DynamicCastToGenerated<BlockId>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.api.BlockId)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.api.BlockId)
+    MergeFrom(*source);
+  }
+}
+
+void BlockId::MergeFrom(const BlockId& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ofs.api.BlockId)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      mutable_file()->::ofs::api::UUID::MergeFrom(from.file());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      index_ = from.index_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+}
+
+void BlockId::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ofs.api.BlockId)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BlockId::CopyFrom(const BlockId& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ofs.api.BlockId)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BlockId::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if (has_file()) {
+    if (!this->file_->IsInitialized()) return false;
+  }
+  return true;
+}
+
+void BlockId::Swap(BlockId* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BlockId::InternalSwap(BlockId* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(file_, other->file_);
+  swap(index_, other->index_);
+}
+
+::google::protobuf::Metadata BlockId::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_OfsMaster_2eproto);
+  return ::file_level_metadata_OfsMaster_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void Block::InitAsDefaultInstance() {
+  ::ofs::api::_Block_default_instance_._instance.get_mutable()->id_ = const_cast< ::ofs::api::BlockId*>(
+      ::ofs::api::BlockId::internal_default_instance());
 }
 class Block::HasBitSetters {
  public:
-  static const ::ofs::api::UUID& id(const Block* msg);
+  static const ::ofs::api::BlockId& id(const Block* msg);
   static void set_has_id(Block* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
 };
 
-const ::ofs::api::UUID&
+const ::ofs::api::BlockId&
 Block::HasBitSetters::id(const Block* msg) {
   return *msg->id_;
 }
@@ -7101,7 +7509,7 @@ Block::Block(const Block& from)
       eps_(from.eps_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_id()) {
-    id_ = new ::ofs::api::UUID(*from.id_);
+    id_ = new ::ofs::api::BlockId(*from.id_);
   } else {
     id_ = nullptr;
   }
@@ -7161,12 +7569,12 @@ const char* Block::_InternalParse(const char* begin, const char* end, void* obje
     ptr = ::google::protobuf::io::Parse32(ptr, &tag);
     GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
     switch (tag >> 3) {
-      // required .ofs.api.UUID id = 3;
-      case 3: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+      // required .ofs.api.BlockId id = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        parser_till_end = ::ofs::api::UUID::_InternalParse;
+        parser_till_end = ::ofs::api::BlockId::_InternalParse;
         object = msg->mutable_id();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
@@ -7174,9 +7582,9 @@ const char* Block::_InternalParse(const char* begin, const char* end, void* obje
             {parser_till_end, object}, ptr - size, ptr));
         break;
       }
-      // repeated .ofs.api.EndPoint eps = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+      // repeated .ofs.api.EndPoint eps = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         do {
           ptr = ::google::protobuf::io::ReadSize(ptr, &size);
           GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
@@ -7187,7 +7595,7 @@ const char* Block::_InternalParse(const char* begin, const char* end, void* obje
           GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
               {parser_till_end, object}, ptr - size, ptr));
           if (ptr >= end) break;
-        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 34 && (ptr += 1));
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 18 && (ptr += 1));
         break;
       }
       default: {
@@ -7220,9 +7628,9 @@ bool Block::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ofs.api.UUID id = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+      // required .ofs.api.BlockId id = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_id()));
         } else {
@@ -7231,9 +7639,9 @@ bool Block::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .ofs.api.EndPoint eps = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+      // repeated .ofs.api.EndPoint eps = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                 input, add_eps()));
         } else {
@@ -7270,17 +7678,17 @@ void Block::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .ofs.api.UUID id = 3;
+  // required .ofs.api.BlockId id = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, HasBitSetters::id(this), output);
+      1, HasBitSetters::id(this), output);
   }
 
-  // repeated .ofs.api.EndPoint eps = 4;
+  // repeated .ofs.api.EndPoint eps = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->eps_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4,
+      2,
       this->eps(static_cast<int>(i)),
       output);
   }
@@ -7299,19 +7707,19 @@ void Block::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .ofs.api.UUID id = 3;
+  // required .ofs.api.BlockId id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, HasBitSetters::id(this), target);
+        1, HasBitSetters::id(this), target);
   }
 
-  // repeated .ofs.api.EndPoint eps = 4;
+  // repeated .ofs.api.EndPoint eps = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->eps_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        4, this->eps(static_cast<int>(i)), target);
+        2, this->eps(static_cast<int>(i)), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7331,7 +7739,7 @@ size_t Block::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  // required .ofs.api.UUID id = 3;
+  // required .ofs.api.BlockId id = 1;
   if (has_id()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
@@ -7341,7 +7749,7 @@ size_t Block::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .ofs.api.EndPoint eps = 4;
+  // repeated .ofs.api.EndPoint eps = 2;
   {
     unsigned int count = static_cast<unsigned int>(this->eps_size());
     total_size += 1UL * count;
@@ -7381,7 +7789,7 @@ void Block::MergeFrom(const Block& from) {
 
   eps_.MergeFrom(from.eps_);
   if (from.has_id()) {
-    mutable_id()->::ofs::api::UUID::MergeFrom(from.id());
+    mutable_id()->::ofs::api::BlockId::MergeFrom(from.id());
   }
 }
 
@@ -7895,7 +8303,7 @@ void ReadRequest::InternalSwap(ReadRequest* other) {
 // ===================================================================
 
 void ReadResponse::InitAsDefaultInstance() {
-  ::ofs::api::_ReadResponse_default_instance_._instance.get_mutable()->blcok_ = const_cast< ::ofs::api::Block*>(
+  ::ofs::api::_ReadResponse_default_instance_._instance.get_mutable()->block_ = const_cast< ::ofs::api::Block*>(
       ::ofs::api::Block::internal_default_instance());
 }
 class ReadResponse::HasBitSetters {
@@ -7903,19 +8311,19 @@ class ReadResponse::HasBitSetters {
   static void set_has_errcode(ReadResponse* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
-  static const ::ofs::api::Block& blcok(const ReadResponse* msg);
-  static void set_has_blcok(ReadResponse* msg) {
+  static const ::ofs::api::Block& block(const ReadResponse* msg);
+  static void set_has_block(ReadResponse* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
 };
 
 const ::ofs::api::Block&
-ReadResponse::HasBitSetters::blcok(const ReadResponse* msg) {
-  return *msg->blcok_;
+ReadResponse::HasBitSetters::block(const ReadResponse* msg) {
+  return *msg->block_;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ReadResponse::kErrCodeFieldNumber;
-const int ReadResponse::kBlcokFieldNumber;
+const int ReadResponse::kBlockFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ReadResponse::ReadResponse()
@@ -7928,10 +8336,10 @@ ReadResponse::ReadResponse(const ReadResponse& from)
       _internal_metadata_(nullptr),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_blcok()) {
-    blcok_ = new ::ofs::api::Block(*from.blcok_);
+  if (from.has_block()) {
+    block_ = new ::ofs::api::Block(*from.block_);
   } else {
-    blcok_ = nullptr;
+    block_ = nullptr;
   }
   errcode_ = from.errcode_;
   // @@protoc_insertion_point(copy_constructor:ofs.api.ReadResponse)
@@ -7940,9 +8348,9 @@ ReadResponse::ReadResponse(const ReadResponse& from)
 void ReadResponse::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_ReadResponse_OfsMaster_2eproto.base);
-  ::memset(&blcok_, 0, static_cast<size_t>(
+  ::memset(&block_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&errcode_) -
-      reinterpret_cast<char*>(&blcok_)) + sizeof(errcode_));
+      reinterpret_cast<char*>(&block_)) + sizeof(errcode_));
 }
 
 ReadResponse::~ReadResponse() {
@@ -7951,7 +8359,7 @@ ReadResponse::~ReadResponse() {
 }
 
 void ReadResponse::SharedDtor() {
-  if (this != internal_default_instance()) delete blcok_;
+  if (this != internal_default_instance()) delete block_;
 }
 
 void ReadResponse::SetCachedSize(int size) const {
@@ -7971,8 +8379,8 @@ void ReadResponse::Clear() {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(blcok_ != nullptr);
-    blcok_->Clear();
+    GOOGLE_DCHECK(block_ != nullptr);
+    block_->Clear();
   }
   errcode_ = 0;
   _has_bits_.Clear();
@@ -8004,13 +8412,13 @@ const char* ReadResponse::_InternalParse(const char* begin, const char* end, voi
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // optional .ofs.api.Block blcok = 2;
+      // optional .ofs.api.Block block = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         parser_till_end = ::ofs::api::Block::_InternalParse;
-        object = msg->mutable_blcok();
+        object = msg->mutable_block();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
         GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
@@ -8066,11 +8474,11 @@ bool ReadResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .ofs.api.Block blcok = 2;
+      // optional .ofs.api.Block block = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_blcok()));
+               input, mutable_block()));
         } else {
           goto handle_unusual;
         }
@@ -8111,10 +8519,10 @@ void ReadResponse::SerializeWithCachedSizes(
       1, this->errcode(), output);
   }
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, HasBitSetters::blcok(this), output);
+      2, HasBitSetters::block(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -8137,11 +8545,11 @@ void ReadResponse::SerializeWithCachedSizes(
       1, this->errcode(), target);
   }
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, HasBitSetters::blcok(this), target);
+        2, HasBitSetters::block(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -8170,12 +8578,12 @@ size_t ReadResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *blcok_);
+        *block_);
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -8208,7 +8616,7 @@ void ReadResponse::MergeFrom(const ReadResponse& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      mutable_blcok()->::ofs::api::Block::MergeFrom(from.blcok());
+      mutable_block()->::ofs::api::Block::MergeFrom(from.block());
     }
     if (cached_has_bits & 0x00000002u) {
       errcode_ = from.errcode_;
@@ -8233,8 +8641,8 @@ void ReadResponse::CopyFrom(const ReadResponse& from) {
 
 bool ReadResponse::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
-  if (has_blcok()) {
-    if (!this->blcok_->IsInitialized()) return false;
+  if (has_block()) {
+    if (!this->block_->IsInitialized()) return false;
   }
   return true;
 }
@@ -8247,7 +8655,7 @@ void ReadResponse::InternalSwap(ReadResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(blcok_, other->blcok_);
+  swap(block_, other->block_);
   swap(errcode_, other->errcode_);
 }
 
@@ -8726,7 +9134,7 @@ void WriteRequest::InternalSwap(WriteRequest* other) {
 // ===================================================================
 
 void WriteResponse::InitAsDefaultInstance() {
-  ::ofs::api::_WriteResponse_default_instance_._instance.get_mutable()->blcok_ = const_cast< ::ofs::api::Block*>(
+  ::ofs::api::_WriteResponse_default_instance_._instance.get_mutable()->block_ = const_cast< ::ofs::api::Block*>(
       ::ofs::api::Block::internal_default_instance());
 }
 class WriteResponse::HasBitSetters {
@@ -8734,19 +9142,19 @@ class WriteResponse::HasBitSetters {
   static void set_has_errcode(WriteResponse* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
-  static const ::ofs::api::Block& blcok(const WriteResponse* msg);
-  static void set_has_blcok(WriteResponse* msg) {
+  static const ::ofs::api::Block& block(const WriteResponse* msg);
+  static void set_has_block(WriteResponse* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
 };
 
 const ::ofs::api::Block&
-WriteResponse::HasBitSetters::blcok(const WriteResponse* msg) {
-  return *msg->blcok_;
+WriteResponse::HasBitSetters::block(const WriteResponse* msg) {
+  return *msg->block_;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int WriteResponse::kErrCodeFieldNumber;
-const int WriteResponse::kBlcokFieldNumber;
+const int WriteResponse::kBlockFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WriteResponse::WriteResponse()
@@ -8759,10 +9167,10 @@ WriteResponse::WriteResponse(const WriteResponse& from)
       _internal_metadata_(nullptr),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_blcok()) {
-    blcok_ = new ::ofs::api::Block(*from.blcok_);
+  if (from.has_block()) {
+    block_ = new ::ofs::api::Block(*from.block_);
   } else {
-    blcok_ = nullptr;
+    block_ = nullptr;
   }
   errcode_ = from.errcode_;
   // @@protoc_insertion_point(copy_constructor:ofs.api.WriteResponse)
@@ -8771,9 +9179,9 @@ WriteResponse::WriteResponse(const WriteResponse& from)
 void WriteResponse::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_WriteResponse_OfsMaster_2eproto.base);
-  ::memset(&blcok_, 0, static_cast<size_t>(
+  ::memset(&block_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&errcode_) -
-      reinterpret_cast<char*>(&blcok_)) + sizeof(errcode_));
+      reinterpret_cast<char*>(&block_)) + sizeof(errcode_));
 }
 
 WriteResponse::~WriteResponse() {
@@ -8782,7 +9190,7 @@ WriteResponse::~WriteResponse() {
 }
 
 void WriteResponse::SharedDtor() {
-  if (this != internal_default_instance()) delete blcok_;
+  if (this != internal_default_instance()) delete block_;
 }
 
 void WriteResponse::SetCachedSize(int size) const {
@@ -8802,8 +9210,8 @@ void WriteResponse::Clear() {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(blcok_ != nullptr);
-    blcok_->Clear();
+    GOOGLE_DCHECK(block_ != nullptr);
+    block_->Clear();
   }
   errcode_ = 0;
   _has_bits_.Clear();
@@ -8835,13 +9243,13 @@ const char* WriteResponse::_InternalParse(const char* begin, const char* end, vo
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // optional .ofs.api.Block blcok = 2;
+      // optional .ofs.api.Block block = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         parser_till_end = ::ofs::api::Block::_InternalParse;
-        object = msg->mutable_blcok();
+        object = msg->mutable_block();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
         GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
@@ -8897,11 +9305,11 @@ bool WriteResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .ofs.api.Block blcok = 2;
+      // optional .ofs.api.Block block = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_blcok()));
+               input, mutable_block()));
         } else {
           goto handle_unusual;
         }
@@ -8942,10 +9350,10 @@ void WriteResponse::SerializeWithCachedSizes(
       1, this->errcode(), output);
   }
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, HasBitSetters::blcok(this), output);
+      2, HasBitSetters::block(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -8968,11 +9376,11 @@ void WriteResponse::SerializeWithCachedSizes(
       1, this->errcode(), target);
   }
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, HasBitSetters::blcok(this), target);
+        2, HasBitSetters::block(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -9001,12 +9409,12 @@ size_t WriteResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *blcok_);
+        *block_);
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -9039,7 +9447,7 @@ void WriteResponse::MergeFrom(const WriteResponse& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      mutable_blcok()->::ofs::api::Block::MergeFrom(from.blcok());
+      mutable_block()->::ofs::api::Block::MergeFrom(from.block());
     }
     if (cached_has_bits & 0x00000002u) {
       errcode_ = from.errcode_;
@@ -9064,8 +9472,8 @@ void WriteResponse::CopyFrom(const WriteResponse& from) {
 
 bool WriteResponse::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
-  if (has_blcok()) {
-    if (!this->blcok_->IsInitialized()) return false;
+  if (has_block()) {
+    if (!this->block_->IsInitialized()) return false;
   }
   return true;
 }
@@ -9078,7 +9486,7 @@ void WriteResponse::InternalSwap(WriteResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(blcok_, other->blcok_);
+  swap(block_, other->block_);
   swap(errcode_, other->errcode_);
 }
 
@@ -9503,7 +9911,7 @@ void AppendRequest::InternalSwap(AppendRequest* other) {
 // ===================================================================
 
 void AppendResponse::InitAsDefaultInstance() {
-  ::ofs::api::_AppendResponse_default_instance_._instance.get_mutable()->blcok_ = const_cast< ::ofs::api::Block*>(
+  ::ofs::api::_AppendResponse_default_instance_._instance.get_mutable()->block_ = const_cast< ::ofs::api::Block*>(
       ::ofs::api::Block::internal_default_instance());
 }
 class AppendResponse::HasBitSetters {
@@ -9511,19 +9919,19 @@ class AppendResponse::HasBitSetters {
   static void set_has_errcode(AppendResponse* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
-  static const ::ofs::api::Block& blcok(const AppendResponse* msg);
-  static void set_has_blcok(AppendResponse* msg) {
+  static const ::ofs::api::Block& block(const AppendResponse* msg);
+  static void set_has_block(AppendResponse* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
 };
 
 const ::ofs::api::Block&
-AppendResponse::HasBitSetters::blcok(const AppendResponse* msg) {
-  return *msg->blcok_;
+AppendResponse::HasBitSetters::block(const AppendResponse* msg) {
+  return *msg->block_;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int AppendResponse::kErrCodeFieldNumber;
-const int AppendResponse::kBlcokFieldNumber;
+const int AppendResponse::kBlockFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 AppendResponse::AppendResponse()
@@ -9536,10 +9944,10 @@ AppendResponse::AppendResponse(const AppendResponse& from)
       _internal_metadata_(nullptr),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_blcok()) {
-    blcok_ = new ::ofs::api::Block(*from.blcok_);
+  if (from.has_block()) {
+    block_ = new ::ofs::api::Block(*from.block_);
   } else {
-    blcok_ = nullptr;
+    block_ = nullptr;
   }
   errcode_ = from.errcode_;
   // @@protoc_insertion_point(copy_constructor:ofs.api.AppendResponse)
@@ -9548,9 +9956,9 @@ AppendResponse::AppendResponse(const AppendResponse& from)
 void AppendResponse::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_AppendResponse_OfsMaster_2eproto.base);
-  ::memset(&blcok_, 0, static_cast<size_t>(
+  ::memset(&block_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&errcode_) -
-      reinterpret_cast<char*>(&blcok_)) + sizeof(errcode_));
+      reinterpret_cast<char*>(&block_)) + sizeof(errcode_));
 }
 
 AppendResponse::~AppendResponse() {
@@ -9559,7 +9967,7 @@ AppendResponse::~AppendResponse() {
 }
 
 void AppendResponse::SharedDtor() {
-  if (this != internal_default_instance()) delete blcok_;
+  if (this != internal_default_instance()) delete block_;
 }
 
 void AppendResponse::SetCachedSize(int size) const {
@@ -9579,8 +9987,8 @@ void AppendResponse::Clear() {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(blcok_ != nullptr);
-    blcok_->Clear();
+    GOOGLE_DCHECK(block_ != nullptr);
+    block_->Clear();
   }
   errcode_ = 0;
   _has_bits_.Clear();
@@ -9612,13 +10020,13 @@ const char* AppendResponse::_InternalParse(const char* begin, const char* end, v
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // optional .ofs.api.Block blcok = 2;
+      // optional .ofs.api.Block block = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         parser_till_end = ::ofs::api::Block::_InternalParse;
-        object = msg->mutable_blcok();
+        object = msg->mutable_block();
         if (size > end - ptr) goto len_delim_till_end;
         ptr += size;
         GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
@@ -9674,11 +10082,11 @@ bool AppendResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .ofs.api.Block blcok = 2;
+      // optional .ofs.api.Block block = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_blcok()));
+               input, mutable_block()));
         } else {
           goto handle_unusual;
         }
@@ -9719,10 +10127,10 @@ void AppendResponse::SerializeWithCachedSizes(
       1, this->errcode(), output);
   }
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, HasBitSetters::blcok(this), output);
+      2, HasBitSetters::block(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -9745,11 +10153,11 @@ void AppendResponse::SerializeWithCachedSizes(
       1, this->errcode(), target);
   }
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, HasBitSetters::blcok(this), target);
+        2, HasBitSetters::block(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -9778,12 +10186,12 @@ size_t AppendResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .ofs.api.Block blcok = 2;
+  // optional .ofs.api.Block block = 2;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *blcok_);
+        *block_);
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -9816,7 +10224,7 @@ void AppendResponse::MergeFrom(const AppendResponse& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      mutable_blcok()->::ofs::api::Block::MergeFrom(from.blcok());
+      mutable_block()->::ofs::api::Block::MergeFrom(from.block());
     }
     if (cached_has_bits & 0x00000002u) {
       errcode_ = from.errcode_;
@@ -9841,8 +10249,8 @@ void AppendResponse::CopyFrom(const AppendResponse& from) {
 
 bool AppendResponse::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
-  if (has_blcok()) {
-    if (!this->blcok_->IsInitialized()) return false;
+  if (has_block()) {
+    if (!this->block_->IsInitialized()) return false;
   }
   return true;
 }
@@ -9855,7 +10263,7 @@ void AppendResponse::InternalSwap(AppendResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(blcok_, other->blcok_);
+  swap(block_, other->block_);
   swap(errcode_, other->errcode_);
 }
 
@@ -10199,6 +10607,9 @@ template<> PROTOBUF_NOINLINE ::ofs::api::UUID* Arena::CreateMaybeMessage< ::ofs:
 }
 template<> PROTOBUF_NOINLINE ::ofs::api::EndPoint* Arena::CreateMaybeMessage< ::ofs::api::EndPoint >(Arena* arena) {
   return Arena::CreateInternal< ::ofs::api::EndPoint >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ofs::api::BlockId* Arena::CreateMaybeMessage< ::ofs::api::BlockId >(Arena* arena) {
+  return Arena::CreateInternal< ::ofs::api::BlockId >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ofs::api::Block* Arena::CreateMaybeMessage< ::ofs::api::Block >(Arena* arena) {
   return Arena::CreateInternal< ::ofs::api::Block >(arena);

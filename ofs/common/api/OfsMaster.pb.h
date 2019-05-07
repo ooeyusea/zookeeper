@@ -43,7 +43,7 @@ struct TableStruct_OfsMaster_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[22]
+  static const ::google::protobuf::internal::ParseTable schema[23]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -61,6 +61,9 @@ extern AppendResponseDefaultTypeInternal _AppendResponse_default_instance_;
 class Block;
 class BlockDefaultTypeInternal;
 extern BlockDefaultTypeInternal _Block_default_instance_;
+class BlockId;
+class BlockIdDefaultTypeInternal;
+extern BlockIdDefaultTypeInternal _BlockId_default_instance_;
 class CreateFileRequest;
 class CreateFileRequestDefaultTypeInternal;
 extern CreateFileRequestDefaultTypeInternal _CreateFileRequest_default_instance_;
@@ -125,6 +128,7 @@ namespace protobuf {
 template<> ::ofs::api::AppendRequest* Arena::CreateMaybeMessage<::ofs::api::AppendRequest>(Arena*);
 template<> ::ofs::api::AppendResponse* Arena::CreateMaybeMessage<::ofs::api::AppendResponse>(Arena*);
 template<> ::ofs::api::Block* Arena::CreateMaybeMessage<::ofs::api::Block>(Arena*);
+template<> ::ofs::api::BlockId* Arena::CreateMaybeMessage<::ofs::api::BlockId>(Arena*);
 template<> ::ofs::api::CreateFileRequest* Arena::CreateMaybeMessage<::ofs::api::CreateFileRequest>(Arena*);
 template<> ::ofs::api::CreateFileResponse* Arena::CreateMaybeMessage<::ofs::api::CreateFileResponse>(Arena*);
 template<> ::ofs::api::EndPoint* Arena::CreateMaybeMessage<::ofs::api::EndPoint>(Arena*);
@@ -161,11 +165,12 @@ enum ErrorCode {
   EC_USER_EXPIRE = 8,
   EC_IS_NOT_DIRECTORY = 9,
   EC_ALREADY_EXIST_DELETE_FILE = 10,
-  EC_OUT_OF_RANGE = 11
+  EC_OUT_OF_RANGE = 11,
+  EC_BLOCK_NOT_READY = 12
 };
 bool ErrorCode_IsValid(int value);
 const ErrorCode ErrorCode_MIN = EC_NONE;
-const ErrorCode ErrorCode_MAX = EC_OUT_OF_RANGE;
+const ErrorCode ErrorCode_MAX = EC_BLOCK_NOT_READY;
 const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();
@@ -2391,6 +2396,140 @@ class EndPoint :
 };
 // -------------------------------------------------------------------
 
+class BlockId :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.BlockId) */ {
+ public:
+  BlockId();
+  virtual ~BlockId();
+
+  BlockId(const BlockId& from);
+
+  inline BlockId& operator=(const BlockId& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  BlockId(BlockId&& from) noexcept
+    : BlockId() {
+    *this = ::std::move(from);
+  }
+
+  inline BlockId& operator=(BlockId&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const BlockId& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const BlockId* internal_default_instance() {
+    return reinterpret_cast<const BlockId*>(
+               &_BlockId_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  void Swap(BlockId* other);
+  friend void swap(BlockId& a, BlockId& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline BlockId* New() const final {
+    return CreateMaybeMessage<BlockId>(nullptr);
+  }
+
+  BlockId* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<BlockId>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const BlockId& from);
+  void MergeFrom(const BlockId& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(BlockId* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .ofs.api.UUID file = 1;
+  bool has_file() const;
+  void clear_file();
+  static const int kFileFieldNumber = 1;
+  const ::ofs::api::UUID& file() const;
+  ::ofs::api::UUID* release_file();
+  ::ofs::api::UUID* mutable_file();
+  void set_allocated_file(::ofs::api::UUID* file);
+
+  // required int32 index = 2;
+  bool has_index() const;
+  void clear_index();
+  static const int kIndexFieldNumber = 2;
+  ::google::protobuf::int32 index() const;
+  void set_index(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:ofs.api.BlockId)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::ofs::api::UUID* file_;
+  ::google::protobuf::int32 index_;
+  friend struct ::TableStruct_OfsMaster_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Block :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.Block) */ {
  public:
@@ -2436,7 +2575,7 @@ class Block :
                &_Block_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   void Swap(Block* other);
   friend void swap(Block& a, Block& b) {
@@ -2493,10 +2632,10 @@ class Block :
 
   // accessors -------------------------------------------------------
 
-  // repeated .ofs.api.EndPoint eps = 4;
+  // repeated .ofs.api.EndPoint eps = 2;
   int eps_size() const;
   void clear_eps();
-  static const int kEpsFieldNumber = 4;
+  static const int kEpsFieldNumber = 2;
   ::ofs::api::EndPoint* mutable_eps(int index);
   ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
       mutable_eps();
@@ -2505,14 +2644,14 @@ class Block :
   const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
       eps() const;
 
-  // required .ofs.api.UUID id = 3;
+  // required .ofs.api.BlockId id = 1;
   bool has_id() const;
   void clear_id();
-  static const int kIdFieldNumber = 3;
-  const ::ofs::api::UUID& id() const;
-  ::ofs::api::UUID* release_id();
-  ::ofs::api::UUID* mutable_id();
-  void set_allocated_id(::ofs::api::UUID* id);
+  static const int kIdFieldNumber = 1;
+  const ::ofs::api::BlockId& id() const;
+  ::ofs::api::BlockId* release_id();
+  ::ofs::api::BlockId* mutable_id();
+  void set_allocated_id(::ofs::api::BlockId* id);
 
   // @@protoc_insertion_point(class_scope:ofs.api.Block)
  private:
@@ -2522,7 +2661,7 @@ class Block :
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint > eps_;
-  ::ofs::api::UUID* id_;
+  ::ofs::api::BlockId* id_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2572,7 +2711,7 @@ class ReadRequest :
                &_ReadRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   void Swap(ReadRequest* other);
   friend void swap(ReadRequest& a, ReadRequest& b) {
@@ -2728,7 +2867,7 @@ class ReadResponse :
                &_ReadResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   void Swap(ReadResponse* other);
   friend void swap(ReadResponse& a, ReadResponse& b) {
@@ -2785,14 +2924,14 @@ class ReadResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.Block blcok = 2;
-  bool has_blcok() const;
-  void clear_blcok();
-  static const int kBlcokFieldNumber = 2;
-  const ::ofs::api::Block& blcok() const;
-  ::ofs::api::Block* release_blcok();
-  ::ofs::api::Block* mutable_blcok();
-  void set_allocated_blcok(::ofs::api::Block* blcok);
+  // optional .ofs.api.Block block = 2;
+  bool has_block() const;
+  void clear_block();
+  static const int kBlockFieldNumber = 2;
+  const ::ofs::api::Block& block() const;
+  ::ofs::api::Block* release_block();
+  ::ofs::api::Block* mutable_block();
+  void set_allocated_block(::ofs::api::Block* block);
 
   // required .ofs.api.ErrorCode errCode = 1;
   bool has_errcode() const;
@@ -2808,7 +2947,7 @@ class ReadResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::Block* blcok_;
+  ::ofs::api::Block* block_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -2859,7 +2998,7 @@ class WriteRequest :
                &_WriteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   void Swap(WriteRequest* other);
   friend void swap(WriteRequest& a, WriteRequest& b) {
@@ -3015,7 +3154,7 @@ class WriteResponse :
                &_WriteResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   void Swap(WriteResponse* other);
   friend void swap(WriteResponse& a, WriteResponse& b) {
@@ -3072,14 +3211,14 @@ class WriteResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.Block blcok = 2;
-  bool has_blcok() const;
-  void clear_blcok();
-  static const int kBlcokFieldNumber = 2;
-  const ::ofs::api::Block& blcok() const;
-  ::ofs::api::Block* release_blcok();
-  ::ofs::api::Block* mutable_blcok();
-  void set_allocated_blcok(::ofs::api::Block* blcok);
+  // optional .ofs.api.Block block = 2;
+  bool has_block() const;
+  void clear_block();
+  static const int kBlockFieldNumber = 2;
+  const ::ofs::api::Block& block() const;
+  ::ofs::api::Block* release_block();
+  ::ofs::api::Block* mutable_block();
+  void set_allocated_block(::ofs::api::Block* block);
 
   // required .ofs.api.ErrorCode errCode = 1;
   bool has_errcode() const;
@@ -3095,7 +3234,7 @@ class WriteResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::Block* blcok_;
+  ::ofs::api::Block* block_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -3146,7 +3285,7 @@ class AppendRequest :
                &_AppendRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   void Swap(AppendRequest* other);
   friend void swap(AppendRequest& a, AppendRequest& b) {
@@ -3294,7 +3433,7 @@ class AppendResponse :
                &_AppendResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   void Swap(AppendResponse* other);
   friend void swap(AppendResponse& a, AppendResponse& b) {
@@ -3351,14 +3490,14 @@ class AppendResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.Block blcok = 2;
-  bool has_blcok() const;
-  void clear_blcok();
-  static const int kBlcokFieldNumber = 2;
-  const ::ofs::api::Block& blcok() const;
-  ::ofs::api::Block* release_blcok();
-  ::ofs::api::Block* mutable_blcok();
-  void set_allocated_blcok(::ofs::api::Block* blcok);
+  // optional .ofs.api.Block block = 2;
+  bool has_block() const;
+  void clear_block();
+  static const int kBlockFieldNumber = 2;
+  const ::ofs::api::Block& block() const;
+  ::ofs::api::Block* release_block();
+  ::ofs::api::Block* mutable_block();
+  void set_allocated_block(::ofs::api::Block* block);
 
   // required .ofs.api.ErrorCode errCode = 1;
   bool has_errcode() const;
@@ -3374,7 +3513,7 @@ class AppendResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::Block* blcok_;
+  ::ofs::api::Block* block_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -5101,9 +5240,80 @@ inline void EndPoint::set_port(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
+// BlockId
+
+// required .ofs.api.UUID file = 1;
+inline bool BlockId::has_file() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void BlockId::clear_file() {
+  if (file_ != nullptr) file_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::ofs::api::UUID& BlockId::file() const {
+  const ::ofs::api::UUID* p = file_;
+  // @@protoc_insertion_point(field_get:ofs.api.BlockId.file)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::UUID*>(
+      &::ofs::api::_UUID_default_instance_);
+}
+inline ::ofs::api::UUID* BlockId::release_file() {
+  // @@protoc_insertion_point(field_release:ofs.api.BlockId.file)
+  _has_bits_[0] &= ~0x00000001u;
+  ::ofs::api::UUID* temp = file_;
+  file_ = nullptr;
+  return temp;
+}
+inline ::ofs::api::UUID* BlockId::mutable_file() {
+  _has_bits_[0] |= 0x00000001u;
+  if (file_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ofs::api::UUID>(GetArenaNoVirtual());
+    file_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:ofs.api.BlockId.file)
+  return file_;
+}
+inline void BlockId::set_allocated_file(::ofs::api::UUID* file) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete file_;
+  }
+  if (file) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      file = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, file, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  file_ = file;
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.BlockId.file)
+}
+
+// required int32 index = 2;
+inline bool BlockId::has_index() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void BlockId::clear_index() {
+  index_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::int32 BlockId::index() const {
+  // @@protoc_insertion_point(field_get:ofs.api.BlockId.index)
+  return index_;
+}
+inline void BlockId::set_index(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000002u;
+  index_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.BlockId.index)
+}
+
+// -------------------------------------------------------------------
+
 // Block
 
-// required .ofs.api.UUID id = 3;
+// required .ofs.api.BlockId id = 1;
 inline bool Block::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -5111,29 +5321,29 @@ inline void Block::clear_id() {
   if (id_ != nullptr) id_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::UUID& Block::id() const {
-  const ::ofs::api::UUID* p = id_;
+inline const ::ofs::api::BlockId& Block::id() const {
+  const ::ofs::api::BlockId* p = id_;
   // @@protoc_insertion_point(field_get:ofs.api.Block.id)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::UUID*>(
-      &::ofs::api::_UUID_default_instance_);
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::BlockId*>(
+      &::ofs::api::_BlockId_default_instance_);
 }
-inline ::ofs::api::UUID* Block::release_id() {
+inline ::ofs::api::BlockId* Block::release_id() {
   // @@protoc_insertion_point(field_release:ofs.api.Block.id)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::UUID* temp = id_;
+  ::ofs::api::BlockId* temp = id_;
   id_ = nullptr;
   return temp;
 }
-inline ::ofs::api::UUID* Block::mutable_id() {
+inline ::ofs::api::BlockId* Block::mutable_id() {
   _has_bits_[0] |= 0x00000001u;
   if (id_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::UUID>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::ofs::api::BlockId>(GetArenaNoVirtual());
     id_ = p;
   }
   // @@protoc_insertion_point(field_mutable:ofs.api.Block.id)
   return id_;
 }
-inline void Block::set_allocated_id(::ofs::api::UUID* id) {
+inline void Block::set_allocated_id(::ofs::api::BlockId* id) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete id_;
@@ -5152,7 +5362,7 @@ inline void Block::set_allocated_id(::ofs::api::UUID* id) {
   // @@protoc_insertion_point(field_set_allocated:ofs.api.Block.id)
 }
 
-// repeated .ofs.api.EndPoint eps = 4;
+// repeated .ofs.api.EndPoint eps = 2;
 inline int Block::eps_size() const {
   return eps_.size();
 }
@@ -5347,53 +5557,53 @@ inline void ReadResponse::set_errcode(::ofs::api::ErrorCode value) {
   // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.errCode)
 }
 
-// optional .ofs.api.Block blcok = 2;
-inline bool ReadResponse::has_blcok() const {
+// optional .ofs.api.Block block = 2;
+inline bool ReadResponse::has_block() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ReadResponse::clear_blcok() {
-  if (blcok_ != nullptr) blcok_->Clear();
+inline void ReadResponse::clear_block() {
+  if (block_ != nullptr) block_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::Block& ReadResponse::blcok() const {
-  const ::ofs::api::Block* p = blcok_;
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.blcok)
+inline const ::ofs::api::Block& ReadResponse::block() const {
+  const ::ofs::api::Block* p = block_;
+  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.block)
   return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::Block*>(
       &::ofs::api::_Block_default_instance_);
 }
-inline ::ofs::api::Block* ReadResponse::release_blcok() {
-  // @@protoc_insertion_point(field_release:ofs.api.ReadResponse.blcok)
+inline ::ofs::api::Block* ReadResponse::release_block() {
+  // @@protoc_insertion_point(field_release:ofs.api.ReadResponse.block)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::Block* temp = blcok_;
-  blcok_ = nullptr;
+  ::ofs::api::Block* temp = block_;
+  block_ = nullptr;
   return temp;
 }
-inline ::ofs::api::Block* ReadResponse::mutable_blcok() {
+inline ::ofs::api::Block* ReadResponse::mutable_block() {
   _has_bits_[0] |= 0x00000001u;
-  if (blcok_ == nullptr) {
+  if (block_ == nullptr) {
     auto* p = CreateMaybeMessage<::ofs::api::Block>(GetArenaNoVirtual());
-    blcok_ = p;
+    block_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.blcok)
-  return blcok_;
+  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.block)
+  return block_;
 }
-inline void ReadResponse::set_allocated_blcok(::ofs::api::Block* blcok) {
+inline void ReadResponse::set_allocated_block(::ofs::api::Block* block) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
-    delete blcok_;
+    delete block_;
   }
-  if (blcok) {
+  if (block) {
     ::google::protobuf::Arena* submessage_arena = nullptr;
     if (message_arena != submessage_arena) {
-      blcok = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, blcok, submessage_arena);
+      block = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, block, submessage_arena);
     }
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  blcok_ = blcok;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadResponse.blcok)
+  block_ = block;
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadResponse.block)
 }
 
 // -------------------------------------------------------------------
@@ -5561,53 +5771,53 @@ inline void WriteResponse::set_errcode(::ofs::api::ErrorCode value) {
   // @@protoc_insertion_point(field_set:ofs.api.WriteResponse.errCode)
 }
 
-// optional .ofs.api.Block blcok = 2;
-inline bool WriteResponse::has_blcok() const {
+// optional .ofs.api.Block block = 2;
+inline bool WriteResponse::has_block() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void WriteResponse::clear_blcok() {
-  if (blcok_ != nullptr) blcok_->Clear();
+inline void WriteResponse::clear_block() {
+  if (block_ != nullptr) block_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::Block& WriteResponse::blcok() const {
-  const ::ofs::api::Block* p = blcok_;
-  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.blcok)
+inline const ::ofs::api::Block& WriteResponse::block() const {
+  const ::ofs::api::Block* p = block_;
+  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.block)
   return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::Block*>(
       &::ofs::api::_Block_default_instance_);
 }
-inline ::ofs::api::Block* WriteResponse::release_blcok() {
-  // @@protoc_insertion_point(field_release:ofs.api.WriteResponse.blcok)
+inline ::ofs::api::Block* WriteResponse::release_block() {
+  // @@protoc_insertion_point(field_release:ofs.api.WriteResponse.block)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::Block* temp = blcok_;
-  blcok_ = nullptr;
+  ::ofs::api::Block* temp = block_;
+  block_ = nullptr;
   return temp;
 }
-inline ::ofs::api::Block* WriteResponse::mutable_blcok() {
+inline ::ofs::api::Block* WriteResponse::mutable_block() {
   _has_bits_[0] |= 0x00000001u;
-  if (blcok_ == nullptr) {
+  if (block_ == nullptr) {
     auto* p = CreateMaybeMessage<::ofs::api::Block>(GetArenaNoVirtual());
-    blcok_ = p;
+    block_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.WriteResponse.blcok)
-  return blcok_;
+  // @@protoc_insertion_point(field_mutable:ofs.api.WriteResponse.block)
+  return block_;
 }
-inline void WriteResponse::set_allocated_blcok(::ofs::api::Block* blcok) {
+inline void WriteResponse::set_allocated_block(::ofs::api::Block* block) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
-    delete blcok_;
+    delete block_;
   }
-  if (blcok) {
+  if (block) {
     ::google::protobuf::Arena* submessage_arena = nullptr;
     if (message_arena != submessage_arena) {
-      blcok = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, blcok, submessage_arena);
+      block = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, block, submessage_arena);
     }
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  blcok_ = blcok;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteResponse.blcok)
+  block_ = block;
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteResponse.block)
 }
 
 // -------------------------------------------------------------------
@@ -5757,58 +5967,60 @@ inline void AppendResponse::set_errcode(::ofs::api::ErrorCode value) {
   // @@protoc_insertion_point(field_set:ofs.api.AppendResponse.errCode)
 }
 
-// optional .ofs.api.Block blcok = 2;
-inline bool AppendResponse::has_blcok() const {
+// optional .ofs.api.Block block = 2;
+inline bool AppendResponse::has_block() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void AppendResponse::clear_blcok() {
-  if (blcok_ != nullptr) blcok_->Clear();
+inline void AppendResponse::clear_block() {
+  if (block_ != nullptr) block_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::Block& AppendResponse::blcok() const {
-  const ::ofs::api::Block* p = blcok_;
-  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.blcok)
+inline const ::ofs::api::Block& AppendResponse::block() const {
+  const ::ofs::api::Block* p = block_;
+  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.block)
   return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::Block*>(
       &::ofs::api::_Block_default_instance_);
 }
-inline ::ofs::api::Block* AppendResponse::release_blcok() {
-  // @@protoc_insertion_point(field_release:ofs.api.AppendResponse.blcok)
+inline ::ofs::api::Block* AppendResponse::release_block() {
+  // @@protoc_insertion_point(field_release:ofs.api.AppendResponse.block)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::Block* temp = blcok_;
-  blcok_ = nullptr;
+  ::ofs::api::Block* temp = block_;
+  block_ = nullptr;
   return temp;
 }
-inline ::ofs::api::Block* AppendResponse::mutable_blcok() {
+inline ::ofs::api::Block* AppendResponse::mutable_block() {
   _has_bits_[0] |= 0x00000001u;
-  if (blcok_ == nullptr) {
+  if (block_ == nullptr) {
     auto* p = CreateMaybeMessage<::ofs::api::Block>(GetArenaNoVirtual());
-    blcok_ = p;
+    block_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.AppendResponse.blcok)
-  return blcok_;
+  // @@protoc_insertion_point(field_mutable:ofs.api.AppendResponse.block)
+  return block_;
 }
-inline void AppendResponse::set_allocated_blcok(::ofs::api::Block* blcok) {
+inline void AppendResponse::set_allocated_block(::ofs::api::Block* block) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
-    delete blcok_;
+    delete block_;
   }
-  if (blcok) {
+  if (block) {
     ::google::protobuf::Arena* submessage_arena = nullptr;
     if (message_arena != submessage_arena) {
-      blcok = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, blcok, submessage_arena);
+      block = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, block, submessage_arena);
     }
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  blcok_ = blcok;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendResponse.blcok)
+  block_ = block;
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendResponse.block)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
