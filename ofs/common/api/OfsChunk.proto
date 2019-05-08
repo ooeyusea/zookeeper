@@ -1,57 +1,24 @@
 syntax = "proto2";
 option cc_generic_services = true;
 
-package yarn.api;
+package ofs.api;
 
-message ContainerStartParam {
-	required string name = 1;
-	required string resource = 2;
-	required string md5 = 3;
-	repeated string environment = 4;
-	required string cmd = 5;
+enum ErrorCode {
+	EC_NONE = 0;
+	EC_BLOCK_NOT_EIXST = 1;
+	EC_BLOCK_INCORRECT = 2;
 }
 
-message StartContainerRequest {
-	required string application = 1;
-	required string token = 2;
-	repeated ContainerStartParam containers = 3;
+message ReadRequest {
+	required int64 blockId = 1;
+	required int32 offset = 2;
 }
 
-message StartContainerResponse {
-	required bool ok = 1;
+message ReadResponse {
+	required ErrorCode errCode = 1;
+	optional string data = 2;
 }
 
-message StopContainerRequest {
-	required string name = 1;
-}
-
-message StopContainerResponse {
-	required bool ok = 1;
-}
-
-message GetContainerStatusRequest {
-	repeated string names = 1;
-}
-
-enum ContainerStatus {
-	CS_NEW = 0;
-	CS_LOCALIZING = 1;
-	CS_LOCALIZED = 2;
-	CS_LOCALIZATION_FAILED = 3;
-	CS_RUNNING = 4;
-	CS_KILLING = 5;
-	CS_EXIT_SUCCESS = 6;
-	CS_EXIT_WITH_FAITUARE = 7;
-	CS_CONTAINER_CLEANUP_WITH = 8;
-	CS_DONE = 9;
-}
-
-message GetContainerStatusResponse {
-	repeated ContainerStatus status = 1;
-}
-
-service ContainerManagementService {
-	rpc StartContainer (StartContainerRequest) returns (StartContainerResponse);
-	rpc StopContainer (StopContainerRequest) returns (StopContainerResponse);
-	rpc GetContainerStatus (GetContainerStatusRequest) returns (GetContainerStatusResponse);
+service OfsNodeService {
+	rpc Read (ReadRequest) returns (ReadResponse);
 }

@@ -43,100 +43,73 @@ struct TableStruct_OfsChunk_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[7]
+  static const ::google::protobuf::internal::ParseTable schema[2]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
 void AddDescriptors_OfsChunk_2eproto();
-namespace yarn {
+namespace ofs {
 namespace api {
-class ContainerStartParam;
-class ContainerStartParamDefaultTypeInternal;
-extern ContainerStartParamDefaultTypeInternal _ContainerStartParam_default_instance_;
-class GetContainerStatusRequest;
-class GetContainerStatusRequestDefaultTypeInternal;
-extern GetContainerStatusRequestDefaultTypeInternal _GetContainerStatusRequest_default_instance_;
-class GetContainerStatusResponse;
-class GetContainerStatusResponseDefaultTypeInternal;
-extern GetContainerStatusResponseDefaultTypeInternal _GetContainerStatusResponse_default_instance_;
-class StartContainerRequest;
-class StartContainerRequestDefaultTypeInternal;
-extern StartContainerRequestDefaultTypeInternal _StartContainerRequest_default_instance_;
-class StartContainerResponse;
-class StartContainerResponseDefaultTypeInternal;
-extern StartContainerResponseDefaultTypeInternal _StartContainerResponse_default_instance_;
-class StopContainerRequest;
-class StopContainerRequestDefaultTypeInternal;
-extern StopContainerRequestDefaultTypeInternal _StopContainerRequest_default_instance_;
-class StopContainerResponse;
-class StopContainerResponseDefaultTypeInternal;
-extern StopContainerResponseDefaultTypeInternal _StopContainerResponse_default_instance_;
+class ReadRequest;
+class ReadRequestDefaultTypeInternal;
+extern ReadRequestDefaultTypeInternal _ReadRequest_default_instance_;
+class ReadResponse;
+class ReadResponseDefaultTypeInternal;
+extern ReadResponseDefaultTypeInternal _ReadResponse_default_instance_;
 }  // namespace api
-}  // namespace yarn
+}  // namespace ofs
 namespace google {
 namespace protobuf {
-template<> ::yarn::api::ContainerStartParam* Arena::CreateMaybeMessage<::yarn::api::ContainerStartParam>(Arena*);
-template<> ::yarn::api::GetContainerStatusRequest* Arena::CreateMaybeMessage<::yarn::api::GetContainerStatusRequest>(Arena*);
-template<> ::yarn::api::GetContainerStatusResponse* Arena::CreateMaybeMessage<::yarn::api::GetContainerStatusResponse>(Arena*);
-template<> ::yarn::api::StartContainerRequest* Arena::CreateMaybeMessage<::yarn::api::StartContainerRequest>(Arena*);
-template<> ::yarn::api::StartContainerResponse* Arena::CreateMaybeMessage<::yarn::api::StartContainerResponse>(Arena*);
-template<> ::yarn::api::StopContainerRequest* Arena::CreateMaybeMessage<::yarn::api::StopContainerRequest>(Arena*);
-template<> ::yarn::api::StopContainerResponse* Arena::CreateMaybeMessage<::yarn::api::StopContainerResponse>(Arena*);
+template<> ::ofs::api::ReadRequest* Arena::CreateMaybeMessage<::ofs::api::ReadRequest>(Arena*);
+template<> ::ofs::api::ReadResponse* Arena::CreateMaybeMessage<::ofs::api::ReadResponse>(Arena*);
 }  // namespace protobuf
 }  // namespace google
-namespace yarn {
+namespace ofs {
 namespace api {
 
-enum ContainerStatus {
-  CS_NEW = 0,
-  CS_LOCALIZING = 1,
-  CS_LOCALIZED = 2,
-  CS_LOCALIZATION_FAILED = 3,
-  CS_RUNNING = 4,
-  CS_KILLING = 5,
-  CS_EXIT_SUCCESS = 6,
-  CS_EXIT_WITH_FAITUARE = 7,
-  CS_CONTAINER_CLEANUP_WITH = 8,
-  CS_DONE = 9
+enum ErrorCode {
+  EC_NONE = 0,
+  EC_BLOCK_NOT_EIXST = 1,
+  EC_BLOCK_INCORRECT = 2
 };
-bool ContainerStatus_IsValid(int value);
-const ContainerStatus ContainerStatus_MIN = CS_NEW;
-const ContainerStatus ContainerStatus_MAX = CS_DONE;
-const int ContainerStatus_ARRAYSIZE = ContainerStatus_MAX + 1;
+bool ErrorCode_IsValid(int value);
+const ErrorCode ErrorCode_MIN = EC_NONE;
+const ErrorCode ErrorCode_MAX = EC_BLOCK_INCORRECT;
+const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* ContainerStatus_descriptor();
-inline const ::std::string& ContainerStatus_Name(ContainerStatus value) {
+const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();
+inline const ::std::string& ErrorCode_Name(ErrorCode value) {
   return ::google::protobuf::internal::NameOfEnum(
-    ContainerStatus_descriptor(), value);
+    ErrorCode_descriptor(), value);
 }
-inline bool ContainerStatus_Parse(
-    const ::std::string& name, ContainerStatus* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<ContainerStatus>(
-    ContainerStatus_descriptor(), name, value);
+inline bool ErrorCode_Parse(
+    const ::std::string& name, ErrorCode* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ErrorCode>(
+    ErrorCode_descriptor(), name, value);
 }
 // ===================================================================
 
-class ContainerStartParam :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.ContainerStartParam) */ {
+class ReadRequest :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadRequest) */ {
  public:
-  ContainerStartParam();
-  virtual ~ContainerStartParam();
+  ReadRequest();
+  virtual ~ReadRequest();
 
-  ContainerStartParam(const ContainerStartParam& from);
+  ReadRequest(const ReadRequest& from);
 
-  inline ContainerStartParam& operator=(const ContainerStartParam& from) {
+  inline ReadRequest& operator=(const ReadRequest& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  ContainerStartParam(ContainerStartParam&& from) noexcept
-    : ContainerStartParam() {
+  ReadRequest(ReadRequest&& from) noexcept
+    : ReadRequest() {
     *this = ::std::move(from);
   }
 
-  inline ContainerStartParam& operator=(ContainerStartParam&& from) noexcept {
+  inline ReadRequest& operator=(ReadRequest&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -155,34 +128,34 @@ class ContainerStartParam :
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const ContainerStartParam& default_instance();
+  static const ReadRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ContainerStartParam* internal_default_instance() {
-    return reinterpret_cast<const ContainerStartParam*>(
-               &_ContainerStartParam_default_instance_);
+  static inline const ReadRequest* internal_default_instance() {
+    return reinterpret_cast<const ReadRequest*>(
+               &_ReadRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  void Swap(ContainerStartParam* other);
-  friend void swap(ContainerStartParam& a, ContainerStartParam& b) {
+  void Swap(ReadRequest* other);
+  friend void swap(ReadRequest& a, ReadRequest& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ContainerStartParam* New() const final {
-    return CreateMaybeMessage<ContainerStartParam>(nullptr);
+  inline ReadRequest* New() const final {
+    return CreateMaybeMessage<ReadRequest>(nullptr);
   }
 
-  ContainerStartParam* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<ContainerStartParam>(arena);
+  ReadRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ReadRequest>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const ContainerStartParam& from);
-  void MergeFrom(const ContainerStartParam& from);
+  void CopyFrom(const ReadRequest& from);
+  void MergeFrom(const ReadRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -204,7 +177,7 @@ class ContainerStartParam :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ContainerStartParam* other);
+  void InternalSwap(ReadRequest* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -220,89 +193,21 @@ class ContainerStartParam :
 
   // accessors -------------------------------------------------------
 
-  // repeated string environment = 4;
-  int environment_size() const;
-  void clear_environment();
-  static const int kEnvironmentFieldNumber = 4;
-  const ::std::string& environment(int index) const;
-  ::std::string* mutable_environment(int index);
-  void set_environment(int index, const ::std::string& value);
-  #if LANG_CXX11
-  void set_environment(int index, ::std::string&& value);
-  #endif
-  void set_environment(int index, const char* value);
-  void set_environment(int index, const char* value, size_t size);
-  ::std::string* add_environment();
-  void add_environment(const ::std::string& value);
-  #if LANG_CXX11
-  void add_environment(::std::string&& value);
-  #endif
-  void add_environment(const char* value);
-  void add_environment(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField<::std::string>& environment() const;
-  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_environment();
+  // required int64 blockId = 1;
+  bool has_blockid() const;
+  void clear_blockid();
+  static const int kBlockIdFieldNumber = 1;
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
 
-  // required string name = 1;
-  bool has_name() const;
-  void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  // required int32 offset = 2;
+  bool has_offset() const;
+  void clear_offset();
+  static const int kOffsetFieldNumber = 2;
+  ::google::protobuf::int32 offset() const;
+  void set_offset(::google::protobuf::int32 value);
 
-  // required string resource = 2;
-  bool has_resource() const;
-  void clear_resource();
-  static const int kResourceFieldNumber = 2;
-  const ::std::string& resource() const;
-  void set_resource(const ::std::string& value);
-  #if LANG_CXX11
-  void set_resource(::std::string&& value);
-  #endif
-  void set_resource(const char* value);
-  void set_resource(const char* value, size_t size);
-  ::std::string* mutable_resource();
-  ::std::string* release_resource();
-  void set_allocated_resource(::std::string* resource);
-
-  // required string md5 = 3;
-  bool has_md5() const;
-  void clear_md5();
-  static const int kMd5FieldNumber = 3;
-  const ::std::string& md5() const;
-  void set_md5(const ::std::string& value);
-  #if LANG_CXX11
-  void set_md5(::std::string&& value);
-  #endif
-  void set_md5(const char* value);
-  void set_md5(const char* value, size_t size);
-  ::std::string* mutable_md5();
-  ::std::string* release_md5();
-  void set_allocated_md5(::std::string* md5);
-
-  // required string cmd = 5;
-  bool has_cmd() const;
-  void clear_cmd();
-  static const int kCmdFieldNumber = 5;
-  const ::std::string& cmd() const;
-  void set_cmd(const ::std::string& value);
-  #if LANG_CXX11
-  void set_cmd(::std::string&& value);
-  #endif
-  void set_cmd(const char* value);
-  void set_cmd(const char* value, size_t size);
-  ::std::string* mutable_cmd();
-  ::std::string* release_cmd();
-  void set_allocated_cmd(::std::string* cmd);
-
-  // @@protoc_insertion_point(class_scope:yarn.api.ContainerStartParam)
+  // @@protoc_insertion_point(class_scope:ofs.api.ReadRequest)
  private:
   class HasBitSetters;
 
@@ -312,34 +217,31 @@ class ContainerStartParam :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedPtrField<::std::string> environment_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
-  ::google::protobuf::internal::ArenaStringPtr resource_;
-  ::google::protobuf::internal::ArenaStringPtr md5_;
-  ::google::protobuf::internal::ArenaStringPtr cmd_;
+  ::google::protobuf::int64 blockid_;
+  ::google::protobuf::int32 offset_;
   friend struct ::TableStruct_OfsChunk_2eproto;
 };
 // -------------------------------------------------------------------
 
-class StartContainerRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.StartContainerRequest) */ {
+class ReadResponse :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadResponse) */ {
  public:
-  StartContainerRequest();
-  virtual ~StartContainerRequest();
+  ReadResponse();
+  virtual ~ReadResponse();
 
-  StartContainerRequest(const StartContainerRequest& from);
+  ReadResponse(const ReadResponse& from);
 
-  inline StartContainerRequest& operator=(const StartContainerRequest& from) {
+  inline ReadResponse& operator=(const ReadResponse& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  StartContainerRequest(StartContainerRequest&& from) noexcept
-    : StartContainerRequest() {
+  ReadResponse(ReadResponse&& from) noexcept
+    : ReadResponse() {
     *this = ::std::move(from);
   }
 
-  inline StartContainerRequest& operator=(StartContainerRequest&& from) noexcept {
+  inline ReadResponse& operator=(ReadResponse&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -358,34 +260,34 @@ class StartContainerRequest :
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const StartContainerRequest& default_instance();
+  static const ReadResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const StartContainerRequest* internal_default_instance() {
-    return reinterpret_cast<const StartContainerRequest*>(
-               &_StartContainerRequest_default_instance_);
+  static inline const ReadResponse* internal_default_instance() {
+    return reinterpret_cast<const ReadResponse*>(
+               &_ReadResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  void Swap(StartContainerRequest* other);
-  friend void swap(StartContainerRequest& a, StartContainerRequest& b) {
+  void Swap(ReadResponse* other);
+  friend void swap(ReadResponse& a, ReadResponse& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline StartContainerRequest* New() const final {
-    return CreateMaybeMessage<StartContainerRequest>(nullptr);
+  inline ReadResponse* New() const final {
+    return CreateMaybeMessage<ReadResponse>(nullptr);
   }
 
-  StartContainerRequest* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<StartContainerRequest>(arena);
+  ReadResponse* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ReadResponse>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const StartContainerRequest& from);
-  void MergeFrom(const StartContainerRequest& from);
+  void CopyFrom(const ReadResponse& from);
+  void MergeFrom(const ReadResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -407,7 +309,7 @@ class StartContainerRequest :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(StartContainerRequest* other);
+  void InternalSwap(ReadResponse* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -423,720 +325,57 @@ class StartContainerRequest :
 
   // accessors -------------------------------------------------------
 
-  // repeated .yarn.api.ContainerStartParam containers = 3;
-  int containers_size() const;
-  void clear_containers();
-  static const int kContainersFieldNumber = 3;
-  ::yarn::api::ContainerStartParam* mutable_containers(int index);
-  ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam >*
-      mutable_containers();
-  const ::yarn::api::ContainerStartParam& containers(int index) const;
-  ::yarn::api::ContainerStartParam* add_containers();
-  const ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam >&
-      containers() const;
-
-  // required string application = 1;
-  bool has_application() const;
-  void clear_application();
-  static const int kApplicationFieldNumber = 1;
-  const ::std::string& application() const;
-  void set_application(const ::std::string& value);
+  // optional string data = 2;
+  bool has_data() const;
+  void clear_data();
+  static const int kDataFieldNumber = 2;
+  const ::std::string& data() const;
+  void set_data(const ::std::string& value);
   #if LANG_CXX11
-  void set_application(::std::string&& value);
+  void set_data(::std::string&& value);
   #endif
-  void set_application(const char* value);
-  void set_application(const char* value, size_t size);
-  ::std::string* mutable_application();
-  ::std::string* release_application();
-  void set_allocated_application(::std::string* application);
+  void set_data(const char* value);
+  void set_data(const char* value, size_t size);
+  ::std::string* mutable_data();
+  ::std::string* release_data();
+  void set_allocated_data(::std::string* data);
 
-  // required string token = 2;
-  bool has_token() const;
-  void clear_token();
-  static const int kTokenFieldNumber = 2;
-  const ::std::string& token() const;
-  void set_token(const ::std::string& value);
-  #if LANG_CXX11
-  void set_token(::std::string&& value);
-  #endif
-  void set_token(const char* value);
-  void set_token(const char* value, size_t size);
-  ::std::string* mutable_token();
-  ::std::string* release_token();
-  void set_allocated_token(::std::string* token);
+  // required .ofs.api.ErrorCode errCode = 1;
+  bool has_errcode() const;
+  void clear_errcode();
+  static const int kErrCodeFieldNumber = 1;
+  ::ofs::api::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:yarn.api.StartContainerRequest)
- private:
-  class HasBitSetters;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam > containers_;
-  ::google::protobuf::internal::ArenaStringPtr application_;
-  ::google::protobuf::internal::ArenaStringPtr token_;
-  friend struct ::TableStruct_OfsChunk_2eproto;
-};
-// -------------------------------------------------------------------
-
-class StartContainerResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.StartContainerResponse) */ {
- public:
-  StartContainerResponse();
-  virtual ~StartContainerResponse();
-
-  StartContainerResponse(const StartContainerResponse& from);
-
-  inline StartContainerResponse& operator=(const StartContainerResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  StartContainerResponse(StartContainerResponse&& from) noexcept
-    : StartContainerResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline StartContainerResponse& operator=(StartContainerResponse&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const StartContainerResponse& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const StartContainerResponse* internal_default_instance() {
-    return reinterpret_cast<const StartContainerResponse*>(
-               &_StartContainerResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  void Swap(StartContainerResponse* other);
-  friend void swap(StartContainerResponse& a, StartContainerResponse& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline StartContainerResponse* New() const final {
-    return CreateMaybeMessage<StartContainerResponse>(nullptr);
-  }
-
-  StartContainerResponse* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<StartContainerResponse>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const StartContainerResponse& from);
-  void MergeFrom(const StartContainerResponse& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(StartContainerResponse* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required bool ok = 1;
-  bool has_ok() const;
-  void clear_ok();
-  static const int kOkFieldNumber = 1;
-  bool ok() const;
-  void set_ok(bool value);
-
-  // @@protoc_insertion_point(class_scope:yarn.api.StartContainerResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.ReadResponse)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  bool ok_;
-  friend struct ::TableStruct_OfsChunk_2eproto;
-};
-// -------------------------------------------------------------------
-
-class StopContainerRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.StopContainerRequest) */ {
- public:
-  StopContainerRequest();
-  virtual ~StopContainerRequest();
-
-  StopContainerRequest(const StopContainerRequest& from);
-
-  inline StopContainerRequest& operator=(const StopContainerRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  StopContainerRequest(StopContainerRequest&& from) noexcept
-    : StopContainerRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline StopContainerRequest& operator=(StopContainerRequest&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const StopContainerRequest& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const StopContainerRequest* internal_default_instance() {
-    return reinterpret_cast<const StopContainerRequest*>(
-               &_StopContainerRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    3;
-
-  void Swap(StopContainerRequest* other);
-  friend void swap(StopContainerRequest& a, StopContainerRequest& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline StopContainerRequest* New() const final {
-    return CreateMaybeMessage<StopContainerRequest>(nullptr);
-  }
-
-  StopContainerRequest* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<StopContainerRequest>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const StopContainerRequest& from);
-  void MergeFrom(const StopContainerRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(StopContainerRequest* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required string name = 1;
-  bool has_name() const;
-  void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
-
-  // @@protoc_insertion_point(class_scope:yarn.api.StopContainerRequest)
- private:
-  class HasBitSetters;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
-  friend struct ::TableStruct_OfsChunk_2eproto;
-};
-// -------------------------------------------------------------------
-
-class StopContainerResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.StopContainerResponse) */ {
- public:
-  StopContainerResponse();
-  virtual ~StopContainerResponse();
-
-  StopContainerResponse(const StopContainerResponse& from);
-
-  inline StopContainerResponse& operator=(const StopContainerResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  StopContainerResponse(StopContainerResponse&& from) noexcept
-    : StopContainerResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline StopContainerResponse& operator=(StopContainerResponse&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const StopContainerResponse& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const StopContainerResponse* internal_default_instance() {
-    return reinterpret_cast<const StopContainerResponse*>(
-               &_StopContainerResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  void Swap(StopContainerResponse* other);
-  friend void swap(StopContainerResponse& a, StopContainerResponse& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline StopContainerResponse* New() const final {
-    return CreateMaybeMessage<StopContainerResponse>(nullptr);
-  }
-
-  StopContainerResponse* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<StopContainerResponse>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const StopContainerResponse& from);
-  void MergeFrom(const StopContainerResponse& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(StopContainerResponse* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required bool ok = 1;
-  bool has_ok() const;
-  void clear_ok();
-  static const int kOkFieldNumber = 1;
-  bool ok() const;
-  void set_ok(bool value);
-
-  // @@protoc_insertion_point(class_scope:yarn.api.StopContainerResponse)
- private:
-  class HasBitSetters;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  bool ok_;
-  friend struct ::TableStruct_OfsChunk_2eproto;
-};
-// -------------------------------------------------------------------
-
-class GetContainerStatusRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.GetContainerStatusRequest) */ {
- public:
-  GetContainerStatusRequest();
-  virtual ~GetContainerStatusRequest();
-
-  GetContainerStatusRequest(const GetContainerStatusRequest& from);
-
-  inline GetContainerStatusRequest& operator=(const GetContainerStatusRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  GetContainerStatusRequest(GetContainerStatusRequest&& from) noexcept
-    : GetContainerStatusRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline GetContainerStatusRequest& operator=(GetContainerStatusRequest&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const GetContainerStatusRequest& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const GetContainerStatusRequest* internal_default_instance() {
-    return reinterpret_cast<const GetContainerStatusRequest*>(
-               &_GetContainerStatusRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    5;
-
-  void Swap(GetContainerStatusRequest* other);
-  friend void swap(GetContainerStatusRequest& a, GetContainerStatusRequest& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline GetContainerStatusRequest* New() const final {
-    return CreateMaybeMessage<GetContainerStatusRequest>(nullptr);
-  }
-
-  GetContainerStatusRequest* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<GetContainerStatusRequest>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const GetContainerStatusRequest& from);
-  void MergeFrom(const GetContainerStatusRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(GetContainerStatusRequest* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated string names = 1;
-  int names_size() const;
-  void clear_names();
-  static const int kNamesFieldNumber = 1;
-  const ::std::string& names(int index) const;
-  ::std::string* mutable_names(int index);
-  void set_names(int index, const ::std::string& value);
-  #if LANG_CXX11
-  void set_names(int index, ::std::string&& value);
-  #endif
-  void set_names(int index, const char* value);
-  void set_names(int index, const char* value, size_t size);
-  ::std::string* add_names();
-  void add_names(const ::std::string& value);
-  #if LANG_CXX11
-  void add_names(::std::string&& value);
-  #endif
-  void add_names(const char* value);
-  void add_names(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField<::std::string>& names() const;
-  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_names();
-
-  // @@protoc_insertion_point(class_scope:yarn.api.GetContainerStatusRequest)
- private:
-  class HasBitSetters;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedPtrField<::std::string> names_;
-  friend struct ::TableStruct_OfsChunk_2eproto;
-};
-// -------------------------------------------------------------------
-
-class GetContainerStatusResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:yarn.api.GetContainerStatusResponse) */ {
- public:
-  GetContainerStatusResponse();
-  virtual ~GetContainerStatusResponse();
-
-  GetContainerStatusResponse(const GetContainerStatusResponse& from);
-
-  inline GetContainerStatusResponse& operator=(const GetContainerStatusResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  GetContainerStatusResponse(GetContainerStatusResponse&& from) noexcept
-    : GetContainerStatusResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline GetContainerStatusResponse& operator=(GetContainerStatusResponse&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const GetContainerStatusResponse& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const GetContainerStatusResponse* internal_default_instance() {
-    return reinterpret_cast<const GetContainerStatusResponse*>(
-               &_GetContainerStatusResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  void Swap(GetContainerStatusResponse* other);
-  friend void swap(GetContainerStatusResponse& a, GetContainerStatusResponse& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline GetContainerStatusResponse* New() const final {
-    return CreateMaybeMessage<GetContainerStatusResponse>(nullptr);
-  }
-
-  GetContainerStatusResponse* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<GetContainerStatusResponse>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const GetContainerStatusResponse& from);
-  void MergeFrom(const GetContainerStatusResponse& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(GetContainerStatusResponse* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated .yarn.api.ContainerStatus status = 1;
-  int status_size() const;
-  void clear_status();
-  static const int kStatusFieldNumber = 1;
-  ::yarn::api::ContainerStatus status(int index) const;
-  void set_status(int index, ::yarn::api::ContainerStatus value);
-  void add_status(::yarn::api::ContainerStatus value);
-  const ::google::protobuf::RepeatedField<int>& status() const;
-  ::google::protobuf::RepeatedField<int>* mutable_status();
-
-  // @@protoc_insertion_point(class_scope:yarn.api.GetContainerStatusResponse)
- private:
-  class HasBitSetters;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedField<int> status_;
+  ::google::protobuf::internal::ArenaStringPtr data_;
+  int errcode_;
   friend struct ::TableStruct_OfsChunk_2eproto;
 };
 // ===================================================================
 
-class ContainerManagementService_Stub;
+class OfsNodeService_Stub;
 
-class ContainerManagementService : public ::google::protobuf::Service {
+class OfsNodeService : public ::google::protobuf::Service {
  protected:
   // This class should be treated as an abstract interface.
-  inline ContainerManagementService() {};
+  inline OfsNodeService() {};
  public:
-  virtual ~ContainerManagementService();
+  virtual ~OfsNodeService();
 
-  typedef ContainerManagementService_Stub Stub;
+  typedef OfsNodeService_Stub Stub;
 
   static const ::google::protobuf::ServiceDescriptor* descriptor();
 
-  virtual void StartContainer(::google::protobuf::RpcController* controller,
-                       const ::yarn::api::StartContainerRequest* request,
-                       ::yarn::api::StartContainerResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void StopContainer(::google::protobuf::RpcController* controller,
-                       const ::yarn::api::StopContainerRequest* request,
-                       ::yarn::api::StopContainerResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void GetContainerStatus(::google::protobuf::RpcController* controller,
-                       const ::yarn::api::GetContainerStatusRequest* request,
-                       ::yarn::api::GetContainerStatusResponse* response,
+  virtual void Read(::google::protobuf::RpcController* controller,
+                       const ::ofs::api::ReadRequest* request,
+                       ::ofs::api::ReadResponse* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -1153,36 +392,28 @@ class ContainerManagementService : public ::google::protobuf::Service {
     const ::google::protobuf::MethodDescriptor* method) const;
 
  private:
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ContainerManagementService);
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(OfsNodeService);
 };
 
-class ContainerManagementService_Stub : public ContainerManagementService {
+class OfsNodeService_Stub : public OfsNodeService {
  public:
-  ContainerManagementService_Stub(::google::protobuf::RpcChannel* channel);
-  ContainerManagementService_Stub(::google::protobuf::RpcChannel* channel,
+  OfsNodeService_Stub(::google::protobuf::RpcChannel* channel);
+  OfsNodeService_Stub(::google::protobuf::RpcChannel* channel,
                    ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ContainerManagementService_Stub();
+  ~OfsNodeService_Stub();
 
   inline ::google::protobuf::RpcChannel* channel() { return channel_; }
 
-  // implements ContainerManagementService ------------------------------------------
+  // implements OfsNodeService ------------------------------------------
 
-  void StartContainer(::google::protobuf::RpcController* controller,
-                       const ::yarn::api::StartContainerRequest* request,
-                       ::yarn::api::StartContainerResponse* response,
-                       ::google::protobuf::Closure* done);
-  void StopContainer(::google::protobuf::RpcController* controller,
-                       const ::yarn::api::StopContainerRequest* request,
-                       ::yarn::api::StopContainerResponse* response,
-                       ::google::protobuf::Closure* done);
-  void GetContainerStatus(::google::protobuf::RpcController* controller,
-                       const ::yarn::api::GetContainerStatusRequest* request,
-                       ::yarn::api::GetContainerStatusResponse* response,
+  void Read(::google::protobuf::RpcController* controller,
+                       const ::ofs::api::ReadRequest* request,
+                       ::ofs::api::ReadResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
   bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ContainerManagementService_Stub);
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(OfsNodeService_Stub);
 };
 
 
@@ -1195,686 +426,125 @@ class ContainerManagementService_Stub : public ContainerManagementService {
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// ContainerStartParam
+// ReadRequest
 
-// required string name = 1;
-inline bool ContainerStartParam::has_name() const {
+// required int64 blockId = 1;
+inline bool ReadRequest::has_blockid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ContainerStartParam::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void ReadRequest::clear_blockid() {
+  blockid_ = PROTOBUF_LONGLONG(0);
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::std::string& ContainerStartParam::name() const {
-  // @@protoc_insertion_point(field_get:yarn.api.ContainerStartParam.name)
-  return name_.GetNoArena();
+inline ::google::protobuf::int64 ReadRequest::blockid() const {
+  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.blockId)
+  return blockid_;
 }
-inline void ContainerStartParam::set_name(const ::std::string& value) {
+inline void ReadRequest::set_blockid(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.name)
-}
-#if LANG_CXX11
-inline void ContainerStartParam::set_name(::std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.ContainerStartParam.name)
-}
-#endif
-inline void ContainerStartParam::set_name(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.ContainerStartParam.name)
-}
-inline void ContainerStartParam::set_name(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.ContainerStartParam.name)
-}
-inline ::std::string* ContainerStartParam::mutable_name() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.ContainerStartParam.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ContainerStartParam::release_name() {
-  // @@protoc_insertion_point(field_release:yarn.api.ContainerStartParam.name)
-  if (!has_name()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ContainerStartParam::set_allocated_name(::std::string* name) {
-  if (name != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.ContainerStartParam.name)
+  blockid_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.blockId)
 }
 
-// required string resource = 2;
-inline bool ContainerStartParam::has_resource() const {
+// required int32 offset = 2;
+inline bool ReadRequest::has_offset() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ContainerStartParam::clear_resource() {
-  resource_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void ReadRequest::clear_offset() {
+  offset_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::std::string& ContainerStartParam::resource() const {
-  // @@protoc_insertion_point(field_get:yarn.api.ContainerStartParam.resource)
-  return resource_.GetNoArena();
+inline ::google::protobuf::int32 ReadRequest::offset() const {
+  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.offset)
+  return offset_;
 }
-inline void ContainerStartParam::set_resource(const ::std::string& value) {
+inline void ReadRequest::set_offset(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000002u;
-  resource_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.resource)
-}
-#if LANG_CXX11
-inline void ContainerStartParam::set_resource(::std::string&& value) {
-  _has_bits_[0] |= 0x00000002u;
-  resource_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.ContainerStartParam.resource)
-}
-#endif
-inline void ContainerStartParam::set_resource(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000002u;
-  resource_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.ContainerStartParam.resource)
-}
-inline void ContainerStartParam::set_resource(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000002u;
-  resource_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.ContainerStartParam.resource)
-}
-inline ::std::string* ContainerStartParam::mutable_resource() {
-  _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.ContainerStartParam.resource)
-  return resource_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ContainerStartParam::release_resource() {
-  // @@protoc_insertion_point(field_release:yarn.api.ContainerStartParam.resource)
-  if (!has_resource()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return resource_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ContainerStartParam::set_allocated_resource(::std::string* resource) {
-  if (resource != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  resource_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resource);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.ContainerStartParam.resource)
-}
-
-// required string md5 = 3;
-inline bool ContainerStartParam::has_md5() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void ContainerStartParam::clear_md5() {
-  md5_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline const ::std::string& ContainerStartParam::md5() const {
-  // @@protoc_insertion_point(field_get:yarn.api.ContainerStartParam.md5)
-  return md5_.GetNoArena();
-}
-inline void ContainerStartParam::set_md5(const ::std::string& value) {
-  _has_bits_[0] |= 0x00000004u;
-  md5_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.md5)
-}
-#if LANG_CXX11
-inline void ContainerStartParam::set_md5(::std::string&& value) {
-  _has_bits_[0] |= 0x00000004u;
-  md5_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.ContainerStartParam.md5)
-}
-#endif
-inline void ContainerStartParam::set_md5(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000004u;
-  md5_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.ContainerStartParam.md5)
-}
-inline void ContainerStartParam::set_md5(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000004u;
-  md5_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.ContainerStartParam.md5)
-}
-inline ::std::string* ContainerStartParam::mutable_md5() {
-  _has_bits_[0] |= 0x00000004u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.ContainerStartParam.md5)
-  return md5_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ContainerStartParam::release_md5() {
-  // @@protoc_insertion_point(field_release:yarn.api.ContainerStartParam.md5)
-  if (!has_md5()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000004u;
-  return md5_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ContainerStartParam::set_allocated_md5(::std::string* md5) {
-  if (md5 != nullptr) {
-    _has_bits_[0] |= 0x00000004u;
-  } else {
-    _has_bits_[0] &= ~0x00000004u;
-  }
-  md5_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), md5);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.ContainerStartParam.md5)
-}
-
-// repeated string environment = 4;
-inline int ContainerStartParam::environment_size() const {
-  return environment_.size();
-}
-inline void ContainerStartParam::clear_environment() {
-  environment_.Clear();
-}
-inline const ::std::string& ContainerStartParam::environment(int index) const {
-  // @@protoc_insertion_point(field_get:yarn.api.ContainerStartParam.environment)
-  return environment_.Get(index);
-}
-inline ::std::string* ContainerStartParam::mutable_environment(int index) {
-  // @@protoc_insertion_point(field_mutable:yarn.api.ContainerStartParam.environment)
-  return environment_.Mutable(index);
-}
-inline void ContainerStartParam::set_environment(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.environment)
-  environment_.Mutable(index)->assign(value);
-}
-#if LANG_CXX11
-inline void ContainerStartParam::set_environment(int index, ::std::string&& value) {
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.environment)
-  environment_.Mutable(index)->assign(std::move(value));
-}
-#endif
-inline void ContainerStartParam::set_environment(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  environment_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:yarn.api.ContainerStartParam.environment)
-}
-inline void ContainerStartParam::set_environment(int index, const char* value, size_t size) {
-  environment_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.ContainerStartParam.environment)
-}
-inline ::std::string* ContainerStartParam::add_environment() {
-  // @@protoc_insertion_point(field_add_mutable:yarn.api.ContainerStartParam.environment)
-  return environment_.Add();
-}
-inline void ContainerStartParam::add_environment(const ::std::string& value) {
-  environment_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:yarn.api.ContainerStartParam.environment)
-}
-#if LANG_CXX11
-inline void ContainerStartParam::add_environment(::std::string&& value) {
-  environment_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:yarn.api.ContainerStartParam.environment)
-}
-#endif
-inline void ContainerStartParam::add_environment(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  environment_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:yarn.api.ContainerStartParam.environment)
-}
-inline void ContainerStartParam::add_environment(const char* value, size_t size) {
-  environment_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:yarn.api.ContainerStartParam.environment)
-}
-inline const ::google::protobuf::RepeatedPtrField<::std::string>&
-ContainerStartParam::environment() const {
-  // @@protoc_insertion_point(field_list:yarn.api.ContainerStartParam.environment)
-  return environment_;
-}
-inline ::google::protobuf::RepeatedPtrField<::std::string>*
-ContainerStartParam::mutable_environment() {
-  // @@protoc_insertion_point(field_mutable_list:yarn.api.ContainerStartParam.environment)
-  return &environment_;
-}
-
-// required string cmd = 5;
-inline bool ContainerStartParam::has_cmd() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void ContainerStartParam::clear_cmd() {
-  cmd_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline const ::std::string& ContainerStartParam::cmd() const {
-  // @@protoc_insertion_point(field_get:yarn.api.ContainerStartParam.cmd)
-  return cmd_.GetNoArena();
-}
-inline void ContainerStartParam::set_cmd(const ::std::string& value) {
-  _has_bits_[0] |= 0x00000008u;
-  cmd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.ContainerStartParam.cmd)
-}
-#if LANG_CXX11
-inline void ContainerStartParam::set_cmd(::std::string&& value) {
-  _has_bits_[0] |= 0x00000008u;
-  cmd_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.ContainerStartParam.cmd)
-}
-#endif
-inline void ContainerStartParam::set_cmd(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000008u;
-  cmd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.ContainerStartParam.cmd)
-}
-inline void ContainerStartParam::set_cmd(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000008u;
-  cmd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.ContainerStartParam.cmd)
-}
-inline ::std::string* ContainerStartParam::mutable_cmd() {
-  _has_bits_[0] |= 0x00000008u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.ContainerStartParam.cmd)
-  return cmd_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ContainerStartParam::release_cmd() {
-  // @@protoc_insertion_point(field_release:yarn.api.ContainerStartParam.cmd)
-  if (!has_cmd()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000008u;
-  return cmd_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ContainerStartParam::set_allocated_cmd(::std::string* cmd) {
-  if (cmd != nullptr) {
-    _has_bits_[0] |= 0x00000008u;
-  } else {
-    _has_bits_[0] &= ~0x00000008u;
-  }
-  cmd_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), cmd);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.ContainerStartParam.cmd)
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.offset)
 }
 
 // -------------------------------------------------------------------
 
-// StartContainerRequest
+// ReadResponse
 
-// required string application = 1;
-inline bool StartContainerRequest::has_application() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void StartContainerRequest::clear_application() {
-  application_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::std::string& StartContainerRequest::application() const {
-  // @@protoc_insertion_point(field_get:yarn.api.StartContainerRequest.application)
-  return application_.GetNoArena();
-}
-inline void StartContainerRequest::set_application(const ::std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.StartContainerRequest.application)
-}
-#if LANG_CXX11
-inline void StartContainerRequest::set_application(::std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  application_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.StartContainerRequest.application)
-}
-#endif
-inline void StartContainerRequest::set_application(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.StartContainerRequest.application)
-}
-inline void StartContainerRequest::set_application(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  application_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.StartContainerRequest.application)
-}
-inline ::std::string* StartContainerRequest::mutable_application() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.StartContainerRequest.application)
-  return application_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* StartContainerRequest::release_application() {
-  // @@protoc_insertion_point(field_release:yarn.api.StartContainerRequest.application)
-  if (!has_application()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return application_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StartContainerRequest::set_allocated_application(::std::string* application) {
-  if (application != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  application_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), application);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.StartContainerRequest.application)
-}
-
-// required string token = 2;
-inline bool StartContainerRequest::has_token() const {
+// required .ofs.api.ErrorCode errCode = 1;
+inline bool ReadResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void StartContainerRequest::clear_token() {
-  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void ReadResponse::clear_errcode() {
+  errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::std::string& StartContainerRequest::token() const {
-  // @@protoc_insertion_point(field_get:yarn.api.StartContainerRequest.token)
-  return token_.GetNoArena();
+inline ::ofs::api::ErrorCode ReadResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.errCode)
+  return static_cast< ::ofs::api::ErrorCode >(errcode_);
 }
-inline void StartContainerRequest::set_token(const ::std::string& value) {
+inline void ReadResponse::set_errcode(::ofs::api::ErrorCode value) {
+  assert(::ofs::api::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
-  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.StartContainerRequest.token)
-}
-#if LANG_CXX11
-inline void StartContainerRequest::set_token(::std::string&& value) {
-  _has_bits_[0] |= 0x00000002u;
-  token_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.StartContainerRequest.token)
-}
-#endif
-inline void StartContainerRequest::set_token(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000002u;
-  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.StartContainerRequest.token)
-}
-inline void StartContainerRequest::set_token(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000002u;
-  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.StartContainerRequest.token)
-}
-inline ::std::string* StartContainerRequest::mutable_token() {
-  _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.StartContainerRequest.token)
-  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* StartContainerRequest::release_token() {
-  // @@protoc_insertion_point(field_release:yarn.api.StartContainerRequest.token)
-  if (!has_token()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return token_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StartContainerRequest::set_allocated_token(::std::string* token) {
-  if (token != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.StartContainerRequest.token)
+  errcode_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.errCode)
 }
 
-// repeated .yarn.api.ContainerStartParam containers = 3;
-inline int StartContainerRequest::containers_size() const {
-  return containers_.size();
-}
-inline void StartContainerRequest::clear_containers() {
-  containers_.Clear();
-}
-inline ::yarn::api::ContainerStartParam* StartContainerRequest::mutable_containers(int index) {
-  // @@protoc_insertion_point(field_mutable:yarn.api.StartContainerRequest.containers)
-  return containers_.Mutable(index);
-}
-inline ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam >*
-StartContainerRequest::mutable_containers() {
-  // @@protoc_insertion_point(field_mutable_list:yarn.api.StartContainerRequest.containers)
-  return &containers_;
-}
-inline const ::yarn::api::ContainerStartParam& StartContainerRequest::containers(int index) const {
-  // @@protoc_insertion_point(field_get:yarn.api.StartContainerRequest.containers)
-  return containers_.Get(index);
-}
-inline ::yarn::api::ContainerStartParam* StartContainerRequest::add_containers() {
-  // @@protoc_insertion_point(field_add:yarn.api.StartContainerRequest.containers)
-  return containers_.Add();
-}
-inline const ::google::protobuf::RepeatedPtrField< ::yarn::api::ContainerStartParam >&
-StartContainerRequest::containers() const {
-  // @@protoc_insertion_point(field_list:yarn.api.StartContainerRequest.containers)
-  return containers_;
-}
-
-// -------------------------------------------------------------------
-
-// StartContainerResponse
-
-// required bool ok = 1;
-inline bool StartContainerResponse::has_ok() const {
+// optional string data = 2;
+inline bool ReadResponse::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void StartContainerResponse::clear_ok() {
-  ok_ = false;
+inline void ReadResponse::clear_data() {
+  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _has_bits_[0] &= ~0x00000001u;
 }
-inline bool StartContainerResponse::ok() const {
-  // @@protoc_insertion_point(field_get:yarn.api.StartContainerResponse.ok)
-  return ok_;
+inline const ::std::string& ReadResponse::data() const {
+  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.data)
+  return data_.GetNoArena();
 }
-inline void StartContainerResponse::set_ok(bool value) {
+inline void ReadResponse::set_data(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
-  ok_ = value;
-  // @@protoc_insertion_point(field_set:yarn.api.StartContainerResponse.ok)
-}
-
-// -------------------------------------------------------------------
-
-// StopContainerRequest
-
-// required string name = 1;
-inline bool StopContainerRequest::has_name() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void StopContainerRequest::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::std::string& StopContainerRequest::name() const {
-  // @@protoc_insertion_point(field_get:yarn.api.StopContainerRequest.name)
-  return name_.GetNoArena();
-}
-inline void StopContainerRequest::set_name(const ::std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:yarn.api.StopContainerRequest.name)
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.data)
 }
 #if LANG_CXX11
-inline void StopContainerRequest::set_name(::std::string&& value) {
+inline void ReadResponse::set_data(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(
+  data_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:yarn.api.StopContainerRequest.name)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.ReadResponse.data)
 }
 #endif
-inline void StopContainerRequest::set_name(const char* value) {
+inline void ReadResponse::set_data(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:yarn.api.StopContainerRequest.name)
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.api.ReadResponse.data)
 }
-inline void StopContainerRequest::set_name(const char* value, size_t size) {
+inline void ReadResponse::set_data(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.StopContainerRequest.name)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.ReadResponse.data)
 }
-inline ::std::string* StopContainerRequest::mutable_name() {
+inline ::std::string* ReadResponse::mutable_data() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:yarn.api.StopContainerRequest.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.data)
+  return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* StopContainerRequest::release_name() {
-  // @@protoc_insertion_point(field_release:yarn.api.StopContainerRequest.name)
-  if (!has_name()) {
+inline ::std::string* ReadResponse::release_data() {
+  // @@protoc_insertion_point(field_release:ofs.api.ReadResponse.data)
+  if (!has_data()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000001u;
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return data_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void StopContainerRequest::set_allocated_name(::std::string* name) {
-  if (name != nullptr) {
+inline void ReadResponse::set_allocated_data(::std::string* data) {
+  if (data != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:yarn.api.StopContainerRequest.name)
-}
-
-// -------------------------------------------------------------------
-
-// StopContainerResponse
-
-// required bool ok = 1;
-inline bool StopContainerResponse::has_ok() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void StopContainerResponse::clear_ok() {
-  ok_ = false;
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline bool StopContainerResponse::ok() const {
-  // @@protoc_insertion_point(field_get:yarn.api.StopContainerResponse.ok)
-  return ok_;
-}
-inline void StopContainerResponse::set_ok(bool value) {
-  _has_bits_[0] |= 0x00000001u;
-  ok_ = value;
-  // @@protoc_insertion_point(field_set:yarn.api.StopContainerResponse.ok)
-}
-
-// -------------------------------------------------------------------
-
-// GetContainerStatusRequest
-
-// repeated string names = 1;
-inline int GetContainerStatusRequest::names_size() const {
-  return names_.size();
-}
-inline void GetContainerStatusRequest::clear_names() {
-  names_.Clear();
-}
-inline const ::std::string& GetContainerStatusRequest::names(int index) const {
-  // @@protoc_insertion_point(field_get:yarn.api.GetContainerStatusRequest.names)
-  return names_.Get(index);
-}
-inline ::std::string* GetContainerStatusRequest::mutable_names(int index) {
-  // @@protoc_insertion_point(field_mutable:yarn.api.GetContainerStatusRequest.names)
-  return names_.Mutable(index);
-}
-inline void GetContainerStatusRequest::set_names(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:yarn.api.GetContainerStatusRequest.names)
-  names_.Mutable(index)->assign(value);
-}
-#if LANG_CXX11
-inline void GetContainerStatusRequest::set_names(int index, ::std::string&& value) {
-  // @@protoc_insertion_point(field_set:yarn.api.GetContainerStatusRequest.names)
-  names_.Mutable(index)->assign(std::move(value));
-}
-#endif
-inline void GetContainerStatusRequest::set_names(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  names_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:yarn.api.GetContainerStatusRequest.names)
-}
-inline void GetContainerStatusRequest::set_names(int index, const char* value, size_t size) {
-  names_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:yarn.api.GetContainerStatusRequest.names)
-}
-inline ::std::string* GetContainerStatusRequest::add_names() {
-  // @@protoc_insertion_point(field_add_mutable:yarn.api.GetContainerStatusRequest.names)
-  return names_.Add();
-}
-inline void GetContainerStatusRequest::add_names(const ::std::string& value) {
-  names_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:yarn.api.GetContainerStatusRequest.names)
-}
-#if LANG_CXX11
-inline void GetContainerStatusRequest::add_names(::std::string&& value) {
-  names_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:yarn.api.GetContainerStatusRequest.names)
-}
-#endif
-inline void GetContainerStatusRequest::add_names(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  names_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:yarn.api.GetContainerStatusRequest.names)
-}
-inline void GetContainerStatusRequest::add_names(const char* value, size_t size) {
-  names_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:yarn.api.GetContainerStatusRequest.names)
-}
-inline const ::google::protobuf::RepeatedPtrField<::std::string>&
-GetContainerStatusRequest::names() const {
-  // @@protoc_insertion_point(field_list:yarn.api.GetContainerStatusRequest.names)
-  return names_;
-}
-inline ::google::protobuf::RepeatedPtrField<::std::string>*
-GetContainerStatusRequest::mutable_names() {
-  // @@protoc_insertion_point(field_mutable_list:yarn.api.GetContainerStatusRequest.names)
-  return &names_;
-}
-
-// -------------------------------------------------------------------
-
-// GetContainerStatusResponse
-
-// repeated .yarn.api.ContainerStatus status = 1;
-inline int GetContainerStatusResponse::status_size() const {
-  return status_.size();
-}
-inline void GetContainerStatusResponse::clear_status() {
-  status_.Clear();
-}
-inline ::yarn::api::ContainerStatus GetContainerStatusResponse::status(int index) const {
-  // @@protoc_insertion_point(field_get:yarn.api.GetContainerStatusResponse.status)
-  return static_cast< ::yarn::api::ContainerStatus >(status_.Get(index));
-}
-inline void GetContainerStatusResponse::set_status(int index, ::yarn::api::ContainerStatus value) {
-  assert(::yarn::api::ContainerStatus_IsValid(value));
-  status_.Set(index, value);
-  // @@protoc_insertion_point(field_set:yarn.api.GetContainerStatusResponse.status)
-}
-inline void GetContainerStatusResponse::add_status(::yarn::api::ContainerStatus value) {
-  assert(::yarn::api::ContainerStatus_IsValid(value));
-  status_.Add(value);
-  // @@protoc_insertion_point(field_add:yarn.api.GetContainerStatusResponse.status)
-}
-inline const ::google::protobuf::RepeatedField<int>&
-GetContainerStatusResponse::status() const {
-  // @@protoc_insertion_point(field_list:yarn.api.GetContainerStatusResponse.status)
-  return status_;
-}
-inline ::google::protobuf::RepeatedField<int>*
-GetContainerStatusResponse::mutable_status() {
-  // @@protoc_insertion_point(field_mutable_list:yarn.api.GetContainerStatusResponse.status)
-  return &status_;
+  data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadResponse.data)
 }
 
 #ifdef __GNUC__
@@ -1882,29 +552,19 @@ GetContainerStatusResponse::mutable_status() {
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace api
-}  // namespace yarn
+}  // namespace ofs
 
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::yarn::api::ContainerStatus> : ::std::true_type {};
+template <> struct is_proto_enum< ::ofs::api::ErrorCode> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::yarn::api::ContainerStatus>() {
-  return ::yarn::api::ContainerStatus_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::ErrorCode>() {
+  return ::ofs::api::ErrorCode_descriptor();
 }
 
 }  // namespace protobuf
