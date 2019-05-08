@@ -26,7 +26,7 @@ namespace ofs {
 			}
 		}
 
-		void Write(const std::function<void(ChunkServer*)>& fn);
+		ChunkServer * Write();
 
 	private:
 		olib::uuid::UUID _uuid;

@@ -2,6 +2,7 @@
 #include "file/FileSystem.h"
 #include "user/UserManager.h"
 #include "block/Block.h"
+#include "chunk/ChunkServer.h"
 
 namespace ofs {
 	bool ClientService::Start(const olib::IXmlObject& root) {
@@ -194,11 +195,13 @@ namespace ofs {
 				id->set_high(block->GetUUID().GetHigh());
 				id->set_low(block->GetUUID().GetLow());
 
-				block->Write([b](ChunkServer * server) {
-					auto * ep = b->add_eps();
-					ep->set_host(server->GetHost());
-					ep->set_port(server->GetPort());
-				});
+				ChunkServer * server = block->Write();
+				if (!server)
+					return api::ErrorCode::EC_BLOCK_NOT_READY;
+
+				auto * ep = b->add_eps();
+				ep->set_host(server->GetHost());
+				ep->set_port(server->GetPort());
 
 				return api::ErrorCode::EC_NONE;
 			});
@@ -232,11 +235,13 @@ namespace ofs {
 				id->set_high(block->GetUUID().GetHigh());
 				id->set_low(block->GetUUID().GetLow());
 
-				block->Write([b](ChunkServer * server) {
-					auto * ep = b->add_eps();
-					ep->set_host(server->GetHost());
-					ep->set_port(server->GetPort());
-				});
+				ChunkServer * server = block->Write();
+				if (!server)
+					return api::ErrorCode::EC_BLOCK_NOT_READY;
+
+				auto * ep = b->add_eps();
+				ep->set_host(server->GetHost());
+				ep->set_port(server->GetPort());
 
 				return api::ErrorCode::EC_NONE;
 			});

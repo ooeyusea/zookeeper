@@ -75,6 +75,13 @@ SET(BLOCK
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.cpp"	
 )
 
+SET(CHUNK
+	"${PROJECT_SOURCE_DIR}/Chunk/ChunkService.h"
+	"${PROJECT_SOURCE_DIR}/Chunk/ChunkService.cpp"
+	"${PROJECT_SOURCE_DIR}/Chunk/ChunkServer.h"
+	"${PROJECT_SOURCE_DIR}/Chunk/ChunkServer.cpp"
+)
+
 SET(COMMON
 )
 
@@ -97,6 +104,7 @@ SET(API
 SET(PROTO
 	"${PROJECT_SOURCE_DIR}/../common/proto/Chunk.pb.cc"
 	"${PROJECT_SOURCE_DIR}/../common/proto/Chunk.pb.h"
+	"${PROJECT_SOURCE_DIR}/../common/proto/Chunk.proto"
 )
 
 SOURCE_GROUP(\\ FILES ${SRC})
@@ -109,6 +117,7 @@ SOURCE_GROUP(common\\proto FILES ${PROTO})
 SOURCE_GROUP(client FILES ${CLIENT} )
 SOURCE_GROUP(user FILES ${USER})
 SOURCE_GROUP(block FILES ${BLOCK})
+SOURCE_GROUP(chunk FILES ${CHUNK})
 
 ADD_EXECUTABLE(master
 	${SRC}
@@ -121,6 +130,7 @@ ADD_EXECUTABLE(master
 	${PROTO}
 	${USER}
 	${BLOCK}
+	${CHUNK}
 )
 
 IF(WIN32)
