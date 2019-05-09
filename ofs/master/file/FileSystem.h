@@ -4,7 +4,7 @@
 #include "Directory.h"
 #include "singleton.h"
 #include "XmlReader.h"
-#include "uuid.h"
+#include "OfsId.h"
 
 namespace ofs {
 	class FileSystem : public olib::Singleton<FileSystem> {
@@ -22,15 +22,23 @@ namespace ofs {
 
 		inline void AddFile(File* file) {
 			std::lock_guard<hn_shared_mutex> guard(_mutex);
-			_files.insert(std::make_pair(file->GetUUID(), file));
+			_files.insert(std::make_pair(file->GetId(), file));
 		}
 
-		inline File * GetFile(const olib::uuid::UUID& key) {
-			std::lock_guard<hn_shared_mutex> guard(_mutex);
+		inline File * GetFile(int64_t key) {
+			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 			auto itr = _files.find(key);
 			if (itr != _files.end())
 				return itr->second;
 			return nullptr;
+		}
+
+		inline int32_t CalcBlockCount(int32_t size) const {
+			return (size / _blockSize) + (size % _blockSize == 0) ? 0 : 1;
+		}
+
+		inline int32_t CalcAppendBlock(int32_t size) const {
+			return (size / _blockSize) + 1;
 		}
 
 	private:
@@ -43,7 +51,7 @@ namespace ofs {
 		Directory _root;
 
 		std::string _path;
-		std::unordered_map<olib::uuid::UUID, File*> _files;
+		std::unordered_map<int64_t, File*> _files;
 
 		int32_t _blockCount;
 		int32_t _blockSize;

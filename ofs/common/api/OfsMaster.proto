@@ -17,6 +17,7 @@ enum ErrorCode {
 	EC_ALREADY_EXIST_DELETE_FILE = 10;
 	EC_OUT_OF_RANGE = 11;
 	EC_BLOCK_NOT_READY = 12;
+	EC_BLOCK_MISSING = 13;
 }
 
 enum AuthorityType {
@@ -104,24 +105,9 @@ message FileStatusRespone {
 	optional File file = 2;
 }
 
-message UUID {
-	required int64 high = 1;
-	required int64 low = 2;
-}
-
 message EndPoint {
 	required string host = 2;
 	required int32 port = 3;
-}
-
-message BlockId {
-	required UUID file = 1;
-	required int32 index = 2;
-}
-
-message Block {
-	required BlockId id = 1;
-	repeated EndPoint eps = 2;
 }
 
 message ReadRequest {
@@ -132,7 +118,8 @@ message ReadRequest {
 
 message ReadResponse {
 	required ErrorCode errCode = 1; 
-	optional Block block = 2;
+	optional int64 id = 2;
+	repeated EndPoint eps = 3;
 }
 
 message WriteRequest {
@@ -143,7 +130,9 @@ message WriteRequest {
 
 message WriteResponse {
 	required ErrorCode errCode = 1; 
-	optional Block block = 2;
+	optional int64 id = 2;
+	optional EndPoint ep = 3;
+	repeated int32 chunkservers = 4;
 }
 
 message AppendRequest {
@@ -153,7 +142,9 @@ message AppendRequest {
 
 message AppendResponse {
 	required ErrorCode errCode = 1; 
-	optional Block block = 2;
+	optional int64 id = 2;
+	optional EndPoint ep = 3;
+	repeated int32 chunkservers = 4;
 }
 
 service OfsFileService {

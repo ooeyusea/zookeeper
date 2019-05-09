@@ -1,8 +1,10 @@
 #include "ClientService.h"
 #include "file/FileSystem.h"
 #include "user/UserManager.h"
-#include "file/Block.h"
 #include "chunk/ChunkServer.h"
+#include "block/Block.h"
+#include "block/BlockManager.h"
+#include "OfsId.h"
 
 namespace ofs {
 	bool ClientService::Start(const olib::IXmlObject& root) {
@@ -148,24 +150,23 @@ namespace ofs {
 					return api::ErrorCode::EC_IS_DIR;
 
 				File * file = static_cast<File*>(node);
-				Block * block = file->GetBlock(request->blockindex());
-				if (!block)
+				int32_t blockCount = FileSystem::Instance().CalcBlockCount(file->GetSize());
+				if (request->blockindex() < 0 || request->blockindex() >= blockCount)
 					return api::ErrorCode::EC_OUT_OF_RANGE;
 
-				auto * b = response->mutable_block();
+				Block * block = BlockManager::Instance().Get(BLOCK_ID(file->GetId(), request->blockindex()));
+				if (!block)
+					return api::ErrorCode::EC_BLOCK_MISSING;
 
-				auto * id = b->mutable_id();
-				auto * fid = id->mutable_file();
-				fid->set_high(file->GetUUID().GetHigh());
-				fid->set_low(file->GetUUID().GetLow());
-				id->set_index(block->GetIndex());
+				response->set_id(block->GetId());
 
-				block->Read([b](ChunkServer * server){
-					auto * ep = b->add_eps();
+				block->Read([response](ChunkServer * server){
+					auto * ep = response->add_eps();
 					ep->set_host(server->GetHost());
 					ep->set_port(server->GetPort());
 				});
 
+				block->Release();
 				return api::ErrorCode::EC_NONE;
 			});
 
@@ -189,27 +190,33 @@ namespace ofs {
 					return api::ErrorCode::EC_IS_DIR;
 
 				File * file = static_cast<File*>(node);
-				Block * block = file->GetBlock(request->blockindex());
-				if (!block)
+				int32_t blockCount = FileSystem::Instance().CalcBlockCount(file->GetSize());
+				if (request->blockindex() < 0 || request->blockindex() >= blockCount)
 					return api::ErrorCode::EC_OUT_OF_RANGE;
 
-				auto * b = response->mutable_block();
+				Block * block = BlockManager::Instance().Get(BLOCK_ID(file->GetId(), request->blockindex()));
+				if (!block)
+					return api::ErrorCode::EC_BLOCK_MISSING;
 
-				auto * id = b->mutable_id();
-				auto * fid = id->mutable_file();
-				fid->set_high(file->GetUUID().GetHigh());
-				fid->set_low(file->GetUUID().GetLow());
-				id->set_index(block->GetIndex());
+				response->set_id(block->GetId());
 
-				ChunkServer * server = block->Write();
-				if (!server)
+				ChunkServer * server = nullptr;
+				std::vector<int32_t> replicas;
+				std::tie(server, replicas) = block->Write();
+
+				if (!server) {
+					block->Release();
 					return api::ErrorCode::EC_BLOCK_NOT_READY;
+				}
 
-				auto * ep = b->add_eps();
+				auto * ep = response->mutable_ep();
 				ep->set_host(server->GetHost());
 				ep->set_port(server->GetPort());
 
-				server->Release();
+				for (auto r : replicas)
+					response->add_chunkservers(r);
+
+				block->Release();
 				return api::ErrorCode::EC_NONE;
 			});
 
@@ -233,27 +240,30 @@ namespace ofs {
 					return api::ErrorCode::EC_IS_DIR;
 
 				File * file = static_cast<File*>(node);
-				Block * block = file->GetAppendBlock();
+				int32_t blockIndex = FileSystem::Instance().CalcAppendBlock(file->GetSize());
+				Block * block = BlockManager::Instance().GetOrCreate(BLOCK_ID(file->GetId(), blockIndex));
 				if (!block)
-					return api::ErrorCode::EC_OUT_OF_RANGE;
+					return api::ErrorCode::EC_BLOCK_MISSING;
 
-				auto * b = response->mutable_block();
+				response->set_id(block->GetId());
 
-				auto * id = b->mutable_id();
-				auto * fid = id->mutable_file();
-				fid->set_high(file->GetUUID().GetHigh());
-				fid->set_low(file->GetUUID().GetLow());
-				id->set_index(block->GetIndex());
+				ChunkServer * server = nullptr;
+				std::vector<int32_t> replicas;
+				std::tie(server, replicas) = block->Write();
 
-				ChunkServer * server = block->Write();
-				if (!server)
+				if (!server) {
+					block->Release();
 					return api::ErrorCode::EC_BLOCK_NOT_READY;
+				}
 
-				auto * ep = b->add_eps();
+				auto * ep = response->mutable_ep();
 				ep->set_host(server->GetHost());
 				ep->set_port(server->GetPort());
 
-				server->Release();
+				for (auto r : replicas)
+					response->add_chunkservers(r);
+
+				block->Release();
 				return api::ErrorCode::EC_NONE;
 			});
 

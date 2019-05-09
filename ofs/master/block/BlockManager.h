@@ -3,20 +3,29 @@
 #include "hnet.h"
 #include "singleton.h"
 #include <unordered_map>
-#include "uuid.h"
+#include "Block.h"
 
 namespace ofs {
-	struct Block;
 	class BlockManager : public olib::Singleton<BlockManager> {
 	public:
-		BlockManager() {}
+		BlockManager() : _mutex(true) {}
 		~BlockManager() {}
 
-		void Add(Block * block);
-		void Broken(Block * block);
+		inline Block * Get(int64_t id) {
+			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+			auto itr = _blocks.find(id);
+			if (itr != _blocks.end()) {
+				itr->second->Acquire();
+				return itr->second;
+			}
+			return nullptr;
+		}
+
+		Block * GetOrCreate(int64_t id);
 
 	private:
-		std::unordered_map<olib::uuid::UUID, Block*> _blocks;
+		hn_shared_mutex _mutex;
+		std::unordered_map<int64_t, Block*> _blocks;
 	};
 }
 

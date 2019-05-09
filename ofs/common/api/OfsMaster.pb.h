@@ -43,7 +43,7 @@ struct TableStruct_OfsMaster_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[23]
+  static const ::google::protobuf::internal::ParseTable schema[20]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -58,12 +58,6 @@ extern AppendRequestDefaultTypeInternal _AppendRequest_default_instance_;
 class AppendResponse;
 class AppendResponseDefaultTypeInternal;
 extern AppendResponseDefaultTypeInternal _AppendResponse_default_instance_;
-class Block;
-class BlockDefaultTypeInternal;
-extern BlockDefaultTypeInternal _Block_default_instance_;
-class BlockId;
-class BlockIdDefaultTypeInternal;
-extern BlockIdDefaultTypeInternal _BlockId_default_instance_;
 class CreateFileRequest;
 class CreateFileRequestDefaultTypeInternal;
 extern CreateFileRequestDefaultTypeInternal _CreateFileRequest_default_instance_;
@@ -112,9 +106,6 @@ extern RemoveRequestDefaultTypeInternal _RemoveRequest_default_instance_;
 class RemoveResponse;
 class RemoveResponseDefaultTypeInternal;
 extern RemoveResponseDefaultTypeInternal _RemoveResponse_default_instance_;
-class UUID;
-class UUIDDefaultTypeInternal;
-extern UUIDDefaultTypeInternal _UUID_default_instance_;
 class WriteRequest;
 class WriteRequestDefaultTypeInternal;
 extern WriteRequestDefaultTypeInternal _WriteRequest_default_instance_;
@@ -127,8 +118,6 @@ namespace google {
 namespace protobuf {
 template<> ::ofs::api::AppendRequest* Arena::CreateMaybeMessage<::ofs::api::AppendRequest>(Arena*);
 template<> ::ofs::api::AppendResponse* Arena::CreateMaybeMessage<::ofs::api::AppendResponse>(Arena*);
-template<> ::ofs::api::Block* Arena::CreateMaybeMessage<::ofs::api::Block>(Arena*);
-template<> ::ofs::api::BlockId* Arena::CreateMaybeMessage<::ofs::api::BlockId>(Arena*);
 template<> ::ofs::api::CreateFileRequest* Arena::CreateMaybeMessage<::ofs::api::CreateFileRequest>(Arena*);
 template<> ::ofs::api::CreateFileResponse* Arena::CreateMaybeMessage<::ofs::api::CreateFileResponse>(Arena*);
 template<> ::ofs::api::EndPoint* Arena::CreateMaybeMessage<::ofs::api::EndPoint>(Arena*);
@@ -145,7 +134,6 @@ template<> ::ofs::api::ReadRequest* Arena::CreateMaybeMessage<::ofs::api::ReadRe
 template<> ::ofs::api::ReadResponse* Arena::CreateMaybeMessage<::ofs::api::ReadResponse>(Arena*);
 template<> ::ofs::api::RemoveRequest* Arena::CreateMaybeMessage<::ofs::api::RemoveRequest>(Arena*);
 template<> ::ofs::api::RemoveResponse* Arena::CreateMaybeMessage<::ofs::api::RemoveResponse>(Arena*);
-template<> ::ofs::api::UUID* Arena::CreateMaybeMessage<::ofs::api::UUID>(Arena*);
 template<> ::ofs::api::WriteRequest* Arena::CreateMaybeMessage<::ofs::api::WriteRequest>(Arena*);
 template<> ::ofs::api::WriteResponse* Arena::CreateMaybeMessage<::ofs::api::WriteResponse>(Arena*);
 }  // namespace protobuf
@@ -166,11 +154,12 @@ enum ErrorCode {
   EC_IS_NOT_DIRECTORY = 9,
   EC_ALREADY_EXIST_DELETE_FILE = 10,
   EC_OUT_OF_RANGE = 11,
-  EC_BLOCK_NOT_READY = 12
+  EC_BLOCK_NOT_READY = 12,
+  EC_BLOCK_MISSING = 13
 };
 bool ErrorCode_IsValid(int value);
 const ErrorCode ErrorCode_MIN = EC_NONE;
-const ErrorCode ErrorCode_MAX = EC_BLOCK_NOT_READY;
+const ErrorCode ErrorCode_MAX = EC_BLOCK_MISSING;
 const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();
@@ -2124,138 +2113,6 @@ class FileStatusRespone :
 };
 // -------------------------------------------------------------------
 
-class UUID :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.UUID) */ {
- public:
-  UUID();
-  virtual ~UUID();
-
-  UUID(const UUID& from);
-
-  inline UUID& operator=(const UUID& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  UUID(UUID&& from) noexcept
-    : UUID() {
-    *this = ::std::move(from);
-  }
-
-  inline UUID& operator=(UUID&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const UUID& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const UUID* internal_default_instance() {
-    return reinterpret_cast<const UUID*>(
-               &_UUID_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    13;
-
-  void Swap(UUID* other);
-  friend void swap(UUID& a, UUID& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline UUID* New() const final {
-    return CreateMaybeMessage<UUID>(nullptr);
-  }
-
-  UUID* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<UUID>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const UUID& from);
-  void MergeFrom(const UUID& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(UUID* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required int64 high = 1;
-  bool has_high() const;
-  void clear_high();
-  static const int kHighFieldNumber = 1;
-  ::google::protobuf::int64 high() const;
-  void set_high(::google::protobuf::int64 value);
-
-  // required int64 low = 2;
-  bool has_low() const;
-  void clear_low();
-  static const int kLowFieldNumber = 2;
-  ::google::protobuf::int64 low() const;
-  void set_low(::google::protobuf::int64 value);
-
-  // @@protoc_insertion_point(class_scope:ofs.api.UUID)
- private:
-  class HasBitSetters;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::int64 high_;
-  ::google::protobuf::int64 low_;
-  friend struct ::TableStruct_OfsMaster_2eproto;
-};
-// -------------------------------------------------------------------
-
 class EndPoint :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.EndPoint) */ {
  public:
@@ -2301,7 +2158,7 @@ class EndPoint :
                &_EndPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    13;
 
   void Swap(EndPoint* other);
   friend void swap(EndPoint& a, EndPoint& b) {
@@ -2396,276 +2253,6 @@ class EndPoint :
 };
 // -------------------------------------------------------------------
 
-class BlockId :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.BlockId) */ {
- public:
-  BlockId();
-  virtual ~BlockId();
-
-  BlockId(const BlockId& from);
-
-  inline BlockId& operator=(const BlockId& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  BlockId(BlockId&& from) noexcept
-    : BlockId() {
-    *this = ::std::move(from);
-  }
-
-  inline BlockId& operator=(BlockId&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const BlockId& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const BlockId* internal_default_instance() {
-    return reinterpret_cast<const BlockId*>(
-               &_BlockId_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    15;
-
-  void Swap(BlockId* other);
-  friend void swap(BlockId& a, BlockId& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline BlockId* New() const final {
-    return CreateMaybeMessage<BlockId>(nullptr);
-  }
-
-  BlockId* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<BlockId>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const BlockId& from);
-  void MergeFrom(const BlockId& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(BlockId* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required .ofs.api.UUID file = 1;
-  bool has_file() const;
-  void clear_file();
-  static const int kFileFieldNumber = 1;
-  const ::ofs::api::UUID& file() const;
-  ::ofs::api::UUID* release_file();
-  ::ofs::api::UUID* mutable_file();
-  void set_allocated_file(::ofs::api::UUID* file);
-
-  // required int32 index = 2;
-  bool has_index() const;
-  void clear_index();
-  static const int kIndexFieldNumber = 2;
-  ::google::protobuf::int32 index() const;
-  void set_index(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:ofs.api.BlockId)
- private:
-  class HasBitSetters;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::UUID* file_;
-  ::google::protobuf::int32 index_;
-  friend struct ::TableStruct_OfsMaster_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Block :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.Block) */ {
- public:
-  Block();
-  virtual ~Block();
-
-  Block(const Block& from);
-
-  inline Block& operator=(const Block& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  Block(Block&& from) noexcept
-    : Block() {
-    *this = ::std::move(from);
-  }
-
-  inline Block& operator=(Block&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const Block& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Block* internal_default_instance() {
-    return reinterpret_cast<const Block*>(
-               &_Block_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    16;
-
-  void Swap(Block* other);
-  friend void swap(Block& a, Block& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Block* New() const final {
-    return CreateMaybeMessage<Block>(nullptr);
-  }
-
-  Block* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<Block>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const Block& from);
-  void MergeFrom(const Block& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Block* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated .ofs.api.EndPoint eps = 2;
-  int eps_size() const;
-  void clear_eps();
-  static const int kEpsFieldNumber = 2;
-  ::ofs::api::EndPoint* mutable_eps(int index);
-  ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
-      mutable_eps();
-  const ::ofs::api::EndPoint& eps(int index) const;
-  ::ofs::api::EndPoint* add_eps();
-  const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
-      eps() const;
-
-  // required .ofs.api.BlockId id = 1;
-  bool has_id() const;
-  void clear_id();
-  static const int kIdFieldNumber = 1;
-  const ::ofs::api::BlockId& id() const;
-  ::ofs::api::BlockId* release_id();
-  ::ofs::api::BlockId* mutable_id();
-  void set_allocated_id(::ofs::api::BlockId* id);
-
-  // @@protoc_insertion_point(class_scope:ofs.api.Block)
- private:
-  class HasBitSetters;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint > eps_;
-  ::ofs::api::BlockId* id_;
-  friend struct ::TableStruct_OfsMaster_2eproto;
-};
-// -------------------------------------------------------------------
-
 class ReadRequest :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadRequest) */ {
  public:
@@ -2711,7 +2298,7 @@ class ReadRequest :
                &_ReadRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    14;
 
   void Swap(ReadRequest* other);
   friend void swap(ReadRequest& a, ReadRequest& b) {
@@ -2867,7 +2454,7 @@ class ReadResponse :
                &_ReadResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    15;
 
   void Swap(ReadResponse* other);
   friend void swap(ReadResponse& a, ReadResponse& b) {
@@ -2924,14 +2511,24 @@ class ReadResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.Block block = 2;
-  bool has_block() const;
-  void clear_block();
-  static const int kBlockFieldNumber = 2;
-  const ::ofs::api::Block& block() const;
-  ::ofs::api::Block* release_block();
-  ::ofs::api::Block* mutable_block();
-  void set_allocated_block(::ofs::api::Block* block);
+  // repeated .ofs.api.EndPoint eps = 3;
+  int eps_size() const;
+  void clear_eps();
+  static const int kEpsFieldNumber = 3;
+  ::ofs::api::EndPoint* mutable_eps(int index);
+  ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
+      mutable_eps();
+  const ::ofs::api::EndPoint& eps(int index) const;
+  ::ofs::api::EndPoint* add_eps();
+  const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
+      eps() const;
+
+  // optional int64 id = 2;
+  bool has_id() const;
+  void clear_id();
+  static const int kIdFieldNumber = 2;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
 
   // required .ofs.api.ErrorCode errCode = 1;
   bool has_errcode() const;
@@ -2947,7 +2544,8 @@ class ReadResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::Block* block_;
+  ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint > eps_;
+  ::google::protobuf::int64 id_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -2998,7 +2596,7 @@ class WriteRequest :
                &_WriteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    16;
 
   void Swap(WriteRequest* other);
   friend void swap(WriteRequest& a, WriteRequest& b) {
@@ -3154,7 +2752,7 @@ class WriteResponse :
                &_WriteResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    17;
 
   void Swap(WriteResponse* other);
   friend void swap(WriteResponse& a, WriteResponse& b) {
@@ -3211,14 +2809,33 @@ class WriteResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.Block block = 2;
-  bool has_block() const;
-  void clear_block();
-  static const int kBlockFieldNumber = 2;
-  const ::ofs::api::Block& block() const;
-  ::ofs::api::Block* release_block();
-  ::ofs::api::Block* mutable_block();
-  void set_allocated_block(::ofs::api::Block* block);
+  // repeated int32 chunkservers = 4;
+  int chunkservers_size() const;
+  void clear_chunkservers();
+  static const int kChunkserversFieldNumber = 4;
+  ::google::protobuf::int32 chunkservers(int index) const;
+  void set_chunkservers(int index, ::google::protobuf::int32 value);
+  void add_chunkservers(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      chunkservers() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_chunkservers();
+
+  // optional .ofs.api.EndPoint ep = 3;
+  bool has_ep() const;
+  void clear_ep();
+  static const int kEpFieldNumber = 3;
+  const ::ofs::api::EndPoint& ep() const;
+  ::ofs::api::EndPoint* release_ep();
+  ::ofs::api::EndPoint* mutable_ep();
+  void set_allocated_ep(::ofs::api::EndPoint* ep);
+
+  // optional int64 id = 2;
+  bool has_id() const;
+  void clear_id();
+  static const int kIdFieldNumber = 2;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
 
   // required .ofs.api.ErrorCode errCode = 1;
   bool has_errcode() const;
@@ -3234,7 +2851,9 @@ class WriteResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::Block* block_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > chunkservers_;
+  ::ofs::api::EndPoint* ep_;
+  ::google::protobuf::int64 id_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -3285,7 +2904,7 @@ class AppendRequest :
                &_AppendRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    18;
 
   void Swap(AppendRequest* other);
   friend void swap(AppendRequest& a, AppendRequest& b) {
@@ -3433,7 +3052,7 @@ class AppendResponse :
                &_AppendResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    19;
 
   void Swap(AppendResponse* other);
   friend void swap(AppendResponse& a, AppendResponse& b) {
@@ -3490,14 +3109,33 @@ class AppendResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.Block block = 2;
-  bool has_block() const;
-  void clear_block();
-  static const int kBlockFieldNumber = 2;
-  const ::ofs::api::Block& block() const;
-  ::ofs::api::Block* release_block();
-  ::ofs::api::Block* mutable_block();
-  void set_allocated_block(::ofs::api::Block* block);
+  // repeated int32 chunkservers = 4;
+  int chunkservers_size() const;
+  void clear_chunkservers();
+  static const int kChunkserversFieldNumber = 4;
+  ::google::protobuf::int32 chunkservers(int index) const;
+  void set_chunkservers(int index, ::google::protobuf::int32 value);
+  void add_chunkservers(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      chunkservers() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_chunkservers();
+
+  // optional .ofs.api.EndPoint ep = 3;
+  bool has_ep() const;
+  void clear_ep();
+  static const int kEpFieldNumber = 3;
+  const ::ofs::api::EndPoint& ep() const;
+  ::ofs::api::EndPoint* release_ep();
+  ::ofs::api::EndPoint* mutable_ep();
+  void set_allocated_ep(::ofs::api::EndPoint* ep);
+
+  // optional int64 id = 2;
+  bool has_id() const;
+  void clear_id();
+  static const int kIdFieldNumber = 2;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
 
   // required .ofs.api.ErrorCode errCode = 1;
   bool has_errcode() const;
@@ -3513,7 +3151,9 @@ class AppendResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::Block* block_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > chunkservers_;
+  ::ofs::api::EndPoint* ep_;
+  ::google::protobuf::int64 id_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -5118,46 +4758,6 @@ inline void FileStatusRespone::set_allocated_file(::ofs::api::File* file) {
 
 // -------------------------------------------------------------------
 
-// UUID
-
-// required int64 high = 1;
-inline bool UUID::has_high() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void UUID::clear_high() {
-  high_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline ::google::protobuf::int64 UUID::high() const {
-  // @@protoc_insertion_point(field_get:ofs.api.UUID.high)
-  return high_;
-}
-inline void UUID::set_high(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000001u;
-  high_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.UUID.high)
-}
-
-// required int64 low = 2;
-inline bool UUID::has_low() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void UUID::clear_low() {
-  low_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline ::google::protobuf::int64 UUID::low() const {
-  // @@protoc_insertion_point(field_get:ofs.api.UUID.low)
-  return low_;
-}
-inline void UUID::set_low(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000002u;
-  low_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.UUID.low)
-}
-
-// -------------------------------------------------------------------
-
 // EndPoint
 
 // required string host = 2;
@@ -5236,160 +4836,6 @@ inline void EndPoint::set_port(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000002u;
   port_ = value;
   // @@protoc_insertion_point(field_set:ofs.api.EndPoint.port)
-}
-
-// -------------------------------------------------------------------
-
-// BlockId
-
-// required .ofs.api.UUID file = 1;
-inline bool BlockId::has_file() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void BlockId::clear_file() {
-  if (file_ != nullptr) file_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::ofs::api::UUID& BlockId::file() const {
-  const ::ofs::api::UUID* p = file_;
-  // @@protoc_insertion_point(field_get:ofs.api.BlockId.file)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::UUID*>(
-      &::ofs::api::_UUID_default_instance_);
-}
-inline ::ofs::api::UUID* BlockId::release_file() {
-  // @@protoc_insertion_point(field_release:ofs.api.BlockId.file)
-  _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::UUID* temp = file_;
-  file_ = nullptr;
-  return temp;
-}
-inline ::ofs::api::UUID* BlockId::mutable_file() {
-  _has_bits_[0] |= 0x00000001u;
-  if (file_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::UUID>(GetArenaNoVirtual());
-    file_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:ofs.api.BlockId.file)
-  return file_;
-}
-inline void BlockId::set_allocated_file(::ofs::api::UUID* file) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete file_;
-  }
-  if (file) {
-    ::google::protobuf::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      file = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, file, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  file_ = file;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.BlockId.file)
-}
-
-// required int32 index = 2;
-inline bool BlockId::has_index() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void BlockId::clear_index() {
-  index_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline ::google::protobuf::int32 BlockId::index() const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockId.index)
-  return index_;
-}
-inline void BlockId::set_index(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000002u;
-  index_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.BlockId.index)
-}
-
-// -------------------------------------------------------------------
-
-// Block
-
-// required .ofs.api.BlockId id = 1;
-inline bool Block::has_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void Block::clear_id() {
-  if (id_ != nullptr) id_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::ofs::api::BlockId& Block::id() const {
-  const ::ofs::api::BlockId* p = id_;
-  // @@protoc_insertion_point(field_get:ofs.api.Block.id)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::BlockId*>(
-      &::ofs::api::_BlockId_default_instance_);
-}
-inline ::ofs::api::BlockId* Block::release_id() {
-  // @@protoc_insertion_point(field_release:ofs.api.Block.id)
-  _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::BlockId* temp = id_;
-  id_ = nullptr;
-  return temp;
-}
-inline ::ofs::api::BlockId* Block::mutable_id() {
-  _has_bits_[0] |= 0x00000001u;
-  if (id_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::BlockId>(GetArenaNoVirtual());
-    id_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:ofs.api.Block.id)
-  return id_;
-}
-inline void Block::set_allocated_id(::ofs::api::BlockId* id) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete id_;
-  }
-  if (id) {
-    ::google::protobuf::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      id = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, id, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  id_ = id;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.Block.id)
-}
-
-// repeated .ofs.api.EndPoint eps = 2;
-inline int Block::eps_size() const {
-  return eps_.size();
-}
-inline void Block::clear_eps() {
-  eps_.Clear();
-}
-inline ::ofs::api::EndPoint* Block::mutable_eps(int index) {
-  // @@protoc_insertion_point(field_mutable:ofs.api.Block.eps)
-  return eps_.Mutable(index);
-}
-inline ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
-Block::mutable_eps() {
-  // @@protoc_insertion_point(field_mutable_list:ofs.api.Block.eps)
-  return &eps_;
-}
-inline const ::ofs::api::EndPoint& Block::eps(int index) const {
-  // @@protoc_insertion_point(field_get:ofs.api.Block.eps)
-  return eps_.Get(index);
-}
-inline ::ofs::api::EndPoint* Block::add_eps() {
-  // @@protoc_insertion_point(field_add:ofs.api.Block.eps)
-  return eps_.Add();
-}
-inline const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
-Block::eps() const {
-  // @@protoc_insertion_point(field_list:ofs.api.Block.eps)
-  return eps_;
 }
 
 // -------------------------------------------------------------------
@@ -5557,53 +5003,52 @@ inline void ReadResponse::set_errcode(::ofs::api::ErrorCode value) {
   // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.errCode)
 }
 
-// optional .ofs.api.Block block = 2;
-inline bool ReadResponse::has_block() const {
+// optional int64 id = 2;
+inline bool ReadResponse::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ReadResponse::clear_block() {
-  if (block_ != nullptr) block_->Clear();
+inline void ReadResponse::clear_id() {
+  id_ = PROTOBUF_LONGLONG(0);
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::Block& ReadResponse::block() const {
-  const ::ofs::api::Block* p = block_;
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.block)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::Block*>(
-      &::ofs::api::_Block_default_instance_);
+inline ::google::protobuf::int64 ReadResponse::id() const {
+  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.id)
+  return id_;
 }
-inline ::ofs::api::Block* ReadResponse::release_block() {
-  // @@protoc_insertion_point(field_release:ofs.api.ReadResponse.block)
-  _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::Block* temp = block_;
-  block_ = nullptr;
-  return temp;
-}
-inline ::ofs::api::Block* ReadResponse::mutable_block() {
+inline void ReadResponse::set_id(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000001u;
-  if (block_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::Block>(GetArenaNoVirtual());
-    block_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.block)
-  return block_;
+  id_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.id)
 }
-inline void ReadResponse::set_allocated_block(::ofs::api::Block* block) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete block_;
-  }
-  if (block) {
-    ::google::protobuf::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      block = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, block, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  block_ = block;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadResponse.block)
+
+// repeated .ofs.api.EndPoint eps = 3;
+inline int ReadResponse::eps_size() const {
+  return eps_.size();
+}
+inline void ReadResponse::clear_eps() {
+  eps_.Clear();
+}
+inline ::ofs::api::EndPoint* ReadResponse::mutable_eps(int index) {
+  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.eps)
+  return eps_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
+ReadResponse::mutable_eps() {
+  // @@protoc_insertion_point(field_mutable_list:ofs.api.ReadResponse.eps)
+  return &eps_;
+}
+inline const ::ofs::api::EndPoint& ReadResponse::eps(int index) const {
+  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.eps)
+  return eps_.Get(index);
+}
+inline ::ofs::api::EndPoint* ReadResponse::add_eps() {
+  // @@protoc_insertion_point(field_add:ofs.api.ReadResponse.eps)
+  return eps_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
+ReadResponse::eps() const {
+  // @@protoc_insertion_point(field_list:ofs.api.ReadResponse.eps)
+  return eps_;
 }
 
 // -------------------------------------------------------------------
@@ -5754,11 +5199,11 @@ inline void WriteRequest::set_blockindex(::google::protobuf::int32 value) {
 
 // required .ofs.api.ErrorCode errCode = 1;
 inline bool WriteResponse::has_errcode() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void WriteResponse::clear_errcode() {
   errcode_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::ofs::api::ErrorCode WriteResponse::errcode() const {
   // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.errCode)
@@ -5766,58 +5211,106 @@ inline ::ofs::api::ErrorCode WriteResponse::errcode() const {
 }
 inline void WriteResponse::set_errcode(::ofs::api::ErrorCode value) {
   assert(::ofs::api::ErrorCode_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   errcode_ = value;
   // @@protoc_insertion_point(field_set:ofs.api.WriteResponse.errCode)
 }
 
-// optional .ofs.api.Block block = 2;
-inline bool WriteResponse::has_block() const {
+// optional int64 id = 2;
+inline bool WriteResponse::has_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void WriteResponse::clear_id() {
+  id_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::int64 WriteResponse::id() const {
+  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.id)
+  return id_;
+}
+inline void WriteResponse::set_id(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  id_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.WriteResponse.id)
+}
+
+// optional .ofs.api.EndPoint ep = 3;
+inline bool WriteResponse::has_ep() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void WriteResponse::clear_block() {
-  if (block_ != nullptr) block_->Clear();
+inline void WriteResponse::clear_ep() {
+  if (ep_ != nullptr) ep_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::Block& WriteResponse::block() const {
-  const ::ofs::api::Block* p = block_;
-  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.block)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::Block*>(
-      &::ofs::api::_Block_default_instance_);
+inline const ::ofs::api::EndPoint& WriteResponse::ep() const {
+  const ::ofs::api::EndPoint* p = ep_;
+  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.ep)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::EndPoint*>(
+      &::ofs::api::_EndPoint_default_instance_);
 }
-inline ::ofs::api::Block* WriteResponse::release_block() {
-  // @@protoc_insertion_point(field_release:ofs.api.WriteResponse.block)
+inline ::ofs::api::EndPoint* WriteResponse::release_ep() {
+  // @@protoc_insertion_point(field_release:ofs.api.WriteResponse.ep)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::Block* temp = block_;
-  block_ = nullptr;
+  ::ofs::api::EndPoint* temp = ep_;
+  ep_ = nullptr;
   return temp;
 }
-inline ::ofs::api::Block* WriteResponse::mutable_block() {
+inline ::ofs::api::EndPoint* WriteResponse::mutable_ep() {
   _has_bits_[0] |= 0x00000001u;
-  if (block_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::Block>(GetArenaNoVirtual());
-    block_ = p;
+  if (ep_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ofs::api::EndPoint>(GetArenaNoVirtual());
+    ep_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.WriteResponse.block)
-  return block_;
+  // @@protoc_insertion_point(field_mutable:ofs.api.WriteResponse.ep)
+  return ep_;
 }
-inline void WriteResponse::set_allocated_block(::ofs::api::Block* block) {
+inline void WriteResponse::set_allocated_ep(::ofs::api::EndPoint* ep) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
-    delete block_;
+    delete ep_;
   }
-  if (block) {
+  if (ep) {
     ::google::protobuf::Arena* submessage_arena = nullptr;
     if (message_arena != submessage_arena) {
-      block = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, block, submessage_arena);
+      ep = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, ep, submessage_arena);
     }
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  block_ = block;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteResponse.block)
+  ep_ = ep;
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteResponse.ep)
+}
+
+// repeated int32 chunkservers = 4;
+inline int WriteResponse::chunkservers_size() const {
+  return chunkservers_.size();
+}
+inline void WriteResponse::clear_chunkservers() {
+  chunkservers_.Clear();
+}
+inline ::google::protobuf::int32 WriteResponse::chunkservers(int index) const {
+  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.chunkservers)
+  return chunkservers_.Get(index);
+}
+inline void WriteResponse::set_chunkservers(int index, ::google::protobuf::int32 value) {
+  chunkservers_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ofs.api.WriteResponse.chunkservers)
+}
+inline void WriteResponse::add_chunkservers(::google::protobuf::int32 value) {
+  chunkservers_.Add(value);
+  // @@protoc_insertion_point(field_add:ofs.api.WriteResponse.chunkservers)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+WriteResponse::chunkservers() const {
+  // @@protoc_insertion_point(field_list:ofs.api.WriteResponse.chunkservers)
+  return chunkservers_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+WriteResponse::mutable_chunkservers() {
+  // @@protoc_insertion_point(field_mutable_list:ofs.api.WriteResponse.chunkservers)
+  return &chunkservers_;
 }
 
 // -------------------------------------------------------------------
@@ -5950,11 +5443,11 @@ inline void AppendRequest::set_allocated_path(::std::string* path) {
 
 // required .ofs.api.ErrorCode errCode = 1;
 inline bool AppendResponse::has_errcode() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void AppendResponse::clear_errcode() {
   errcode_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::ofs::api::ErrorCode AppendResponse::errcode() const {
   // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.errCode)
@@ -5962,69 +5455,111 @@ inline ::ofs::api::ErrorCode AppendResponse::errcode() const {
 }
 inline void AppendResponse::set_errcode(::ofs::api::ErrorCode value) {
   assert(::ofs::api::ErrorCode_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   errcode_ = value;
   // @@protoc_insertion_point(field_set:ofs.api.AppendResponse.errCode)
 }
 
-// optional .ofs.api.Block block = 2;
-inline bool AppendResponse::has_block() const {
+// optional int64 id = 2;
+inline bool AppendResponse::has_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void AppendResponse::clear_id() {
+  id_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::int64 AppendResponse::id() const {
+  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.id)
+  return id_;
+}
+inline void AppendResponse::set_id(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  id_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.AppendResponse.id)
+}
+
+// optional .ofs.api.EndPoint ep = 3;
+inline bool AppendResponse::has_ep() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void AppendResponse::clear_block() {
-  if (block_ != nullptr) block_->Clear();
+inline void AppendResponse::clear_ep() {
+  if (ep_ != nullptr) ep_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::Block& AppendResponse::block() const {
-  const ::ofs::api::Block* p = block_;
-  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.block)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::Block*>(
-      &::ofs::api::_Block_default_instance_);
+inline const ::ofs::api::EndPoint& AppendResponse::ep() const {
+  const ::ofs::api::EndPoint* p = ep_;
+  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.ep)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::EndPoint*>(
+      &::ofs::api::_EndPoint_default_instance_);
 }
-inline ::ofs::api::Block* AppendResponse::release_block() {
-  // @@protoc_insertion_point(field_release:ofs.api.AppendResponse.block)
+inline ::ofs::api::EndPoint* AppendResponse::release_ep() {
+  // @@protoc_insertion_point(field_release:ofs.api.AppendResponse.ep)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::Block* temp = block_;
-  block_ = nullptr;
+  ::ofs::api::EndPoint* temp = ep_;
+  ep_ = nullptr;
   return temp;
 }
-inline ::ofs::api::Block* AppendResponse::mutable_block() {
+inline ::ofs::api::EndPoint* AppendResponse::mutable_ep() {
   _has_bits_[0] |= 0x00000001u;
-  if (block_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::Block>(GetArenaNoVirtual());
-    block_ = p;
+  if (ep_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ofs::api::EndPoint>(GetArenaNoVirtual());
+    ep_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.AppendResponse.block)
-  return block_;
+  // @@protoc_insertion_point(field_mutable:ofs.api.AppendResponse.ep)
+  return ep_;
 }
-inline void AppendResponse::set_allocated_block(::ofs::api::Block* block) {
+inline void AppendResponse::set_allocated_ep(::ofs::api::EndPoint* ep) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
-    delete block_;
+    delete ep_;
   }
-  if (block) {
+  if (ep) {
     ::google::protobuf::Arena* submessage_arena = nullptr;
     if (message_arena != submessage_arena) {
-      block = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, block, submessage_arena);
+      ep = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, ep, submessage_arena);
     }
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  block_ = block;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendResponse.block)
+  ep_ = ep;
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendResponse.ep)
+}
+
+// repeated int32 chunkservers = 4;
+inline int AppendResponse::chunkservers_size() const {
+  return chunkservers_.size();
+}
+inline void AppendResponse::clear_chunkservers() {
+  chunkservers_.Clear();
+}
+inline ::google::protobuf::int32 AppendResponse::chunkservers(int index) const {
+  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.chunkservers)
+  return chunkservers_.Get(index);
+}
+inline void AppendResponse::set_chunkservers(int index, ::google::protobuf::int32 value) {
+  chunkservers_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ofs.api.AppendResponse.chunkservers)
+}
+inline void AppendResponse::add_chunkservers(::google::protobuf::int32 value) {
+  chunkservers_.Add(value);
+  // @@protoc_insertion_point(field_add:ofs.api.AppendResponse.chunkservers)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+AppendResponse::chunkservers() const {
+  // @@protoc_insertion_point(field_list:ofs.api.AppendResponse.chunkservers)
+  return chunkservers_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+AppendResponse::mutable_chunkservers() {
+  // @@protoc_insertion_point(field_mutable_list:ofs.api.AppendResponse.chunkservers)
+  return &chunkservers_;
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
