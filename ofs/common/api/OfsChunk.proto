@@ -1,65 +1,24 @@
 syntax = "proto2";
 option cc_generic_services = true;
 
-package ofs.chunk_api;
+package ofs.api;
 
-message UUID {
-	required int64 high = 1;
-	required int64 low = 2;
+enum ErrorCode {
+	EC_NONE = 0;
+	EC_BLOCK_NOT_EIXST = 1;
+	EC_BLOCK_INCORRECT = 2;
 }
 
-message BlockId {
-	required UUID file = 1;
-	required int32 index = 2;
+message ReadRequest {
+	required int64 blockId = 1;
+	required int32 offset = 2;
 }
 
-message BlockStatus {
-	required BlockId id = 1;
-	required UUID version = 2;
-	required int32 size = 3;
+message ReadResponse {
+	required ErrorCode errCode = 1;
+	optional string data = 2;
 }
 
-message ReportRequest {
-	required int32 id = 1;
-	required string host = 2;
-	required int32 port = 3;
-	repeated BlockStatus blocks = 4;
-}
-
-message ReportResponse {
-	required bool ok = 1;
-	repeated BlockId needClean = 2;
-	repeated BlockId needCopy = 3;
-}
-
-message EndPoint {
-	required string host = 2;
-	required int32 port = 3;
-}
-
-message AskLeaseRequest {
-	required int32 id = 1;
-	required BlockId blockId = 2;
-}
-
-message AskLeaseResponse {
-	required bool ok = 1;
-	optional int64 expire = 2;
-	repeated EndPoint eps = 3;
-}
-
-message CopyRequest {
-	required int32 id = 1;
-	required BlockId blockId = 2;
-}
-
-message CopyResponse {
-	required bool ok = 1;
-	repeated EndPoint eps = 2;
-}
-
-service OfsChunkService {
-	rpc Report (ReportRequest) returns (ReportResponse);
-	rpc AskLease (AskLeaseRequest) returns (AskLeaseResponse);
-	rpc Copy (CopyRequest) returns (CopyResponse);
+service OfsNodeService {
+	rpc Read (ReadRequest) returns (ReadResponse);
 }
