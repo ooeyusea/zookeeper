@@ -7,19 +7,19 @@ namespace ofs {
 	class ChunkServer;
 	class Block {
 		struct BlockInChunkServer {
+			ChunkServer * server;
 			olib::uuid::UUID version;
 			int64_t leaseTick;
-			ChunkServer * server;
 		};
 	public:
-		Block() : _size(0) { _uuid = olib::uuid::UUID::Generate(); }
+		Block(int32_t index) : _index(index), _size(0) {}
 		~Block() {}
 
-		inline olib::uuid::UUID GetUUID() const { return _uuid; }
-
+		inline int32_t GetIndex() const { return _index; }
 		inline int32_t GetSize() const { return _size; }
 
-		inline void Read(const std::function<void(ChunkServer*)>& fn) {
+		inline void Read(const std::function<void(ChunkServer*)>& fn) const {
+			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 			for (auto& bIs : _chunkServer) {
 				if (bIs.version == _version)
 					fn(bIs.server);
@@ -29,7 +29,8 @@ namespace ofs {
 		ChunkServer * Write();
 
 	private:
-		olib::uuid::UUID _uuid;
+		mutable hn_shared_mutex _mutex;
+		int32_t _index;
 		olib::uuid::UUID _version;
 		int32_t _size;
 

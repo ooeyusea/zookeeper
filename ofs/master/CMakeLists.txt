@@ -41,11 +41,14 @@ INCLUDE_DIRECTORIES(
 
 SET(SRC
 	"${PROJECT_SOURCE_DIR}/main.cpp"
+	"${PROJECT_SOURCE_DIR}/OfsId.h"
 	"${PROJECT_SOURCE_DIR}/OfsMaster.h"
 	"${PROJECT_SOURCE_DIR}/OfsMaster.cpp"
 )
 
 SET(FILE_SYSTEM
+	"${PROJECT_SOURCE_DIR}/file/Block.h"
+	"${PROJECT_SOURCE_DIR}/file/Block.cpp"
 	"${PROJECT_SOURCE_DIR}/file/Node.h"
 	"${PROJECT_SOURCE_DIR}/file/Node.cpp"
 	"${PROJECT_SOURCE_DIR}/file/Directory.h"
@@ -69,8 +72,6 @@ SET(USER
 )
 
 SET(BLOCK
-	"${PROJECT_SOURCE_DIR}/block/Block.h"
-	"${PROJECT_SOURCE_DIR}/block/Block.cpp"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.h"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.cpp"	
 )

@@ -6,10 +6,14 @@
 #include "rpc/Rpc.h"
 #include "XmlReader.h"
 
+#define MAX_SERVER 65536
 namespace ofs {
+	class ChunkServer;
 	class ChunkService : public c2m::OfsChunkService, public olib::Singleton<ChunkService> {
 	public:
-		ChunkService() {}
+		ChunkService() {
+			memset(_servers, 0, sizeof(_servers));
+		}
 		~ChunkService() {}
 
 		bool Start(const olib::IXmlObject& root);
@@ -27,8 +31,12 @@ namespace ofs {
 			::ofs::c2m::CopyResponse* response,
 			::google::protobuf::Closure* done);
 
+		std::vector<ChunkServer*> Distribute(int32_t count);
+
 	private:
 		rpc::OfsRpcServer _rpc;
+
+		ChunkServer * _servers[MAX_SERVER];
 	};
 }
 

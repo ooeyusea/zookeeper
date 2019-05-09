@@ -60,7 +60,7 @@ namespace ofs {
 		bool CheckAuthority(User * user, bool read);
 
 	protected:
-		hn_shared_mutex _mutex;
+		mutable hn_shared_mutex _mutex;
 		std::string _name;
 		std::string _owner;
 		std::string _ownerGroup;

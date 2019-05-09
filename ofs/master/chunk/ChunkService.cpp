@@ -1,5 +1,5 @@
 #include "ChunkService.h"
-
+#include "ChunkServer.h"
 
 namespace ofs {
 	bool ChunkService::Start(const olib::IXmlObject& root) {
@@ -31,4 +31,8 @@ namespace ofs {
 
 	}
 
+	std::vector<ChunkServer*> ChunkService::Distribute(int32_t count) {
+		std::vector<ChunkServer*> ret;
+		return ret;
+	}
 }

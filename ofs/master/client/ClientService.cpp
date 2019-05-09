@@ -1,7 +1,7 @@
 #include "ClientService.h"
 #include "file/FileSystem.h"
 #include "user/UserManager.h"
-#include "block/Block.h"
+#include "file/Block.h"
 #include "chunk/ChunkServer.h"
 
 namespace ofs {
@@ -147,15 +147,18 @@ namespace ofs {
 				if (node->IsDir())
 					return api::ErrorCode::EC_IS_DIR;
 
-				Block * block = static_cast<File*>(node)->GetBlock(request->blockindex());
+				File * file = static_cast<File*>(node);
+				Block * block = file->GetBlock(request->blockindex());
 				if (!block)
 					return api::ErrorCode::EC_OUT_OF_RANGE;
 
-				auto * b = response->mutable_blcok();
+				auto * b = response->mutable_block();
 
 				auto * id = b->mutable_id();
-				id->set_high(block->GetUUID().GetHigh());
-				id->set_low(block->GetUUID().GetLow());
+				auto * fid = id->mutable_file();
+				fid->set_high(file->GetUUID().GetHigh());
+				fid->set_low(file->GetUUID().GetLow());
+				id->set_index(block->GetIndex());
 
 				block->Read([b](ChunkServer * server){
 					auto * ep = b->add_eps();
@@ -185,15 +188,18 @@ namespace ofs {
 				if (node->IsDir())
 					return api::ErrorCode::EC_IS_DIR;
 
-				Block * block = static_cast<File*>(node)->GetBlock(request->blockindex());
+				File * file = static_cast<File*>(node);
+				Block * block = file->GetBlock(request->blockindex());
 				if (!block)
 					return api::ErrorCode::EC_OUT_OF_RANGE;
 
-				auto * b = response->mutable_blcok();
+				auto * b = response->mutable_block();
 
 				auto * id = b->mutable_id();
-				id->set_high(block->GetUUID().GetHigh());
-				id->set_low(block->GetUUID().GetLow());
+				auto * fid = id->mutable_file();
+				fid->set_high(file->GetUUID().GetHigh());
+				fid->set_low(file->GetUUID().GetLow());
+				id->set_index(block->GetIndex());
 
 				ChunkServer * server = block->Write();
 				if (!server)
@@ -203,6 +209,7 @@ namespace ofs {
 				ep->set_host(server->GetHost());
 				ep->set_port(server->GetPort());
 
+				server->Release();
 				return api::ErrorCode::EC_NONE;
 			});
 
@@ -225,15 +232,18 @@ namespace ofs {
 				if (node->IsDir())
 					return api::ErrorCode::EC_IS_DIR;
 
-				Block * block = static_cast<File*>(node)->GetAppendBlock();
+				File * file = static_cast<File*>(node);
+				Block * block = file->GetAppendBlock();
 				if (!block)
 					return api::ErrorCode::EC_OUT_OF_RANGE;
 
-				auto * b = response->mutable_blcok();
+				auto * b = response->mutable_block();
 
 				auto * id = b->mutable_id();
-				id->set_high(block->GetUUID().GetHigh());
-				id->set_low(block->GetUUID().GetLow());
+				auto * fid = id->mutable_file();
+				fid->set_high(file->GetUUID().GetHigh());
+				fid->set_low(file->GetUUID().GetLow());
+				id->set_index(block->GetIndex());
 
 				ChunkServer * server = block->Write();
 				if (!server)
@@ -243,6 +253,7 @@ namespace ofs {
 				ep->set_host(server->GetHost());
 				ep->set_port(server->GetPort());
 
+				server->Release();
 				return api::ErrorCode::EC_NONE;
 			});
 
