@@ -41,6 +41,13 @@ namespace ofs {
 
 		ChunkServer * Write(std::vector<int32_t>& re, std::string& key);
 
+		inline int64_t NextVersion() {
+			return ((((_version) >> 32) & 0xFFFFFFFF) + 1) << 32;
+		}
+
+	private:
+		void UpdateBlockVersion(int64_t newVersion);
+
 	private:
 		int64_t _id;
 		mutable hn_shared_mutex _mutex;

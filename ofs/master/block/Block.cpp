@@ -46,13 +46,24 @@ namespace ofs {
 				tick = now + MINUTE;
 				mainReplica->SetLease(tick);
 
-				_version = NextVersion();
-				UpdateBlockVersion();
+				int64_t newVersion = NextVersion();
+				UpdateBlockVersion(newVersion);
+				_version = newVersion;
+
 				mainReplica->GrandLease();
 			}
 			return mainReplica->GetServer();
 		}
 
 		return nullptr;
+	}
+
+	void Block::UpdateBlockVersion(int64_t newVersion) {
+		for (auto& bIs : _chunkServer) {
+			if (bIs.GetVersion() != _version)
+				continue;
+
+			bIs.GetServer()->UpdateBlockVersion(newVersion);
+		}
 	}
 }
