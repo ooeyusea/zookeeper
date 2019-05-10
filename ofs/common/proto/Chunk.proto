@@ -3,63 +3,67 @@ option cc_generic_services = true;
 
 package ofs.c2m;
 
-message UUID {
-	required int64 high = 1;
-	required int64 low = 2;
+message RegisterChunkServerRequest {
+	required int32 id = 1;
+	required string host = 2;
+	required int32 port = 3;
 }
 
-message BlockId {
-	required UUID file = 1;
-	required int32 index = 2;
+message RegisterChunkServerResponse {
+	required bool ok = 1;
+}
+
+enum ErrorCode{
+	EC_OK = 0;
+	EC_BLOCK_CLEAN = 1;
+	EC_BLOCK_RECOVER = 2;
+	EC_BLOCK_NOT_EXIST = 3;
+	EC_REPLICA_DO_NOT_HAS_LEASE = 4;
 }
 
 message BlockStatus {
-	required BlockId id = 1;
-	required UUID version = 2;
+	required int64 id = 1;
+	required int64 version = 2;
 	required int32 size = 3;
 }
 
 message ReportRequest {
 	required int32 id = 1;
-	required string host = 2;
-	required int32 port = 3;
-	repeated BlockStatus blocks = 4;
+	required BlockStatus blocks = 2;
+}
+
+message RecoverInfo {
+	required int64 until = 1;
+	required int64 version = 2;
+	required int64 newVersion = 3;
+	required int32 copyTo = 4;
+	repeated int32 chunkservers = 5;
 }
 
 message ReportResponse {
-	required bool ok = 1;
-	repeated BlockId needClean = 2;
-	repeated BlockId needCopy = 3;
+	required ErrorCode errCode = 1;
+	optional RecoverInfo recoverInfo = 2;
 }
 
-message EndPoint {
-	required string host = 2;
-	required int32 port = 3;
-}
-
-message AskLeaseRequest {
+message RenewLeaseRequest {
 	required int32 id = 1;
-	required BlockId blockId = 2;
+	required int64 blockId = 2;
 }
 
-message AskLeaseResponse {
-	required bool ok = 1;
-	optional int64 expire = 2;
-	repeated EndPoint eps = 3;
+message Lease {
+	required int64 until = 1;
+	required int64 version = 2;
+	required int64 newVersion = 3;
+	repeated int32 chunkservers = 4;
 }
 
-message CopyRequest {
-	required int32 id = 1;
-	required BlockId blockId = 2;
-}
-
-message CopyResponse {
-	required bool ok = 1;
-	repeated EndPoint eps = 2;
+message RenewLeaseResponse {
+	required ErrorCode errCode = 1;
+	optional Lease lease = 2;
 }
 
 service OfsChunkService {
+	rpc RegisterChunkServer (RegisterChunkServerRequest) returns (RegisterChunkServerResponse);
 	rpc Report (ReportRequest) returns (ReportResponse);
-	rpc AskLease (AskLeaseRequest) returns (AskLeaseResponse);
-	rpc Copy (CopyRequest) returns (CopyResponse);
+	rpc RenewLease (RenewLeaseRequest) returns (RenewLeaseResponse);
 }

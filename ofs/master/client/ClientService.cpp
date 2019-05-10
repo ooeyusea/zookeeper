@@ -198,23 +198,28 @@ namespace ofs {
 				if (!block)
 					return api::ErrorCode::EC_BLOCK_MISSING;
 
-				response->set_id(block->GetId());
-
-				ChunkServer * server = nullptr;
 				std::vector<int32_t> replicas;
-				std::tie(server, replicas) = block->Write();
+				ChunkServer * server = block->Write(replicas);
 
 				if (!server) {
 					block->Release();
 					return api::ErrorCode::EC_BLOCK_NOT_READY;
 				}
 
-				auto * ep = response->mutable_ep();
+				auto * lease = response->mutable_lease();
+				lease->set_id(block->GetId());
+				lease->set_until(block->GetLease());
+				lease->set_version(block->GetVersion());
+				lease->set_newversion(block->GetExpectVersion());
+
+				auto * ep = lease->mutable_ep();
 				ep->set_host(server->GetHost());
 				ep->set_port(server->GetPort());
 
 				for (auto r : replicas)
-					response->add_chunkservers(r);
+					lease->add_chunkservers(r);
+
+				lease->set_key(server->CalcKey(block->GetId(), block->GetLease(), block->GetVersion(), block->GetExpectVersion()));
 
 				block->Release();
 				return api::ErrorCode::EC_NONE;
@@ -245,23 +250,28 @@ namespace ofs {
 				if (!block)
 					return api::ErrorCode::EC_BLOCK_MISSING;
 
-				response->set_id(block->GetId());
-
-				ChunkServer * server = nullptr;
 				std::vector<int32_t> replicas;
-				std::tie(server, replicas) = block->Write();
+				ChunkServer * server = block->Write(replicas);
 
 				if (!server) {
 					block->Release();
 					return api::ErrorCode::EC_BLOCK_NOT_READY;
 				}
 
-				auto * ep = response->mutable_ep();
+				auto * lease = response->mutable_lease();
+				lease->set_id(block->GetId());
+				lease->set_until(block->GetLease());
+				lease->set_version(block->GetVersion());
+				lease->set_newversion(block->GetExpectVersion());
+
+				auto * ep = lease->mutable_ep();
 				ep->set_host(server->GetHost());
 				ep->set_port(server->GetPort());
 
 				for (auto r : replicas)
-					response->add_chunkservers(r);
+					lease->add_chunkservers(r);
+
+				lease->set_key(server->CalcKey(block->GetId(), block->GetLease(), block->GetVersion(), block->GetExpectVersion()));
 
 				block->Release();
 				return api::ErrorCode::EC_NONE;

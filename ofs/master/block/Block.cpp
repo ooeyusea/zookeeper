@@ -8,7 +8,7 @@
 #define MINUTE 60 * 1000
 
 namespace ofs {
-	ChunkServer * Block::Write(std::vector<int32_t>& re, std::string& key) {
+	ChunkServer * Block::Write(std::vector<int32_t>& re) {
 		if (_chunkServer.empty()) {
 			std::lock_guard<hn_shared_mutex> guard(_mutex);
 			auto servers = ChunkService::Instance().Distribute(FileSystem::Instance().GetBlockCount());
@@ -45,25 +45,13 @@ namespace ofs {
 			if (tick <= now) {
 				tick = now + MINUTE;
 				mainReplica->SetLease(tick);
+				_lease = tick;
 
-				int64_t newVersion = NextVersion();
-				UpdateBlockVersion(newVersion);
-				_version = newVersion;
-
-				mainReplica->GrandLease();
+				_expectVersion = NextVersion();
 			}
 			return mainReplica->GetServer();
 		}
 
 		return nullptr;
-	}
-
-	void Block::UpdateBlockVersion(int64_t newVersion) {
-		for (auto& bIs : _chunkServer) {
-			if (bIs.GetVersion() != _version)
-				continue;
-
-			bIs.GetServer()->UpdateBlockVersion(newVersion);
-		}
 	}
 }

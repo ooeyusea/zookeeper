@@ -39,19 +39,22 @@ namespace ofs {
 			}
 		}
 
-		ChunkServer * Write(std::vector<int32_t>& re, std::string& key);
+		ChunkServer * Write(std::vector<int32_t>& re);
 
 		inline int64_t NextVersion() {
 			return ((((_version) >> 32) & 0xFFFFFFFF) + 1) << 32;
 		}
 
-	private:
-		void UpdateBlockVersion(int64_t newVersion);
+		inline int64_t GetVersion() const { return _version; }
+		inline int64_t GetExpectVersion() const { return _expectVersion; }
+		inline int64_t GetLease() const { return _lease; }
 
 	private:
 		int64_t _id;
 		mutable hn_shared_mutex _mutex;
-		int64_t _version;
+		int64_t _version = 0;
+		int64_t _expectVersion = 0;
+		int64_t _lease = 0;
 		int32_t _size;
 
 		std::vector<Replica> _chunkServer;

@@ -122,6 +122,16 @@ message ReadResponse {
 	repeated EndPoint eps = 3;
 }
 
+message BlockLease {
+	required int64 id = 1;
+	required int64 until = 2;
+	required int64 version = 3;
+	required int64 newVersion = 4;
+	required EndPoint ep = 5;
+	repeated int32 chunkservers = 6;
+	required string key = 7;
+}
+
 message WriteRequest {
 	required string token = 1;
 	required string path = 2;
@@ -130,9 +140,7 @@ message WriteRequest {
 
 message WriteResponse {
 	required ErrorCode errCode = 1; 
-	optional int64 id = 2;
-	optional EndPoint ep = 3;
-	repeated int32 chunkservers = 4;
+	required BlockLease lease = 2;
 }
 
 message AppendRequest {
@@ -142,9 +150,7 @@ message AppendRequest {
 
 message AppendResponse {
 	required ErrorCode errCode = 1; 
-	optional int64 id = 2;
-	optional EndPoint ep = 3;
-	repeated int32 chunkservers = 4;
+	required BlockLease lease = 2;
 }
 
 service OfsFileService {

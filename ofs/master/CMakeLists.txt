@@ -91,6 +91,11 @@ SET(RPC
 	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.cpp"
 )
 
+#SET(MESSAGE_PROCESSER
+#	"${PROJECT_SOURCE_DIR}/../common/message_processer/MessageProcesser.h"
+#	"${PROJECT_SOURCE_DIR}/../common/message_processer/MessageProcesser.cpp"
+#)
+
 SET(INSTRUCTION_SEQUENCE
 	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.h"
 	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.cpp"

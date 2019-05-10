@@ -18,17 +18,17 @@ namespace ofs {
 
 		bool Start(const olib::IXmlObject& root);
 
+		virtual void RegisterChunkServer(::google::protobuf::RpcController* controller,
+			const ::ofs::c2m::RegisterChunkServerRequest* request,
+			::ofs::c2m::RegisterChunkServerResponse* response,
+			::google::protobuf::Closure* done);
 		virtual void Report(::google::protobuf::RpcController* controller,
 			const ::ofs::c2m::ReportRequest* request,
 			::ofs::c2m::ReportResponse* response,
 			::google::protobuf::Closure* done);
-		virtual void AskLease(::google::protobuf::RpcController* controller,
-			const ::ofs::c2m::AskLeaseRequest* request,
-			::ofs::c2m::AskLeaseResponse* response,
-			::google::protobuf::Closure* done);
-		virtual void Copy(::google::protobuf::RpcController* controller,
-			const ::ofs::c2m::CopyRequest* request,
-			::ofs::c2m::CopyResponse* response,
+		virtual void RenewLease(::google::protobuf::RpcController* controller,
+			const ::ofs::c2m::RenewLeaseRequest* request,
+			::ofs::c2m::RenewLeaseResponse* response,
 			::google::protobuf::Closure* done);
 
 		std::vector<ChunkServer*> Distribute(int32_t count);
