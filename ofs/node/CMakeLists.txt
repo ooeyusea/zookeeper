@@ -50,6 +50,13 @@ SET(CLIENT
 	"${PROJECT_SOURCE_DIR}/client/ClientService.cpp"
 )
 
+SET(BLOCK
+	"${PROJECT_SOURCE_DIR}/block/Block.h"
+	"${PROJECT_SOURCE_DIR}/block/Block.cpp"
+	"${PROJECT_SOURCE_DIR}/block/BlockManager.h"
+	"${PROJECT_SOURCE_DIR}/block/BlockManager.cpp"	
+)
+
 SET(COMMON
 )
 
@@ -76,6 +83,7 @@ SET(PROTO
 
 SOURCE_GROUP(\\ FILES ${SRC})
 SOURCE_GROUP(client FILES ${CLIENT})
+SOURCE_GROUP(block FILES ${BLOCK})
 SOURCE_GROUP(common FILES ${COMMON})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
 SOURCE_GROUP(common\\instruction_sequence FILES ${INSTRUCTION_SEQUENCE})
@@ -90,6 +98,7 @@ ADD_EXECUTABLE(node
 	${INSTRUCTION_SEQUENCE}
 	${API}
 	${PROTO}
+	${BLOCK}
 )
 
 IF(WIN32)
