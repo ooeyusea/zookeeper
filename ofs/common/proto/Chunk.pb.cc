@@ -213,9 +213,21 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, id_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, host_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, port_),
-  1,
-  0,
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, rack_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, dc_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, remain_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, fault_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, load_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerRequest, extend_),
   2,
+  0,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  1,
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RegisterChunkServerResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -300,15 +312,15 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   0,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, sizeof(::ofs::c2m::RegisterChunkServerRequest)},
-  { 11, 17, sizeof(::ofs::c2m::RegisterChunkServerResponse)},
-  { 18, 26, sizeof(::ofs::c2m::BlockStatus)},
-  { 29, 36, sizeof(::ofs::c2m::ReportRequest)},
-  { 38, 48, sizeof(::ofs::c2m::RecoverInfo)},
-  { 53, 60, sizeof(::ofs::c2m::ReportResponse)},
-  { 62, 69, sizeof(::ofs::c2m::RenewLeaseRequest)},
-  { 71, 80, sizeof(::ofs::c2m::Lease)},
-  { 84, 91, sizeof(::ofs::c2m::RenewLeaseResponse)},
+  { 0, 14, sizeof(::ofs::c2m::RegisterChunkServerRequest)},
+  { 23, 29, sizeof(::ofs::c2m::RegisterChunkServerResponse)},
+  { 30, 38, sizeof(::ofs::c2m::BlockStatus)},
+  { 41, 48, sizeof(::ofs::c2m::ReportRequest)},
+  { 50, 60, sizeof(::ofs::c2m::RecoverInfo)},
+  { 65, 72, sizeof(::ofs::c2m::ReportResponse)},
+  { 74, 81, sizeof(::ofs::c2m::RenewLeaseRequest)},
+  { 83, 92, sizeof(::ofs::c2m::Lease)},
+  { 96, 103, sizeof(::ofs::c2m::RenewLeaseResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -330,38 +342,40 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Chunk_2eproto[] =
-  "\n\013Chunk.proto\022\007ofs.c2m\"D\n\032RegisterChunkS"
-  "erverRequest\022\n\n\002id\030\001 \002(\005\022\014\n\004host\030\002 \002(\t\022\014"
-  "\n\004port\030\003 \002(\005\")\n\033RegisterChunkServerRespo"
-  "nse\022\n\n\002ok\030\001 \002(\010\"8\n\013BlockStatus\022\n\n\002id\030\001 \002"
-  "(\003\022\017\n\007version\030\002 \002(\003\022\014\n\004size\030\003 \002(\005\"A\n\rRep"
-  "ortRequest\022\n\n\002id\030\001 \002(\005\022$\n\006blocks\030\002 \002(\0132\024"
-  ".ofs.c2m.BlockStatus\"g\n\013RecoverInfo\022\r\n\005u"
-  "ntil\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewVersio"
-  "n\030\003 \002(\003\022\016\n\006copyTo\030\004 \002(\005\022\024\n\014chunkservers\030"
-  "\005 \003(\005\"`\n\016ReportResponse\022#\n\007errCode\030\001 \002(\016"
-  "2\022.ofs.c2m.ErrorCode\022)\n\013recoverInfo\030\002 \001("
-  "\0132\024.ofs.c2m.RecoverInfo\"0\n\021RenewLeaseReq"
-  "uest\022\n\n\002id\030\001 \002(\005\022\017\n\007blockId\030\002 \002(\003\"Q\n\005Lea"
-  "se\022\r\n\005until\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nne"
-  "wVersion\030\003 \002(\003\022\024\n\014chunkservers\030\004 \003(\005\"X\n\022"
-  "RenewLeaseResponse\022#\n\007errCode\030\001 \002(\0162\022.of"
-  "s.c2m.ErrorCode\022\035\n\005lease\030\002 \001(\0132\016.ofs.c2m"
-  ".Lease*y\n\tErrorCode\022\t\n\005EC_OK\020\000\022\022\n\016EC_BLO"
-  "CK_CLEAN\020\001\022\024\n\020EC_BLOCK_RECOVER\020\002\022\026\n\022EC_B"
-  "LOCK_NOT_EXIST\020\003\022\037\n\033EC_REPLICA_DO_NOT_HA"
-  "S_LEASE\020\0042\365\001\n\017OfsChunkService\022`\n\023Registe"
-  "rChunkServer\022#.ofs.c2m.RegisterChunkServ"
-  "erRequest\032$.ofs.c2m.RegisterChunkServerR"
-  "esponse\0229\n\006Report\022\026.ofs.c2m.ReportReques"
-  "t\032\027.ofs.c2m.ReportResponse\022E\n\nRenewLease"
-  "\022\032.ofs.c2m.RenewLeaseRequest\032\033.ofs.c2m.R"
-  "enewLeaseResponseB\003\200\001\001"
+  "\n\013Chunk.proto\022\007ofs.c2m\"\233\001\n\032RegisterChunk"
+  "ServerRequest\022\n\n\002id\030\001 \002(\005\022\014\n\004host\030\002 \002(\t\022"
+  "\014\n\004port\030\003 \002(\005\022\014\n\004rack\030\004 \002(\005\022\n\n\002dc\030\005 \002(\005\022"
+  "\016\n\006remain\030\006 \002(\005\022\r\n\005fault\030\007 \002(\010\022\014\n\004load\030\010"
+  " \002(\005\022\016\n\006extend\030\t \002(\t\")\n\033RegisterChunkSer"
+  "verResponse\022\n\n\002ok\030\001 \002(\010\"8\n\013BlockStatus\022\n"
+  "\n\002id\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\014\n\004size\030\003 \002("
+  "\005\"A\n\rReportRequest\022\n\n\002id\030\001 \002(\005\022$\n\006blocks"
+  "\030\002 \002(\0132\024.ofs.c2m.BlockStatus\"g\n\013RecoverI"
+  "nfo\022\r\n\005until\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nn"
+  "ewVersion\030\003 \002(\003\022\016\n\006copyTo\030\004 \002(\005\022\024\n\014chunk"
+  "servers\030\005 \003(\005\"`\n\016ReportResponse\022#\n\007errCo"
+  "de\030\001 \002(\0162\022.ofs.c2m.ErrorCode\022)\n\013recoverI"
+  "nfo\030\002 \001(\0132\024.ofs.c2m.RecoverInfo\"0\n\021Renew"
+  "LeaseRequest\022\n\n\002id\030\001 \002(\005\022\017\n\007blockId\030\002 \002("
+  "\003\"Q\n\005Lease\022\r\n\005until\030\001 \002(\003\022\017\n\007version\030\002 \002"
+  "(\003\022\022\n\nnewVersion\030\003 \002(\003\022\024\n\014chunkservers\030\004"
+  " \003(\005\"X\n\022RenewLeaseResponse\022#\n\007errCode\030\001 "
+  "\002(\0162\022.ofs.c2m.ErrorCode\022\035\n\005lease\030\002 \001(\0132\016"
+  ".ofs.c2m.Lease*y\n\tErrorCode\022\t\n\005EC_OK\020\000\022\022"
+  "\n\016EC_BLOCK_CLEAN\020\001\022\024\n\020EC_BLOCK_RECOVER\020\002"
+  "\022\026\n\022EC_BLOCK_NOT_EXIST\020\003\022\037\n\033EC_REPLICA_D"
+  "O_NOT_HAS_LEASE\020\0042\365\001\n\017OfsChunkService\022`\n"
+  "\023RegisterChunkServer\022#.ofs.c2m.RegisterC"
+  "hunkServerRequest\032$.ofs.c2m.RegisterChun"
+  "kServerResponse\0229\n\006Report\022\026.ofs.c2m.Repo"
+  "rtRequest\032\027.ofs.c2m.ReportResponse\022E\n\nRe"
+  "newLease\022\032.ofs.c2m.RenewLeaseRequest\032\033.o"
+  "fs.c2m.RenewLeaseResponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_Chunk_2eproto = {
   false, InitDefaults_Chunk_2eproto, 
   descriptor_table_protodef_Chunk_2eproto,
-  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1062,
+  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1150,
 };
 
 void AddDescriptors_Chunk_2eproto() {
@@ -400,13 +414,31 @@ void RegisterChunkServerRequest::InitAsDefaultInstance() {
 class RegisterChunkServerRequest::HasBitSetters {
  public:
   static void set_has_id(RegisterChunkServerRequest* msg) {
-    msg->_has_bits_[0] |= 0x00000002u;
+    msg->_has_bits_[0] |= 0x00000004u;
   }
   static void set_has_host(RegisterChunkServerRequest* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
   static void set_has_port(RegisterChunkServerRequest* msg) {
-    msg->_has_bits_[0] |= 0x00000004u;
+    msg->_has_bits_[0] |= 0x00000008u;
+  }
+  static void set_has_rack(RegisterChunkServerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000010u;
+  }
+  static void set_has_dc(RegisterChunkServerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000020u;
+  }
+  static void set_has_remain(RegisterChunkServerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000040u;
+  }
+  static void set_has_fault(RegisterChunkServerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000080u;
+  }
+  static void set_has_load(RegisterChunkServerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000100u;
+  }
+  static void set_has_extend(RegisterChunkServerRequest* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
   }
 };
 
@@ -414,6 +446,12 @@ class RegisterChunkServerRequest::HasBitSetters {
 const int RegisterChunkServerRequest::kIdFieldNumber;
 const int RegisterChunkServerRequest::kHostFieldNumber;
 const int RegisterChunkServerRequest::kPortFieldNumber;
+const int RegisterChunkServerRequest::kRackFieldNumber;
+const int RegisterChunkServerRequest::kDcFieldNumber;
+const int RegisterChunkServerRequest::kRemainFieldNumber;
+const int RegisterChunkServerRequest::kFaultFieldNumber;
+const int RegisterChunkServerRequest::kLoadFieldNumber;
+const int RegisterChunkServerRequest::kExtendFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RegisterChunkServerRequest::RegisterChunkServerRequest()
@@ -430,9 +468,13 @@ RegisterChunkServerRequest::RegisterChunkServerRequest(const RegisterChunkServer
   if (from.has_host()) {
     host_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.host_);
   }
+  extend_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_extend()) {
+    extend_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.extend_);
+  }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&port_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(port_));
+    static_cast<size_t>(reinterpret_cast<char*>(&load_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(load_));
   // @@protoc_insertion_point(copy_constructor:ofs.c2m.RegisterChunkServerRequest)
 }
 
@@ -440,9 +482,10 @@ void RegisterChunkServerRequest::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_RegisterChunkServerRequest_Chunk_2eproto.base);
   host_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  extend_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&port_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(port_));
+      reinterpret_cast<char*>(&load_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(load_));
 }
 
 RegisterChunkServerRequest::~RegisterChunkServerRequest() {
@@ -452,6 +495,7 @@ RegisterChunkServerRequest::~RegisterChunkServerRequest() {
 
 void RegisterChunkServerRequest::SharedDtor() {
   host_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  extend_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void RegisterChunkServerRequest::SetCachedSize(int size) const {
@@ -470,14 +514,20 @@ void RegisterChunkServerRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    host_.ClearNonDefaultToEmptyNoArena();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      host_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      extend_.ClearNonDefaultToEmptyNoArena();
+    }
   }
-  if (cached_has_bits & 0x00000006u) {
+  if (cached_has_bits & 0x000000fcu) {
     ::memset(&id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&port_) -
-        reinterpret_cast<char*>(&id_)) + sizeof(port_));
+        reinterpret_cast<char*>(&fault_) -
+        reinterpret_cast<char*>(&id_)) + sizeof(fault_));
   }
+  load_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -523,6 +573,57 @@ const char* RegisterChunkServerRequest::_InternalParse(const char* begin, const 
         if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
         msg->set_port(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required int32 rack = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
+        msg->set_rack(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required int32 dc = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 40) goto handle_unusual;
+        msg->set_dc(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required int32 remain = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 48) goto handle_unusual;
+        msg->set_remain(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required bool fault = 7;
+      case 7: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 56) goto handle_unusual;
+        msg->set_fault(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required int32 load = 8;
+      case 8: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 64) goto handle_unusual;
+        msg->set_load(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required string extend = 9;
+      case 9: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 74) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("ofs.c2m.RegisterChunkServerRequest.extend");
+        object = msg->mutable_extend();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
         break;
       }
       default: {
@@ -600,6 +701,86 @@ bool RegisterChunkServerRequest::MergePartialFromCodedStream(
         break;
       }
 
+      // required int32 rack = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
+          HasBitSetters::set_has_rack(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &rack_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int32 dc = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (40 & 0xFF)) {
+          HasBitSetters::set_has_dc(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &dc_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int32 remain = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (48 & 0xFF)) {
+          HasBitSetters::set_has_remain(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &remain_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required bool fault = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (56 & 0xFF)) {
+          HasBitSetters::set_has_fault(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &fault_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int32 load = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (64 & 0xFF)) {
+          HasBitSetters::set_has_load(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &load_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string extend = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (74 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_extend()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->extend().data(), static_cast<int>(this->extend().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "ofs.c2m.RegisterChunkServerRequest.extend");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -629,7 +810,7 @@ void RegisterChunkServerRequest::SerializeWithCachedSizes(
 
   cached_has_bits = _has_bits_[0];
   // required int32 id = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
   }
 
@@ -644,8 +825,43 @@ void RegisterChunkServerRequest::SerializeWithCachedSizes(
   }
 
   // required int32 port = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->port(), output);
+  }
+
+  // required int32 rack = 4;
+  if (cached_has_bits & 0x00000010u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->rack(), output);
+  }
+
+  // required int32 dc = 5;
+  if (cached_has_bits & 0x00000020u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->dc(), output);
+  }
+
+  // required int32 remain = 6;
+  if (cached_has_bits & 0x00000040u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->remain(), output);
+  }
+
+  // required bool fault = 7;
+  if (cached_has_bits & 0x00000080u) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->fault(), output);
+  }
+
+  // required int32 load = 8;
+  if (cached_has_bits & 0x00000100u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->load(), output);
+  }
+
+  // required string extend = 9;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->extend().data(), static_cast<int>(this->extend().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ofs.c2m.RegisterChunkServerRequest.extend");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      9, this->extend(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -663,7 +879,7 @@ void RegisterChunkServerRequest::SerializeWithCachedSizes(
 
   cached_has_bits = _has_bits_[0];
   // required int32 id = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
   }
 
@@ -679,8 +895,44 @@ void RegisterChunkServerRequest::SerializeWithCachedSizes(
   }
 
   // required int32 port = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->port(), target);
+  }
+
+  // required int32 rack = 4;
+  if (cached_has_bits & 0x00000010u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->rack(), target);
+  }
+
+  // required int32 dc = 5;
+  if (cached_has_bits & 0x00000020u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->dc(), target);
+  }
+
+  // required int32 remain = 6;
+  if (cached_has_bits & 0x00000040u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->remain(), target);
+  }
+
+  // required bool fault = 7;
+  if (cached_has_bits & 0x00000080u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->fault(), target);
+  }
+
+  // required int32 load = 8;
+  if (cached_has_bits & 0x00000100u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->load(), target);
+  }
+
+  // required string extend = 9;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->extend().data(), static_cast<int>(this->extend().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ofs.c2m.RegisterChunkServerRequest.extend");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        9, this->extend(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -702,6 +954,13 @@ size_t RegisterChunkServerRequest::RequiredFieldsByteSizeFallback() const {
         this->host());
   }
 
+  if (has_extend()) {
+    // required string extend = 9;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->extend());
+  }
+
   if (has_id()) {
     // required int32 id = 1;
     total_size += 1 +
@@ -716,6 +975,39 @@ size_t RegisterChunkServerRequest::RequiredFieldsByteSizeFallback() const {
         this->port());
   }
 
+  if (has_rack()) {
+    // required int32 rack = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->rack());
+  }
+
+  if (has_dc()) {
+    // required int32 dc = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->dc());
+  }
+
+  if (has_remain()) {
+    // required int32 remain = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->remain());
+  }
+
+  if (has_fault()) {
+    // required bool fault = 7;
+    total_size += 1 + 1;
+  }
+
+  if (has_load()) {
+    // required int32 load = 8;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->load());
+  }
+
   return total_size;
 }
 size_t RegisterChunkServerRequest::ByteSizeLong() const {
@@ -727,11 +1019,16 @@ size_t RegisterChunkServerRequest::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x000001ff) ^ 0x000001ff) == 0) {  // All required fields are present.
     // required string host = 2;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->host());
+
+    // required string extend = 9;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->extend());
 
     // required int32 id = 1;
     total_size += 1 +
@@ -742,6 +1039,29 @@ size_t RegisterChunkServerRequest::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->port());
+
+    // required int32 rack = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->rack());
+
+    // required int32 dc = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->dc());
+
+    // required int32 remain = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->remain());
+
+    // required bool fault = 7;
+    total_size += 1 + 1;
+
+    // required int32 load = 8;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->load());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -778,18 +1098,37 @@ void RegisterChunkServerRequest::MergeFrom(const RegisterChunkServerRequest& fro
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       host_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.host_);
     }
     if (cached_has_bits & 0x00000002u) {
-      id_ = from.id_;
+      _has_bits_[0] |= 0x00000002u;
+      extend_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.extend_);
     }
     if (cached_has_bits & 0x00000004u) {
+      id_ = from.id_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       port_ = from.port_;
     }
+    if (cached_has_bits & 0x00000010u) {
+      rack_ = from.rack_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      dc_ = from.dc_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      remain_ = from.remain_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      fault_ = from.fault_;
+    }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    set_load(from.load());
   }
 }
 
@@ -808,7 +1147,7 @@ void RegisterChunkServerRequest::CopyFrom(const RegisterChunkServerRequest& from
 }
 
 bool RegisterChunkServerRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x000001ff) != 0x000001ff) return false;
   return true;
 }
 
@@ -822,8 +1161,15 @@ void RegisterChunkServerRequest::InternalSwap(RegisterChunkServerRequest* other)
   swap(_has_bits_[0], other->_has_bits_[0]);
   host_.Swap(&other->host_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  extend_.Swap(&other->extend_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(id_, other->id_);
   swap(port_, other->port_);
+  swap(rack_, other->rack_);
+  swap(dc_, other->dc_);
+  swap(remain_, other->remain_);
+  swap(fault_, other->fault_);
+  swap(load_, other->load_);
 }
 
 ::google::protobuf::Metadata RegisterChunkServerRequest::GetMetadata() const {

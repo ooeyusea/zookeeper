@@ -1,19 +1,16 @@
-#ifndef __CHUNKSERVER_H__
-#define __CHUNKSERVER_H__
+#ifndef __DATANODE_H__
+#define __DATANODE_H__
 #include "hnet.h"
+#include "time_helper.h"
 
 namespace ofs {
-	enum ChunkServerStatus {
-		CSS_BROKEN = 0,
-		CSS_READY,
-	};
+	#define CS_BROCK_TIMEOUT HOUR
 
-	class ChunkServer {
+	class DataNode {
 	public:
-		ChunkServer() {}
-		~ChunkServer() {}
+		DataNode(int32_t id) : _id(id) {}
+		~DataNode() {}
 
-		inline void SetId(int32_t val) { _id = val; }
 		inline int32_t GetId() const { return _id; }
 
 		inline void SetHost(const std::string& val) { _host = val; }
@@ -24,23 +21,33 @@ namespace ofs {
 		inline void SetPort(int32_t val) { _port = val; }
 		inline int32_t GetPort() const { return _port; }
 
-		inline void SetStatus(int8_t val) { _status = val; }
-		inline int8_t GetStatus() const { return _status; }
-
 		inline void SetKey(const std::string& val) { _key = val; }
 		inline void SetKey(const char * val) { _key = val; }
 		inline void SetKey(std::string&& val) { _key = val; }
 		inline const std::string& GetKey() const { return _key; }
 
+		inline bool IsUseAble() const { return !_fault && olib::GetTickCount() - _tick <= CS_BROCK_TIMEOUT; }
+		inline void SetFault(bool fault) { _fault = fault; }
+		inline void UpdateTick() { _tick = olib::GetTickCount(); }
+
+		inline void SetRemain(int32_t val) { _remain = val; }
+		inline int32_t GetRemain() const { return _remain; }
+
+		inline void SetLoad(int32_t val) { _load = val; }
+		inline int32_t GetLoad() const { return _load; }
+
 		std::string CalcKey(int64_t id, int64_t lease, int64_t version, int64_t expectVersion);
 
-	public:
+	protected:
 		int32_t _id;
 		std::string _host;
 		int32_t _port;
-		int8_t _status = ChunkServerStatus::CSS_BROKEN;
 		std::string _key;
+		int64_t _tick;
+		bool _fault = false;
+		int32_t _remain;
+		int32_t _load;
 	};
 }
 
-#endif //__CHUNKSERVER_H__
+#endif //__DATANODE_H__

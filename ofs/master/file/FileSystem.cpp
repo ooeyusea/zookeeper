@@ -5,12 +5,12 @@
 #include "bufferstream.h"
 #include <fstream>
 
-#define MB (1024 * 1024)
+#define KB 1024
+#define MB (1024 * KB)
 
 namespace ofs {
 	bool FileSystem::Start(const olib::IXmlObject& root) {
 		_path = root["data"][0]["path"][0].GetAttributeString("val");
-		_blockCount = root["data"][0]["block"][0].GetAttributeInt32("count");
 		_blockSize = root["data"][0]["block"][0].GetAttributeInt32("size") * MB;
 
 		if (!LoadFromFile(_path))
@@ -55,5 +55,4 @@ namespace ofs {
 
 		return !ar.Fail();
 	}
-
 }

@@ -7,6 +7,12 @@ message RegisterChunkServerRequest {
 	required int32 id = 1;
 	required string host = 2;
 	required int32 port = 3;
+	required int32 rack = 4;
+	required int32 dc = 5;
+	required int32 remain = 6;
+	required bool fault = 7;
+	required int32 load = 8;
+	required string extend = 9;
 }
 
 message RegisterChunkServerResponse {

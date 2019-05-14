@@ -77,10 +77,16 @@ SET(BLOCK
 )
 
 SET(CHUNK
-	"${PROJECT_SOURCE_DIR}/Chunk/ChunkService.h"
-	"${PROJECT_SOURCE_DIR}/Chunk/ChunkService.cpp"
-	"${PROJECT_SOURCE_DIR}/Chunk/ChunkServer.h"
-	"${PROJECT_SOURCE_DIR}/Chunk/ChunkServer.cpp"
+	"${PROJECT_SOURCE_DIR}/chunk/DataCluster.h"
+	"${PROJECT_SOURCE_DIR}/chunk/DataNodeService.h"
+	"${PROJECT_SOURCE_DIR}/chunk/DataNodeService.cpp"
+	"${PROJECT_SOURCE_DIR}/chunk/DataNode.h"
+	"${PROJECT_SOURCE_DIR}/chunk/DataNode.cpp"
+)
+
+SET(CHUNK_CLUSTER
+	"${PROJECT_SOURCE_DIR}/chunk/cluster/DefaultDataCluster.h"
+	"${PROJECT_SOURCE_DIR}/chunk/cluster/DefaultDataCluster.cpp"
 )
 
 SET(COMMON
@@ -90,11 +96,6 @@ SET(RPC
 	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.h"
 	"${PROJECT_SOURCE_DIR}/../common/rpc/Rpc.cpp"
 )
-
-#SET(MESSAGE_PROCESSER
-#	"${PROJECT_SOURCE_DIR}/../common/message_processer/MessageProcesser.h"
-#	"${PROJECT_SOURCE_DIR}/../common/message_processer/MessageProcesser.cpp"
-#)
 
 SET(INSTRUCTION_SEQUENCE
 	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.h"
@@ -124,6 +125,7 @@ SOURCE_GROUP(client FILES ${CLIENT} )
 SOURCE_GROUP(user FILES ${USER})
 SOURCE_GROUP(block FILES ${BLOCK})
 SOURCE_GROUP(chunk FILES ${CHUNK})
+SOURCE_GROUP(chunk\\cluster FILES ${CHUNK_CLUSTER})
 
 ADD_EXECUTABLE(master
 	${SRC}
@@ -137,6 +139,7 @@ ADD_EXECUTABLE(master
 	${USER}
 	${BLOCK}
 	${CHUNK}
+	${CHUNK_CLUSTER}
 )
 
 IF(WIN32)

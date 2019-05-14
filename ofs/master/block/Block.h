@@ -4,12 +4,17 @@
 #include "RefObject.h"
 
 namespace ofs {
-	class ChunkServer;
+	namespace c2m {
+		class ReportResponse;
+		class RenewLeaseResponse;
+	}
+
+	class DataNode;
 	class Replica {
 	public:
-		Replica(ChunkServer * server) : _server(server) {}
+		Replica(DataNode * server) : _server(server) {}
 
-		inline ChunkServer * GetServer() const { return _server; }
+		inline DataNode * GetServer() const { return _server; }
 
 		inline void SetLease(int64_t val) { _leaseTick = val; }
 		inline int64_t GetLease() const { return _leaseTick; }
@@ -18,7 +23,7 @@ namespace ofs {
 		inline int64_t GetVersion() const { return _version; }
 
 	private:
-		ChunkServer * _server;
+		DataNode * _server;
 		int64_t _leaseTick = 0;
 		int64_t _version = 0;
 	};
@@ -31,7 +36,7 @@ namespace ofs {
 		inline int64_t GetId() const { return _id; }
 		inline int32_t GetSize() const { return _size; }
 
-		inline void Read(const std::function<void(ChunkServer*)>& fn) const {
+		inline void Read(const std::function<void(DataNode*)>& fn) const {
 			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 			for (auto& bIs : _chunkServer) {
 				if (bIs.GetVersion() == _version)
@@ -39,7 +44,7 @@ namespace ofs {
 			}
 		}
 
-		ChunkServer * Write(std::vector<int32_t>& re);
+		DataNode * Write(std::vector<int32_t>& re);
 
 		inline int64_t NextVersion() {
 			return ((((_version) >> 32) & 0xFFFFFFFF) + 1) << 32;
@@ -48,6 +53,9 @@ namespace ofs {
 		inline int64_t GetVersion() const { return _version; }
 		inline int64_t GetExpectVersion() const { return _expectVersion; }
 		inline int64_t GetLease() const { return _lease; }
+
+		int32_t UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size, c2m::ReportResponse * response);
+		bool UpdateLease(int32_t chunkServerId, c2m::RenewLeaseResponse * response);
 
 	private:
 		int64_t _id;
