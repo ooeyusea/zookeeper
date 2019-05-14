@@ -1,7 +1,7 @@
 #include "ClientService.h"
 #include "file/FileSystem.h"
 #include "user/UserManager.h"
-#include "chunk/ChunkServer.h"
+#include "chunk/DataNode.h"
 #include "block/Block.h"
 #include "block/BlockManager.h"
 #include "OfsId.h"
@@ -160,7 +160,7 @@ namespace ofs {
 
 				response->set_id(block->GetId());
 
-				block->Read([response](ChunkServer * server){
+				block->Read([response](DataNode * server){
 					auto * ep = response->add_eps();
 					ep->set_host(server->GetHost());
 					ep->set_port(server->GetPort());
@@ -199,7 +199,7 @@ namespace ofs {
 					return api::ErrorCode::EC_BLOCK_MISSING;
 
 				std::vector<int32_t> replicas;
-				ChunkServer * server = block->Write(replicas);
+				DataNode * server = block->Write(replicas);
 
 				if (!server) {
 					block->Release();
@@ -251,7 +251,7 @@ namespace ofs {
 					return api::ErrorCode::EC_BLOCK_MISSING;
 
 				std::vector<int32_t> replicas;
-				ChunkServer * server = block->Write(replicas);
+				DataNode * server = block->Write(replicas);
 
 				if (!server) {
 					block->Release();

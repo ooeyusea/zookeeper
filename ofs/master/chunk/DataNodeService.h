@@ -1,20 +1,18 @@
-#ifndef __CHUNK_SERVICE_H__
-#define __CHUNK_SERVICE_H__
+#ifndef __DATA_NODE_SERVICE_H__
+#define __DATA_NODE_SERVICE_H__
 #include "hnet.h"
 #include "proto/Chunk.pb.h"
 #include "singleton.h"
 #include "rpc/Rpc.h"
 #include "XmlReader.h"
 
-#define MAX_SERVER 65536
 namespace ofs {
-	class ChunkServer;
-	class ChunkService : public c2m::OfsChunkService, public olib::Singleton<ChunkService> {
+	class DataNode;
+	struct IDataCluster;
+	class DataNodeService : public c2m::OfsChunkService, public olib::Singleton<DataNodeService> {
 	public:
-		ChunkService() {
-			memset(_servers, 0, sizeof(_servers));
-		}
-		~ChunkService() {}
+		DataNodeService() : _mutex(true) {}
+		~DataNodeService() {}
 
 		bool Start(const olib::IXmlObject& root);
 
@@ -31,13 +29,14 @@ namespace ofs {
 			::ofs::c2m::RenewLeaseResponse* response,
 			::google::protobuf::Closure* done);
 
-		std::vector<ChunkServer*> Distribute(int32_t count);
+		std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old);
 
 	private:
 		rpc::OfsRpcServer _rpc;
 
-		ChunkServer * _servers[MAX_SERVER];
+		hn_shared_mutex _mutex;
+		IDataCluster * _dataCluster;
 	};
 }
 
-#endif //__CLIENT_SERVICE_H__
+#endif //__DATA_NODE_SERVICE_H__

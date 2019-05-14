@@ -17,7 +17,6 @@ namespace ofs {
 
 		inline Directory& Root() { return _root; }
 
-		inline int32_t GetBlockCount() { return _blockCount; }
 		inline int32_t GetBlockSize() { return _blockSize; }
 
 		inline void AddFile(File* file) {
@@ -53,7 +52,6 @@ namespace ofs {
 		std::string _path;
 		std::unordered_map<int64_t, File*> _files;
 
-		int32_t _blockCount;
 		int32_t _blockSize;
 	};
 }

@@ -238,6 +238,21 @@ class RegisterChunkServerRequest :
   ::std::string* release_host();
   void set_allocated_host(::std::string* host);
 
+  // required string extend = 9;
+  bool has_extend() const;
+  void clear_extend();
+  static const int kExtendFieldNumber = 9;
+  const ::std::string& extend() const;
+  void set_extend(const ::std::string& value);
+  #if LANG_CXX11
+  void set_extend(::std::string&& value);
+  #endif
+  void set_extend(const char* value);
+  void set_extend(const char* value, size_t size);
+  ::std::string* mutable_extend();
+  ::std::string* release_extend();
+  void set_allocated_extend(::std::string* extend);
+
   // required int32 id = 1;
   bool has_id() const;
   void clear_id();
@@ -252,6 +267,41 @@ class RegisterChunkServerRequest :
   ::google::protobuf::int32 port() const;
   void set_port(::google::protobuf::int32 value);
 
+  // required int32 rack = 4;
+  bool has_rack() const;
+  void clear_rack();
+  static const int kRackFieldNumber = 4;
+  ::google::protobuf::int32 rack() const;
+  void set_rack(::google::protobuf::int32 value);
+
+  // required int32 dc = 5;
+  bool has_dc() const;
+  void clear_dc();
+  static const int kDcFieldNumber = 5;
+  ::google::protobuf::int32 dc() const;
+  void set_dc(::google::protobuf::int32 value);
+
+  // required int32 remain = 6;
+  bool has_remain() const;
+  void clear_remain();
+  static const int kRemainFieldNumber = 6;
+  ::google::protobuf::int32 remain() const;
+  void set_remain(::google::protobuf::int32 value);
+
+  // required bool fault = 7;
+  bool has_fault() const;
+  void clear_fault();
+  static const int kFaultFieldNumber = 7;
+  bool fault() const;
+  void set_fault(bool value);
+
+  // required int32 load = 8;
+  bool has_load() const;
+  void clear_load();
+  static const int kLoadFieldNumber = 8;
+  ::google::protobuf::int32 load() const;
+  void set_load(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:ofs.c2m.RegisterChunkServerRequest)
  private:
   class HasBitSetters;
@@ -263,8 +313,14 @@ class RegisterChunkServerRequest :
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr host_;
+  ::google::protobuf::internal::ArenaStringPtr extend_;
   ::google::protobuf::int32 id_;
   ::google::protobuf::int32 port_;
+  ::google::protobuf::int32 rack_;
+  ::google::protobuf::int32 dc_;
+  ::google::protobuf::int32 remain_;
+  bool fault_;
+  ::google::protobuf::int32 load_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1458,18 +1514,18 @@ class OfsChunkService_Stub : public OfsChunkService {
 
 // required int32 id = 1;
 inline bool RegisterChunkServerRequest::has_id() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void RegisterChunkServerRequest::clear_id() {
   id_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int32 RegisterChunkServerRequest::id() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.id)
   return id_;
 }
 inline void RegisterChunkServerRequest::set_id(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   id_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.id)
 }
@@ -1536,20 +1592,170 @@ inline void RegisterChunkServerRequest::set_allocated_host(::std::string* host) 
 
 // required int32 port = 3;
 inline bool RegisterChunkServerRequest::has_port() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void RegisterChunkServerRequest::clear_port() {
   port_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 RegisterChunkServerRequest::port() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.port)
   return port_;
 }
 inline void RegisterChunkServerRequest::set_port(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   port_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.port)
+}
+
+// required int32 rack = 4;
+inline bool RegisterChunkServerRequest::has_rack() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void RegisterChunkServerRequest::clear_rack() {
+  rack_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::google::protobuf::int32 RegisterChunkServerRequest::rack() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.rack)
+  return rack_;
+}
+inline void RegisterChunkServerRequest::set_rack(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000010u;
+  rack_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.rack)
+}
+
+// required int32 dc = 5;
+inline bool RegisterChunkServerRequest::has_dc() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void RegisterChunkServerRequest::clear_dc() {
+  dc_ = 0;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline ::google::protobuf::int32 RegisterChunkServerRequest::dc() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.dc)
+  return dc_;
+}
+inline void RegisterChunkServerRequest::set_dc(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000020u;
+  dc_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.dc)
+}
+
+// required int32 remain = 6;
+inline bool RegisterChunkServerRequest::has_remain() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void RegisterChunkServerRequest::clear_remain() {
+  remain_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline ::google::protobuf::int32 RegisterChunkServerRequest::remain() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.remain)
+  return remain_;
+}
+inline void RegisterChunkServerRequest::set_remain(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000040u;
+  remain_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.remain)
+}
+
+// required bool fault = 7;
+inline bool RegisterChunkServerRequest::has_fault() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void RegisterChunkServerRequest::clear_fault() {
+  fault_ = false;
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline bool RegisterChunkServerRequest::fault() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.fault)
+  return fault_;
+}
+inline void RegisterChunkServerRequest::set_fault(bool value) {
+  _has_bits_[0] |= 0x00000080u;
+  fault_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.fault)
+}
+
+// required int32 load = 8;
+inline bool RegisterChunkServerRequest::has_load() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void RegisterChunkServerRequest::clear_load() {
+  load_ = 0;
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline ::google::protobuf::int32 RegisterChunkServerRequest::load() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.load)
+  return load_;
+}
+inline void RegisterChunkServerRequest::set_load(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000100u;
+  load_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.load)
+}
+
+// required string extend = 9;
+inline bool RegisterChunkServerRequest::has_extend() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void RegisterChunkServerRequest::clear_extend() {
+  extend_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::std::string& RegisterChunkServerRequest::extend() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RegisterChunkServerRequest.extend)
+  return extend_.GetNoArena();
+}
+inline void RegisterChunkServerRequest::set_extend(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  extend_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.c2m.RegisterChunkServerRequest.extend)
+}
+#if LANG_CXX11
+inline void RegisterChunkServerRequest::set_extend(::std::string&& value) {
+  _has_bits_[0] |= 0x00000002u;
+  extend_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ofs.c2m.RegisterChunkServerRequest.extend)
+}
+#endif
+inline void RegisterChunkServerRequest::set_extend(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000002u;
+  extend_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.c2m.RegisterChunkServerRequest.extend)
+}
+inline void RegisterChunkServerRequest::set_extend(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000002u;
+  extend_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ofs.c2m.RegisterChunkServerRequest.extend)
+}
+inline ::std::string* RegisterChunkServerRequest::mutable_extend() {
+  _has_bits_[0] |= 0x00000002u;
+  // @@protoc_insertion_point(field_mutable:ofs.c2m.RegisterChunkServerRequest.extend)
+  return extend_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RegisterChunkServerRequest::release_extend() {
+  // @@protoc_insertion_point(field_release:ofs.c2m.RegisterChunkServerRequest.extend)
+  if (!has_extend()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  return extend_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RegisterChunkServerRequest::set_allocated_extend(::std::string* extend) {
+  if (extend != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  extend_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), extend);
+  // @@protoc_insertion_point(field_set_allocated:ofs.c2m.RegisterChunkServerRequest.extend)
 }
 
 // -------------------------------------------------------------------
