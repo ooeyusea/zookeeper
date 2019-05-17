@@ -7,7 +7,7 @@
 #include "XmlReader.h"
 
 namespace ofs {
-	class ClientService : public api::OfsNodeService, public olib::Singleton<ClientService> {
+	class ClientService : public api::chunk::OfsNodeService, public olib::Singleton<ClientService> {
 	public:
 		ClientService() {}
 		~ClientService() {}
@@ -15,8 +15,8 @@ namespace ofs {
 		bool Start(const olib::IXmlObject& root);
 
 		virtual void Read(::google::protobuf::RpcController* controller,
-			const ::ofs::api::ReadRequest* request,
-			::ofs::api::ReadResponse* response,
+			const ::ofs::api::chunk::ReadRequest* request,
+			::ofs::api::chunk::ReadResponse* response,
 			::google::protobuf::Closure* done);
 
 	private:

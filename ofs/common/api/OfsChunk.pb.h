@@ -52,31 +52,38 @@ struct TableStruct_OfsChunk_2eproto {
 void AddDescriptors_OfsChunk_2eproto();
 namespace ofs {
 namespace api {
+namespace chunk {
 class ReadRequest;
 class ReadRequestDefaultTypeInternal;
 extern ReadRequestDefaultTypeInternal _ReadRequest_default_instance_;
 class ReadResponse;
 class ReadResponseDefaultTypeInternal;
 extern ReadResponseDefaultTypeInternal _ReadResponse_default_instance_;
+}  // namespace chunk
 }  // namespace api
 }  // namespace ofs
 namespace google {
 namespace protobuf {
-template<> ::ofs::api::ReadRequest* Arena::CreateMaybeMessage<::ofs::api::ReadRequest>(Arena*);
-template<> ::ofs::api::ReadResponse* Arena::CreateMaybeMessage<::ofs::api::ReadResponse>(Arena*);
+template<> ::ofs::api::chunk::ReadRequest* Arena::CreateMaybeMessage<::ofs::api::chunk::ReadRequest>(Arena*);
+template<> ::ofs::api::chunk::ReadResponse* Arena::CreateMaybeMessage<::ofs::api::chunk::ReadResponse>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace ofs {
 namespace api {
+namespace chunk {
 
 enum ErrorCode {
   EC_NONE = 0,
   EC_BLOCK_NOT_EIXST = 1,
-  EC_BLOCK_INCORRECT = 2
+  EC_BLOCK_INCORRECT = 2,
+  EC_BLOCK_READ_FAILED = 3,
+  EC_BLOCK_WRITE_FAILED = 4,
+  EC_BLOCK_FILE_NOT_EXIST = 5,
+  EC_BLOCK_META_FILE_NOT_EXIST = 6
 };
 bool ErrorCode_IsValid(int value);
 const ErrorCode ErrorCode_MIN = EC_NONE;
-const ErrorCode ErrorCode_MAX = EC_BLOCK_INCORRECT;
+const ErrorCode ErrorCode_MAX = EC_BLOCK_META_FILE_NOT_EXIST;
 const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();
@@ -92,7 +99,7 @@ inline bool ErrorCode_Parse(
 // ===================================================================
 
 class ReadRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.chunk.ReadRequest) */ {
  public:
   ReadRequest();
   virtual ~ReadRequest();
@@ -207,7 +214,7 @@ class ReadRequest :
   ::google::protobuf::int32 offset() const;
   void set_offset(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.chunk.ReadRequest)
  private:
   class HasBitSetters;
 
@@ -224,7 +231,7 @@ class ReadRequest :
 // -------------------------------------------------------------------
 
 class ReadResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.chunk.ReadResponse) */ {
  public:
   ReadResponse();
   virtual ~ReadResponse();
@@ -340,14 +347,14 @@ class ReadResponse :
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.chunk.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::chunk::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::chunk::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.chunk.ReadResponse)
  private:
   class HasBitSetters;
 
@@ -374,8 +381,8 @@ class OfsNodeService : public ::google::protobuf::Service {
   static const ::google::protobuf::ServiceDescriptor* descriptor();
 
   virtual void Read(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::ReadRequest* request,
-                       ::ofs::api::ReadResponse* response,
+                       const ::ofs::api::chunk::ReadRequest* request,
+                       ::ofs::api::chunk::ReadResponse* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -407,8 +414,8 @@ class OfsNodeService_Stub : public OfsNodeService {
   // implements OfsNodeService ------------------------------------------
 
   void Read(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::ReadRequest* request,
-                       ::ofs::api::ReadResponse* response,
+                       const ::ofs::api::chunk::ReadRequest* request,
+                       ::ofs::api::chunk::ReadResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -437,13 +444,13 @@ inline void ReadRequest::clear_blockid() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline ::google::protobuf::int64 ReadRequest::blockid() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.blockId)
+  // @@protoc_insertion_point(field_get:ofs.api.chunk.ReadRequest.blockId)
   return blockid_;
 }
 inline void ReadRequest::set_blockid(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000001u;
   blockid_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.blockId)
+  // @@protoc_insertion_point(field_set:ofs.api.chunk.ReadRequest.blockId)
 }
 
 // required int32 offset = 2;
@@ -455,20 +462,20 @@ inline void ReadRequest::clear_offset() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline ::google::protobuf::int32 ReadRequest::offset() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.offset)
+  // @@protoc_insertion_point(field_get:ofs.api.chunk.ReadRequest.offset)
   return offset_;
 }
 inline void ReadRequest::set_offset(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000002u;
   offset_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.offset)
+  // @@protoc_insertion_point(field_set:ofs.api.chunk.ReadRequest.offset)
 }
 
 // -------------------------------------------------------------------
 
 // ReadResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.chunk.ErrorCode errCode = 1;
 inline bool ReadResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -476,15 +483,15 @@ inline void ReadResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ofs::api::ErrorCode ReadResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::chunk::ErrorCode ReadResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.chunk.ReadResponse.errCode)
+  return static_cast< ::ofs::api::chunk::ErrorCode >(errcode_);
 }
-inline void ReadResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void ReadResponse::set_errcode(::ofs::api::chunk::ErrorCode value) {
+  assert(::ofs::api::chunk::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.chunk.ReadResponse.errCode)
 }
 
 // optional string data = 2;
@@ -496,41 +503,41 @@ inline void ReadResponse::clear_data() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& ReadResponse::data() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_get:ofs.api.chunk.ReadResponse.data)
   return data_.GetNoArena();
 }
 inline void ReadResponse::set_data(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_set:ofs.api.chunk.ReadResponse.data)
 }
 #if LANG_CXX11
 inline void ReadResponse::set_data(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.chunk.ReadResponse.data)
 }
 #endif
 inline void ReadResponse::set_data(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_set_char:ofs.api.chunk.ReadResponse.data)
 }
 inline void ReadResponse::set_data(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.chunk.ReadResponse.data)
 }
 inline ::std::string* ReadResponse::mutable_data() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_mutable:ofs.api.chunk.ReadResponse.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ReadResponse::release_data() {
-  // @@protoc_insertion_point(field_release:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_release:ofs.api.chunk.ReadResponse.data)
   if (!has_data()) {
     return nullptr;
   }
@@ -544,7 +551,7 @@ inline void ReadResponse::set_allocated_data(::std::string* data) {
     _has_bits_[0] &= ~0x00000001u;
   }
   data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadResponse.data)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.chunk.ReadResponse.data)
 }
 
 #ifdef __GNUC__
@@ -555,16 +562,17 @@ inline void ReadResponse::set_allocated_data(::std::string* data) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace chunk
 }  // namespace api
 }  // namespace ofs
 
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::ofs::api::ErrorCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::ofs::api::chunk::ErrorCode> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::ErrorCode>() {
-  return ::ofs::api::ErrorCode_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::chunk::ErrorCode>() {
+  return ::ofs::api::chunk::ErrorCode_descriptor();
 }
 
 }  // namespace protobuf

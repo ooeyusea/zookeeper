@@ -16,62 +16,62 @@ namespace ofs {
 	}
 
 	void ClientService::Login(::google::protobuf::RpcController* controller,
-		const ::ofs::api::LoginReq* request,
-		::ofs::api::LoginResponse* response,
+		const ::ofs::api::master::LoginReq* request,
+		::ofs::api::master::LoginResponse* response,
 		::google::protobuf::Closure* done) {
 
 		std::string token = UserManager::Instance().Login(request->name(), request->password());
 		if (!token.empty()) {
-			response->set_errcode(api::ErrorCode::EC_NONE);
+			response->set_errcode(api::master::ErrorCode::EC_NONE);
 			response->set_token(token);
 		}
 		else
-			response->set_errcode(api::ErrorCode::EC_USER_OR_PASSWORD_ERROR);
+			response->set_errcode(api::master::ErrorCode::EC_USER_OR_PASSWORD_ERROR);
 	}
 
 	void ClientService::MakeDir(::google::protobuf::RpcController* controller,
-		const ::ofs::api::MakeDirRequest* request,
-		::ofs::api::MakeDirResponse* response,
+		const ::ofs::api::master::MakeDirRequest* request,
+		::ofs::api::master::MakeDirResponse* response,
 		::google::protobuf::Closure* done) {
 
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			int32_t ret = FileSystem::Instance().Root().CreateNode(user, request->directory().c_str(), request->name().c_str(), request->authority(), true);
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 			UserManager::Instance().Release(user);
 		}
 	}
 
 	void ClientService::Create(::google::protobuf::RpcController* controller,
-		const ::ofs::api::CreateFileRequest* request,
-		::ofs::api::CreateFileResponse* response,
+		const ::ofs::api::master::CreateFileRequest* request,
+		::ofs::api::master::CreateFileResponse* response,
 		::google::protobuf::Closure* done) {
 
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			int32_t ret = FileSystem::Instance().Root().CreateNode(user, request->directory().c_str(), request->name().c_str(), request->authority(), false);
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 			UserManager::Instance().Release(user);
 		}
 	}
 
 	void ClientService::List(::google::protobuf::RpcController* controller,
-		const ::ofs::api::ListRequest* request,
-		::ofs::api::ListResponse* response,
+		const ::ofs::api::master::ListRequest* request,
+		::ofs::api::master::ListResponse* response,
 		::google::protobuf::Closure* done) {
 
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			// because node is not delete immediately
 			std::vector<Node*> ret = FileSystem::Instance().Root().List(user, request->path().c_str());
 
-			response->set_errcode(api::ErrorCode::EC_NONE);
+			response->set_errcode(api::master::ErrorCode::EC_NONE);
 			for (auto * node : ret) {
 				auto * n = response->add_files();
 
@@ -90,28 +90,28 @@ namespace ofs {
 	}
 
 	void ClientService::Remove(::google::protobuf::RpcController* controller,
-		const ::ofs::api::RemoveRequest* request,
-		::ofs::api::RemoveResponse* response,
+		const ::ofs::api::master::RemoveRequest* request,
+		::ofs::api::master::RemoveResponse* response,
 		::google::protobuf::Closure* done) {
 
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			int32_t ret = FileSystem::Instance().Root().Remove(user, request->path().c_str());
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 			UserManager::Instance().Release(user);
 		}
 	}
 
 	void ClientService::Status(::google::protobuf::RpcController* controller,
-		const ::ofs::api::FileStatusRequest* request,
-		::ofs::api::FileStatusRespone* response,
+		const ::ofs::api::master::FileStatusRequest* request,
+		::ofs::api::master::FileStatusRespone* response,
 		::google::protobuf::Closure* done) {
 
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			// because node is not delete immediately
 			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [response](User * user, Node * node) {
@@ -126,37 +126,37 @@ namespace ofs {
 				n->set_updatetime(node->GetUpdateTime());
 				n->set_dir(node->IsDir());
 
-				return api::ErrorCode::EC_NONE;
+				return api::master::ErrorCode::EC_NONE;
 			});
 
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 
 			UserManager::Instance().Release(user);
 		}
 	}
 
 	void ClientService::Read(::google::protobuf::RpcController* controller,
-		const ::ofs::api::ReadRequest* request,
-		::ofs::api::ReadResponse* response,
+		const ::ofs::api::master::ReadRequest* request,
+		::ofs::api::master::ReadResponse* response,
 		::google::protobuf::Closure* done) {
 
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			// because node is not delete immediately
 			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [request, response](User * user, Node * node) {
 				if (node->IsDir())
-					return api::ErrorCode::EC_IS_DIR;
+					return api::master::ErrorCode::EC_IS_DIR;
 
 				File * file = static_cast<File*>(node);
 				int32_t blockCount = FileSystem::Instance().CalcBlockCount(file->GetSize());
 				if (request->blockindex() < 0 || request->blockindex() >= blockCount)
-					return api::ErrorCode::EC_OUT_OF_RANGE;
+					return api::master::ErrorCode::EC_OUT_OF_RANGE;
 
 				Block * block = BlockManager::Instance().Get(BLOCK_ID(file->GetId(), request->blockindex()));
 				if (!block)
-					return api::ErrorCode::EC_BLOCK_MISSING;
+					return api::master::ErrorCode::EC_BLOCK_MISSING;
 
 				response->set_id(block->GetId());
 
@@ -167,43 +167,43 @@ namespace ofs {
 				});
 
 				block->Release();
-				return api::ErrorCode::EC_NONE;
+				return api::master::ErrorCode::EC_NONE;
 			});
 
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 
 			UserManager::Instance().Release(user);
 		}
 	}
 
 	void ClientService::Write(::google::protobuf::RpcController* controller,
-		const ::ofs::api::WriteRequest* request,
-		::ofs::api::WriteResponse* response,
+		const ::ofs::api::master::WriteRequest* request,
+		::ofs::api::master::WriteResponse* response,
 		::google::protobuf::Closure* done) {
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			// because node is not delete immediately
 			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [request, response](User * user, Node * node) {
 				if (node->IsDir())
-					return api::ErrorCode::EC_IS_DIR;
+					return api::master::ErrorCode::EC_IS_DIR;
 
 				File * file = static_cast<File*>(node);
 				int32_t blockCount = FileSystem::Instance().CalcBlockCount(file->GetSize());
 				if (request->blockindex() < 0 || request->blockindex() >= blockCount)
-					return api::ErrorCode::EC_OUT_OF_RANGE;
+					return api::master::ErrorCode::EC_OUT_OF_RANGE;
 
 				Block * block = BlockManager::Instance().Get(BLOCK_ID(file->GetId(), request->blockindex()));
 				if (!block)
-					return api::ErrorCode::EC_BLOCK_MISSING;
+					return api::master::ErrorCode::EC_BLOCK_MISSING;
 
 				std::vector<int32_t> replicas;
 				DataNode * server = block->Write(replicas);
 
 				if (!server) {
 					block->Release();
-					return api::ErrorCode::EC_BLOCK_NOT_READY;
+					return api::master::ErrorCode::EC_BLOCK_NOT_READY;
 				}
 
 				auto * lease = response->mutable_lease();
@@ -222,40 +222,40 @@ namespace ofs {
 				lease->set_key(server->CalcKey(block->GetId(), block->GetLease(), block->GetVersion(), block->GetExpectVersion()));
 
 				block->Release();
-				return api::ErrorCode::EC_NONE;
+				return api::master::ErrorCode::EC_NONE;
 			});
 
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 
 			UserManager::Instance().Release(user);
 		}
 	}
 
 	void ClientService::Append(::google::protobuf::RpcController* controller,
-		const ::ofs::api::AppendRequest* request,
-		::ofs::api::AppendResponse* response,
+		const ::ofs::api::master::AppendRequest* request,
+		::ofs::api::master::AppendResponse* response,
 		::google::protobuf::Closure* done) {
 		User * user = UserManager::Instance().Acquire(request->token());
 		if (!user)
-			response->set_errcode(api::ErrorCode::EC_USER_EXPIRE);
+			response->set_errcode(api::master::ErrorCode::EC_USER_EXPIRE);
 		else {
 			// because node is not delete immediately
 			int32_t ret = FileSystem::Instance().Root().QueryNode(user, request->path().c_str(), [request, response](User * user, Node * node) {
 				if (node->IsDir())
-					return api::ErrorCode::EC_IS_DIR;
+					return api::master::ErrorCode::EC_IS_DIR;
 
 				File * file = static_cast<File*>(node);
 				int32_t blockIndex = FileSystem::Instance().CalcAppendBlock(file->GetSize());
 				Block * block = BlockManager::Instance().GetOrCreate(BLOCK_ID(file->GetId(), blockIndex));
 				if (!block)
-					return api::ErrorCode::EC_BLOCK_MISSING;
+					return api::master::ErrorCode::EC_BLOCK_MISSING;
 
 				std::vector<int32_t> replicas;
 				DataNode * server = block->Write(replicas);
 
 				if (!server) {
 					block->Release();
-					return api::ErrorCode::EC_BLOCK_NOT_READY;
+					return api::master::ErrorCode::EC_BLOCK_NOT_READY;
 				}
 
 				auto * lease = response->mutable_lease();
@@ -274,10 +274,10 @@ namespace ofs {
 				lease->set_key(server->CalcKey(block->GetId(), block->GetLease(), block->GetVersion(), block->GetExpectVersion()));
 
 				block->Release();
-				return api::ErrorCode::EC_NONE;
+				return api::master::ErrorCode::EC_NONE;
 			});
 
-			response->set_errcode((api::ErrorCode)ret);
+			response->set_errcode((api::master::ErrorCode)ret);
 
 			UserManager::Instance().Release(user);
 		}

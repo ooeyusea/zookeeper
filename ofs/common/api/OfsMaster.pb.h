@@ -52,6 +52,7 @@ struct TableStruct_OfsMaster_2eproto {
 void AddDescriptors_OfsMaster_2eproto();
 namespace ofs {
 namespace api {
+namespace master {
 class AppendRequest;
 class AppendRequestDefaultTypeInternal;
 extern AppendRequestDefaultTypeInternal _AppendRequest_default_instance_;
@@ -115,35 +116,37 @@ extern WriteRequestDefaultTypeInternal _WriteRequest_default_instance_;
 class WriteResponse;
 class WriteResponseDefaultTypeInternal;
 extern WriteResponseDefaultTypeInternal _WriteResponse_default_instance_;
+}  // namespace master
 }  // namespace api
 }  // namespace ofs
 namespace google {
 namespace protobuf {
-template<> ::ofs::api::AppendRequest* Arena::CreateMaybeMessage<::ofs::api::AppendRequest>(Arena*);
-template<> ::ofs::api::AppendResponse* Arena::CreateMaybeMessage<::ofs::api::AppendResponse>(Arena*);
-template<> ::ofs::api::BlockLease* Arena::CreateMaybeMessage<::ofs::api::BlockLease>(Arena*);
-template<> ::ofs::api::CreateFileRequest* Arena::CreateMaybeMessage<::ofs::api::CreateFileRequest>(Arena*);
-template<> ::ofs::api::CreateFileResponse* Arena::CreateMaybeMessage<::ofs::api::CreateFileResponse>(Arena*);
-template<> ::ofs::api::EndPoint* Arena::CreateMaybeMessage<::ofs::api::EndPoint>(Arena*);
-template<> ::ofs::api::File* Arena::CreateMaybeMessage<::ofs::api::File>(Arena*);
-template<> ::ofs::api::FileStatusRequest* Arena::CreateMaybeMessage<::ofs::api::FileStatusRequest>(Arena*);
-template<> ::ofs::api::FileStatusRespone* Arena::CreateMaybeMessage<::ofs::api::FileStatusRespone>(Arena*);
-template<> ::ofs::api::ListRequest* Arena::CreateMaybeMessage<::ofs::api::ListRequest>(Arena*);
-template<> ::ofs::api::ListResponse* Arena::CreateMaybeMessage<::ofs::api::ListResponse>(Arena*);
-template<> ::ofs::api::LoginReq* Arena::CreateMaybeMessage<::ofs::api::LoginReq>(Arena*);
-template<> ::ofs::api::LoginResponse* Arena::CreateMaybeMessage<::ofs::api::LoginResponse>(Arena*);
-template<> ::ofs::api::MakeDirRequest* Arena::CreateMaybeMessage<::ofs::api::MakeDirRequest>(Arena*);
-template<> ::ofs::api::MakeDirResponse* Arena::CreateMaybeMessage<::ofs::api::MakeDirResponse>(Arena*);
-template<> ::ofs::api::ReadRequest* Arena::CreateMaybeMessage<::ofs::api::ReadRequest>(Arena*);
-template<> ::ofs::api::ReadResponse* Arena::CreateMaybeMessage<::ofs::api::ReadResponse>(Arena*);
-template<> ::ofs::api::RemoveRequest* Arena::CreateMaybeMessage<::ofs::api::RemoveRequest>(Arena*);
-template<> ::ofs::api::RemoveResponse* Arena::CreateMaybeMessage<::ofs::api::RemoveResponse>(Arena*);
-template<> ::ofs::api::WriteRequest* Arena::CreateMaybeMessage<::ofs::api::WriteRequest>(Arena*);
-template<> ::ofs::api::WriteResponse* Arena::CreateMaybeMessage<::ofs::api::WriteResponse>(Arena*);
+template<> ::ofs::api::master::AppendRequest* Arena::CreateMaybeMessage<::ofs::api::master::AppendRequest>(Arena*);
+template<> ::ofs::api::master::AppendResponse* Arena::CreateMaybeMessage<::ofs::api::master::AppendResponse>(Arena*);
+template<> ::ofs::api::master::BlockLease* Arena::CreateMaybeMessage<::ofs::api::master::BlockLease>(Arena*);
+template<> ::ofs::api::master::CreateFileRequest* Arena::CreateMaybeMessage<::ofs::api::master::CreateFileRequest>(Arena*);
+template<> ::ofs::api::master::CreateFileResponse* Arena::CreateMaybeMessage<::ofs::api::master::CreateFileResponse>(Arena*);
+template<> ::ofs::api::master::EndPoint* Arena::CreateMaybeMessage<::ofs::api::master::EndPoint>(Arena*);
+template<> ::ofs::api::master::File* Arena::CreateMaybeMessage<::ofs::api::master::File>(Arena*);
+template<> ::ofs::api::master::FileStatusRequest* Arena::CreateMaybeMessage<::ofs::api::master::FileStatusRequest>(Arena*);
+template<> ::ofs::api::master::FileStatusRespone* Arena::CreateMaybeMessage<::ofs::api::master::FileStatusRespone>(Arena*);
+template<> ::ofs::api::master::ListRequest* Arena::CreateMaybeMessage<::ofs::api::master::ListRequest>(Arena*);
+template<> ::ofs::api::master::ListResponse* Arena::CreateMaybeMessage<::ofs::api::master::ListResponse>(Arena*);
+template<> ::ofs::api::master::LoginReq* Arena::CreateMaybeMessage<::ofs::api::master::LoginReq>(Arena*);
+template<> ::ofs::api::master::LoginResponse* Arena::CreateMaybeMessage<::ofs::api::master::LoginResponse>(Arena*);
+template<> ::ofs::api::master::MakeDirRequest* Arena::CreateMaybeMessage<::ofs::api::master::MakeDirRequest>(Arena*);
+template<> ::ofs::api::master::MakeDirResponse* Arena::CreateMaybeMessage<::ofs::api::master::MakeDirResponse>(Arena*);
+template<> ::ofs::api::master::ReadRequest* Arena::CreateMaybeMessage<::ofs::api::master::ReadRequest>(Arena*);
+template<> ::ofs::api::master::ReadResponse* Arena::CreateMaybeMessage<::ofs::api::master::ReadResponse>(Arena*);
+template<> ::ofs::api::master::RemoveRequest* Arena::CreateMaybeMessage<::ofs::api::master::RemoveRequest>(Arena*);
+template<> ::ofs::api::master::RemoveResponse* Arena::CreateMaybeMessage<::ofs::api::master::RemoveResponse>(Arena*);
+template<> ::ofs::api::master::WriteRequest* Arena::CreateMaybeMessage<::ofs::api::master::WriteRequest>(Arena*);
+template<> ::ofs::api::master::WriteResponse* Arena::CreateMaybeMessage<::ofs::api::master::WriteResponse>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace ofs {
 namespace api {
+namespace master {
 
 enum ErrorCode {
   EC_NONE = 0,
@@ -205,7 +208,7 @@ inline bool AuthorityType_Parse(
 // ===================================================================
 
 class LoginReq :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.LoginReq) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.LoginReq) */ {
  public:
   LoginReq();
   virtual ~LoginReq();
@@ -336,7 +339,7 @@ class LoginReq :
   ::std::string* release_password();
   void set_allocated_password(::std::string* password);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.LoginReq)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.LoginReq)
  private:
   class HasBitSetters;
 
@@ -353,7 +356,7 @@ class LoginReq :
 // -------------------------------------------------------------------
 
 class LoginResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.LoginResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.LoginResponse) */ {
  public:
   LoginResponse();
   virtual ~LoginResponse();
@@ -469,12 +472,12 @@ class LoginResponse :
   ::std::string* release_token();
   void set_allocated_token(::std::string* token);
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
   // optional int32 blockSize = 3;
   bool has_blocksize() const;
@@ -483,7 +486,7 @@ class LoginResponse :
   ::google::protobuf::int32 blocksize() const;
   void set_blocksize(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.LoginResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.LoginResponse)
  private:
   class HasBitSetters;
 
@@ -498,7 +501,7 @@ class LoginResponse :
 // -------------------------------------------------------------------
 
 class MakeDirRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.MakeDirRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.MakeDirRequest) */ {
  public:
   MakeDirRequest();
   virtual ~MakeDirRequest();
@@ -651,7 +654,7 @@ class MakeDirRequest :
   ::google::protobuf::int32 authority() const;
   void set_authority(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.MakeDirRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.MakeDirRequest)
  private:
   class HasBitSetters;
 
@@ -670,7 +673,7 @@ class MakeDirRequest :
 // -------------------------------------------------------------------
 
 class MakeDirResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.MakeDirResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.MakeDirResponse) */ {
  public:
   MakeDirResponse();
   virtual ~MakeDirResponse();
@@ -771,14 +774,14 @@ class MakeDirResponse :
 
   // accessors -------------------------------------------------------
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.MakeDirResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.MakeDirResponse)
  private:
   class HasBitSetters;
 
@@ -791,7 +794,7 @@ class MakeDirResponse :
 // -------------------------------------------------------------------
 
 class CreateFileRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.CreateFileRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.CreateFileRequest) */ {
  public:
   CreateFileRequest();
   virtual ~CreateFileRequest();
@@ -944,7 +947,7 @@ class CreateFileRequest :
   ::google::protobuf::int32 authority() const;
   void set_authority(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.CreateFileRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.CreateFileRequest)
  private:
   class HasBitSetters;
 
@@ -963,7 +966,7 @@ class CreateFileRequest :
 // -------------------------------------------------------------------
 
 class CreateFileResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.CreateFileResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.CreateFileResponse) */ {
  public:
   CreateFileResponse();
   virtual ~CreateFileResponse();
@@ -1064,14 +1067,14 @@ class CreateFileResponse :
 
   // accessors -------------------------------------------------------
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.CreateFileResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.CreateFileResponse)
  private:
   class HasBitSetters;
 
@@ -1084,7 +1087,7 @@ class CreateFileResponse :
 // -------------------------------------------------------------------
 
 class ListRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ListRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.ListRequest) */ {
  public:
   ListRequest();
   virtual ~ListRequest();
@@ -1215,7 +1218,7 @@ class ListRequest :
   ::std::string* release_path();
   void set_allocated_path(::std::string* path);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.ListRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.ListRequest)
  private:
   class HasBitSetters;
 
@@ -1232,7 +1235,7 @@ class ListRequest :
 // -------------------------------------------------------------------
 
 class File :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.File) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.File) */ {
  public:
   File();
   virtual ~File();
@@ -1413,7 +1416,7 @@ class File :
   bool dir() const;
   void set_dir(bool value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.File)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.File)
  private:
   class HasBitSetters;
 
@@ -1436,7 +1439,7 @@ class File :
 // -------------------------------------------------------------------
 
 class ListResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ListResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.ListResponse) */ {
  public:
   ListResponse();
   virtual ~ListResponse();
@@ -1537,40 +1540,40 @@ class ListResponse :
 
   // accessors -------------------------------------------------------
 
-  // repeated .ofs.api.File files = 2;
+  // repeated .ofs.api.master.File files = 2;
   int files_size() const;
   void clear_files();
   static const int kFilesFieldNumber = 2;
-  ::ofs::api::File* mutable_files(int index);
-  ::google::protobuf::RepeatedPtrField< ::ofs::api::File >*
+  ::ofs::api::master::File* mutable_files(int index);
+  ::google::protobuf::RepeatedPtrField< ::ofs::api::master::File >*
       mutable_files();
-  const ::ofs::api::File& files(int index) const;
-  ::ofs::api::File* add_files();
-  const ::google::protobuf::RepeatedPtrField< ::ofs::api::File >&
+  const ::ofs::api::master::File& files(int index) const;
+  ::ofs::api::master::File* add_files();
+  const ::google::protobuf::RepeatedPtrField< ::ofs::api::master::File >&
       files() const;
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.ListResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.ListResponse)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::ofs::api::File > files_;
+  ::google::protobuf::RepeatedPtrField< ::ofs::api::master::File > files_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
 // -------------------------------------------------------------------
 
 class RemoveRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.RemoveRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.RemoveRequest) */ {
  public:
   RemoveRequest();
   virtual ~RemoveRequest();
@@ -1701,7 +1704,7 @@ class RemoveRequest :
   ::std::string* release_path();
   void set_allocated_path(::std::string* path);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.RemoveRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.RemoveRequest)
  private:
   class HasBitSetters;
 
@@ -1718,7 +1721,7 @@ class RemoveRequest :
 // -------------------------------------------------------------------
 
 class RemoveResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.RemoveResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.RemoveResponse) */ {
  public:
   RemoveResponse();
   virtual ~RemoveResponse();
@@ -1819,14 +1822,14 @@ class RemoveResponse :
 
   // accessors -------------------------------------------------------
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.RemoveResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.RemoveResponse)
  private:
   class HasBitSetters;
 
@@ -1839,7 +1842,7 @@ class RemoveResponse :
 // -------------------------------------------------------------------
 
 class FileStatusRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.FileStatusRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.FileStatusRequest) */ {
  public:
   FileStatusRequest();
   virtual ~FileStatusRequest();
@@ -1970,7 +1973,7 @@ class FileStatusRequest :
   ::std::string* release_path();
   void set_allocated_path(::std::string* path);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.FileStatusRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.FileStatusRequest)
  private:
   class HasBitSetters;
 
@@ -1987,7 +1990,7 @@ class FileStatusRequest :
 // -------------------------------------------------------------------
 
 class FileStatusRespone :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.FileStatusRespone) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.FileStatusRespone) */ {
  public:
   FileStatusRespone();
   virtual ~FileStatusRespone();
@@ -2088,37 +2091,37 @@ class FileStatusRespone :
 
   // accessors -------------------------------------------------------
 
-  // optional .ofs.api.File file = 2;
+  // optional .ofs.api.master.File file = 2;
   bool has_file() const;
   void clear_file();
   static const int kFileFieldNumber = 2;
-  const ::ofs::api::File& file() const;
-  ::ofs::api::File* release_file();
-  ::ofs::api::File* mutable_file();
-  void set_allocated_file(::ofs::api::File* file);
+  const ::ofs::api::master::File& file() const;
+  ::ofs::api::master::File* release_file();
+  ::ofs::api::master::File* mutable_file();
+  void set_allocated_file(::ofs::api::master::File* file);
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.FileStatusRespone)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.FileStatusRespone)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::File* file_;
+  ::ofs::api::master::File* file_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
 // -------------------------------------------------------------------
 
 class EndPoint :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.EndPoint) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.EndPoint) */ {
  public:
   EndPoint();
   virtual ~EndPoint();
@@ -2241,7 +2244,7 @@ class EndPoint :
   ::google::protobuf::int32 port() const;
   void set_port(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.EndPoint)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.EndPoint)
  private:
   class HasBitSetters;
 
@@ -2258,7 +2261,7 @@ class EndPoint :
 // -------------------------------------------------------------------
 
 class ReadRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.ReadRequest) */ {
  public:
   ReadRequest();
   virtual ~ReadRequest();
@@ -2396,7 +2399,7 @@ class ReadRequest :
   ::google::protobuf::int32 blockindex() const;
   void set_blockindex(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.ReadRequest)
  private:
   class HasBitSetters;
 
@@ -2414,7 +2417,7 @@ class ReadRequest :
 // -------------------------------------------------------------------
 
 class ReadResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.ReadResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.ReadResponse) */ {
  public:
   ReadResponse();
   virtual ~ReadResponse();
@@ -2515,16 +2518,16 @@ class ReadResponse :
 
   // accessors -------------------------------------------------------
 
-  // repeated .ofs.api.EndPoint eps = 3;
+  // repeated .ofs.api.master.EndPoint eps = 3;
   int eps_size() const;
   void clear_eps();
   static const int kEpsFieldNumber = 3;
-  ::ofs::api::EndPoint* mutable_eps(int index);
-  ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
+  ::ofs::api::master::EndPoint* mutable_eps(int index);
+  ::google::protobuf::RepeatedPtrField< ::ofs::api::master::EndPoint >*
       mutable_eps();
-  const ::ofs::api::EndPoint& eps(int index) const;
-  ::ofs::api::EndPoint* add_eps();
-  const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
+  const ::ofs::api::master::EndPoint& eps(int index) const;
+  ::ofs::api::master::EndPoint* add_eps();
+  const ::google::protobuf::RepeatedPtrField< ::ofs::api::master::EndPoint >&
       eps() const;
 
   // optional int64 id = 2;
@@ -2534,21 +2537,21 @@ class ReadResponse :
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.ReadResponse)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint > eps_;
+  ::google::protobuf::RepeatedPtrField< ::ofs::api::master::EndPoint > eps_;
   ::google::protobuf::int64 id_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
@@ -2556,7 +2559,7 @@ class ReadResponse :
 // -------------------------------------------------------------------
 
 class BlockLease :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.BlockLease) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.BlockLease) */ {
  public:
   BlockLease();
   virtual ~BlockLease();
@@ -2684,14 +2687,14 @@ class BlockLease :
   ::std::string* release_key();
   void set_allocated_key(::std::string* key);
 
-  // required .ofs.api.EndPoint ep = 5;
+  // required .ofs.api.master.EndPoint ep = 5;
   bool has_ep() const;
   void clear_ep();
   static const int kEpFieldNumber = 5;
-  const ::ofs::api::EndPoint& ep() const;
-  ::ofs::api::EndPoint* release_ep();
-  ::ofs::api::EndPoint* mutable_ep();
-  void set_allocated_ep(::ofs::api::EndPoint* ep);
+  const ::ofs::api::master::EndPoint& ep() const;
+  ::ofs::api::master::EndPoint* release_ep();
+  ::ofs::api::master::EndPoint* mutable_ep();
+  void set_allocated_ep(::ofs::api::master::EndPoint* ep);
 
   // required int64 id = 1;
   bool has_id() const;
@@ -2721,7 +2724,7 @@ class BlockLease :
   ::google::protobuf::int64 newversion() const;
   void set_newversion(::google::protobuf::int64 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.BlockLease)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.BlockLease)
  private:
   class HasBitSetters;
 
@@ -2733,7 +2736,7 @@ class BlockLease :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > chunkservers_;
   ::google::protobuf::internal::ArenaStringPtr key_;
-  ::ofs::api::EndPoint* ep_;
+  ::ofs::api::master::EndPoint* ep_;
   ::google::protobuf::int64 id_;
   ::google::protobuf::int64 until_;
   ::google::protobuf::int64 version_;
@@ -2743,7 +2746,7 @@ class BlockLease :
 // -------------------------------------------------------------------
 
 class WriteRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.WriteRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.WriteRequest) */ {
  public:
   WriteRequest();
   virtual ~WriteRequest();
@@ -2881,7 +2884,7 @@ class WriteRequest :
   ::google::protobuf::int32 blockindex() const;
   void set_blockindex(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.WriteRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.WriteRequest)
  private:
   class HasBitSetters;
 
@@ -2899,7 +2902,7 @@ class WriteRequest :
 // -------------------------------------------------------------------
 
 class WriteResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.WriteResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.WriteResponse) */ {
  public:
   WriteResponse();
   virtual ~WriteResponse();
@@ -3000,23 +3003,23 @@ class WriteResponse :
 
   // accessors -------------------------------------------------------
 
-  // required .ofs.api.BlockLease lease = 2;
+  // required .ofs.api.master.BlockLease lease = 2;
   bool has_lease() const;
   void clear_lease();
   static const int kLeaseFieldNumber = 2;
-  const ::ofs::api::BlockLease& lease() const;
-  ::ofs::api::BlockLease* release_lease();
-  ::ofs::api::BlockLease* mutable_lease();
-  void set_allocated_lease(::ofs::api::BlockLease* lease);
+  const ::ofs::api::master::BlockLease& lease() const;
+  ::ofs::api::master::BlockLease* release_lease();
+  ::ofs::api::master::BlockLease* mutable_lease();
+  void set_allocated_lease(::ofs::api::master::BlockLease* lease);
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.WriteResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.WriteResponse)
  private:
   class HasBitSetters;
 
@@ -3026,14 +3029,14 @@ class WriteResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::BlockLease* lease_;
+  ::ofs::api::master::BlockLease* lease_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
 // -------------------------------------------------------------------
 
 class AppendRequest :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.AppendRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.AppendRequest) */ {
  public:
   AppendRequest();
   virtual ~AppendRequest();
@@ -3164,7 +3167,7 @@ class AppendRequest :
   ::std::string* release_path();
   void set_allocated_path(::std::string* path);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.AppendRequest)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.AppendRequest)
  private:
   class HasBitSetters;
 
@@ -3181,7 +3184,7 @@ class AppendRequest :
 // -------------------------------------------------------------------
 
 class AppendResponse :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.AppendResponse) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.api.master.AppendResponse) */ {
  public:
   AppendResponse();
   virtual ~AppendResponse();
@@ -3282,23 +3285,23 @@ class AppendResponse :
 
   // accessors -------------------------------------------------------
 
-  // required .ofs.api.BlockLease lease = 2;
+  // required .ofs.api.master.BlockLease lease = 2;
   bool has_lease() const;
   void clear_lease();
   static const int kLeaseFieldNumber = 2;
-  const ::ofs::api::BlockLease& lease() const;
-  ::ofs::api::BlockLease* release_lease();
-  ::ofs::api::BlockLease* mutable_lease();
-  void set_allocated_lease(::ofs::api::BlockLease* lease);
+  const ::ofs::api::master::BlockLease& lease() const;
+  ::ofs::api::master::BlockLease* release_lease();
+  ::ofs::api::master::BlockLease* mutable_lease();
+  void set_allocated_lease(::ofs::api::master::BlockLease* lease);
 
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.master.ErrorCode errCode = 1;
   bool has_errcode() const;
   void clear_errcode();
   static const int kErrCodeFieldNumber = 1;
-  ::ofs::api::ErrorCode errcode() const;
-  void set_errcode(::ofs::api::ErrorCode value);
+  ::ofs::api::master::ErrorCode errcode() const;
+  void set_errcode(::ofs::api::master::ErrorCode value);
 
-  // @@protoc_insertion_point(class_scope:ofs.api.AppendResponse)
+  // @@protoc_insertion_point(class_scope:ofs.api.master.AppendResponse)
  private:
   class HasBitSetters;
 
@@ -3308,7 +3311,7 @@ class AppendResponse :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::ofs::api::BlockLease* lease_;
+  ::ofs::api::master::BlockLease* lease_;
   int errcode_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
@@ -3328,40 +3331,40 @@ class OfsFileService : public ::google::protobuf::Service {
   static const ::google::protobuf::ServiceDescriptor* descriptor();
 
   virtual void Login(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::LoginReq* request,
-                       ::ofs::api::LoginResponse* response,
+                       const ::ofs::api::master::LoginReq* request,
+                       ::ofs::api::master::LoginResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void MakeDir(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::MakeDirRequest* request,
-                       ::ofs::api::MakeDirResponse* response,
+                       const ::ofs::api::master::MakeDirRequest* request,
+                       ::ofs::api::master::MakeDirResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Create(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::CreateFileRequest* request,
-                       ::ofs::api::CreateFileResponse* response,
+                       const ::ofs::api::master::CreateFileRequest* request,
+                       ::ofs::api::master::CreateFileResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void List(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::ListRequest* request,
-                       ::ofs::api::ListResponse* response,
+                       const ::ofs::api::master::ListRequest* request,
+                       ::ofs::api::master::ListResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Remove(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::RemoveRequest* request,
-                       ::ofs::api::RemoveResponse* response,
+                       const ::ofs::api::master::RemoveRequest* request,
+                       ::ofs::api::master::RemoveResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Status(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::FileStatusRequest* request,
-                       ::ofs::api::FileStatusRespone* response,
+                       const ::ofs::api::master::FileStatusRequest* request,
+                       ::ofs::api::master::FileStatusRespone* response,
                        ::google::protobuf::Closure* done);
   virtual void Read(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::ReadRequest* request,
-                       ::ofs::api::ReadResponse* response,
+                       const ::ofs::api::master::ReadRequest* request,
+                       ::ofs::api::master::ReadResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Write(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::WriteRequest* request,
-                       ::ofs::api::WriteResponse* response,
+                       const ::ofs::api::master::WriteRequest* request,
+                       ::ofs::api::master::WriteResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Append(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::AppendRequest* request,
-                       ::ofs::api::AppendResponse* response,
+                       const ::ofs::api::master::AppendRequest* request,
+                       ::ofs::api::master::AppendResponse* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -3393,40 +3396,40 @@ class OfsFileService_Stub : public OfsFileService {
   // implements OfsFileService ------------------------------------------
 
   void Login(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::LoginReq* request,
-                       ::ofs::api::LoginResponse* response,
+                       const ::ofs::api::master::LoginReq* request,
+                       ::ofs::api::master::LoginResponse* response,
                        ::google::protobuf::Closure* done);
   void MakeDir(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::MakeDirRequest* request,
-                       ::ofs::api::MakeDirResponse* response,
+                       const ::ofs::api::master::MakeDirRequest* request,
+                       ::ofs::api::master::MakeDirResponse* response,
                        ::google::protobuf::Closure* done);
   void Create(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::CreateFileRequest* request,
-                       ::ofs::api::CreateFileResponse* response,
+                       const ::ofs::api::master::CreateFileRequest* request,
+                       ::ofs::api::master::CreateFileResponse* response,
                        ::google::protobuf::Closure* done);
   void List(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::ListRequest* request,
-                       ::ofs::api::ListResponse* response,
+                       const ::ofs::api::master::ListRequest* request,
+                       ::ofs::api::master::ListResponse* response,
                        ::google::protobuf::Closure* done);
   void Remove(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::RemoveRequest* request,
-                       ::ofs::api::RemoveResponse* response,
+                       const ::ofs::api::master::RemoveRequest* request,
+                       ::ofs::api::master::RemoveResponse* response,
                        ::google::protobuf::Closure* done);
   void Status(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::FileStatusRequest* request,
-                       ::ofs::api::FileStatusRespone* response,
+                       const ::ofs::api::master::FileStatusRequest* request,
+                       ::ofs::api::master::FileStatusRespone* response,
                        ::google::protobuf::Closure* done);
   void Read(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::ReadRequest* request,
-                       ::ofs::api::ReadResponse* response,
+                       const ::ofs::api::master::ReadRequest* request,
+                       ::ofs::api::master::ReadResponse* response,
                        ::google::protobuf::Closure* done);
   void Write(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::WriteRequest* request,
-                       ::ofs::api::WriteResponse* response,
+                       const ::ofs::api::master::WriteRequest* request,
+                       ::ofs::api::master::WriteResponse* response,
                        ::google::protobuf::Closure* done);
   void Append(::google::protobuf::RpcController* controller,
-                       const ::ofs::api::AppendRequest* request,
-                       ::ofs::api::AppendResponse* response,
+                       const ::ofs::api::master::AppendRequest* request,
+                       ::ofs::api::master::AppendResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -3455,41 +3458,41 @@ inline void LoginReq::clear_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& LoginReq::name() const {
-  // @@protoc_insertion_point(field_get:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_get:ofs.api.master.LoginReq.name)
   return name_.GetNoArena();
 }
 inline void LoginReq::set_name(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_set:ofs.api.master.LoginReq.name)
 }
 #if LANG_CXX11
 inline void LoginReq::set_name(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.LoginReq.name)
 }
 #endif
 inline void LoginReq::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.LoginReq.name)
 }
 inline void LoginReq::set_name(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.LoginReq.name)
 }
 inline ::std::string* LoginReq::mutable_name() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.LoginReq.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LoginReq::release_name() {
-  // @@protoc_insertion_point(field_release:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_release:ofs.api.master.LoginReq.name)
   if (!has_name()) {
     return nullptr;
   }
@@ -3503,7 +3506,7 @@ inline void LoginReq::set_allocated_name(::std::string* name) {
     _has_bits_[0] &= ~0x00000001u;
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.LoginReq.name)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.LoginReq.name)
 }
 
 // required string password = 2;
@@ -3515,41 +3518,41 @@ inline void LoginReq::clear_password() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& LoginReq::password() const {
-  // @@protoc_insertion_point(field_get:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_get:ofs.api.master.LoginReq.password)
   return password_.GetNoArena();
 }
 inline void LoginReq::set_password(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_set:ofs.api.master.LoginReq.password)
 }
 #if LANG_CXX11
 inline void LoginReq::set_password(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   password_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.LoginReq.password)
 }
 #endif
 inline void LoginReq::set_password(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.LoginReq.password)
 }
 inline void LoginReq::set_password(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.LoginReq.password)
 }
 inline ::std::string* LoginReq::mutable_password() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.LoginReq.password)
   return password_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LoginReq::release_password() {
-  // @@protoc_insertion_point(field_release:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_release:ofs.api.master.LoginReq.password)
   if (!has_password()) {
     return nullptr;
   }
@@ -3563,14 +3566,14 @@ inline void LoginReq::set_allocated_password(::std::string* password) {
     _has_bits_[0] &= ~0x00000002u;
   }
   password_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.LoginReq.password)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.LoginReq.password)
 }
 
 // -------------------------------------------------------------------
 
 // LoginResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool LoginResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -3578,15 +3581,15 @@ inline void LoginResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ofs::api::ErrorCode LoginResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.LoginResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode LoginResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.LoginResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void LoginResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void LoginResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.LoginResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.LoginResponse.errCode)
 }
 
 // optional string token = 2;
@@ -3598,41 +3601,41 @@ inline void LoginResponse::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& LoginResponse::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.LoginResponse.token)
   return token_.GetNoArena();
 }
 inline void LoginResponse::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.LoginResponse.token)
 }
 #if LANG_CXX11
 inline void LoginResponse::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.LoginResponse.token)
 }
 #endif
 inline void LoginResponse::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.LoginResponse.token)
 }
 inline void LoginResponse::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.LoginResponse.token)
 }
 inline ::std::string* LoginResponse::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.LoginResponse.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LoginResponse::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.LoginResponse.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -3646,7 +3649,7 @@ inline void LoginResponse::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.LoginResponse.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.LoginResponse.token)
 }
 
 // optional int32 blockSize = 3;
@@ -3658,13 +3661,13 @@ inline void LoginResponse::clear_blocksize() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int32 LoginResponse::blocksize() const {
-  // @@protoc_insertion_point(field_get:ofs.api.LoginResponse.blockSize)
+  // @@protoc_insertion_point(field_get:ofs.api.master.LoginResponse.blockSize)
   return blocksize_;
 }
 inline void LoginResponse::set_blocksize(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000004u;
   blocksize_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.LoginResponse.blockSize)
+  // @@protoc_insertion_point(field_set:ofs.api.master.LoginResponse.blockSize)
 }
 
 // -------------------------------------------------------------------
@@ -3680,41 +3683,41 @@ inline void MakeDirRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& MakeDirRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.MakeDirRequest.token)
   return token_.GetNoArena();
 }
 inline void MakeDirRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.MakeDirRequest.token)
 }
 #if LANG_CXX11
 inline void MakeDirRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.MakeDirRequest.token)
 }
 #endif
 inline void MakeDirRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.MakeDirRequest.token)
 }
 inline void MakeDirRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.MakeDirRequest.token)
 }
 inline ::std::string* MakeDirRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.MakeDirRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MakeDirRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.MakeDirRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -3728,7 +3731,7 @@ inline void MakeDirRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.MakeDirRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.MakeDirRequest.token)
 }
 
 // required int32 authority = 2;
@@ -3740,13 +3743,13 @@ inline void MakeDirRequest::clear_authority() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 MakeDirRequest::authority() const {
-  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.authority)
+  // @@protoc_insertion_point(field_get:ofs.api.master.MakeDirRequest.authority)
   return authority_;
 }
 inline void MakeDirRequest::set_authority(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000008u;
   authority_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.authority)
+  // @@protoc_insertion_point(field_set:ofs.api.master.MakeDirRequest.authority)
 }
 
 // required string directory = 3;
@@ -3758,41 +3761,41 @@ inline void MakeDirRequest::clear_directory() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& MakeDirRequest::directory() const {
-  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_get:ofs.api.master.MakeDirRequest.directory)
   return directory_.GetNoArena();
 }
 inline void MakeDirRequest::set_directory(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_set:ofs.api.master.MakeDirRequest.directory)
 }
 #if LANG_CXX11
 inline void MakeDirRequest::set_directory(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.MakeDirRequest.directory)
 }
 #endif
 inline void MakeDirRequest::set_directory(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.MakeDirRequest.directory)
 }
 inline void MakeDirRequest::set_directory(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.MakeDirRequest.directory)
 }
 inline ::std::string* MakeDirRequest::mutable_directory() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.MakeDirRequest.directory)
   return directory_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MakeDirRequest::release_directory() {
-  // @@protoc_insertion_point(field_release:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_release:ofs.api.master.MakeDirRequest.directory)
   if (!has_directory()) {
     return nullptr;
   }
@@ -3806,7 +3809,7 @@ inline void MakeDirRequest::set_allocated_directory(::std::string* directory) {
     _has_bits_[0] &= ~0x00000002u;
   }
   directory_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), directory);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.MakeDirRequest.directory)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.MakeDirRequest.directory)
 }
 
 // required string name = 4;
@@ -3818,41 +3821,41 @@ inline void MakeDirRequest::clear_name() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline const ::std::string& MakeDirRequest::name() const {
-  // @@protoc_insertion_point(field_get:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_get:ofs.api.master.MakeDirRequest.name)
   return name_.GetNoArena();
 }
 inline void MakeDirRequest::set_name(const ::std::string& value) {
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_set:ofs.api.master.MakeDirRequest.name)
 }
 #if LANG_CXX11
 inline void MakeDirRequest::set_name(::std::string&& value) {
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.MakeDirRequest.name)
 }
 #endif
 inline void MakeDirRequest::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.MakeDirRequest.name)
 }
 inline void MakeDirRequest::set_name(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.MakeDirRequest.name)
 }
 inline ::std::string* MakeDirRequest::mutable_name() {
   _has_bits_[0] |= 0x00000004u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.MakeDirRequest.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MakeDirRequest::release_name() {
-  // @@protoc_insertion_point(field_release:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_release:ofs.api.master.MakeDirRequest.name)
   if (!has_name()) {
     return nullptr;
   }
@@ -3866,14 +3869,14 @@ inline void MakeDirRequest::set_allocated_name(::std::string* name) {
     _has_bits_[0] &= ~0x00000004u;
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.MakeDirRequest.name)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.MakeDirRequest.name)
 }
 
 // -------------------------------------------------------------------
 
 // MakeDirResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool MakeDirResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -3881,15 +3884,15 @@ inline void MakeDirResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::ofs::api::ErrorCode MakeDirResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.MakeDirResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode MakeDirResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.MakeDirResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void MakeDirResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void MakeDirResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000001u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.MakeDirResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.MakeDirResponse.errCode)
 }
 
 // -------------------------------------------------------------------
@@ -3905,41 +3908,41 @@ inline void CreateFileRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& CreateFileRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.CreateFileRequest.token)
   return token_.GetNoArena();
 }
 inline void CreateFileRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.CreateFileRequest.token)
 }
 #if LANG_CXX11
 inline void CreateFileRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.CreateFileRequest.token)
 }
 #endif
 inline void CreateFileRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.CreateFileRequest.token)
 }
 inline void CreateFileRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.CreateFileRequest.token)
 }
 inline ::std::string* CreateFileRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.CreateFileRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CreateFileRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.CreateFileRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -3953,7 +3956,7 @@ inline void CreateFileRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.CreateFileRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.CreateFileRequest.token)
 }
 
 // required int32 authority = 2;
@@ -3965,13 +3968,13 @@ inline void CreateFileRequest::clear_authority() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 CreateFileRequest::authority() const {
-  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.authority)
+  // @@protoc_insertion_point(field_get:ofs.api.master.CreateFileRequest.authority)
   return authority_;
 }
 inline void CreateFileRequest::set_authority(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000008u;
   authority_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.authority)
+  // @@protoc_insertion_point(field_set:ofs.api.master.CreateFileRequest.authority)
 }
 
 // required string directory = 3;
@@ -3983,41 +3986,41 @@ inline void CreateFileRequest::clear_directory() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& CreateFileRequest::directory() const {
-  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_get:ofs.api.master.CreateFileRequest.directory)
   return directory_.GetNoArena();
 }
 inline void CreateFileRequest::set_directory(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_set:ofs.api.master.CreateFileRequest.directory)
 }
 #if LANG_CXX11
 inline void CreateFileRequest::set_directory(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.CreateFileRequest.directory)
 }
 #endif
 inline void CreateFileRequest::set_directory(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.CreateFileRequest.directory)
 }
 inline void CreateFileRequest::set_directory(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   directory_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.CreateFileRequest.directory)
 }
 inline ::std::string* CreateFileRequest::mutable_directory() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.CreateFileRequest.directory)
   return directory_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CreateFileRequest::release_directory() {
-  // @@protoc_insertion_point(field_release:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_release:ofs.api.master.CreateFileRequest.directory)
   if (!has_directory()) {
     return nullptr;
   }
@@ -4031,7 +4034,7 @@ inline void CreateFileRequest::set_allocated_directory(::std::string* directory)
     _has_bits_[0] &= ~0x00000002u;
   }
   directory_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), directory);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.CreateFileRequest.directory)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.CreateFileRequest.directory)
 }
 
 // required string name = 4;
@@ -4043,41 +4046,41 @@ inline void CreateFileRequest::clear_name() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline const ::std::string& CreateFileRequest::name() const {
-  // @@protoc_insertion_point(field_get:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_get:ofs.api.master.CreateFileRequest.name)
   return name_.GetNoArena();
 }
 inline void CreateFileRequest::set_name(const ::std::string& value) {
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_set:ofs.api.master.CreateFileRequest.name)
 }
 #if LANG_CXX11
 inline void CreateFileRequest::set_name(::std::string&& value) {
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.CreateFileRequest.name)
 }
 #endif
 inline void CreateFileRequest::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.CreateFileRequest.name)
 }
 inline void CreateFileRequest::set_name(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000004u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.CreateFileRequest.name)
 }
 inline ::std::string* CreateFileRequest::mutable_name() {
   _has_bits_[0] |= 0x00000004u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.CreateFileRequest.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CreateFileRequest::release_name() {
-  // @@protoc_insertion_point(field_release:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_release:ofs.api.master.CreateFileRequest.name)
   if (!has_name()) {
     return nullptr;
   }
@@ -4091,14 +4094,14 @@ inline void CreateFileRequest::set_allocated_name(::std::string* name) {
     _has_bits_[0] &= ~0x00000004u;
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.CreateFileRequest.name)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.CreateFileRequest.name)
 }
 
 // -------------------------------------------------------------------
 
 // CreateFileResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool CreateFileResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -4106,15 +4109,15 @@ inline void CreateFileResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::ofs::api::ErrorCode CreateFileResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.CreateFileResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode CreateFileResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.CreateFileResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void CreateFileResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void CreateFileResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000001u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.CreateFileResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.CreateFileResponse.errCode)
 }
 
 // -------------------------------------------------------------------
@@ -4130,41 +4133,41 @@ inline void ListRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& ListRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.ListRequest.token)
   return token_.GetNoArena();
 }
 inline void ListRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ListRequest.token)
 }
 #if LANG_CXX11
 inline void ListRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.ListRequest.token)
 }
 #endif
 inline void ListRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.ListRequest.token)
 }
 inline void ListRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.ListRequest.token)
 }
 inline ::std::string* ListRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.ListRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ListRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.ListRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -4178,7 +4181,7 @@ inline void ListRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ListRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.ListRequest.token)
 }
 
 // required string path = 2;
@@ -4190,41 +4193,41 @@ inline void ListRequest::clear_path() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& ListRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_get:ofs.api.master.ListRequest.path)
   return path_.GetNoArena();
 }
 inline void ListRequest::set_path(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ListRequest.path)
 }
 #if LANG_CXX11
 inline void ListRequest::set_path(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.ListRequest.path)
 }
 #endif
 inline void ListRequest::set_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.ListRequest.path)
 }
 inline void ListRequest::set_path(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.ListRequest.path)
 }
 inline ::std::string* ListRequest::mutable_path() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.ListRequest.path)
   return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ListRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_release:ofs.api.master.ListRequest.path)
   if (!has_path()) {
     return nullptr;
   }
@@ -4238,7 +4241,7 @@ inline void ListRequest::set_allocated_path(::std::string* path) {
     _has_bits_[0] &= ~0x00000002u;
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ListRequest.path)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.ListRequest.path)
 }
 
 // -------------------------------------------------------------------
@@ -4254,41 +4257,41 @@ inline void File::clear_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& File::name() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.name)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.name)
   return name_.GetNoArena();
 }
 inline void File::set_name(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.File.name)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.name)
 }
 #if LANG_CXX11
 inline void File::set_name(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.File.name)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.File.name)
 }
 #endif
 inline void File::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.File.name)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.File.name)
 }
 inline void File::set_name(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.File.name)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.File.name)
 }
 inline ::std::string* File::mutable_name() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.File.name)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.File.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* File::release_name() {
-  // @@protoc_insertion_point(field_release:ofs.api.File.name)
+  // @@protoc_insertion_point(field_release:ofs.api.master.File.name)
   if (!has_name()) {
     return nullptr;
   }
@@ -4302,7 +4305,7 @@ inline void File::set_allocated_name(::std::string* name) {
     _has_bits_[0] &= ~0x00000001u;
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.File.name)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.File.name)
 }
 
 // required string owner = 2;
@@ -4314,41 +4317,41 @@ inline void File::clear_owner() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& File::owner() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.owner)
   return owner_.GetNoArena();
 }
 inline void File::set_owner(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   owner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.owner)
 }
 #if LANG_CXX11
 inline void File::set_owner(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   owner_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.File.owner)
 }
 #endif
 inline void File::set_owner(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   owner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.File.owner)
 }
 inline void File::set_owner(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   owner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.File.owner)
 }
 inline ::std::string* File::mutable_owner() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.File.owner)
   return owner_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* File::release_owner() {
-  // @@protoc_insertion_point(field_release:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_release:ofs.api.master.File.owner)
   if (!has_owner()) {
     return nullptr;
   }
@@ -4362,7 +4365,7 @@ inline void File::set_allocated_owner(::std::string* owner) {
     _has_bits_[0] &= ~0x00000002u;
   }
   owner_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), owner);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.File.owner)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.File.owner)
 }
 
 // required string group = 3;
@@ -4374,41 +4377,41 @@ inline void File::clear_group() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline const ::std::string& File::group() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.group)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.group)
   return group_.GetNoArena();
 }
 inline void File::set_group(const ::std::string& value) {
   _has_bits_[0] |= 0x00000004u;
   group_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.File.group)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.group)
 }
 #if LANG_CXX11
 inline void File::set_group(::std::string&& value) {
   _has_bits_[0] |= 0x00000004u;
   group_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.File.group)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.File.group)
 }
 #endif
 inline void File::set_group(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000004u;
   group_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.File.group)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.File.group)
 }
 inline void File::set_group(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000004u;
   group_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.File.group)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.File.group)
 }
 inline ::std::string* File::mutable_group() {
   _has_bits_[0] |= 0x00000004u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.File.group)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.File.group)
   return group_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* File::release_group() {
-  // @@protoc_insertion_point(field_release:ofs.api.File.group)
+  // @@protoc_insertion_point(field_release:ofs.api.master.File.group)
   if (!has_group()) {
     return nullptr;
   }
@@ -4422,7 +4425,7 @@ inline void File::set_allocated_group(::std::string* group) {
     _has_bits_[0] &= ~0x00000004u;
   }
   group_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), group);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.File.group)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.File.group)
 }
 
 // required int32 authority = 4;
@@ -4434,13 +4437,13 @@ inline void File::clear_authority() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 File::authority() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.authority)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.authority)
   return authority_;
 }
 inline void File::set_authority(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000008u;
   authority_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.File.authority)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.authority)
 }
 
 // required int32 size = 5;
@@ -4452,13 +4455,13 @@ inline void File::clear_size() {
   _has_bits_[0] &= ~0x00000010u;
 }
 inline ::google::protobuf::int32 File::size() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.size)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.size)
   return size_;
 }
 inline void File::set_size(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000010u;
   size_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.File.size)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.size)
 }
 
 // required int64 createTime = 6;
@@ -4470,13 +4473,13 @@ inline void File::clear_createtime() {
   _has_bits_[0] &= ~0x00000020u;
 }
 inline ::google::protobuf::int64 File::createtime() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.createTime)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.createTime)
   return createtime_;
 }
 inline void File::set_createtime(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000020u;
   createtime_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.File.createTime)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.createTime)
 }
 
 // required int64 updateTime = 7;
@@ -4488,13 +4491,13 @@ inline void File::clear_updatetime() {
   _has_bits_[0] &= ~0x00000040u;
 }
 inline ::google::protobuf::int64 File::updatetime() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.updateTime)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.updateTime)
   return updatetime_;
 }
 inline void File::set_updatetime(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000040u;
   updatetime_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.File.updateTime)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.updateTime)
 }
 
 // required bool dir = 8;
@@ -4506,20 +4509,20 @@ inline void File::clear_dir() {
   _has_bits_[0] &= ~0x00000080u;
 }
 inline bool File::dir() const {
-  // @@protoc_insertion_point(field_get:ofs.api.File.dir)
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.dir)
   return dir_;
 }
 inline void File::set_dir(bool value) {
   _has_bits_[0] |= 0x00000080u;
   dir_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.File.dir)
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.dir)
 }
 
 // -------------------------------------------------------------------
 
 // ListResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool ListResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -4527,44 +4530,44 @@ inline void ListResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::ofs::api::ErrorCode ListResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ListResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode ListResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.ListResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void ListResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void ListResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000001u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ListResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ListResponse.errCode)
 }
 
-// repeated .ofs.api.File files = 2;
+// repeated .ofs.api.master.File files = 2;
 inline int ListResponse::files_size() const {
   return files_.size();
 }
 inline void ListResponse::clear_files() {
   files_.Clear();
 }
-inline ::ofs::api::File* ListResponse::mutable_files(int index) {
-  // @@protoc_insertion_point(field_mutable:ofs.api.ListResponse.files)
+inline ::ofs::api::master::File* ListResponse::mutable_files(int index) {
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.ListResponse.files)
   return files_.Mutable(index);
 }
-inline ::google::protobuf::RepeatedPtrField< ::ofs::api::File >*
+inline ::google::protobuf::RepeatedPtrField< ::ofs::api::master::File >*
 ListResponse::mutable_files() {
-  // @@protoc_insertion_point(field_mutable_list:ofs.api.ListResponse.files)
+  // @@protoc_insertion_point(field_mutable_list:ofs.api.master.ListResponse.files)
   return &files_;
 }
-inline const ::ofs::api::File& ListResponse::files(int index) const {
-  // @@protoc_insertion_point(field_get:ofs.api.ListResponse.files)
+inline const ::ofs::api::master::File& ListResponse::files(int index) const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.ListResponse.files)
   return files_.Get(index);
 }
-inline ::ofs::api::File* ListResponse::add_files() {
-  // @@protoc_insertion_point(field_add:ofs.api.ListResponse.files)
+inline ::ofs::api::master::File* ListResponse::add_files() {
+  // @@protoc_insertion_point(field_add:ofs.api.master.ListResponse.files)
   return files_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ofs::api::File >&
+inline const ::google::protobuf::RepeatedPtrField< ::ofs::api::master::File >&
 ListResponse::files() const {
-  // @@protoc_insertion_point(field_list:ofs.api.ListResponse.files)
+  // @@protoc_insertion_point(field_list:ofs.api.master.ListResponse.files)
   return files_;
 }
 
@@ -4581,41 +4584,41 @@ inline void RemoveRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& RemoveRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.RemoveRequest.token)
   return token_.GetNoArena();
 }
 inline void RemoveRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.RemoveRequest.token)
 }
 #if LANG_CXX11
 inline void RemoveRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.RemoveRequest.token)
 }
 #endif
 inline void RemoveRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.RemoveRequest.token)
 }
 inline void RemoveRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.RemoveRequest.token)
 }
 inline ::std::string* RemoveRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.RemoveRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RemoveRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.RemoveRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -4629,7 +4632,7 @@ inline void RemoveRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.RemoveRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.RemoveRequest.token)
 }
 
 // required string path = 2;
@@ -4641,41 +4644,41 @@ inline void RemoveRequest::clear_path() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& RemoveRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_get:ofs.api.master.RemoveRequest.path)
   return path_.GetNoArena();
 }
 inline void RemoveRequest::set_path(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_set:ofs.api.master.RemoveRequest.path)
 }
 #if LANG_CXX11
 inline void RemoveRequest::set_path(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.RemoveRequest.path)
 }
 #endif
 inline void RemoveRequest::set_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.RemoveRequest.path)
 }
 inline void RemoveRequest::set_path(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.RemoveRequest.path)
 }
 inline ::std::string* RemoveRequest::mutable_path() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.RemoveRequest.path)
   return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RemoveRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_release:ofs.api.master.RemoveRequest.path)
   if (!has_path()) {
     return nullptr;
   }
@@ -4689,14 +4692,14 @@ inline void RemoveRequest::set_allocated_path(::std::string* path) {
     _has_bits_[0] &= ~0x00000002u;
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.RemoveRequest.path)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.RemoveRequest.path)
 }
 
 // -------------------------------------------------------------------
 
 // RemoveResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool RemoveResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -4704,15 +4707,15 @@ inline void RemoveResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::ofs::api::ErrorCode RemoveResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.RemoveResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode RemoveResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.RemoveResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void RemoveResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void RemoveResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000001u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.RemoveResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.RemoveResponse.errCode)
 }
 
 // -------------------------------------------------------------------
@@ -4728,41 +4731,41 @@ inline void FileStatusRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& FileStatusRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.FileStatusRequest.token)
   return token_.GetNoArena();
 }
 inline void FileStatusRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.FileStatusRequest.token)
 }
 #if LANG_CXX11
 inline void FileStatusRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.FileStatusRequest.token)
 }
 #endif
 inline void FileStatusRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.FileStatusRequest.token)
 }
 inline void FileStatusRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.FileStatusRequest.token)
 }
 inline ::std::string* FileStatusRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.FileStatusRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FileStatusRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.FileStatusRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -4776,7 +4779,7 @@ inline void FileStatusRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.FileStatusRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.FileStatusRequest.token)
 }
 
 // required string path = 2;
@@ -4788,41 +4791,41 @@ inline void FileStatusRequest::clear_path() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& FileStatusRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_get:ofs.api.master.FileStatusRequest.path)
   return path_.GetNoArena();
 }
 inline void FileStatusRequest::set_path(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_set:ofs.api.master.FileStatusRequest.path)
 }
 #if LANG_CXX11
 inline void FileStatusRequest::set_path(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.FileStatusRequest.path)
 }
 #endif
 inline void FileStatusRequest::set_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.FileStatusRequest.path)
 }
 inline void FileStatusRequest::set_path(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.FileStatusRequest.path)
 }
 inline ::std::string* FileStatusRequest::mutable_path() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.FileStatusRequest.path)
   return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FileStatusRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_release:ofs.api.master.FileStatusRequest.path)
   if (!has_path()) {
     return nullptr;
   }
@@ -4836,14 +4839,14 @@ inline void FileStatusRequest::set_allocated_path(::std::string* path) {
     _has_bits_[0] &= ~0x00000002u;
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.FileStatusRequest.path)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.FileStatusRequest.path)
 }
 
 // -------------------------------------------------------------------
 
 // FileStatusRespone
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool FileStatusRespone::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -4851,18 +4854,18 @@ inline void FileStatusRespone::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ofs::api::ErrorCode FileStatusRespone::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.FileStatusRespone.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode FileStatusRespone::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.FileStatusRespone.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void FileStatusRespone::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void FileStatusRespone::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.FileStatusRespone.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.FileStatusRespone.errCode)
 }
 
-// optional .ofs.api.File file = 2;
+// optional .ofs.api.master.File file = 2;
 inline bool FileStatusRespone::has_file() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -4870,29 +4873,29 @@ inline void FileStatusRespone::clear_file() {
   if (file_ != nullptr) file_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::File& FileStatusRespone::file() const {
-  const ::ofs::api::File* p = file_;
-  // @@protoc_insertion_point(field_get:ofs.api.FileStatusRespone.file)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::File*>(
-      &::ofs::api::_File_default_instance_);
+inline const ::ofs::api::master::File& FileStatusRespone::file() const {
+  const ::ofs::api::master::File* p = file_;
+  // @@protoc_insertion_point(field_get:ofs.api.master.FileStatusRespone.file)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::master::File*>(
+      &::ofs::api::master::_File_default_instance_);
 }
-inline ::ofs::api::File* FileStatusRespone::release_file() {
-  // @@protoc_insertion_point(field_release:ofs.api.FileStatusRespone.file)
+inline ::ofs::api::master::File* FileStatusRespone::release_file() {
+  // @@protoc_insertion_point(field_release:ofs.api.master.FileStatusRespone.file)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::File* temp = file_;
+  ::ofs::api::master::File* temp = file_;
   file_ = nullptr;
   return temp;
 }
-inline ::ofs::api::File* FileStatusRespone::mutable_file() {
+inline ::ofs::api::master::File* FileStatusRespone::mutable_file() {
   _has_bits_[0] |= 0x00000001u;
   if (file_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::File>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::ofs::api::master::File>(GetArenaNoVirtual());
     file_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.FileStatusRespone.file)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.FileStatusRespone.file)
   return file_;
 }
-inline void FileStatusRespone::set_allocated_file(::ofs::api::File* file) {
+inline void FileStatusRespone::set_allocated_file(::ofs::api::master::File* file) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete file_;
@@ -4908,7 +4911,7 @@ inline void FileStatusRespone::set_allocated_file(::ofs::api::File* file) {
     _has_bits_[0] &= ~0x00000001u;
   }
   file_ = file;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.FileStatusRespone.file)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.FileStatusRespone.file)
 }
 
 // -------------------------------------------------------------------
@@ -4924,41 +4927,41 @@ inline void EndPoint::clear_host() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& EndPoint::host() const {
-  // @@protoc_insertion_point(field_get:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_get:ofs.api.master.EndPoint.host)
   return host_.GetNoArena();
 }
 inline void EndPoint::set_host(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   host_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_set:ofs.api.master.EndPoint.host)
 }
 #if LANG_CXX11
 inline void EndPoint::set_host(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   host_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.EndPoint.host)
 }
 #endif
 inline void EndPoint::set_host(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   host_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.EndPoint.host)
 }
 inline void EndPoint::set_host(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   host_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.EndPoint.host)
 }
 inline ::std::string* EndPoint::mutable_host() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.EndPoint.host)
   return host_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* EndPoint::release_host() {
-  // @@protoc_insertion_point(field_release:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_release:ofs.api.master.EndPoint.host)
   if (!has_host()) {
     return nullptr;
   }
@@ -4972,7 +4975,7 @@ inline void EndPoint::set_allocated_host(::std::string* host) {
     _has_bits_[0] &= ~0x00000001u;
   }
   host_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), host);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.EndPoint.host)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.EndPoint.host)
 }
 
 // required int32 port = 3;
@@ -4984,13 +4987,13 @@ inline void EndPoint::clear_port() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline ::google::protobuf::int32 EndPoint::port() const {
-  // @@protoc_insertion_point(field_get:ofs.api.EndPoint.port)
+  // @@protoc_insertion_point(field_get:ofs.api.master.EndPoint.port)
   return port_;
 }
 inline void EndPoint::set_port(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000002u;
   port_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.EndPoint.port)
+  // @@protoc_insertion_point(field_set:ofs.api.master.EndPoint.port)
 }
 
 // -------------------------------------------------------------------
@@ -5006,41 +5009,41 @@ inline void ReadRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& ReadRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.ReadRequest.token)
   return token_.GetNoArena();
 }
 inline void ReadRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ReadRequest.token)
 }
 #if LANG_CXX11
 inline void ReadRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.ReadRequest.token)
 }
 #endif
 inline void ReadRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.ReadRequest.token)
 }
 inline void ReadRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.ReadRequest.token)
 }
 inline ::std::string* ReadRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.ReadRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ReadRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.ReadRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -5054,7 +5057,7 @@ inline void ReadRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.ReadRequest.token)
 }
 
 // required string path = 2;
@@ -5066,41 +5069,41 @@ inline void ReadRequest::clear_path() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& ReadRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_get:ofs.api.master.ReadRequest.path)
   return path_.GetNoArena();
 }
 inline void ReadRequest::set_path(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ReadRequest.path)
 }
 #if LANG_CXX11
 inline void ReadRequest::set_path(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.ReadRequest.path)
 }
 #endif
 inline void ReadRequest::set_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.ReadRequest.path)
 }
 inline void ReadRequest::set_path(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.ReadRequest.path)
 }
 inline ::std::string* ReadRequest::mutable_path() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.ReadRequest.path)
   return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ReadRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_release:ofs.api.master.ReadRequest.path)
   if (!has_path()) {
     return nullptr;
   }
@@ -5114,7 +5117,7 @@ inline void ReadRequest::set_allocated_path(::std::string* path) {
     _has_bits_[0] &= ~0x00000002u;
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.ReadRequest.path)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.ReadRequest.path)
 }
 
 // required int32 blockIndex = 3;
@@ -5126,20 +5129,20 @@ inline void ReadRequest::clear_blockindex() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int32 ReadRequest::blockindex() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadRequest.blockIndex)
+  // @@protoc_insertion_point(field_get:ofs.api.master.ReadRequest.blockIndex)
   return blockindex_;
 }
 inline void ReadRequest::set_blockindex(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000004u;
   blockindex_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ReadRequest.blockIndex)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ReadRequest.blockIndex)
 }
 
 // -------------------------------------------------------------------
 
 // ReadResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool ReadResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -5147,15 +5150,15 @@ inline void ReadResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ofs::api::ErrorCode ReadResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode ReadResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.ReadResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void ReadResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void ReadResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ReadResponse.errCode)
 }
 
 // optional int64 id = 2;
@@ -5167,42 +5170,42 @@ inline void ReadResponse::clear_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline ::google::protobuf::int64 ReadResponse::id() const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.id)
+  // @@protoc_insertion_point(field_get:ofs.api.master.ReadResponse.id)
   return id_;
 }
 inline void ReadResponse::set_id(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000001u;
   id_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.ReadResponse.id)
+  // @@protoc_insertion_point(field_set:ofs.api.master.ReadResponse.id)
 }
 
-// repeated .ofs.api.EndPoint eps = 3;
+// repeated .ofs.api.master.EndPoint eps = 3;
 inline int ReadResponse::eps_size() const {
   return eps_.size();
 }
 inline void ReadResponse::clear_eps() {
   eps_.Clear();
 }
-inline ::ofs::api::EndPoint* ReadResponse::mutable_eps(int index) {
-  // @@protoc_insertion_point(field_mutable:ofs.api.ReadResponse.eps)
+inline ::ofs::api::master::EndPoint* ReadResponse::mutable_eps(int index) {
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.ReadResponse.eps)
   return eps_.Mutable(index);
 }
-inline ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >*
+inline ::google::protobuf::RepeatedPtrField< ::ofs::api::master::EndPoint >*
 ReadResponse::mutable_eps() {
-  // @@protoc_insertion_point(field_mutable_list:ofs.api.ReadResponse.eps)
+  // @@protoc_insertion_point(field_mutable_list:ofs.api.master.ReadResponse.eps)
   return &eps_;
 }
-inline const ::ofs::api::EndPoint& ReadResponse::eps(int index) const {
-  // @@protoc_insertion_point(field_get:ofs.api.ReadResponse.eps)
+inline const ::ofs::api::master::EndPoint& ReadResponse::eps(int index) const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.ReadResponse.eps)
   return eps_.Get(index);
 }
-inline ::ofs::api::EndPoint* ReadResponse::add_eps() {
-  // @@protoc_insertion_point(field_add:ofs.api.ReadResponse.eps)
+inline ::ofs::api::master::EndPoint* ReadResponse::add_eps() {
+  // @@protoc_insertion_point(field_add:ofs.api.master.ReadResponse.eps)
   return eps_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ofs::api::EndPoint >&
+inline const ::google::protobuf::RepeatedPtrField< ::ofs::api::master::EndPoint >&
 ReadResponse::eps() const {
-  // @@protoc_insertion_point(field_list:ofs.api.ReadResponse.eps)
+  // @@protoc_insertion_point(field_list:ofs.api.master.ReadResponse.eps)
   return eps_;
 }
 
@@ -5219,13 +5222,13 @@ inline void BlockLease::clear_id() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int64 BlockLease::id() const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.id)
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.id)
   return id_;
 }
 inline void BlockLease::set_id(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000004u;
   id_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.BlockLease.id)
+  // @@protoc_insertion_point(field_set:ofs.api.master.BlockLease.id)
 }
 
 // required int64 until = 2;
@@ -5237,13 +5240,13 @@ inline void BlockLease::clear_until() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int64 BlockLease::until() const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.until)
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.until)
   return until_;
 }
 inline void BlockLease::set_until(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000008u;
   until_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.BlockLease.until)
+  // @@protoc_insertion_point(field_set:ofs.api.master.BlockLease.until)
 }
 
 // required int64 version = 3;
@@ -5255,13 +5258,13 @@ inline void BlockLease::clear_version() {
   _has_bits_[0] &= ~0x00000010u;
 }
 inline ::google::protobuf::int64 BlockLease::version() const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.version)
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.version)
   return version_;
 }
 inline void BlockLease::set_version(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000010u;
   version_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.BlockLease.version)
+  // @@protoc_insertion_point(field_set:ofs.api.master.BlockLease.version)
 }
 
 // required int64 newVersion = 4;
@@ -5273,16 +5276,16 @@ inline void BlockLease::clear_newversion() {
   _has_bits_[0] &= ~0x00000020u;
 }
 inline ::google::protobuf::int64 BlockLease::newversion() const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.newVersion)
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.newVersion)
   return newversion_;
 }
 inline void BlockLease::set_newversion(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000020u;
   newversion_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.BlockLease.newVersion)
+  // @@protoc_insertion_point(field_set:ofs.api.master.BlockLease.newVersion)
 }
 
-// required .ofs.api.EndPoint ep = 5;
+// required .ofs.api.master.EndPoint ep = 5;
 inline bool BlockLease::has_ep() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -5290,29 +5293,29 @@ inline void BlockLease::clear_ep() {
   if (ep_ != nullptr) ep_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::ofs::api::EndPoint& BlockLease::ep() const {
-  const ::ofs::api::EndPoint* p = ep_;
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.ep)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::EndPoint*>(
-      &::ofs::api::_EndPoint_default_instance_);
+inline const ::ofs::api::master::EndPoint& BlockLease::ep() const {
+  const ::ofs::api::master::EndPoint* p = ep_;
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.ep)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::master::EndPoint*>(
+      &::ofs::api::master::_EndPoint_default_instance_);
 }
-inline ::ofs::api::EndPoint* BlockLease::release_ep() {
-  // @@protoc_insertion_point(field_release:ofs.api.BlockLease.ep)
+inline ::ofs::api::master::EndPoint* BlockLease::release_ep() {
+  // @@protoc_insertion_point(field_release:ofs.api.master.BlockLease.ep)
   _has_bits_[0] &= ~0x00000002u;
-  ::ofs::api::EndPoint* temp = ep_;
+  ::ofs::api::master::EndPoint* temp = ep_;
   ep_ = nullptr;
   return temp;
 }
-inline ::ofs::api::EndPoint* BlockLease::mutable_ep() {
+inline ::ofs::api::master::EndPoint* BlockLease::mutable_ep() {
   _has_bits_[0] |= 0x00000002u;
   if (ep_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::EndPoint>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::ofs::api::master::EndPoint>(GetArenaNoVirtual());
     ep_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.BlockLease.ep)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.BlockLease.ep)
   return ep_;
 }
-inline void BlockLease::set_allocated_ep(::ofs::api::EndPoint* ep) {
+inline void BlockLease::set_allocated_ep(::ofs::api::master::EndPoint* ep) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete ep_;
@@ -5328,7 +5331,7 @@ inline void BlockLease::set_allocated_ep(::ofs::api::EndPoint* ep) {
     _has_bits_[0] &= ~0x00000002u;
   }
   ep_ = ep;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.BlockLease.ep)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.BlockLease.ep)
 }
 
 // repeated int32 chunkservers = 6;
@@ -5339,25 +5342,25 @@ inline void BlockLease::clear_chunkservers() {
   chunkservers_.Clear();
 }
 inline ::google::protobuf::int32 BlockLease::chunkservers(int index) const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.chunkservers)
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.chunkservers)
   return chunkservers_.Get(index);
 }
 inline void BlockLease::set_chunkservers(int index, ::google::protobuf::int32 value) {
   chunkservers_.Set(index, value);
-  // @@protoc_insertion_point(field_set:ofs.api.BlockLease.chunkservers)
+  // @@protoc_insertion_point(field_set:ofs.api.master.BlockLease.chunkservers)
 }
 inline void BlockLease::add_chunkservers(::google::protobuf::int32 value) {
   chunkservers_.Add(value);
-  // @@protoc_insertion_point(field_add:ofs.api.BlockLease.chunkservers)
+  // @@protoc_insertion_point(field_add:ofs.api.master.BlockLease.chunkservers)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 BlockLease::chunkservers() const {
-  // @@protoc_insertion_point(field_list:ofs.api.BlockLease.chunkservers)
+  // @@protoc_insertion_point(field_list:ofs.api.master.BlockLease.chunkservers)
   return chunkservers_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 BlockLease::mutable_chunkservers() {
-  // @@protoc_insertion_point(field_mutable_list:ofs.api.BlockLease.chunkservers)
+  // @@protoc_insertion_point(field_mutable_list:ofs.api.master.BlockLease.chunkservers)
   return &chunkservers_;
 }
 
@@ -5370,41 +5373,41 @@ inline void BlockLease::clear_key() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& BlockLease::key() const {
-  // @@protoc_insertion_point(field_get:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_get:ofs.api.master.BlockLease.key)
   return key_.GetNoArena();
 }
 inline void BlockLease::set_key(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_set:ofs.api.master.BlockLease.key)
 }
 #if LANG_CXX11
 inline void BlockLease::set_key(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   key_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.BlockLease.key)
 }
 #endif
 inline void BlockLease::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.BlockLease.key)
 }
 inline void BlockLease::set_key(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.BlockLease.key)
 }
 inline ::std::string* BlockLease::mutable_key() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.BlockLease.key)
   return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockLease::release_key() {
-  // @@protoc_insertion_point(field_release:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_release:ofs.api.master.BlockLease.key)
   if (!has_key()) {
     return nullptr;
   }
@@ -5418,7 +5421,7 @@ inline void BlockLease::set_allocated_key(::std::string* key) {
     _has_bits_[0] &= ~0x00000001u;
   }
   key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.BlockLease.key)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.BlockLease.key)
 }
 
 // -------------------------------------------------------------------
@@ -5434,41 +5437,41 @@ inline void WriteRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& WriteRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.WriteRequest.token)
   return token_.GetNoArena();
 }
 inline void WriteRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.WriteRequest.token)
 }
 #if LANG_CXX11
 inline void WriteRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.WriteRequest.token)
 }
 #endif
 inline void WriteRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.WriteRequest.token)
 }
 inline void WriteRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.WriteRequest.token)
 }
 inline ::std::string* WriteRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.WriteRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WriteRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.WriteRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -5482,7 +5485,7 @@ inline void WriteRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.WriteRequest.token)
 }
 
 // required string path = 2;
@@ -5494,41 +5497,41 @@ inline void WriteRequest::clear_path() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& WriteRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_get:ofs.api.master.WriteRequest.path)
   return path_.GetNoArena();
 }
 inline void WriteRequest::set_path(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_set:ofs.api.master.WriteRequest.path)
 }
 #if LANG_CXX11
 inline void WriteRequest::set_path(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.WriteRequest.path)
 }
 #endif
 inline void WriteRequest::set_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.WriteRequest.path)
 }
 inline void WriteRequest::set_path(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.WriteRequest.path)
 }
 inline ::std::string* WriteRequest::mutable_path() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.WriteRequest.path)
   return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WriteRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_release:ofs.api.master.WriteRequest.path)
   if (!has_path()) {
     return nullptr;
   }
@@ -5542,7 +5545,7 @@ inline void WriteRequest::set_allocated_path(::std::string* path) {
     _has_bits_[0] &= ~0x00000002u;
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteRequest.path)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.WriteRequest.path)
 }
 
 // required int32 blockIndex = 3;
@@ -5554,20 +5557,20 @@ inline void WriteRequest::clear_blockindex() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int32 WriteRequest::blockindex() const {
-  // @@protoc_insertion_point(field_get:ofs.api.WriteRequest.blockIndex)
+  // @@protoc_insertion_point(field_get:ofs.api.master.WriteRequest.blockIndex)
   return blockindex_;
 }
 inline void WriteRequest::set_blockindex(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000004u;
   blockindex_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.WriteRequest.blockIndex)
+  // @@protoc_insertion_point(field_set:ofs.api.master.WriteRequest.blockIndex)
 }
 
 // -------------------------------------------------------------------
 
 // WriteResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool WriteResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -5575,18 +5578,18 @@ inline void WriteResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ofs::api::ErrorCode WriteResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode WriteResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.WriteResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void WriteResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void WriteResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.WriteResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.WriteResponse.errCode)
 }
 
-// required .ofs.api.BlockLease lease = 2;
+// required .ofs.api.master.BlockLease lease = 2;
 inline bool WriteResponse::has_lease() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -5594,29 +5597,29 @@ inline void WriteResponse::clear_lease() {
   if (lease_ != nullptr) lease_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::BlockLease& WriteResponse::lease() const {
-  const ::ofs::api::BlockLease* p = lease_;
-  // @@protoc_insertion_point(field_get:ofs.api.WriteResponse.lease)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::BlockLease*>(
-      &::ofs::api::_BlockLease_default_instance_);
+inline const ::ofs::api::master::BlockLease& WriteResponse::lease() const {
+  const ::ofs::api::master::BlockLease* p = lease_;
+  // @@protoc_insertion_point(field_get:ofs.api.master.WriteResponse.lease)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::master::BlockLease*>(
+      &::ofs::api::master::_BlockLease_default_instance_);
 }
-inline ::ofs::api::BlockLease* WriteResponse::release_lease() {
-  // @@protoc_insertion_point(field_release:ofs.api.WriteResponse.lease)
+inline ::ofs::api::master::BlockLease* WriteResponse::release_lease() {
+  // @@protoc_insertion_point(field_release:ofs.api.master.WriteResponse.lease)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::BlockLease* temp = lease_;
+  ::ofs::api::master::BlockLease* temp = lease_;
   lease_ = nullptr;
   return temp;
 }
-inline ::ofs::api::BlockLease* WriteResponse::mutable_lease() {
+inline ::ofs::api::master::BlockLease* WriteResponse::mutable_lease() {
   _has_bits_[0] |= 0x00000001u;
   if (lease_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::BlockLease>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::ofs::api::master::BlockLease>(GetArenaNoVirtual());
     lease_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.WriteResponse.lease)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.WriteResponse.lease)
   return lease_;
 }
-inline void WriteResponse::set_allocated_lease(::ofs::api::BlockLease* lease) {
+inline void WriteResponse::set_allocated_lease(::ofs::api::master::BlockLease* lease) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete lease_;
@@ -5632,7 +5635,7 @@ inline void WriteResponse::set_allocated_lease(::ofs::api::BlockLease* lease) {
     _has_bits_[0] &= ~0x00000001u;
   }
   lease_ = lease;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.WriteResponse.lease)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.WriteResponse.lease)
 }
 
 // -------------------------------------------------------------------
@@ -5648,41 +5651,41 @@ inline void AppendRequest::clear_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::std::string& AppendRequest::token() const {
-  // @@protoc_insertion_point(field_get:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_get:ofs.api.master.AppendRequest.token)
   return token_.GetNoArena();
 }
 inline void AppendRequest::set_token(const ::std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_set:ofs.api.master.AppendRequest.token)
 }
 #if LANG_CXX11
 inline void AppendRequest::set_token(::std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.AppendRequest.token)
 }
 #endif
 inline void AppendRequest::set_token(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.AppendRequest.token)
 }
 inline void AppendRequest::set_token(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.AppendRequest.token)
 }
 inline ::std::string* AppendRequest::mutable_token() {
   _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.AppendRequest.token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* AppendRequest::release_token() {
-  // @@protoc_insertion_point(field_release:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_release:ofs.api.master.AppendRequest.token)
   if (!has_token()) {
     return nullptr;
   }
@@ -5696,7 +5699,7 @@ inline void AppendRequest::set_allocated_token(::std::string* token) {
     _has_bits_[0] &= ~0x00000001u;
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendRequest.token)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.AppendRequest.token)
 }
 
 // required string path = 2;
@@ -5708,41 +5711,41 @@ inline void AppendRequest::clear_path() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::std::string& AppendRequest::path() const {
-  // @@protoc_insertion_point(field_get:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_get:ofs.api.master.AppendRequest.path)
   return path_.GetNoArena();
 }
 inline void AppendRequest::set_path(const ::std::string& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_set:ofs.api.master.AppendRequest.path)
 }
 #if LANG_CXX11
 inline void AppendRequest::set_path(::std::string&& value) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_set_rvalue:ofs.api.master.AppendRequest.path)
 }
 #endif
 inline void AppendRequest::set_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_set_char:ofs.api.master.AppendRequest.path)
 }
 inline void AppendRequest::set_path(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000002u;
   path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_set_pointer:ofs.api.master.AppendRequest.path)
 }
 inline ::std::string* AppendRequest::mutable_path() {
   _has_bits_[0] |= 0x00000002u;
-  // @@protoc_insertion_point(field_mutable:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.AppendRequest.path)
   return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* AppendRequest::release_path() {
-  // @@protoc_insertion_point(field_release:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_release:ofs.api.master.AppendRequest.path)
   if (!has_path()) {
     return nullptr;
   }
@@ -5756,14 +5759,14 @@ inline void AppendRequest::set_allocated_path(::std::string* path) {
     _has_bits_[0] &= ~0x00000002u;
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendRequest.path)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.AppendRequest.path)
 }
 
 // -------------------------------------------------------------------
 
 // AppendResponse
 
-// required .ofs.api.ErrorCode errCode = 1;
+// required .ofs.api.master.ErrorCode errCode = 1;
 inline bool AppendResponse::has_errcode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -5771,18 +5774,18 @@ inline void AppendResponse::clear_errcode() {
   errcode_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ofs::api::ErrorCode AppendResponse::errcode() const {
-  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.errCode)
-  return static_cast< ::ofs::api::ErrorCode >(errcode_);
+inline ::ofs::api::master::ErrorCode AppendResponse::errcode() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.AppendResponse.errCode)
+  return static_cast< ::ofs::api::master::ErrorCode >(errcode_);
 }
-inline void AppendResponse::set_errcode(::ofs::api::ErrorCode value) {
-  assert(::ofs::api::ErrorCode_IsValid(value));
+inline void AppendResponse::set_errcode(::ofs::api::master::ErrorCode value) {
+  assert(::ofs::api::master::ErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   errcode_ = value;
-  // @@protoc_insertion_point(field_set:ofs.api.AppendResponse.errCode)
+  // @@protoc_insertion_point(field_set:ofs.api.master.AppendResponse.errCode)
 }
 
-// required .ofs.api.BlockLease lease = 2;
+// required .ofs.api.master.BlockLease lease = 2;
 inline bool AppendResponse::has_lease() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -5790,29 +5793,29 @@ inline void AppendResponse::clear_lease() {
   if (lease_ != nullptr) lease_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ofs::api::BlockLease& AppendResponse::lease() const {
-  const ::ofs::api::BlockLease* p = lease_;
-  // @@protoc_insertion_point(field_get:ofs.api.AppendResponse.lease)
-  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::BlockLease*>(
-      &::ofs::api::_BlockLease_default_instance_);
+inline const ::ofs::api::master::BlockLease& AppendResponse::lease() const {
+  const ::ofs::api::master::BlockLease* p = lease_;
+  // @@protoc_insertion_point(field_get:ofs.api.master.AppendResponse.lease)
+  return p != nullptr ? *p : *reinterpret_cast<const ::ofs::api::master::BlockLease*>(
+      &::ofs::api::master::_BlockLease_default_instance_);
 }
-inline ::ofs::api::BlockLease* AppendResponse::release_lease() {
-  // @@protoc_insertion_point(field_release:ofs.api.AppendResponse.lease)
+inline ::ofs::api::master::BlockLease* AppendResponse::release_lease() {
+  // @@protoc_insertion_point(field_release:ofs.api.master.AppendResponse.lease)
   _has_bits_[0] &= ~0x00000001u;
-  ::ofs::api::BlockLease* temp = lease_;
+  ::ofs::api::master::BlockLease* temp = lease_;
   lease_ = nullptr;
   return temp;
 }
-inline ::ofs::api::BlockLease* AppendResponse::mutable_lease() {
+inline ::ofs::api::master::BlockLease* AppendResponse::mutable_lease() {
   _has_bits_[0] |= 0x00000001u;
   if (lease_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ofs::api::BlockLease>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::ofs::api::master::BlockLease>(GetArenaNoVirtual());
     lease_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:ofs.api.AppendResponse.lease)
+  // @@protoc_insertion_point(field_mutable:ofs.api.master.AppendResponse.lease)
   return lease_;
 }
-inline void AppendResponse::set_allocated_lease(::ofs::api::BlockLease* lease) {
+inline void AppendResponse::set_allocated_lease(::ofs::api::master::BlockLease* lease) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete lease_;
@@ -5828,7 +5831,7 @@ inline void AppendResponse::set_allocated_lease(::ofs::api::BlockLease* lease) {
     _has_bits_[0] &= ~0x00000001u;
   }
   lease_ = lease;
-  // @@protoc_insertion_point(field_set_allocated:ofs.api.AppendResponse.lease)
+  // @@protoc_insertion_point(field_set_allocated:ofs.api.master.AppendResponse.lease)
 }
 
 #ifdef __GNUC__
@@ -5877,21 +5880,22 @@ inline void AppendResponse::set_allocated_lease(::ofs::api::BlockLease* lease) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace master
 }  // namespace api
 }  // namespace ofs
 
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::ofs::api::ErrorCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::ofs::api::master::ErrorCode> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::ErrorCode>() {
-  return ::ofs::api::ErrorCode_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::master::ErrorCode>() {
+  return ::ofs::api::master::ErrorCode_descriptor();
 }
-template <> struct is_proto_enum< ::ofs::api::AuthorityType> : ::std::true_type {};
+template <> struct is_proto_enum< ::ofs::api::master::AuthorityType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::AuthorityType>() {
-  return ::ofs::api::AuthorityType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ofs::api::master::AuthorityType>() {
+  return ::ofs::api::master::AuthorityType_descriptor();
 }
 
 }  // namespace protobuf

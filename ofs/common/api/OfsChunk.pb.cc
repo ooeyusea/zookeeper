@@ -18,6 +18,7 @@
 
 namespace ofs {
 namespace api {
+namespace chunk {
 class ReadRequestDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ReadRequest> _instance;
@@ -26,17 +27,18 @@ class ReadResponseDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ReadResponse> _instance;
 } _ReadResponse_default_instance_;
+}  // namespace chunk
 }  // namespace api
 }  // namespace ofs
 static void InitDefaultsReadRequest_OfsChunk_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::ofs::api::_ReadRequest_default_instance_;
-    new (ptr) ::ofs::api::ReadRequest();
+    void* ptr = &::ofs::api::chunk::_ReadRequest_default_instance_;
+    new (ptr) ::ofs::api::chunk::ReadRequest();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::ofs::api::ReadRequest::InitAsDefaultInstance();
+  ::ofs::api::chunk::ReadRequest::InitAsDefaultInstance();
 }
 
 ::google::protobuf::internal::SCCInfo<0> scc_info_ReadRequest_OfsChunk_2eproto =
@@ -46,11 +48,11 @@ static void InitDefaultsReadResponse_OfsChunk_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::ofs::api::_ReadResponse_default_instance_;
-    new (ptr) ::ofs::api::ReadResponse();
+    void* ptr = &::ofs::api::chunk::_ReadResponse_default_instance_;
+    new (ptr) ::ofs::api::chunk::ReadResponse();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::ofs::api::ReadResponse::InitAsDefaultInstance();
+  ::ofs::api::chunk::ReadResponse::InitAsDefaultInstance();
 }
 
 ::google::protobuf::internal::SCCInfo<0> scc_info_ReadResponse_OfsChunk_2eproto =
@@ -66,33 +68,33 @@ const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_OfsChunk_2
 const ::google::protobuf::ServiceDescriptor* file_level_service_descriptors_OfsChunk_2eproto[1];
 
 const ::google::protobuf::uint32 TableStruct_OfsChunk_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadRequest, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadRequest, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadRequest, blockid_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadRequest, offset_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadRequest, blockid_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadRequest, offset_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadResponse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, errcode_),
-  PROTOBUF_FIELD_OFFSET(::ofs::api::ReadResponse, data_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadResponse, errcode_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::chunk::ReadResponse, data_),
   1,
   0,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, sizeof(::ofs::api::ReadRequest)},
-  { 9, 16, sizeof(::ofs::api::ReadResponse)},
+  { 0, 7, sizeof(::ofs::api::chunk::ReadRequest)},
+  { 9, 16, sizeof(::ofs::api::chunk::ReadResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_ReadRequest_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::_ReadResponse_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::chunk::_ReadRequest_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::api::chunk::_ReadResponse_default_instance_),
 };
 
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_OfsChunk_2eproto = {
@@ -102,19 +104,22 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_OfsChunk_2eproto[] =
-  "\n\016OfsChunk.proto\022\007ofs.api\".\n\013ReadRequest"
-  "\022\017\n\007blockId\030\001 \002(\003\022\016\n\006offset\030\002 \002(\005\"A\n\014Rea"
-  "dResponse\022#\n\007errCode\030\001 \002(\0162\022.ofs.api.Err"
-  "orCode\022\014\n\004data\030\002 \001(\t*H\n\tErrorCode\022\013\n\007EC_"
-  "NONE\020\000\022\026\n\022EC_BLOCK_NOT_EIXST\020\001\022\026\n\022EC_BLO"
-  "CK_INCORRECT\020\0022E\n\016OfsNodeService\0223\n\004Read"
-  "\022\024.ofs.api.ReadRequest\032\025.ofs.api.ReadRes"
-  "ponseB\003\200\001\001"
+  "\n\016OfsChunk.proto\022\rofs.api.chunk\".\n\013ReadR"
+  "equest\022\017\n\007blockId\030\001 \002(\003\022\016\n\006offset\030\002 \002(\005\""
+  "G\n\014ReadResponse\022)\n\007errCode\030\001 \002(\0162\030.ofs.a"
+  "pi.chunk.ErrorCode\022\014\n\004data\030\002 \001(\t*\274\001\n\tErr"
+  "orCode\022\013\n\007EC_NONE\020\000\022\026\n\022EC_BLOCK_NOT_EIXS"
+  "T\020\001\022\026\n\022EC_BLOCK_INCORRECT\020\002\022\030\n\024EC_BLOCK_"
+  "READ_FAILED\020\003\022\031\n\025EC_BLOCK_WRITE_FAILED\020\004"
+  "\022\033\n\027EC_BLOCK_FILE_NOT_EXIST\020\005\022 \n\034EC_BLOC"
+  "K_META_FILE_NOT_EXIST\020\0062Q\n\016OfsNodeServic"
+  "e\022\?\n\004Read\022\032.ofs.api.chunk.ReadRequest\032\033."
+  "ofs.api.chunk.ReadResponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsChunk_2eproto = {
   false, InitDefaults_OfsChunk_2eproto, 
   descriptor_table_protodef_OfsChunk_2eproto,
-  "OfsChunk.proto", &assign_descriptors_table_OfsChunk_2eproto, 290,
+  "OfsChunk.proto", &assign_descriptors_table_OfsChunk_2eproto, 431,
 };
 
 void AddDescriptors_OfsChunk_2eproto() {
@@ -128,6 +133,7 @@ void AddDescriptors_OfsChunk_2eproto() {
 static bool dynamic_init_dummy_OfsChunk_2eproto = []() { AddDescriptors_OfsChunk_2eproto(); return true; }();
 namespace ofs {
 namespace api {
+namespace chunk {
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor() {
   ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_OfsChunk_2eproto);
   return file_level_enum_descriptors_OfsChunk_2eproto[0];
@@ -137,6 +143,10 @@ bool ErrorCode_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
       return true;
     default:
       return false;
@@ -166,7 +176,7 @@ const int ReadRequest::kOffsetFieldNumber;
 ReadRequest::ReadRequest()
   : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(constructor:ofs.api.chunk.ReadRequest)
 }
 ReadRequest::ReadRequest(const ReadRequest& from)
   : ::google::protobuf::Message(),
@@ -176,7 +186,7 @@ ReadRequest::ReadRequest(const ReadRequest& from)
   ::memcpy(&blockid_, &from.blockid_,
     static_cast<size_t>(reinterpret_cast<char*>(&offset_) -
     reinterpret_cast<char*>(&blockid_)) + sizeof(offset_));
-  // @@protoc_insertion_point(copy_constructor:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(copy_constructor:ofs.api.chunk.ReadRequest)
 }
 
 void ReadRequest::SharedCtor() {
@@ -186,7 +196,7 @@ void ReadRequest::SharedCtor() {
 }
 
 ReadRequest::~ReadRequest() {
-  // @@protoc_insertion_point(destructor:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(destructor:ofs.api.chunk.ReadRequest)
   SharedDtor();
 }
 
@@ -203,7 +213,7 @@ const ReadRequest& ReadRequest::default_instance() {
 
 
 void ReadRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(message_clear_start:ofs.api.chunk.ReadRequest)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -266,7 +276,7 @@ bool ReadRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(parse_start:ofs.api.chunk.ReadRequest)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -310,10 +320,10 @@ bool ReadRequest::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(parse_success:ofs.api.chunk.ReadRequest)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(parse_failure:ofs.api.chunk.ReadRequest)
   return false;
 #undef DO_
 }
@@ -321,7 +331,7 @@ failure:
 
 void ReadRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(serialize_start:ofs.api.chunk.ReadRequest)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -340,12 +350,12 @@ void ReadRequest::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(serialize_end:ofs.api.chunk.ReadRequest)
 }
 
 ::google::protobuf::uint8* ReadRequest::InternalSerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:ofs.api.chunk.ReadRequest)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -364,12 +374,12 @@ void ReadRequest::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:ofs.api.chunk.ReadRequest)
   return target;
 }
 
 size_t ReadRequest::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:ofs.api.chunk.ReadRequest)
   size_t total_size = 0;
 
   if (has_blockid()) {
@@ -389,7 +399,7 @@ size_t ReadRequest::RequiredFieldsByteSizeFallback() const {
   return total_size;
 }
 size_t ReadRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(message_byte_size_start:ofs.api.chunk.ReadRequest)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -421,22 +431,22 @@ size_t ReadRequest::ByteSizeLong() const {
 }
 
 void ReadRequest::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(generalized_merge_from_start:ofs.api.chunk.ReadRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const ReadRequest* source =
       ::google::protobuf::DynamicCastToGenerated<ReadRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.api.chunk.ReadRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.api.ReadRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.api.chunk.ReadRequest)
     MergeFrom(*source);
   }
 }
 
 void ReadRequest::MergeFrom(const ReadRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:ofs.api.chunk.ReadRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -455,14 +465,14 @@ void ReadRequest::MergeFrom(const ReadRequest& from) {
 }
 
 void ReadRequest::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(generalized_copy_from_start:ofs.api.chunk.ReadRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void ReadRequest::CopyFrom(const ReadRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ofs.api.ReadRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:ofs.api.chunk.ReadRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -513,7 +523,7 @@ const int ReadResponse::kDataFieldNumber;
 ReadResponse::ReadResponse()
   : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(constructor:ofs.api.chunk.ReadResponse)
 }
 ReadResponse::ReadResponse(const ReadResponse& from)
   : ::google::protobuf::Message(),
@@ -525,7 +535,7 @@ ReadResponse::ReadResponse(const ReadResponse& from)
     data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
   }
   errcode_ = from.errcode_;
-  // @@protoc_insertion_point(copy_constructor:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(copy_constructor:ofs.api.chunk.ReadResponse)
 }
 
 void ReadResponse::SharedCtor() {
@@ -536,7 +546,7 @@ void ReadResponse::SharedCtor() {
 }
 
 ReadResponse::~ReadResponse() {
-  // @@protoc_insertion_point(destructor:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(destructor:ofs.api.chunk.ReadResponse)
   SharedDtor();
 }
 
@@ -554,7 +564,7 @@ const ReadResponse& ReadResponse::default_instance() {
 
 
 void ReadResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:ofs.api.ReadResponse)
+// @@protoc_insertion_point(message_clear_start:ofs.api.chunk.ReadResponse)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -581,15 +591,15 @@ const char* ReadResponse::_InternalParse(const char* begin, const char* end, voi
     ptr = ::google::protobuf::io::Parse32(ptr, &tag);
     GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
     switch (tag >> 3) {
-      // required .ofs.api.ErrorCode errCode = 1;
+      // required .ofs.api.chunk.ErrorCode errCode = 1;
       case 1: {
         if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
         ::google::protobuf::uint64 val = ::google::protobuf::internal::ReadVarint(&ptr);
-        if (!::ofs::api::ErrorCode_IsValid(val)) {
+        if (!::ofs::api::chunk::ErrorCode_IsValid(val)) {
           ::google::protobuf::internal::WriteVarint(1, val, msg->mutable_unknown_fields());
           break;
         }
-        msg->set_errcode(static_cast<::ofs::api::ErrorCode>(val));
+        msg->set_errcode(static_cast<::ofs::api::chunk::ErrorCode>(val));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
@@ -598,7 +608,7 @@ const char* ReadResponse::_InternalParse(const char* begin, const char* end, voi
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.api.ReadResponse.data");
+        ctx->extra_parse_data().SetFieldName("ofs.api.chunk.ReadResponse.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
           parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
@@ -637,21 +647,21 @@ bool ReadResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(parse_start:ofs.api.chunk.ReadResponse)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ofs.api.ErrorCode errCode = 1;
+      // required .ofs.api.chunk.ErrorCode errCode = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
           int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::ofs::api::ErrorCode_IsValid(value)) {
-            set_errcode(static_cast< ::ofs::api::ErrorCode >(value));
+          if (::ofs::api::chunk::ErrorCode_IsValid(value)) {
+            set_errcode(static_cast< ::ofs::api::chunk::ErrorCode >(value));
           } else {
             mutable_unknown_fields()->AddVarint(
                 1, static_cast<::google::protobuf::uint64>(value));
@@ -670,7 +680,7 @@ bool ReadResponse::MergePartialFromCodedStream(
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->data().data(), static_cast<int>(this->data().length()),
             ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.api.ReadResponse.data");
+            "ofs.api.chunk.ReadResponse.data");
         } else {
           goto handle_unusual;
         }
@@ -689,10 +699,10 @@ bool ReadResponse::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(parse_success:ofs.api.chunk.ReadResponse)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(parse_failure:ofs.api.chunk.ReadResponse)
   return false;
 #undef DO_
 }
@@ -700,12 +710,12 @@ failure:
 
 void ReadResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(serialize_start:ofs.api.chunk.ReadResponse)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.chunk.ErrorCode errCode = 1;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->errcode(), output);
@@ -716,7 +726,7 @@ void ReadResponse::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->data().data(), static_cast<int>(this->data().length()),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.ReadResponse.data");
+      "ofs.api.chunk.ReadResponse.data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->data(), output);
   }
@@ -725,17 +735,17 @@ void ReadResponse::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(serialize_end:ofs.api.chunk.ReadResponse)
 }
 
 ::google::protobuf::uint8* ReadResponse::InternalSerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:ofs.api.chunk.ReadResponse)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.chunk.ErrorCode errCode = 1;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->errcode(), target);
@@ -746,7 +756,7 @@ void ReadResponse::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->data().data(), static_cast<int>(this->data().length()),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.ReadResponse.data");
+      "ofs.api.chunk.ReadResponse.data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->data(), target);
@@ -756,12 +766,12 @@ void ReadResponse::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:ofs.api.chunk.ReadResponse)
   return target;
 }
 
 size_t ReadResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ofs.api.ReadResponse)
+// @@protoc_insertion_point(message_byte_size_start:ofs.api.chunk.ReadResponse)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -769,7 +779,7 @@ size_t ReadResponse::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  // required .ofs.api.ErrorCode errCode = 1;
+  // required .ofs.api.chunk.ErrorCode errCode = 1;
   if (has_errcode()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->errcode());
@@ -792,22 +802,22 @@ size_t ReadResponse::ByteSizeLong() const {
 }
 
 void ReadResponse::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ofs.api.ReadResponse)
+// @@protoc_insertion_point(generalized_merge_from_start:ofs.api.chunk.ReadResponse)
   GOOGLE_DCHECK_NE(&from, this);
   const ReadResponse* source =
       ::google::protobuf::DynamicCastToGenerated<ReadResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.api.chunk.ReadResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.api.ReadResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.api.chunk.ReadResponse)
     MergeFrom(*source);
   }
 }
 
 void ReadResponse::MergeFrom(const ReadResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ofs.api.ReadResponse)
+// @@protoc_insertion_point(class_specific_merge_from_start:ofs.api.chunk.ReadResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -827,14 +837,14 @@ void ReadResponse::MergeFrom(const ReadResponse& from) {
 }
 
 void ReadResponse::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ofs.api.ReadResponse)
+// @@protoc_insertion_point(generalized_copy_from_start:ofs.api.chunk.ReadResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void ReadResponse::CopyFrom(const ReadResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ofs.api.ReadResponse)
+// @@protoc_insertion_point(class_specific_copy_from_start:ofs.api.chunk.ReadResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -878,8 +888,8 @@ const ::google::protobuf::ServiceDescriptor* OfsNodeService::GetDescriptor() {
 }
 
 void OfsNodeService::Read(::google::protobuf::RpcController* controller,
-                         const ::ofs::api::ReadRequest*,
-                         ::ofs::api::ReadResponse*,
+                         const ::ofs::api::chunk::ReadRequest*,
+                         ::ofs::api::chunk::ReadResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Read() not implemented.");
   done->Run();
@@ -894,8 +904,8 @@ void OfsNodeService::CallMethod(const ::google::protobuf::MethodDescriptor* meth
   switch(method->index()) {
     case 0:
       Read(controller,
-             ::google::protobuf::down_cast<const ::ofs::api::ReadRequest*>(request),
-             ::google::protobuf::down_cast< ::ofs::api::ReadResponse*>(response),
+             ::google::protobuf::down_cast<const ::ofs::api::chunk::ReadRequest*>(request),
+             ::google::protobuf::down_cast< ::ofs::api::chunk::ReadResponse*>(response),
              done);
       break;
     default:
@@ -909,7 +919,7 @@ const ::google::protobuf::Message& OfsNodeService::GetRequestPrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::ofs::api::ReadRequest::default_instance();
+      return ::ofs::api::chunk::ReadRequest::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::google::protobuf::MessageFactory::generated_factory()
@@ -922,7 +932,7 @@ const ::google::protobuf::Message& OfsNodeService::GetResponsePrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::ofs::api::ReadResponse::default_instance();
+      return ::ofs::api::chunk::ReadResponse::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::google::protobuf::MessageFactory::generated_factory()
@@ -942,23 +952,24 @@ OfsNodeService_Stub::~OfsNodeService_Stub() {
 }
 
 void OfsNodeService_Stub::Read(::google::protobuf::RpcController* controller,
-                              const ::ofs::api::ReadRequest* request,
-                              ::ofs::api::ReadResponse* response,
+                              const ::ofs::api::chunk::ReadRequest* request,
+                              ::ofs::api::chunk::ReadResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
 
 // @@protoc_insertion_point(namespace_scope)
+}  // namespace chunk
 }  // namespace api
 }  // namespace ofs
 namespace google {
 namespace protobuf {
-template<> PROTOBUF_NOINLINE ::ofs::api::ReadRequest* Arena::CreateMaybeMessage< ::ofs::api::ReadRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::ofs::api::ReadRequest >(arena);
+template<> PROTOBUF_NOINLINE ::ofs::api::chunk::ReadRequest* Arena::CreateMaybeMessage< ::ofs::api::chunk::ReadRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::ofs::api::chunk::ReadRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::ofs::api::ReadResponse* Arena::CreateMaybeMessage< ::ofs::api::ReadResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::ofs::api::ReadResponse >(arena);
+template<> PROTOBUF_NOINLINE ::ofs::api::chunk::ReadResponse* Arena::CreateMaybeMessage< ::ofs::api::chunk::ReadResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::ofs::api::chunk::ReadResponse >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

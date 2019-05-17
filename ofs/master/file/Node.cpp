@@ -8,11 +8,11 @@ namespace ofs {
 			return true;
 
 		if (user->GetName() == _owner)
-			return read ? _authority & api::AuthorityType::AT_OWNER_READ : _authority & api::AuthorityType::AT_OWNER_WRITE;
+			return read ? _authority & api::master::AuthorityType::AT_OWNER_READ : _authority & api::master::AuthorityType::AT_OWNER_WRITE;
 		else if (user->GetGroup() == _ownerGroup)
-			return read ? _authority & api::AuthorityType::AT_GROUP_READ : _authority & api::AuthorityType::AT_GROUP_WRITE;
+			return read ? _authority & api::master::AuthorityType::AT_GROUP_READ : _authority & api::master::AuthorityType::AT_GROUP_WRITE;
 		else
-			return read ? _authority & api::AuthorityType::AT_OTHER_READ : _authority & api::AuthorityType::AT_OTHER_WRITE;
+			return read ? _authority & api::master::AuthorityType::AT_OTHER_READ : _authority & api::master::AuthorityType::AT_OTHER_WRITE;
 
 		return true;
 	}

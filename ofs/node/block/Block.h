@@ -4,26 +4,29 @@
 #include "RefObject.h"
 
 namespace ofs {
-	class Block : RefObject {
+	class Block : public RefObject {
+		struct BlockInfo {
+			int64_t id;
+			int64_t version;
+			int32_t size;
+		};
 	public:
-		Block(int64_t id) : _id(id) {}
+		Block(int64_t id) { _info = { id, 0, 0 }; }
 		~Block() {}
 
-		inline int64_t GetId() const { return _id; }
+		inline int64_t GetId() const { return _info.id; }
 
-		inline int64_t GetVersion() const { return _version; }
-		inline void SetVersion(int64_t val) { _version = val; }
+		inline int64_t GetVersion() const { return _info.version; }
+		inline void SetVersion(int64_t val) { _info.version = val; }
 
-		inline int32_t GetSize() const { return _size; }
-		inline void SetSize(int32_t val) { _size = val; }
+		inline int32_t GetSize() const { return _info.size; }
+		inline void SetSize(int32_t val) { _info.size = val; }
 
 		int32_t Read(int32_t offset, int32_t size, std::string& data);
 		int32_t Write(int32_t offset, const std::string& data);
 
 	private:
-		int64_t _id;
-		int64_t _version;
-		int32_t _size;
+		BlockInfo _info;
 	};
 }
 

@@ -1,12 +1,18 @@
 syntax = "proto2";
 option cc_generic_services = true;
 
-package ofs.api;
+package ofs.api.chunk;
 
 enum ErrorCode {
 	EC_NONE = 0;
 	EC_BLOCK_NOT_EIXST = 1;
 	EC_BLOCK_INCORRECT = 2;
+	EC_BLOCK_READ_FAILED = 3;
+	EC_BLOCK_WRITE_FAILED = 4;
+	EC_BLOCK_FILE_NOT_EXIST = 5;
+	EC_BLOCK_META_FILE_NOT_EXIST = 6;
+	EC_BLOCK_OUT_OF_RANGE = 7;
+	EC_BLOCK_WRITE_META_FAILED = 8;
 }
 
 message ReadRequest {

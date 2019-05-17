@@ -51,6 +51,8 @@ SET(CLIENT
 )
 
 SET(BLOCK
+	"${PROJECT_SOURCE_DIR}/block/LocalFile.h"
+	"${PROJECT_SOURCE_DIR}/block/LocalFile.cpp"
 	"${PROJECT_SOURCE_DIR}/block/Block.h"
 	"${PROJECT_SOURCE_DIR}/block/Block.cpp"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.h"

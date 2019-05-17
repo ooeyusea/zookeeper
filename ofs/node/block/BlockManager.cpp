@@ -1,27 +1,28 @@
-#include "OfsNode.h"
-#include "XmlReader.h"
+#include "BlockManager.h"
 
 namespace ofs {
-	Node::Node() {
+	BlockManager::BlockManager() {
 
 	}
 
-	bool Node::Start(const std::string& path) {
-		olib::XmlReader conf;
-		if (!conf.LoadXml(path.c_str())) {
-			hn_error("load config failed: {}", path);
-			return false;
-		}
-
-		try {
-			
-		}
-		catch (std::exception& e) {
-			hn_error("load config format error: {} {}", e.what(), path);
-			return false;
-		}
-
+	bool BlockManager::Start(const olib::IXmlObject& object) {
 		return true;
+	}
+
+	LocalFile * BlockManager::GetBlockFile(int32_t blockId) {
+		std::lock_guard<hn_mutex> guard(_mutex);
+
+		char file[MAX_PATH];
+		snprintf(file, sizeof(file), "%s/%d.block", _blockPath.c_str(), blockId);
+		return _cache.Find(file);
+	}
+
+	LocalFile * BlockManager::GetBlockMetaFile(int32_t blockId) {
+		std::lock_guard<hn_mutex> guard(_mutex);
+
+		char file[MAX_PATH];
+		snprintf(file, sizeof(file), "%s/%d_meta.block", _blockPath.c_str(), blockId);
+		return _cache.Find(file);
 	}
 }
 

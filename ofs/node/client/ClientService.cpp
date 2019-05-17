@@ -1,4 +1,5 @@
 #include "ClientService.h"
+#include "block/BlockManager.h"
 
 namespace ofs {
 	bool ClientService::Start(const olib::IXmlObject& root) {
@@ -9,9 +10,9 @@ namespace ofs {
 		return _rpc.Start(host, port);
 	}
 	void ClientService::Read(::google::protobuf::RpcController* controller,
-		const ::ofs::api::ReadRequest* request,
-		::ofs::api::ReadResponse* response,
+		const ::ofs::api::chunk::ReadRequest* request,
+		::ofs::api::chunk::ReadResponse* response,
 		::google::protobuf::Closure* done) {
-
+		
 	}
 }

@@ -39,7 +39,7 @@ namespace ofs {
 		else {
 			_root.SetOwner("root");
 			_root.SetOwnerGroup("root");
-			_root.SetAuthority(api::AuthorityType::AT_OWNER_READ | api::AuthorityType::AT_OWNER_WRITE | api::AuthorityType::AT_GROUP_READ | api::AuthorityType::AT_OTHER_READ);
+			_root.SetAuthority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
 
 			hn_info("not exist directory file");
 		}
