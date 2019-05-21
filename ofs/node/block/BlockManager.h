@@ -1,11 +1,10 @@
-#ifndef __OFS_NODE_H__
-#define __OFS_NODE_H__
+#ifndef __OFS_BLOCK_MANAGER_H__
+#define __OFS_BLOCK_MANAGER_H__
 #include "hnet.h"
 #include "singleton.h"
 #include "XmlReader.h"
 #include "lru_cache.h"
 #include "Block.h"
-#include "LocalFile.h"
 
 namespace ofs {
 	class BlockManager : public olib::Singleton<BlockManager> {
@@ -15,11 +14,11 @@ namespace ofs {
 
 		bool Start(const olib::IXmlObject& object);
 
-		LocalFile * GetBlockFile(int32_t blockId);
-		LocalFile * GetBlockMetaFile(int32_t blockId);
+		std::string GetBlockFile(int32_t blockId);
+		std::string GetBlockMetaFile(int32_t blockId);
 
 		inline Block * Get(int64_t blockId, bool create = false) {
-			std::lock_guard<hn_mutex> guard(_mutexBlock);
+			std::lock_guard<hn_mutex> guard(_mutex);
 			auto itr = _blocks.find(blockId);
 			if (itr != _blocks.end()) {
 				itr->second->Acquire();
@@ -36,13 +35,11 @@ namespace ofs {
 		}
 
 	private:
-		hn_mutex _mutex;
-		olib::LRUCache<std::string, LocalFile> _cache;
 		std::string _blockPath;
 
-		hn_mutex _mutexBlock;
+		hn_mutex _mutex;
 		std::unordered_map<int64_t, Block *> _blocks;
 	};
 }
 
-#endif //__OFS_NODE_H__
+#endif //__OFS_BLOCK_MANAGER_H__

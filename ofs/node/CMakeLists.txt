@@ -51,12 +51,20 @@ SET(CLIENT
 )
 
 SET(BLOCK
-	"${PROJECT_SOURCE_DIR}/block/LocalFile.h"
-	"${PROJECT_SOURCE_DIR}/block/LocalFile.cpp"
 	"${PROJECT_SOURCE_DIR}/block/Block.h"
 	"${PROJECT_SOURCE_DIR}/block/Block.cpp"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.h"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.cpp"	
+)
+
+SET(FILE
+	"${PROJECT_SOURCE_DIR}/file/LocalFile.h"
+	"${PROJECT_SOURCE_DIR}/file/LocalFile.cpp"
+)
+
+SET(NODE
+	"${PROJECT_SOURCE_DIR}/node/NodeService.h"
+	"${PROJECT_SOURCE_DIR}/node/NodeService.cpp"
 )
 
 SET(COMMON
@@ -70,6 +78,11 @@ SET(RPC
 SET(INSTRUCTION_SEQUENCE
 	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.h"
 	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.cpp"
+)
+
+SET(MESSAGE_QUEUE
+	"${PROJECT_SOURCE_DIR}/../common/message_queue/MessageQueue.h"
+	"${PROJECT_SOURCE_DIR}/../common/message_queue/MessageQueue.cpp"
 )
 
 SET(API
@@ -86,9 +99,12 @@ SET(PROTO
 SOURCE_GROUP(\\ FILES ${SRC})
 SOURCE_GROUP(client FILES ${CLIENT})
 SOURCE_GROUP(block FILES ${BLOCK})
+SOURCE_GROUP(file FILES ${FILE})
+SOURCE_GROUP(node FILES ${NODE})
 SOURCE_GROUP(common FILES ${COMMON})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
 SOURCE_GROUP(common\\instruction_sequence FILES ${INSTRUCTION_SEQUENCE})
+SOURCE_GROUP(common\\message_queue FILES ${MESSAGE_QUEUE})
 SOURCE_GROUP(common\\api FILES ${API})
 SOURCE_GROUP(common\\proto FILES ${PROTO})
 
@@ -97,10 +113,13 @@ ADD_EXECUTABLE(node
 	${CLIENT}
 	${COMMON}
 	${RPC}
+	${NODE}
 	${INSTRUCTION_SEQUENCE}
+	${MESSAGE_QUEUE}
 	${API}
 	${PROTO}
 	${BLOCK}
+	${FILE}
 )
 
 IF(WIN32)

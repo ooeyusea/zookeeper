@@ -9,20 +9,20 @@ namespace ofs {
 		return true;
 	}
 
-	LocalFile * BlockManager::GetBlockFile(int32_t blockId) {
+	std::string BlockManager::GetBlockFile(int32_t blockId) {
 		std::lock_guard<hn_mutex> guard(_mutex);
 
 		char file[MAX_PATH];
 		snprintf(file, sizeof(file), "%s/%d.block", _blockPath.c_str(), blockId);
-		return _cache.Find(file);
+		return file;
 	}
 
-	LocalFile * BlockManager::GetBlockMetaFile(int32_t blockId) {
+	std::string BlockManager::GetBlockMetaFile(int32_t blockId) {
 		std::lock_guard<hn_mutex> guard(_mutex);
 
 		char file[MAX_PATH];
 		snprintf(file, sizeof(file), "%s/%d_meta.block", _blockPath.c_str(), blockId);
-		return _cache.Find(file);
+		return file;
 	}
 }
 

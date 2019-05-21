@@ -2,48 +2,36 @@
 #include "XmlReader.h"
 #include "BlockManager.h"
 #include "api/OfsChunk.pb.h"
+#include "file/LocalFile.h"
 
 namespace ofs {
 	int32_t Block::Read(int32_t offset, int32_t size, std::string& data) {
 		if (_info.size < offset + size)
 			return api::chunk::ErrorCode::EC_BLOCK_OUT_OF_RANGE;
 
-		LocalFile * file = BlockManager::Instance().GetBlockFile(_info.id);
-		if (!file)
-			return api::chunk::ErrorCode::EC_BLOCK_FILE_NOT_EXIST;
+		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
 
-		
-		if (!file->Read(offset, size, data)) {
-			file->Release();;
-			return api::chunk::ErrorCode::EC_BLOCK_READ_FAILED;
-		}
+		hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 
-		file->Release();
-		return api::chunk::ErrorCode::EC_NONE;
+		LocalFile file(std::move(path));
+		return file.Read(offset, size, data);
 	}
 
 	int32_t Block::Write(int32_t offset, const std::string& data) {
 		if (_info.size < offset + data.size())
 			return api::chunk::ErrorCode::EC_BLOCK_OUT_OF_RANGE;
 
-		LocalFile * file = BlockManager::Instance().GetBlockFile(_info.id);
-		if (!file)
-			return api::chunk::ErrorCode::EC_BLOCK_FILE_NOT_EXIST;
+		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
+		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
 
-		bool ret = file->Write(offset, data.c_str(), data.size());
-		file->Release();
-		if (!ret)
-			return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		std::lock_guard<hn_shared_mutex> guard(_mutex);
 
-		LocalFile * meta = BlockManager::Instance().GetBlockMetaFile(_info.id);
-		if (!meta)
-			return api::chunk::ErrorCode::EC_BLOCK_META_FILE_NOT_EXIST;
+		LocalFile file(std::move(path));
+		int32_t ret = file.Write(offset, data.c_str(), data.size());
+		if (ret != api::chunk::EC_NONE)
+			return ret;
 
-		ret = meta->Write(0, (const char *)&_info, sizeof(_info));
-		meta->Release();
-		if (!ret)
-			return api::chunk::ErrorCode::EC_BLOCK_WRITE_META_FAILED;
-
-		return api::chunk::ErrorCode::EC_NONE;
+		LocalFile meta(metaPath);
+		return meta.Write(0, (const char *)&_info, sizeof(_info));
 	}
 }

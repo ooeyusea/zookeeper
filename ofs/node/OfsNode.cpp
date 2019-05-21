@@ -1,5 +1,7 @@
 #include "OfsNode.h"
 #include "XmlReader.h"
+#include "block/BlockManager.h"
+#include "client/ClientService.h"
 
 namespace ofs {
 	Node::Node() {
@@ -14,7 +16,15 @@ namespace ofs {
 		}
 
 		try {
-			
+			if (!BlockManager::Instance().Start(conf.Root())) {
+				hn_error("start block manager failed");
+				return false;
+			}
+
+			if (!ClientService::Instance().Start(conf.Root())) {
+				hn_error("start client service failed");
+				return false;
+			}
 		}
 		catch (std::exception& e) {
 			hn_error("load config format error: {} {}", e.what(), path);

@@ -11,7 +11,7 @@ namespace ofs {
 			int32_t size;
 		};
 	public:
-		Block(int64_t id) { _info = { id, 0, 0 }; }
+		Block(int64_t id) : _mutex(true) { _info = { id, 0, 0 }; }
 		~Block() {}
 
 		inline int64_t GetId() const { return _info.id; }
@@ -27,6 +27,8 @@ namespace ofs {
 
 	private:
 		BlockInfo _info;
+
+		hn_shared_mutex _mutex;
 	};
 }
 
