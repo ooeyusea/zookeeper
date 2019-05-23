@@ -65,6 +65,8 @@ SET(FILE
 SET(NODE
 	"${PROJECT_SOURCE_DIR}/node/NodeService.h"
 	"${PROJECT_SOURCE_DIR}/node/NodeService.cpp"
+	"${PROJECT_SOURCE_DIR}/node/HeartBeatService.h"
+	"${PROJECT_SOURCE_DIR}/node/HeartBeatService.cpp"	
 )
 
 SET(COMMON
@@ -94,6 +96,7 @@ SET(API
 SET(PROTO
 	"${PROJECT_SOURCE_DIR}/../common/proto/Chunk.pb.cc"
 	"${PROJECT_SOURCE_DIR}/../common/proto/Chunk.pb.h"
+	"${PROJECT_SOURCE_DIR}/../common/proto/Chunk.proto"
 )
 
 SOURCE_GROUP(\\ FILES ${SRC})

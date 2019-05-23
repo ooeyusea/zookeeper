@@ -34,8 +34,11 @@ namespace ofs {
 			return nullptr;
 		}
 
+		inline int32_t GetBatchSize() const { return _batchSize; }
+
 	private:
 		std::string _blockPath;
+		int32_t _batchSize;
 
 		hn_mutex _mutex;
 		std::unordered_map<int64_t, Block *> _blocks;

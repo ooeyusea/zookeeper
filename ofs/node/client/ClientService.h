@@ -19,6 +19,16 @@ namespace ofs {
 			::ofs::api::chunk::ReadResponse* response,
 			::google::protobuf::Closure* done);
 
+		virtual void Write(::google::protobuf::RpcController* controller,
+			const ::ofs::api::chunk::WriteRequest* request,
+			::ofs::api::chunk::WriteResponse* response,
+			::google::protobuf::Closure* done);
+
+		virtual void Append(::google::protobuf::RpcController* controller,
+			const ::ofs::api::chunk::AppendRequest* request,
+			::ofs::api::chunk::AppendResponse* response,
+			::google::protobuf::Closure* done);
+
 	private:
 		rpc::OfsRpcServer _rpc;
 	};

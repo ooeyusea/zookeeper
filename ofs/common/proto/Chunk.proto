@@ -3,20 +3,37 @@ option cc_generic_services = true;
 
 package ofs.c2m;
 
+message IpAddress {
+	required string host = 1;
+	required int32 port = 2;
+}
+
+message NodeInfo {
+	required int32 cpu = 1;
+	required int32 res = 2;
+	required int32 vss = 3;
+	required int32 disk = 4;
+	required bool fault = 5;
+}
+
 message RegisterChunkServerRequest {
 	required int32 id = 1;
-	required string host = 2;
-	required int32 port = 3;
+	required IpAddress outpost = 2;
+	required IpAddress harbor = 3;
 	required int32 rack = 4;
 	required int32 dc = 5;
-	required int32 remain = 6;
-	required bool fault = 7;
-	required int32 load = 8;
-	required string extend = 9;
+	required NodeInfo node = 6;
+	required string extend = 7;
+}
+
+message Neighbor {
+	required int32 id = 1;
+	required IpAddress harbor = 2;
 }
 
 message RegisterChunkServerResponse {
 	required bool ok = 1;
+	required Neighbor neighbor = 2;
 }
 
 enum ErrorCode{
@@ -33,9 +50,18 @@ message BlockStatus {
 	required int32 size = 3;
 }
 
+message HeartbeatRequest {
+	required int32 id = 1;
+	required NodeInfo node = 2;
+}
+
+message HeartbeatResponse {
+	required bool ok = 1;
+}
+
 message ReportRequest {
 	required int32 id = 1;
-	required BlockStatus blocks = 2;
+	required BlockStatus block = 2;
 }
 
 message RecoverInfo {
@@ -70,6 +96,26 @@ message RenewLeaseResponse {
 
 service OfsChunkService {
 	rpc RegisterChunkServer (RegisterChunkServerRequest) returns (RegisterChunkServerResponse);
+	rpc Heartbeat (HeartbeatRequest) returns (HeartbeatResponse);
 	rpc Report (ReportRequest) returns (ReportResponse);
 	rpc RenewLease (RenewLeaseRequest) returns (RenewLeaseResponse);
+}
+
+message NeighborGossip {
+	required Neighbor neighbor = 1;
+}
+
+message WriteNotify {
+	required int64 blockid = 1;
+	required int64 version = 2;
+	required int64 newversion = 3;
+	required int32 offset = 4;
+	required string data = 5;
+}
+
+message AppendNotify {
+	required int64 blockid = 1;
+	required int64 version = 2;
+	required int64 newversion = 3;
+	required string data = 4;
 }

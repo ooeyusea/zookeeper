@@ -6,6 +6,7 @@ namespace ofs {
 	}
 
 	bool BlockManager::Start(const olib::IXmlObject& object) {
+		_blockPath = object["data"][0]["path"][0].GetAttributeString("val");
 		return true;
 	}
 
@@ -25,4 +26,3 @@ namespace ofs {
 		return file;
 	}
 }
-

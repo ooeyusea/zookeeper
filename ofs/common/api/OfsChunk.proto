@@ -10,9 +10,10 @@ enum ErrorCode {
 	EC_BLOCK_READ_FAILED = 3;
 	EC_BLOCK_WRITE_FAILED = 4;
 	EC_BLOCK_FILE_NOT_EXIST = 5;
-	EC_BLOCK_META_FILE_NOT_EXIST = 6;
-	EC_BLOCK_OUT_OF_RANGE = 7;
-	EC_BLOCK_WRITE_META_FAILED = 8;
+	EC_BLOCK_OUT_OF_RANGE = 6;
+	EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED = 7;
+	EC_WRITE_BLOCK_VERSION_CHECK_FAILED = 8;
+	EC_WRITE_BLOCK_CHECK_SIZE_FAILED = 9;
 }
 
 message ReadRequest {
@@ -25,6 +26,36 @@ message ReadResponse {
 	optional string data = 2;
 }
 
+message BlockLease {
+	required int64 id = 1;
+	required int64 until = 2;
+	required int64 version = 3;
+	required int64 newVersion = 4;
+	repeated int32 chunkservers = 6;
+	required string key = 7;
+}
+
+message WriteRequest {
+	required BlockLease lease = 1;
+	required int32 offset = 2;
+	required string data = 3;
+}
+
+message WriteResponse {
+	required ErrorCode errCode = 1; 
+}
+
+message AppendRequest {
+	required BlockLease lease = 1;
+	required string data = 2;
+}
+
+message AppendResponse {
+	required ErrorCode errCode = 1; 
+}
+
 service OfsNodeService {
 	rpc Read (ReadRequest) returns (ReadResponse);
+	rpc Write (WriteRequest) returns (WriteResponse);
+	rpc Append (AppendRequest) returns (AppendResponse);
 }

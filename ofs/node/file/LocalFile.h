@@ -11,6 +11,7 @@ namespace ofs {
 
 		int32_t Read(int32_t offset, int32_t size, std::string& data);
 		int32_t Write(int32_t offset, const char * data, int32_t size);
+		int32_t Append(const char * data, int32_t size);
 
 	private:
 		std::string _path;

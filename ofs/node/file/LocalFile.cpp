@@ -36,4 +36,19 @@ namespace ofs {
 		output.close();
 		return api::chunk::ErrorCode::EC_NONE;
 	}
+
+	int32_t LocalFile::Append(const char * data, int32_t size) {
+		std::ofstream output(_path);
+		if (!output)
+			return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
+
+		output.write(data, size);
+
+		if (!output)
+			return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+
+		output.flush();
+		output.close();
+		return api::chunk::ErrorCode::EC_NONE;
+	}
 }
