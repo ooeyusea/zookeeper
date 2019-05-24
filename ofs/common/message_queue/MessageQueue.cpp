@@ -8,6 +8,7 @@
 #define STACK_DYNAMIC_ARR(data, size) char data[size]
 #endif 
 
+#define ID_TIMEOUT 2000
 #define LINE_TIMEOUT 30000
 #define LINE_CHECK_INTERVAL 5000
 #define LINE_HEARBEAT_INTERVAL 15000
@@ -18,7 +19,8 @@ namespace ofs {
 		enum MessageOpType {
 			MOT_MESSAGE,
 			MOT_PING,
-			MOT_PONG
+			MOT_PONG,
+			MOT_NODE,
 		};
 
 		struct MessageHeader {
@@ -38,10 +40,19 @@ namespace ofs {
 							break;
 
 						hn_fork[fd, this]{
-							int32_t id = _identifier->Identify(fd);
-							_node[id] = fd;
+							try {
+								MessageHeader header;
+								olib::SocketReader(ID_TIMEOUT).ReadType(fd, header);
+								if (header.op != MOT_NODE)
+									return;
 
-							Poll(id, fd);
+								_node[(int32_t)header.msg] = fd;
+								Poll((int32_t)header.msg, fd);
+							}
+							catch (std::exception&) {
+							}
+
+							hn_close(fd);
 						};
 					}
 				};
@@ -51,15 +62,38 @@ namespace ofs {
 			return false;
 		}
 
-		void MessageQueue::Connect(const std::string& ip, int32_t port) {
-			hn_fork[ip, port, this]{
+		void MessageQueue::Connect(int32_t id, const std::string& ip, int32_t port, const std::function<void()>& fn) {
+			{
+				std::lock_guard<hn_mutex> guard(_mutex);
+				auto itr = _connected.find(ip);
+				if (itr != _connected.end()) {
+					auto itrPort = std::find(itr->second.begin(), itr->second.end(), port);
+					if (itrPort != itr->second.end())
+						return;
+
+					itr->second.push_back(port);
+				}
+				else
+					_connected[ip].push_back(port);
+			}
+
+			hn_fork[id, ip, port, this, fn]{
 				while (!_terminate) {
 					int32_t fd = hn_connect(ip.c_str(), port);
 					if (fd <= 0)
 						continue;
 
-					int32_t id = _identifier->Identify(fd);
 					_node[id] = fd;
+
+					MessageHeader header;
+					header.size = 0;
+					header.op = MOT_NODE;
+					header.msg = (uint32_t)_id;
+
+					hn_send(fd, (const char*)&header, sizeof(header));
+
+					if (fn)
+						fn();
 
 					Poll(id, fd);
 				};
@@ -69,11 +103,7 @@ namespace ofs {
 		void MessageQueue::Send(int32_t id, const ::google::protobuf::Message* request) {
 			if (_node[id] > 0) {
 				int32_t size = request->ByteSize();
-#ifdef WIN32
 				STACK_DYNAMIC_ARR(data, sizeof(MessageHeader) + size);
-#else
-				char data[sizeof(MessageHeader) + size];
-#endif 
 				if (!request->SerializePartialToArray(data + sizeof(MessageHeader), size))
 					return;
 
@@ -83,6 +113,57 @@ namespace ofs {
 				header.op = MOT_MESSAGE;
 
 				hn_send(_node[id], data, size);
+			}
+		}
+
+		void MessageQueue::Brocast(std::vector<int32_t> ids, const ::google::protobuf::Message* request) {
+			int32_t size = request->ByteSize();
+			STACK_DYNAMIC_ARR(data, sizeof(MessageHeader) + size);
+			if (!request->SerializePartialToArray(data + sizeof(MessageHeader), size))
+				return;
+
+			MessageHeader& header = *(MessageHeader*)data;
+			header.size = size;
+			header.msg = olib::BKDRHash(request->GetDescriptor()->full_name().c_str());
+			header.op = MOT_MESSAGE;
+
+			for (auto id : ids) {
+				if (_node[id] > 0)
+					hn_send(_node[id], data, size);
+			}
+		}
+
+		void MessageQueue::Brocast(const ::google::protobuf::RepeatedField<::google::protobuf::int32 >& ids, const ::google::protobuf::Message* request) {
+			int32_t size = request->ByteSize();
+			STACK_DYNAMIC_ARR(data, sizeof(MessageHeader) + size);
+			if (!request->SerializePartialToArray(data + sizeof(MessageHeader), size))
+				return;
+
+			MessageHeader& header = *(MessageHeader*)data;
+			header.size = size;
+			header.msg = olib::BKDRHash(request->GetDescriptor()->full_name().c_str());
+			header.op = MOT_MESSAGE;
+
+			for (auto id : ids) {
+				if (_node[id] > 0)
+					hn_send(_node[id], data, size);
+			}
+		}
+
+		void MessageQueue::Brocast(const ::google::protobuf::Message* request, int32_t except) {
+			int32_t size = request->ByteSize();
+			STACK_DYNAMIC_ARR(data, sizeof(MessageHeader) + size);
+			if (!request->SerializePartialToArray(data + sizeof(MessageHeader), size))
+				return;
+
+			MessageHeader& header = *(MessageHeader*)data;
+			header.size = size;
+			header.msg = olib::BKDRHash(request->GetDescriptor()->full_name().c_str());
+			header.op = MOT_MESSAGE;
+
+			for (int32_t i = 0; i < _size; ++i) {
+				if (i != except && _node[i] > 0)
+					hn_send(_node[i], data, size);
 			}
 		}
 

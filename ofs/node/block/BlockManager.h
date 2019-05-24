@@ -14,8 +14,17 @@ namespace ofs {
 
 		bool Start(const olib::IXmlObject& object);
 
-		std::string GetBlockFile(int32_t blockId);
-		std::string GetBlockMetaFile(int32_t blockId);
+		inline std::string GetBlockFile(int32_t blockId) {
+			char file[MAX_PATH];
+			snprintf(file, sizeof(file), "%s/%d.block", _blockPath.c_str(), blockId);
+			return file;
+		}
+
+		inline std::string GetBlockMetaFile(int32_t blockId) {
+			char file[MAX_PATH];
+			snprintf(file, sizeof(file), "%s/%d_meta.block", _blockPath.c_str(), blockId);
+			return file;
+		}
 
 		inline Block * Get(int64_t blockId, bool create = false) {
 			std::lock_guard<hn_mutex> guard(_mutex);
@@ -34,7 +43,13 @@ namespace ofs {
 			return nullptr;
 		}
 
+		void Clean(int64_t blockId);
+		void Report();
+
 		inline int32_t GetBatchSize() const { return _batchSize; }
+
+	private:
+		void StartBlockReportHearbeat(int64_t interval);
 
 	private:
 		std::string _blockPath;
@@ -42,6 +57,8 @@ namespace ofs {
 
 		hn_mutex _mutex;
 		std::unordered_map<int64_t, Block *> _blocks;
+
+		hn_ticker * _reportTimer = nullptr;
 	};
 }
 

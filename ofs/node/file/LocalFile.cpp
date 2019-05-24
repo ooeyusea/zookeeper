@@ -1,6 +1,8 @@
 #include "LocalFile.h"
 #include "api/OfsChunk.pb.h"
 #include <fstream>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 namespace ofs {
 	int32_t LocalFile::Read(int32_t offset, int32_t size, std::string& data) {
@@ -50,5 +52,9 @@ namespace ofs {
 		output.flush();
 		output.close();
 		return api::chunk::ErrorCode::EC_NONE;
+	}
+
+	void LocalFile::Remove() {
+		fs::remove(_path);
 	}
 }

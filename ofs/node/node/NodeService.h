@@ -22,17 +22,30 @@ namespace ofs {
 
 		bool Start(const olib::IXmlObject& root);
 
+		void Register();
 		void Write(const ::ofs::api::chunk::BlockLease& lease, int64_t oldVersion, int64_t newVersion, int32_t offset, const std::string& data);
 		void Append(const ::ofs::api::chunk::BlockLease& lease, int64_t oldVersion, int64_t newVersion, const std::string& data);
 		void Report(Block * block);
+		void ReportClean(int64_t blockId);
+		void ReportBlocks(c2m::ReportBlock& report);
 
 	private:
 		void OnWrite(const c2m::WriteNotify& ntf);
 		void OnAppend(const c2m::AppendNotify& ntf);
 
+		void OnNeighborNotify(const c2m::NeighborNotify& gossip);
+		void OnNeighborGossip(const c2m::NeighborGossip& gossip);
+
+		void OnRecoverBlock(const c2m::RecoverBlock& cmd);
+		void OnCleanBlock(const c2m::CleanBlock& cmd);
+
+		void StartHeartbeat(int64_t heartBeat);
+
 	private:
 		mq::MessageQueue * _queue = nullptr;
 		int32_t _id;
+
+		hn_ticker * _heartBeatTimer = nullptr;
 	};
 }
 

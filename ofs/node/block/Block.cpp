@@ -85,4 +85,16 @@ namespace ofs {
 		LocalFile meta(metaPath);
 		return meta.Write(0, (const char *)&_info, sizeof(_info));
 	}
+
+	void Block::Remove() {
+		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
+		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
+
+		std::lock_guard<hn_shared_mutex> guard(_mutex);
+		LocalFile file(std::move(path));
+		file.Remove();
+
+		LocalFile meta(metaPath);
+		meta.Remove();
+	}
 }
