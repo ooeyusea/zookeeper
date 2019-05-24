@@ -2,6 +2,7 @@
 #include "XmlReader.h"
 #include "block/BlockManager.h"
 #include "client/ClientService.h"
+#include "node/NodeService.h"
 
 namespace ofs {
 	Node::Node() {
@@ -16,6 +17,11 @@ namespace ofs {
 		}
 
 		try {
+			if (!NodeService::Instance().Start(conf.Root())) {
+				hn_error("start node service failed");
+				return false;
+			}
+
 			if (!BlockManager::Instance().Start(conf.Root())) {
 				hn_error("start block manager failed");
 				return false;
@@ -34,4 +40,3 @@ namespace ofs {
 		return true;
 	}
 }
-

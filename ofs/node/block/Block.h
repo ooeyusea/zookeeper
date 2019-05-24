@@ -23,8 +23,8 @@ namespace ofs {
 		inline void SetSize(int32_t val) { _info.size = val; }
 
 		int32_t Read(int32_t offset, int32_t size, std::string& data);
-		int32_t Write(int32_t exceptVersion, int32_t newVersion, int32_t offset, const std::string& data, bool strict = false);
-		int32_t Append(int32_t exceptVersion, int32_t newVersion, const std::string& data, bool strict = false);
+		int32_t Write(int64_t exceptVersion, int64_t newVersion, int32_t offset, const std::string& data, bool strict = false);
+		int32_t Append(int64_t exceptVersion, int64_t newVersion, const std::string& data, bool strict = false);
 		void Remove();
 
 	private:

@@ -3,36 +3,32 @@
 #include "hnet.h"
 #include "proto/Chunk.pb.h"
 #include "singleton.h"
-#include "rpc/Rpc.h"
 #include "XmlReader.h"
+#include "message_queue/MessageQueue.h"
 
 namespace ofs {
 	class DataNode;
 	struct IDataCluster;
-	class DataNodeService : public c2m::OfsChunkService, public olib::Singleton<DataNodeService> {
+	class DataNodeService : public olib::Singleton<DataNodeService> {
 	public:
 		DataNodeService() : _mutex(true) {}
 		~DataNodeService() {}
 
 		bool Start(const olib::IXmlObject& root);
 
-		virtual void RegisterChunkServer(::google::protobuf::RpcController* controller,
-			const ::ofs::c2m::RegisterChunkServerRequest* request,
-			::ofs::c2m::RegisterChunkServerResponse* response,
-			::google::protobuf::Closure* done);
-		virtual void Report(::google::protobuf::RpcController* controller,
-			const ::ofs::c2m::ReportRequest* request,
-			::ofs::c2m::ReportResponse* response,
-			::google::protobuf::Closure* done);
-		virtual void RenewLease(::google::protobuf::RpcController* controller,
-			const ::ofs::c2m::RenewLeaseRequest* request,
-			::ofs::c2m::RenewLeaseResponse* response,
-			::google::protobuf::Closure* done);
-
 		std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old);
 
 	private:
-		rpc::OfsRpcServer _rpc;
+		void OnRegister(const c2m::Register& req);
+
+		void OnReport(const c2m::ReportBlock& req);
+		void OnUpdate(const c2m::UpdataBlock& req);
+		void OnClean(const c2m::CleanComplete& ntf);
+
+		void OnHeartbeat(const c2m::Heartbeat& ntf);
+
+	private:
+		mq::MessageQueue * _queue = nullptr;
 
 		hn_shared_mutex _mutex;
 		IDataCluster * _dataCluster;

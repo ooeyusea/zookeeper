@@ -17,7 +17,7 @@ namespace ofs {
 		return file.Read(offset, size, data);
 	}
 
-	int32_t Block::Write(int32_t exceptVersion, int32_t newVersion, int32_t offset, const std::string& data, bool strict) {
+	int32_t Block::Write(int64_t exceptVersion, int64_t newVersion, int32_t offset, const std::string& data, bool strict) {
 		if (_info.size < offset + data.size())
 			return api::chunk::ErrorCode::EC_BLOCK_OUT_OF_RANGE;
 
@@ -35,7 +35,7 @@ namespace ofs {
 		}
 
 		LocalFile file(std::move(path));
-		int32_t ret = file.Write(offset, data.c_str(), data.size());
+		int32_t ret = file.Write(offset, data.c_str(), (int32_t)data.size());
 		if (ret != api::chunk::EC_NONE)
 			return ret;
 
@@ -52,7 +52,7 @@ namespace ofs {
 		return meta.Write(0, (const char *)&_info, sizeof(_info));
 	}
 
-	int32_t Block::Append(int32_t exceptVersion, int32_t newVersion, const std::string& data, bool strict) {
+	int32_t Block::Append(int64_t exceptVersion, int64_t newVersion, const std::string& data, bool strict) {
 		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
 		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
 
@@ -67,7 +67,7 @@ namespace ofs {
 		}
 
 		LocalFile file(std::move(path));
-		int32_t ret = file.Append(data.c_str(), data.size());
+		int32_t ret = file.Append(data.c_str(), (int32_t)data.size());
 		if (ret != api::chunk::EC_NONE)
 			return ret;
 

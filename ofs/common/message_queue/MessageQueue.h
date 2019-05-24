@@ -39,7 +39,7 @@ namespace ofs {
 
 			template <typename T>
 			inline void Register(const std::function<void(const T& request)>& fn) {
-				uint32_t key = olib::BKDRHash(request->GetDescriptor()->full_name().c_str());
+				uint32_t key = olib::BKDRHash(T().GetDescriptor()->full_name().c_str());
 				assert(_funcs.find(key) == _funcs.end());
 
 				_funcs[key] = [fn](const char * data, int32_t size) {

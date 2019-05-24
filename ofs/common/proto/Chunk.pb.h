@@ -1504,24 +1504,31 @@ class RecoverBlock :
 
   // accessors -------------------------------------------------------
 
-  // required int64 version = 1;
+  // required int64 blockid = 1;
+  bool has_blockid() const;
+  void clear_blockid();
+  static const int kBlockidFieldNumber = 1;
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
+
+  // required int64 version = 2;
   bool has_version() const;
   void clear_version();
-  static const int kVersionFieldNumber = 1;
+  static const int kVersionFieldNumber = 2;
   ::google::protobuf::int64 version() const;
   void set_version(::google::protobuf::int64 value);
 
-  // required int64 newVersion = 2;
+  // required int64 newVersion = 3;
   bool has_newversion() const;
   void clear_newversion();
-  static const int kNewVersionFieldNumber = 2;
+  static const int kNewVersionFieldNumber = 3;
   ::google::protobuf::int64 newversion() const;
   void set_newversion(::google::protobuf::int64 value);
 
-  // required int32 copyTo = 3;
+  // required int32 copyTo = 4;
   bool has_copyto() const;
   void clear_copyto();
-  static const int kCopyToFieldNumber = 3;
+  static const int kCopyToFieldNumber = 4;
   ::google::protobuf::int32 copyto() const;
   void set_copyto(::google::protobuf::int32 value);
 
@@ -1535,6 +1542,7 @@ class RecoverBlock :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::int64 blockid_;
   ::google::protobuf::int64 version_;
   ::google::protobuf::int64 newversion_;
   ::google::protobuf::int32 copyto_;
@@ -1644,12 +1652,12 @@ class CleanBlock :
 
   // accessors -------------------------------------------------------
 
-  // required int32 blockid = 1;
+  // required int64 blockid = 1;
   bool has_blockid() const;
   void clear_blockid();
   static const int kBlockidFieldNumber = 1;
-  ::google::protobuf::int32 blockid() const;
-  void set_blockid(::google::protobuf::int32 value);
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:ofs.c2m.CleanBlock)
  private:
@@ -1658,7 +1666,7 @@ class CleanBlock :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  ::google::protobuf::int32 blockid_;
+  ::google::protobuf::int64 blockid_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1765,19 +1773,19 @@ class CleanComplete :
 
   // accessors -------------------------------------------------------
 
+  // required int64 blockid = 2;
+  bool has_blockid() const;
+  void clear_blockid();
+  static const int kBlockidFieldNumber = 2;
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
+
   // required int32 id = 1;
   bool has_id() const;
   void clear_id();
   static const int kIdFieldNumber = 1;
   ::google::protobuf::int32 id() const;
   void set_id(::google::protobuf::int32 value);
-
-  // required int32 blockid = 2;
-  bool has_blockid() const;
-  void clear_blockid();
-  static const int kBlockidFieldNumber = 2;
-  ::google::protobuf::int32 blockid() const;
-  void set_blockid(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ofs.c2m.CleanComplete)
  private:
@@ -1789,8 +1797,8 @@ class CleanComplete :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::int64 blockid_;
   ::google::protobuf::int32 id_;
-  ::google::protobuf::int32 blockid_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3064,56 +3072,74 @@ ReportBlock::blocks() const {
 
 // RecoverBlock
 
-// required int64 version = 1;
-inline bool RecoverBlock::has_version() const {
+// required int64 blockid = 1;
+inline bool RecoverBlock::has_blockid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void RecoverBlock::clear_blockid() {
+  blockid_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::google::protobuf::int64 RecoverBlock::blockid() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.blockid)
+  return blockid_;
+}
+inline void RecoverBlock::set_blockid(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  blockid_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.blockid)
+}
+
+// required int64 version = 2;
+inline bool RecoverBlock::has_version() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
 inline void RecoverBlock::clear_version() {
   version_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline ::google::protobuf::int64 RecoverBlock::version() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.version)
   return version_;
 }
 inline void RecoverBlock::set_version(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   version_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.version)
 }
 
-// required int64 newVersion = 2;
+// required int64 newVersion = 3;
 inline bool RecoverBlock::has_newversion() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void RecoverBlock::clear_newversion() {
   newversion_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int64 RecoverBlock::newversion() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.newVersion)
   return newversion_;
 }
 inline void RecoverBlock::set_newversion(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   newversion_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.newVersion)
 }
 
-// required int32 copyTo = 3;
+// required int32 copyTo = 4;
 inline bool RecoverBlock::has_copyto() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void RecoverBlock::clear_copyto() {
   copyto_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 RecoverBlock::copyto() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.copyTo)
   return copyto_;
 }
 inline void RecoverBlock::set_copyto(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   copyto_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.copyTo)
 }
@@ -3122,19 +3148,19 @@ inline void RecoverBlock::set_copyto(::google::protobuf::int32 value) {
 
 // CleanBlock
 
-// required int32 blockid = 1;
+// required int64 blockid = 1;
 inline bool CleanBlock::has_blockid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
 inline void CleanBlock::clear_blockid() {
-  blockid_ = 0;
+  blockid_ = PROTOBUF_LONGLONG(0);
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::google::protobuf::int32 CleanBlock::blockid() const {
+inline ::google::protobuf::int64 CleanBlock::blockid() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.CleanBlock.blockid)
   return blockid_;
 }
-inline void CleanBlock::set_blockid(::google::protobuf::int32 value) {
+inline void CleanBlock::set_blockid(::google::protobuf::int64 value) {
   _has_bits_[0] |= 0x00000001u;
   blockid_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.CleanBlock.blockid)
@@ -3146,36 +3172,36 @@ inline void CleanBlock::set_blockid(::google::protobuf::int32 value) {
 
 // required int32 id = 1;
 inline bool CleanComplete::has_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
 inline void CleanComplete::clear_id() {
   id_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline ::google::protobuf::int32 CleanComplete::id() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.CleanComplete.id)
   return id_;
 }
 inline void CleanComplete::set_id(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   id_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.CleanComplete.id)
 }
 
-// required int32 blockid = 2;
+// required int64 blockid = 2;
 inline bool CleanComplete::has_blockid() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
 inline void CleanComplete::clear_blockid() {
-  blockid_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  blockid_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline ::google::protobuf::int32 CleanComplete::blockid() const {
+inline ::google::protobuf::int64 CleanComplete::blockid() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.CleanComplete.blockid)
   return blockid_;
 }
-inline void CleanComplete::set_blockid(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000002u;
+inline void CleanComplete::set_blockid(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
   blockid_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.CleanComplete.blockid)
 }

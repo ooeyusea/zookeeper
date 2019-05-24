@@ -102,6 +102,11 @@ SET(INSTRUCTION_SEQUENCE
 	"${PROJECT_SOURCE_DIR}/../common/instruction_sequence/InstructionSequence.cpp"
 )
 
+SET(MESSAGE_QUEUE
+	"${PROJECT_SOURCE_DIR}/../common/message_queue/MessageQueue.h"
+	"${PROJECT_SOURCE_DIR}/../common/message_queue/MessageQueue.cpp"
+)
+
 SET(API
 	"${PROJECT_SOURCE_DIR}/../common/api/OfsMaster.pb.cc"
 	"${PROJECT_SOURCE_DIR}/../common/api/OfsMaster.pb.h"
@@ -119,6 +124,7 @@ SOURCE_GROUP(file FILES ${FILE_SYSTEM})
 SOURCE_GROUP(common FILES ${COMMON})
 SOURCE_GROUP(common\\rpc FILES ${RPC})
 SOURCE_GROUP(common\\instruction_sequence FILES ${INSTRUCTION_SEQUENCE})
+SOURCE_GROUP(common\\message_queue FILES ${MESSAGE_QUEUE})
 SOURCE_GROUP(common\\api FILES ${API})
 SOURCE_GROUP(common\\proto FILES ${PROTO})
 SOURCE_GROUP(client FILES ${CLIENT} )
@@ -134,6 +140,7 @@ ADD_EXECUTABLE(master
 	${COMMON}
 	${RPC}
 	${INSTRUCTION_SEQUENCE}
+	${MESSAGE_QUEUE}
 	${API}
 	${PROTO}
 	${USER}

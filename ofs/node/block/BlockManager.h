@@ -14,15 +14,15 @@ namespace ofs {
 
 		bool Start(const olib::IXmlObject& object);
 
-		inline std::string GetBlockFile(int32_t blockId) {
+		inline std::string GetBlockFile(int64_t blockId) {
 			char file[MAX_PATH];
-			snprintf(file, sizeof(file), "%s/%d.block", _blockPath.c_str(), blockId);
+			snprintf(file, sizeof(file), "%s/%lld.block", _blockPath.c_str(), blockId);
 			return file;
 		}
 
-		inline std::string GetBlockMetaFile(int32_t blockId) {
+		inline std::string GetBlockMetaFile(int64_t blockId) {
 			char file[MAX_PATH];
-			snprintf(file, sizeof(file), "%s/%d_meta.block", _blockPath.c_str(), blockId);
+			snprintf(file, sizeof(file), "%s/%lld_meta.block", _blockPath.c_str(), blockId);
 			return file;
 		}
 

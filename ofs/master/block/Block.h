@@ -54,8 +54,7 @@ namespace ofs {
 		inline int64_t GetExpectVersion() const { return _expectVersion; }
 		inline int64_t GetLease() const { return _lease; }
 
-		int32_t UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size, c2m::ReportResponse * response);
-		bool UpdateLease(int32_t chunkServerId, c2m::RenewLeaseResponse * response);
+		void UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size);
 
 	private:
 		int64_t _id;

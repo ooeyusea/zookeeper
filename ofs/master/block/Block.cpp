@@ -58,7 +58,7 @@ namespace ofs {
 		return nullptr;
 	}
 
-	int32_t Block::UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size, c2m::ReportResponse * response) {
+	void Block::UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size) {
 		hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 		for (auto& bIs : _chunkServer) {
 			if (bIs.GetServer()->GetId() == chunkServerId) {
@@ -69,43 +69,8 @@ namespace ofs {
 				if (version > _expectVersion)
 					_expectVersion = version;
 
-				return c2m::ErrorCode::EC_OK;
+				return;
 			}
 		}
-		
-		return c2m::ErrorCode::EC_BLOCK_CLEAN;
-	}
-
-	bool Block::UpdateLease(int32_t chunkServerId, c2m::RenewLeaseResponse * response) {
-		int64_t now = olib::GetTimeStamp();
-
-		std::lock_guard<hn_shared_mutex> guard(_mutex);
-		for (auto& bIs : _chunkServer) {
-			if (bIs.GetServer()->GetId() == chunkServerId) {
-				if (bIs.GetLease() > now) {
-					int64_t tick = bIs.GetLease() + MINUTE;
-					bIs.SetLease(tick);
-					_lease = tick;
-
-					_expectVersion = NextVersion();
-
-					auto * lease = response->mutable_lease();
-					lease->set_until(tick);
-					lease->set_version(_version);
-					lease->set_newversion(_expectVersion);
-				
-					for (auto& bIs2 : _chunkServer) {
-						if (bIs2.GetServer()->GetId() != chunkServerId && bIs2.GetServer()->IsUseAble())
-							lease->add_chunkservers(bIs2.GetServer()->GetId());
-					}
-
-					return true;
-				}
-
-				return false;
-			}
-		}
-
-		return false;
 	}
 }
