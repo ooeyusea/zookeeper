@@ -2,6 +2,8 @@
 #define __TIME_HELPER_H__
 #include "hnet.h"
 #include <chrono>
+#include <iomanip>
+#include <sstream>
 
 #define SECOND 1000
 #define MINUTE (60 * SECOND)
@@ -21,6 +23,13 @@ namespace olib {
 		int64_t now = GetTimeStamp();
 		int64_t next = ((now / SECOND) + 1) * SECOND;
 		return next - now;
+	}
+
+	inline std::string FomateTimeStamp(int64_t timestamp) {
+		std::stringstream ss;
+		std::time_t t(timestamp / SECOND);
+		ss << std::put_time(std::localtime(&t), "%F %T");
+		return ss.str();
 	}
 }
 

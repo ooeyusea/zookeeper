@@ -4,7 +4,8 @@
 
 namespace ofs {
 	bool UserManager::Start(const olib::IXmlObject& root) {
-		const char * path = root["user"][0].GetAttributeString("path");
+		const char * path = root["user"][0]["path"][0].GetAttributeString("val");
+		_expire = root["user"][0]["token"][0].GetAttributeInt64("duration");
 
 		bool hasOne = false;
 		olib::FileFinder().Search("*.user", [this, &hasOne](const fs::path& file) {
@@ -129,13 +130,13 @@ namespace ofs {
 	}
 
 	std::string UserManager::Generate() {
-		static int32_t seed = 11231234123;
+		static uint32_t seed = 11231234123;
 		seed = seed * 12978312;
 
 		std::string token;
 		token.reserve(32);
 
-		int32_t key = seed;
+		uint32_t key = seed;
 		int32_t count = 32;
 		while (key > 0 && count-- > 0) {
 			char c = (char)(key % 26);

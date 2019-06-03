@@ -45,6 +45,9 @@ namespace ofs {
 		bool SaveToFile(const std::string& path);
 
 	private:
+		void StartSave(int64_t interval);
+
+	private:
 		hn_shared_mutex _mutex;
 
 		Directory _root;
@@ -53,6 +56,7 @@ namespace ofs {
 		std::unordered_map<int64_t, File*> _files;
 
 		int32_t _blockSize;
+		hn_ticker* _saveTimer = nullptr;
 	};
 }
 

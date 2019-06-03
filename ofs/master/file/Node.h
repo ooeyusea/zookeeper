@@ -70,8 +70,8 @@ namespace ofs {
 		int64_t _updateTime;
 		int32_t _size = 0;
 
-		bool _delete;
-		int64_t _deleteTick;
+		bool _delete = false;
+		int64_t _deleteTick = 0;
 
 		Node * _parent = nullptr;
 	};
