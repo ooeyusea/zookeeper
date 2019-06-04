@@ -31,6 +31,8 @@ namespace ofs {
 		void DoCommand(const std::string& line);
 		void Slash();
 
+		inline bool IsOpen() const { return _channel.IsOpen(); }
+
 	private:
 		bool Login(const std::string& username, const std::string& password);
 		bool ReadRootPath();

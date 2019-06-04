@@ -27,9 +27,12 @@ namespace ofs {
 				hn_sleep 500;
 			}
 
+			inline bool IsOpen() const { return _fd > 0; }
+
 		private:
 			int32_t _fd = -1;
 			bool _terminate = false;
+			bool _looping = false;
 
 			hn_mutex _writeMutex;
 			hn_mutex _readMutex;

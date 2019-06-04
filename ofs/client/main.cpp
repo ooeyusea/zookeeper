@@ -36,7 +36,7 @@ void start(int32_t argc, char ** argv) {
 		return;
 	}
 
-	while (true) {
+	while (client.IsOpen()) {
 		client.Slash();
 
 		std::string line;
@@ -48,4 +48,6 @@ void start(int32_t argc, char ** argv) {
 
 		client.DoCommand(line);
 	}
+
+	std::cerr << "ofs server connect reset" << std::endl;
 }

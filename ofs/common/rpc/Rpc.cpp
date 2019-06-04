@@ -51,6 +51,11 @@ namespace ofs {
 			catch (std::exception& e) {
 				hn_error("call method %s", e.what());
 				controller->SetFailed(e.what());
+
+				if (!_looping) {
+					hn_close(_fd);
+					_fd = -1;
+				}
 			}
 		}
 
@@ -60,6 +65,7 @@ namespace ofs {
 		}
 
 		void OfsRpcChannel::Start(const std::string& ip, int32_t port, const std::function<void()>& fn) {
+			_looping = true;
 			hn_fork[ip, port, this, fn]{
 				while (!_terminate) {
 					if (_fd <= 0 || !hn_test_fd(_fd)) {
@@ -71,6 +77,8 @@ namespace ofs {
 
 					hn_sleep 100;
 				}
+
+				hn_close(_fd);
 			};
 		}
 
