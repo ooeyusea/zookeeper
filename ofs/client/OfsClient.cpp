@@ -2,6 +2,7 @@
 #include <iostream>
 #include "args.h"
 #include <stack>
+#include "time_helper.h"
 
 namespace ofs {
 	std::vector<std::string> Split(const std::string& line, const char * sep) {
@@ -32,7 +33,7 @@ namespace ofs {
 	}
 
 	bool Client::Connect(const std::string& host, int32_t port, const std::string& username, const std::string& password) {
-		_service = new api::OfsFileService::Stub(&_channel);
+		_service = new api::master::OfsFileService::Stub(&_channel);
 
 		_username = username;
 		_host = host;
@@ -76,21 +77,21 @@ namespace ofs {
 	void Client::Slash() {
 		std::cout << "[" << _username << "@" << _host << " " << _currentPath << "]";
 		if (_supper)
-			std::cout << "# " << std::endl;
+			std::cout << "# ";
 		else
-			std::cout << "$ " << std::endl;
+			std::cout << "$ ";
 	}
 
 	bool Client::Login(const std::string& username, const std::string& password) {
-		api::LoginReq request;
+		api::master::LoginReq request;
 		request.set_name(username);
 		request.set_password(password);
 
-		api::LoginResponse response;
-		rpc::OfsRpcController controller;
+		api::master::LoginResponse response;
+		rpc::OfsRpcController controller(-1);
 		_service->Login(&controller, &request, &response, nullptr);
 
-		if (!controller.Failed() && response.errcode() == api::ErrorCode::EC_NONE) {
+		if (!controller.Failed() && response.errcode() == api::master::ErrorCode::EC_NONE) {
 			_token = response.token();
 			return true;
 		}
@@ -99,15 +100,15 @@ namespace ofs {
 	}
 
 	bool Client::ReadRootPath() {
-		api::FileStatusRequest request;
+		api::master::FileStatusRequest request;
 		request.set_token(_token);
 		request.set_path("/");
 
-		api::FileStatusRespone response;
-		rpc::OfsRpcController controller;
+		api::master::FileStatusRespone response;
+		rpc::OfsRpcController controller(-1);
 		_service->Status(&controller, &request, &response, nullptr);
 
-		if (!controller.Failed() && response.errcode() == api::ErrorCode::EC_NONE) {
+		if (!controller.Failed() && response.errcode() == api::master::ErrorCode::EC_NONE) {
 			_root.name = response.file().name();
 			_root.owner = response.file().owner();
 			_root.ownerGroup = response.file().group();
@@ -185,19 +186,19 @@ namespace ofs {
 		std::string realName;
 		std::tie(realPath, realName) = FindRealWithName(args::get(path));
 
-		api::MakeDirRequest request;
+		api::master::MakeDirRequest request;
 		request.set_token(_token);
 		request.set_directory(realPath);
 		request.set_name(realName);
-		request.set_authority(api::AuthorityType::AT_OWNER_READ | api::AuthorityType::AT_OWNER_WRITE | api::AuthorityType::AT_GROUP_READ | api::AuthorityType::AT_OTHER_READ);
+		request.set_authority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
 
-		api::MakeDirResponse response;
-		rpc::OfsRpcController controller;
+		api::master::MakeDirResponse response;
+		rpc::OfsRpcController controller(-1);
 
 		_service->MakeDir(&controller, &request, &response, nullptr);
 
 		if (!controller.Failed()) {
-			if (response.errcode() == api::ErrorCode::EC_NONE) {
+			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
 
 			}
 			else {
@@ -237,19 +238,19 @@ namespace ofs {
 		std::string realName;
 		std::tie(realPath, realName) = FindRealWithName(args::get(path));
 
-		api::CreateFileRequest request;
+		api::master::CreateFileRequest request;
 		request.set_token(_token);
 		request.set_directory(realPath);
 		request.set_name(realName);
-		request.set_authority(api::AuthorityType::AT_OWNER_READ | api::AuthorityType::AT_OWNER_WRITE | api::AuthorityType::AT_GROUP_READ | api::AuthorityType::AT_OTHER_READ);
+		request.set_authority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
 
-		api::CreateFileResponse response;
-		rpc::OfsRpcController controller;
+		api::master::CreateFileResponse response;
+		rpc::OfsRpcController controller(-1);
 
 		_service->Create(&controller, &request, &response, nullptr);
 
 		if (!controller.Failed()) {
-			if (response.errcode() == api::ErrorCode::EC_NONE) {
+			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
 
 			}
 			else {
@@ -287,17 +288,17 @@ namespace ofs {
 
 		std::string realPath = FindReal(args::get(path));
 
-		api::RemoveRequest request;
+		api::master::RemoveRequest request;
 		request.set_token(_token);
 		request.set_path(realPath);
 
-		api::RemoveResponse response;
-		rpc::OfsRpcController controller;
+		api::master::RemoveResponse response;
+		rpc::OfsRpcController controller(-1);
 
 		_service->Remove(&controller, &request, &response, nullptr);
 
 		if (!controller.Failed()) {
-			if (response.errcode() == api::ErrorCode::EC_NONE) {
+			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
 
 			}
 			else {
@@ -333,7 +334,7 @@ namespace ofs {
 		}
 
 		if (Expand(_currentPath.c_str())) {
-
+			DisplayPath(_currentPath.c_str());
 		}
 	}
 
@@ -344,17 +345,17 @@ namespace ofs {
 		}
 
 		if (!node || !node->expand) {
-			api::ListRequest request;
+			api::master::ListRequest request;
 			request.set_token(_token);
 			request.set_path(path);
 
-			api::ListResponse response;
-			rpc::OfsRpcController controller;
+			api::master::ListResponse response;
+			rpc::OfsRpcController controller(-1);
 
 			_service->List(&controller, &request, &response, nullptr);
 
 			if (!controller.Failed()) {
-				if (response.errcode() == api::ErrorCode::EC_NONE) {
+				if (response.errcode() == api::master::ErrorCode::EC_NONE) {
 					if (!node)
 						node = CreateNode(_root, path);
 					
@@ -372,8 +373,10 @@ namespace ofs {
 						child->size = file.size();
 						child->expand = false;
 
-						node->children.emplace_back(node);
+						node->children.emplace_back(child);
 					}
+
+					node->expand = true;
 				}
 				else {
 					return false;
@@ -385,6 +388,69 @@ namespace ofs {
 		}
 
 		return true;
+	}
+
+	std::string ToAuthStr(int16_t authority, bool dir) {
+		std::string ret;
+		ret += dir ? 'd' : '-';
+
+		if (authority & api::master::AuthorityType::AT_OWNER_READ)
+			ret += 'r';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_OWNER_WRITE)
+			ret += 'w';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_OWNER_EXECUTE)
+			ret += 'x';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_GROUP_READ)
+			ret += 'r';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_GROUP_WRITE)
+			ret += 'w';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_GROUP_EXECUTE)
+			ret += 'x';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_OTHER_READ)
+			ret += 'r';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_OTHER_WRITE)
+			ret += 'w';
+		else
+			ret += '-';
+
+		if (authority & api::master::AuthorityType::AT_OTHER_EXECUTE)
+			ret += 'x';
+		else
+			ret += '-';
+
+		return ret;
+	}
+
+	void Client::DisplayPath(const char* path) {
+		Node* node = GetNode(_root, path);
+		if (node && !node->dir)
+			return;
+
+		if (node && node->expand) {
+			for (auto* child : node->children)
+				printf("%s\t%s\t%s\t%d\t%s\t%s\n", ToAuthStr(child->authority, child->dir).c_str(), child->owner.c_str(), child->ownerGroup.c_str(), child->dir ? 1024 : child->size, olib::FomateTimeStamp(child->updateTime).c_str(), child->name.c_str());
+		}
 	}
 
 	std::string Client::FindReal(const std::string& path) {

@@ -17,7 +17,7 @@ namespace ofs {
 		}
 
 		try {
-			if (UserManager::Instance().Start(conf.Root()))
+			if (!UserManager::Instance().Start(conf.Root()))
 				return false;
 			
 			hn_info("start user manater success");
@@ -27,7 +27,7 @@ namespace ofs {
 
 			hn_info("load file system success");
 
-			if (ClientService::Instance().Start(conf.Root()))
+			if (!ClientService::Instance().Start(conf.Root()))
 				return false;
 
 			hn_info("start client service success");

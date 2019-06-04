@@ -12,9 +12,12 @@ namespace ofs {
 	bool FileSystem::Start(const olib::IXmlObject& root) {
 		_path = root["data"][0]["path"][0].GetAttributeString("val");
 		_blockSize = root["data"][0]["block"][0].GetAttributeInt32("size") * MB;
+		int64_t interval = root["data"][0]["save"][0].GetAttributeInt64("interval") * SECOND;
 
 		if (!LoadFromFile(_path))
 			return false;
+
+		StartSave(interval);
 		return true;
 	}
 
@@ -40,7 +43,10 @@ namespace ofs {
 			_root.SetOwner("root");
 			_root.SetOwnerGroup("root");
 			_root.SetAuthority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
+			_root.SetCreateTime(olib::GetTimeStamp());
+			_root.SetUpdateTime(olib::GetTimeStamp());
 
+			SaveToFile(path);
 			hn_info("not exist directory file");
 		}
 
@@ -54,5 +60,15 @@ namespace ofs {
 		ar << _root;
 
 		return !ar.Fail();
+	}
+
+	void FileSystem::StartSave(int64_t interval) {
+		_saveTimer = new hn_ticker(interval);
+
+		hn_fork[this]{
+			for (auto t : *_saveTimer) {
+				SaveToFile(_path);
+			}
+		};
 	}
 }

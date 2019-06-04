@@ -42,6 +42,7 @@ namespace ofs {
 		void List(int32_t argc, char ** argv);
 
 		int32_t Expand(const char * path);
+		void DisplayPath(const char* path);
 
 		std::string FindReal(const std::string& path);
 		std::tuple<std::string, std::string> FindRealWithName(const std::string& path);
@@ -59,7 +60,7 @@ namespace ofs {
 
 	private:
 		ofs::rpc::OfsRpcChannel _channel;
-		api::OfsFileService * _service = nullptr;
+		api::master::OfsFileService * _service = nullptr;
 
 		std::string _token;
 		bool _supper;
