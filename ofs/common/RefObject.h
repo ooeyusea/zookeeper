@@ -8,9 +8,9 @@ namespace ofs {
 		RefObject() {}
 		~RefObject() {}
 
-		inline bool IsUsed() const { return _used.load(std::memory_order::memory_order_relaxed) > 0; }
+		inline bool IsUsed() const { return _used.load(std::memory_order::memory_order_acquire) > 0; }
 		inline void Acquire() { _used.fetch_add(1, std::memory_order::memory_order_relaxed); }
-		inline void Release() { _used.fetch_sub(1, std::memory_order::memory_order_relaxed); }
+		inline void Release() { _used.fetch_sub(1, std::memory_order::memory_order_release); }
 
 	private:
 		std::atomic<int32_t> _used = 0;

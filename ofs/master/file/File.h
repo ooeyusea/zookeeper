@@ -3,9 +3,10 @@
 #include "hnet.h"
 #include "Node.h"
 #include "OfsId.h"
+#include "RefObject.h"
 
 namespace ofs {
-	class File : public Node {
+	class File : public Node, public RefObject {
 	public:
 		File() : Node(false) {
 			_id = IdGenerator::GenerateId();
@@ -22,6 +23,21 @@ namespace ofs {
 		}
 
 		inline int64_t GetId() const { return _id; }
+
+		inline void UpdateSize(uint32_t size) {
+			volatile int32_t old = _size;
+			while (old < size) {
+#ifdef WIN32
+				if (InterlockedCompareExchangeNoFence(&_size, size, old) == old) {
+#else
+				if (__sync_bool_compare_and_swap(&_size, old, size)) {
+#endif
+					break;
+				}
+
+				old = _size;
+			}
+		}
 
 	private:
 		int64_t _id;

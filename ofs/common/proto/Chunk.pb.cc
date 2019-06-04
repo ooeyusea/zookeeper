@@ -340,7 +340,7 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::NodeInfo, cpu_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::NodeInfo, res_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::NodeInfo, rss_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::NodeInfo, vss_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::NodeInfo, disk_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::NodeInfo, fault_),
@@ -392,9 +392,11 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::BlockStatus, id_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::BlockStatus, version_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::BlockStatus, size_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::BlockStatus, fault_),
   0,
   1,
   2,
+  3,
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::Heartbeat, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::Heartbeat, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -493,16 +495,16 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 24, 36, sizeof(::ofs::c2m::Register)},
   { 43, 50, sizeof(::ofs::c2m::Neighbor)},
   { 52, 58, sizeof(::ofs::c2m::NeighborNotify)},
-  { 59, 67, sizeof(::ofs::c2m::BlockStatus)},
-  { 70, 77, sizeof(::ofs::c2m::Heartbeat)},
-  { 79, 86, sizeof(::ofs::c2m::UpdataBlock)},
-  { 88, 95, sizeof(::ofs::c2m::ReportBlock)},
-  { 97, 106, sizeof(::ofs::c2m::RecoverBlock)},
-  { 110, 116, sizeof(::ofs::c2m::CleanBlock)},
-  { 117, 124, sizeof(::ofs::c2m::CleanComplete)},
-  { 126, 132, sizeof(::ofs::c2m::NeighborGossip)},
-  { 133, 143, sizeof(::ofs::c2m::WriteNotify)},
-  { 148, 157, sizeof(::ofs::c2m::AppendNotify)},
+  { 59, 68, sizeof(::ofs::c2m::BlockStatus)},
+  { 72, 79, sizeof(::ofs::c2m::Heartbeat)},
+  { 81, 88, sizeof(::ofs::c2m::UpdataBlock)},
+  { 90, 97, sizeof(::ofs::c2m::ReportBlock)},
+  { 99, 108, sizeof(::ofs::c2m::RecoverBlock)},
+  { 112, 118, sizeof(::ofs::c2m::CleanBlock)},
+  { 119, 126, sizeof(::ofs::c2m::CleanComplete)},
+  { 128, 134, sizeof(::ofs::c2m::NeighborGossip)},
+  { 135, 145, sizeof(::ofs::c2m::WriteNotify)},
+  { 150, 159, sizeof(::ofs::c2m::AppendNotify)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -532,7 +534,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 const char descriptor_table_protodef_Chunk_2eproto[] =
   "\n\013Chunk.proto\022\007ofs.c2m\"\'\n\tIpAddress\022\014\n\004h"
   "ost\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\"N\n\010NodeInfo\022\013\n\003c"
-  "pu\030\001 \002(\005\022\013\n\003res\030\002 \002(\005\022\013\n\003vss\030\003 \002(\005\022\014\n\004di"
+  "pu\030\001 \002(\005\022\013\n\003rss\030\002 \002(\005\022\013\n\003vss\030\003 \002(\005\022\014\n\004di"
   "sk\030\004 \002(\005\022\r\n\005fault\030\005 \002(\010\"\252\001\n\010Register\022\n\n\002"
   "id\030\001 \002(\005\022#\n\007outpost\030\002 \002(\0132\022.ofs.c2m.IpAd"
   "dress\022\"\n\006harbor\030\003 \002(\0132\022.ofs.c2m.IpAddres"
@@ -540,28 +542,29 @@ const char descriptor_table_protodef_Chunk_2eproto[] =
   "\0132\021.ofs.c2m.NodeInfo\022\016\n\006extend\030\007 \002(\t\":\n\010"
   "Neighbor\022\n\n\002id\030\001 \002(\005\022\"\n\006harbor\030\002 \002(\0132\022.o"
   "fs.c2m.IpAddress\"5\n\016NeighborNotify\022#\n\010ne"
-  "ighbor\030\001 \002(\0132\021.ofs.c2m.Neighbor\"8\n\013Block"
+  "ighbor\030\001 \002(\0132\021.ofs.c2m.Neighbor\"G\n\013Block"
   "Status\022\n\n\002id\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\014\n\004s"
-  "ize\030\003 \002(\005\"8\n\tHeartbeat\022\n\n\002id\030\001 \002(\005\022\037\n\004no"
-  "de\030\002 \002(\0132\021.ofs.c2m.NodeInfo\">\n\013UpdataBlo"
-  "ck\022\n\n\002id\030\001 \002(\005\022#\n\005block\030\002 \002(\0132\024.ofs.c2m."
-  "BlockStatus\"\?\n\013ReportBlock\022\n\n\002id\030\001 \002(\005\022$"
-  "\n\006blocks\030\002 \003(\0132\024.ofs.c2m.BlockStatus\"T\n\014"
-  "RecoverBlock\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version"
-  "\030\002 \002(\003\022\022\n\nnewVersion\030\003 \002(\003\022\016\n\006copyTo\030\004 \002"
-  "(\005\"\035\n\nCleanBlock\022\017\n\007blockid\030\001 \002(\003\",\n\rCle"
-  "anComplete\022\n\n\002id\030\001 \002(\005\022\017\n\007blockid\030\002 \002(\003\""
-  "5\n\016NeighborGossip\022#\n\010neighbor\030\001 \002(\0132\021.of"
-  "s.c2m.Neighbor\"a\n\013WriteNotify\022\017\n\007blockid"
-  "\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewversion\030\003 "
-  "\002(\003\022\016\n\006offset\030\004 \002(\005\022\014\n\004data\030\005 \002(\t\"R\n\014App"
-  "endNotify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002 "
-  "\002(\003\022\022\n\nnewversion\030\003 \002(\003\022\014\n\004data\030\004 \002(\t"
+  "ize\030\003 \002(\005\022\r\n\005fault\030\004 \002(\010\"8\n\tHeartbeat\022\n\n"
+  "\002id\030\001 \002(\005\022\037\n\004node\030\002 \002(\0132\021.ofs.c2m.NodeIn"
+  "fo\">\n\013UpdataBlock\022\n\n\002id\030\001 \002(\005\022#\n\005block\030\002"
+  " \002(\0132\024.ofs.c2m.BlockStatus\"\?\n\013ReportBloc"
+  "k\022\n\n\002id\030\001 \002(\005\022$\n\006blocks\030\002 \003(\0132\024.ofs.c2m."
+  "BlockStatus\"T\n\014RecoverBlock\022\017\n\007blockid\030\001"
+  " \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewVersion\030\003 \002("
+  "\003\022\016\n\006copyTo\030\004 \002(\005\"\035\n\nCleanBlock\022\017\n\007block"
+  "id\030\001 \002(\003\",\n\rCleanComplete\022\n\n\002id\030\001 \002(\005\022\017\n"
+  "\007blockid\030\002 \002(\003\"5\n\016NeighborGossip\022#\n\010neig"
+  "hbor\030\001 \002(\0132\021.ofs.c2m.Neighbor\"a\n\013WriteNo"
+  "tify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022"
+  "\n\nnewversion\030\003 \002(\003\022\016\n\006offset\030\004 \002(\005\022\014\n\004da"
+  "ta\030\005 \002(\t\"R\n\014AppendNotify\022\017\n\007blockid\030\001 \002("
+  "\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewversion\030\003 \002(\003\022\014"
+  "\n\004data\030\004 \002(\t"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_Chunk_2eproto = {
   false, InitDefaults_Chunk_2eproto, 
   descriptor_table_protodef_Chunk_2eproto,
-  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1077,
+  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1092,
 };
 
 void AddDescriptors_Chunk_2eproto() {
@@ -966,7 +969,7 @@ class NodeInfo::HasBitSetters {
   static void set_has_cpu(NodeInfo* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
-  static void set_has_res(NodeInfo* msg) {
+  static void set_has_rss(NodeInfo* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
   static void set_has_vss(NodeInfo* msg) {
@@ -982,7 +985,7 @@ class NodeInfo::HasBitSetters {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int NodeInfo::kCpuFieldNumber;
-const int NodeInfo::kResFieldNumber;
+const int NodeInfo::kRssFieldNumber;
 const int NodeInfo::kVssFieldNumber;
 const int NodeInfo::kDiskFieldNumber;
 const int NodeInfo::kFaultFieldNumber;
@@ -1063,10 +1066,10 @@ const char* NodeInfo::_InternalParse(const char* begin, const char* end, void* o
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required int32 res = 2;
+      // required int32 rss = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
-        msg->set_res(::google::protobuf::internal::ReadVarint(&ptr));
+        msg->set_rss(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
@@ -1131,13 +1134,13 @@ bool NodeInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required int32 res = 2;
+      // required int32 rss = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
-          HasBitSetters::set_has_res(this);
+          HasBitSetters::set_has_rss(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &res_)));
+                 input, &rss_)));
         } else {
           goto handle_unusual;
         }
@@ -1216,9 +1219,9 @@ void NodeInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->cpu(), output);
   }
 
-  // required int32 res = 2;
+  // required int32 rss = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->res(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->rss(), output);
   }
 
   // required int32 vss = 3;
@@ -1255,9 +1258,9 @@ void NodeInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->cpu(), target);
   }
 
-  // required int32 res = 2;
+  // required int32 rss = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->res(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->rss(), target);
   }
 
   // required int32 vss = 3;
@@ -1294,11 +1297,11 @@ size_t NodeInfo::RequiredFieldsByteSizeFallback() const {
         this->cpu());
   }
 
-  if (has_res()) {
-    // required int32 res = 2;
+  if (has_rss()) {
+    // required int32 rss = 2;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->res());
+        this->rss());
   }
 
   if (has_vss()) {
@@ -1337,10 +1340,10 @@ size_t NodeInfo::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->cpu());
 
-    // required int32 res = 2;
+    // required int32 rss = 2;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->res());
+        this->rss());
 
     // required int32 vss = 3;
     total_size += 1 +
@@ -1395,7 +1398,7 @@ void NodeInfo::MergeFrom(const NodeInfo& from) {
       cpu_ = from.cpu_;
     }
     if (cached_has_bits & 0x00000002u) {
-      res_ = from.res_;
+      rss_ = from.rss_;
     }
     if (cached_has_bits & 0x00000004u) {
       vss_ = from.vss_;
@@ -1438,7 +1441,7 @@ void NodeInfo::InternalSwap(NodeInfo* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(cpu_, other->cpu_);
-  swap(res_, other->res_);
+  swap(rss_, other->rss_);
   swap(vss_, other->vss_);
   swap(disk_, other->disk_);
   swap(fault_, other->fault_);
@@ -2859,12 +2862,16 @@ class BlockStatus::HasBitSetters {
   static void set_has_size(BlockStatus* msg) {
     msg->_has_bits_[0] |= 0x00000004u;
   }
+  static void set_has_fault(BlockStatus* msg) {
+    msg->_has_bits_[0] |= 0x00000008u;
+  }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BlockStatus::kIdFieldNumber;
 const int BlockStatus::kVersionFieldNumber;
 const int BlockStatus::kSizeFieldNumber;
+const int BlockStatus::kFaultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BlockStatus::BlockStatus()
@@ -2878,15 +2885,15 @@ BlockStatus::BlockStatus(const BlockStatus& from)
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&size_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(size_));
+    static_cast<size_t>(reinterpret_cast<char*>(&fault_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(fault_));
   // @@protoc_insertion_point(copy_constructor:ofs.c2m.BlockStatus)
 }
 
 void BlockStatus::SharedCtor() {
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&size_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(size_));
+      reinterpret_cast<char*>(&fault_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(fault_));
 }
 
 BlockStatus::~BlockStatus() {
@@ -2913,10 +2920,10 @@ void BlockStatus::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     ::memset(&id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&size_) -
-        reinterpret_cast<char*>(&id_)) + sizeof(size_));
+        reinterpret_cast<char*>(&fault_) -
+        reinterpret_cast<char*>(&id_)) + sizeof(fault_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -2953,6 +2960,13 @@ const char* BlockStatus::_InternalParse(const char* begin, const char* end, void
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
         msg->set_size(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required bool fault = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
+        msg->set_fault(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
@@ -3022,6 +3036,19 @@ bool BlockStatus::MergePartialFromCodedStream(
         break;
       }
 
+      // required bool fault = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
+          HasBitSetters::set_has_fault(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &fault_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -3065,6 +3092,11 @@ void BlockStatus::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->size(), output);
   }
 
+  // required bool fault = 4;
+  if (cached_has_bits & 0x00000008u) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->fault(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -3092,6 +3124,11 @@ void BlockStatus::SerializeWithCachedSizes(
   // required int32 size = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->size(), target);
+  }
+
+  // required bool fault = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->fault(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3127,6 +3164,11 @@ size_t BlockStatus::RequiredFieldsByteSizeFallback() const {
         this->size());
   }
 
+  if (has_fault()) {
+    // required bool fault = 4;
+    total_size += 1 + 1;
+  }
+
   return total_size;
 }
 size_t BlockStatus::ByteSizeLong() const {
@@ -3138,7 +3180,7 @@ size_t BlockStatus::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
     // required int64 id = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -3153,6 +3195,9 @@ size_t BlockStatus::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->size());
+
+    // required bool fault = 4;
+    total_size += 1 + 1;
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -3189,7 +3234,7 @@ void BlockStatus::MergeFrom(const BlockStatus& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       id_ = from.id_;
     }
@@ -3198,6 +3243,9 @@ void BlockStatus::MergeFrom(const BlockStatus& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       size_ = from.size_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      fault_ = from.fault_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -3218,7 +3266,7 @@ void BlockStatus::CopyFrom(const BlockStatus& from) {
 }
 
 bool BlockStatus::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   return true;
 }
 
@@ -3233,6 +3281,7 @@ void BlockStatus::InternalSwap(BlockStatus* other) {
   swap(id_, other->id_);
   swap(version_, other->version_);
   swap(size_, other->size_);
+  swap(fault_, other->fault_);
 }
 
 ::google::protobuf::Metadata BlockStatus::GetMetadata() const {

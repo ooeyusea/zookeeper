@@ -22,6 +22,9 @@ namespace ofs {
 		inline int32_t GetSize() const { return _info.size; }
 		inline void SetSize(int32_t val) { _info.size = val; }
 
+		inline bool IsFault() const { return _fault; }
+		inline void SetFault(bool val) { _fault = val; }
+
 		int32_t Read(int32_t offset, int32_t size, std::string& data);
 		int32_t Write(int64_t exceptVersion, int64_t newVersion, int32_t offset, const std::string& data, bool strict = false);
 		int32_t Append(int64_t exceptVersion, int64_t newVersion, const std::string& data, bool strict = false);
@@ -29,6 +32,7 @@ namespace ofs {
 
 	private:
 		BlockInfo _info;
+		bool _fault = false;
 
 		hn_shared_mutex _mutex;
 	};

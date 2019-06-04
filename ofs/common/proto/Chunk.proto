@@ -8,7 +8,7 @@ message IpAddress {
 
 message NodeInfo {
 	required int32 cpu = 1;
-	required int32 res = 2;
+	required int32 rss = 2;
 	required int32 vss = 3;
 	required int32 disk = 4;
 	required bool fault = 5;
@@ -37,6 +37,7 @@ message BlockStatus {
 	required int64 id = 1;
 	required int64 version = 2;
 	required int32 size = 3;
+	required bool fault = 4;
 }
 
 message Heartbeat {

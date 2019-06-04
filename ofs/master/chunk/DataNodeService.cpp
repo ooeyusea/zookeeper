@@ -49,7 +49,11 @@ namespace ofs {
 		dataNode->SetPort(req.outpost().port());
 
 		//to update data node
-
+		dataNode->SetCpu(req.node().cpu());
+		dataNode->SetRss(req.node().rss());
+		dataNode->SetVss(req.node().vss());
+		dataNode->SetDisk(req.node().disk());
+		dataNode->SetFault(req.node().fault());
 
 		lock.unlock();
 	}
@@ -66,12 +70,20 @@ namespace ofs {
 
 		File * file = FileSystem::Instance().GetFile(FILE_ID_FROM_BLOCK(block->GetId()));
 		if (!file) {
+			block->Release();
 			BlockManager::Instance().Clean(block);
 			return;
 		}
 
-		block->UpdateReplica(req.id(), req.block().version(), req.block().size());
+		uint32_t newSize = block->UpdateReplica(req.id(), req.block().version(), req.block().size(), req.block().fault());
 		block->Release();
+
+		if (newSize > 0) {
+			uint32_t fileSize = FileSystem::Instance().CalcFileSize(INDEX_FROM_BLOCK(block->GetId()), newSize);
+			file->UpdateSize(fileSize);
+		}
+
+		file->Release();
 	}
 
 	void DataNodeService::OnClean(const c2m::CleanComplete& ntf) {

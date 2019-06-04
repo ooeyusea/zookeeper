@@ -370,12 +370,12 @@ class NodeInfo :
   ::google::protobuf::int32 cpu() const;
   void set_cpu(::google::protobuf::int32 value);
 
-  // required int32 res = 2;
-  bool has_res() const;
-  void clear_res();
-  static const int kResFieldNumber = 2;
-  ::google::protobuf::int32 res() const;
-  void set_res(::google::protobuf::int32 value);
+  // required int32 rss = 2;
+  bool has_rss() const;
+  void clear_rss();
+  static const int kRssFieldNumber = 2;
+  ::google::protobuf::int32 rss() const;
+  void set_rss(::google::protobuf::int32 value);
 
   // required int32 vss = 3;
   bool has_vss() const;
@@ -409,7 +409,7 @@ class NodeInfo :
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::int32 cpu_;
-  ::google::protobuf::int32 res_;
+  ::google::protobuf::int32 rss_;
   ::google::protobuf::int32 vss_;
   ::google::protobuf::int32 disk_;
   bool fault_;
@@ -983,6 +983,13 @@ class BlockStatus :
   ::google::protobuf::int32 size() const;
   void set_size(::google::protobuf::int32 value);
 
+  // required bool fault = 4;
+  bool has_fault() const;
+  void clear_fault();
+  static const int kFaultFieldNumber = 4;
+  bool fault() const;
+  void set_fault(bool value);
+
   // @@protoc_insertion_point(class_scope:ofs.c2m.BlockStatus)
  private:
   class HasBitSetters;
@@ -996,6 +1003,7 @@ class BlockStatus :
   ::google::protobuf::int64 id_;
   ::google::protobuf::int64 version_;
   ::google::protobuf::int32 size_;
+  bool fault_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2355,22 +2363,22 @@ inline void NodeInfo::set_cpu(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.NodeInfo.cpu)
 }
 
-// required int32 res = 2;
-inline bool NodeInfo::has_res() const {
+// required int32 rss = 2;
+inline bool NodeInfo::has_rss() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void NodeInfo::clear_res() {
-  res_ = 0;
+inline void NodeInfo::clear_rss() {
+  rss_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::google::protobuf::int32 NodeInfo::res() const {
-  // @@protoc_insertion_point(field_get:ofs.c2m.NodeInfo.res)
-  return res_;
+inline ::google::protobuf::int32 NodeInfo::rss() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.NodeInfo.rss)
+  return rss_;
 }
-inline void NodeInfo::set_res(::google::protobuf::int32 value) {
+inline void NodeInfo::set_rss(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000002u;
-  res_ = value;
-  // @@protoc_insertion_point(field_set:ofs.c2m.NodeInfo.res)
+  rss_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.NodeInfo.rss)
 }
 
 // required int32 vss = 3;
@@ -2872,6 +2880,24 @@ inline void BlockStatus::set_size(::google::protobuf::int32 value) {
   _has_bits_[0] |= 0x00000004u;
   size_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.BlockStatus.size)
+}
+
+// required bool fault = 4;
+inline bool BlockStatus::has_fault() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void BlockStatus::clear_fault() {
+  fault_ = false;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline bool BlockStatus::fault() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.BlockStatus.fault)
+  return fault_;
+}
+inline void BlockStatus::set_fault(bool value) {
+  _has_bits_[0] |= 0x00000008u;
+  fault_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.BlockStatus.fault)
 }
 
 // -------------------------------------------------------------------

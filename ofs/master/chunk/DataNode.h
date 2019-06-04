@@ -30,11 +30,17 @@ namespace ofs {
 		inline void SetFault(bool fault) { _fault = fault; }
 		inline void UpdateTick() { _tick = olib::GetTickCount(); }
 
-		inline void SetRemain(int32_t val) { _remain = val; }
-		inline int32_t GetRemain() const { return _remain; }
+		inline void SetCpu(int32_t val) { _cpu = val; }
+		inline int32_t GetCpu() const { return _cpu; }
 
-		inline void SetLoad(int32_t val) { _load = val; }
-		inline int32_t GetLoad() const { return _load; }
+		inline void SetRss(int32_t val) { _rss = val; }
+		inline int32_t GetRss() const { return _rss; }
+
+		inline void SetVss(int32_t val) { _vss = val; }
+		inline int32_t GetVss() const { return _vss; }
+
+		inline void SetDisk(int32_t val) { _disk = val; }
+		inline int32_t GetDisk() const { return _disk; }
 
 		std::string CalcKey(int64_t id, int64_t lease, int64_t version, int64_t expectVersion);
 
@@ -44,9 +50,12 @@ namespace ofs {
 		int32_t _port;
 		std::string _key;
 		int64_t _tick;
+
 		bool _fault = false;
-		int32_t _remain;
-		int32_t _load;
+		int32_t _cpu;
+		int32_t _rss;
+		int32_t _vss;
+		int32_t _disk;
 	};
 }
 

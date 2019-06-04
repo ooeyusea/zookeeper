@@ -77,6 +77,7 @@ namespace ofs {
 		status->set_id(block->GetId());
 		status->set_version(block->GetVersion());
 		status->set_size(block->GetSize());
+		status->set_fault(block->IsFault());
 
 		_queue->Send(MASTER_NODE, &req);
 	}

@@ -22,10 +22,14 @@ namespace ofs {
 		inline void SetVersion(int64_t val) { _version = val; }
 		inline int64_t GetVersion() const { return _version; }
 
+		inline void SetFault(bool fault) { _fault = fault; }
+		inline bool IsVersion() const { return _fault; }
+
 	private:
 		DataNode * _server;
 		int64_t _leaseTick = 0;
 		int64_t _version = 0;
+		bool _fault;
 	};
 
 	class Block : public RefObject {
@@ -54,7 +58,7 @@ namespace ofs {
 		inline int64_t GetExpectVersion() const { return _expectVersion; }
 		inline int64_t GetLease() const { return _lease; }
 
-		void UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size);
+		int32_t UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size, bool fault);
 
 	private:
 		int64_t _id;

@@ -27,17 +27,22 @@ namespace ofs {
 		inline File * GetFile(int64_t key) {
 			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
 			auto itr = _files.find(key);
-			if (itr != _files.end())
+			if (itr != _files.end()) {
+				itr->second->Acquire();
 				return itr->second;
+			}
 			return nullptr;
 		}
 
-		inline int32_t CalcBlockCount(int32_t size) const {
+		inline int32_t CalcBlockCount(uint32_t size) const {
 			return (size / _blockSize) + (size % _blockSize == 0) ? 0 : 1;
 		}
 
-		inline int32_t CalcAppendBlock(int32_t size) const {
+		inline int32_t CalcAppendBlock(uint32_t size) const {
 			return (size / _blockSize) + 1;
+		}
+		inline uint32_t CalcFileSize(int32_t blockIndex, uint32_t newSize) const {
+			return blockIndex * _blockSize + newSize;
 		}
 
 	private:

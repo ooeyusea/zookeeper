@@ -48,7 +48,7 @@ namespace ofs {
 		inline int64_t GetUpdateTime() const { return _updateTime; }
 		inline void SetUpdateTime(int64_t val) { _updateTime = val; }
 
-		inline int32_t GetSize() const { return _size; }
+		inline uint32_t GetSize() const { return _size; }
 
 		inline void SetParent(Node * val) { _parent = val; }
 		inline Node * GetParent() const { return _parent; }
@@ -68,7 +68,7 @@ namespace ofs {
 		bool _dir;
 		int64_t _createTime;
 		int64_t _updateTime;
-		int32_t _size = 0;
+		uint32_t _size = 0;
 
 		bool _delete;
 		int64_t _deleteTick;
