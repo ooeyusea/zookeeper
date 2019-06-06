@@ -18,6 +18,7 @@ namespace ofs {
 			int64_t updateTime = 0;
 			int32_t size = 0;
 			bool expand = false;
+			int64_t expandExpireTick = 0;
 
 			std::vector<Node*> children;
 		};
@@ -48,6 +49,7 @@ namespace ofs {
 
 		std::string FindReal(const std::string& path);
 		std::tuple<std::string, std::string> FindRealWithName(const std::string& path);
+		std::string FindParentPathWithReal(const std::string& path);
 
 		Node * GetNode(Node& node, const char * path);
 		Node * CreateNode(Node& node, const char * path);

@@ -55,10 +55,16 @@ namespace ofs {
 			Node::Archive(ar);
 			ar & (int32_t)_children.size();
 			for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
-				if (itr->second->IsDir())
+				if (itr->second->IsDir()) {
+					bool dir = true;
+					ar & dir;
 					ar & *static_cast<Directory*>(itr->second);
-				else
+				}
+				else {
+					bool dir = false;
+					ar & dir;
 					ar & *static_cast<File*>(itr->second);
+				}
 			}
 		}
 

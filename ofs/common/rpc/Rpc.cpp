@@ -49,7 +49,7 @@ namespace ofs {
 				}
 			}
 			catch (std::exception& e) {
-				hn_error("call method %s", e.what());
+				hn_error("call method {}", e.what());
 				controller->SetFailed(e.what());
 
 				if (!_looping) {
@@ -173,7 +173,7 @@ namespace ofs {
 						}
 					}
 					catch (std::exception& e) {
-						hn_error("handle rpc exception %s", e.what());
+						hn_error("handle rpc exception {}", e.what());
 					}
 
 					RpcRet ret{ 0, true };
@@ -181,7 +181,7 @@ namespace ofs {
 				}
 			}
 			catch (std::exception& e) {
-				hn_error("rpc deal exception %s", e.what());
+				hn_error("rpc deal exception {}", e.what());
 			}
 		}
 	}

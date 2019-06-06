@@ -25,7 +25,7 @@ namespace ofs {
 		inline int64_t GetId() const { return _id; }
 
 		inline void UpdateSize(uint32_t size) {
-			volatile int32_t old = _size;
+			volatile uint32_t old = _size;
 			while (old < size) {
 #ifdef WIN32
 				if (InterlockedCompareExchangeNoFence(&_size, size, old) == old) {

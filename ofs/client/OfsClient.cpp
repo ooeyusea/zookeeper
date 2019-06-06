@@ -3,6 +3,7 @@
 #include "args.h"
 #include <stack>
 #include "time_helper.h"
+#define EXPAND_EXPIRE_INTERVAL MINUTE
 
 namespace ofs {
 	std::vector<std::string> Split(const std::string& line, const char * sep) {
@@ -199,7 +200,9 @@ namespace ofs {
 
 		if (!controller.Failed()) {
 			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
-
+				Node* node = GetNode(_root, realPath.c_str());
+				if (node)
+					node->expand = false;
 			}
 			else {
 
@@ -251,7 +254,9 @@ namespace ofs {
 
 		if (!controller.Failed()) {
 			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
-
+				Node* node = GetNode(_root, realPath.c_str());
+				if (node)
+					node->expand = false;
 			}
 			else {
 
@@ -287,6 +292,7 @@ namespace ofs {
 		}
 
 		std::string realPath = FindReal(args::get(path));
+		std::string parentPath = FindParentPathWithReal(realPath);
 
 		api::master::RemoveRequest request;
 		request.set_token(_token);
@@ -299,7 +305,9 @@ namespace ofs {
 
 		if (!controller.Failed()) {
 			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
-
+				Node* node = GetNode(_root, parentPath.c_str());
+				if (node)
+					node->expand = false;
 			}
 			else {
 
@@ -344,7 +352,7 @@ namespace ofs {
 			return false;
 		}
 
-		if (!node || !node->expand) {
+		if (!node || !node->expand || node->expandExpireTick < olib::GetTickCount()) {
 			api::master::ListRequest request;
 			request.set_token(_token);
 			request.set_path(path);
@@ -355,14 +363,27 @@ namespace ofs {
 			_service->List(&controller, &request, &response, nullptr);
 
 			if (!controller.Failed()) {
-				if (response.errcode() == api::master::ErrorCode::EC_NONE) {
-					if (!node)
-						node = CreateNode(_root, path);
-					
+				if (!node)
+					node = CreateNode(_root, path);
+
+				if (response.errcode() == api::master::ErrorCode::EC_NONE) {			
 					for (int32_t i = 0; i < (int32_t)response.files_size(); ++i) {
 						const auto& file = response.files(i);
 
-						Node * child = new Node;
+						auto itr = std::find_if(node->children.begin(), node->children.end(), [&file](Node * n) {
+							return n->name == file.name();
+						});
+
+						Node* child = nullptr;
+						if (itr == node->children.end()) {
+							child = new Node;
+
+							child->expand = false;
+							node->children.emplace_back(child);
+						}
+						else
+							child = *itr;
+
 						child->name = file.name();
 						child->owner = file.owner();
 						child->ownerGroup = file.group();
@@ -371,12 +392,10 @@ namespace ofs {
 						child->createTime = file.createtime();
 						child->updateTime = file.updatetime();
 						child->size = file.size();
-						child->expand = false;
-
-						node->children.emplace_back(child);
 					}
 
 					node->expand = true;
+					node->expandExpireTick = olib::GetTickCount() + EXPAND_EXPIRE_INTERVAL;
 				}
 				else {
 					return false;
@@ -454,12 +473,15 @@ namespace ofs {
 	}
 
 	std::string Client::FindReal(const std::string& path) {
+		if (path.at(0) != '/')
+			return FindReal(_currentPath + "/" + path);
+			
 		std::vector<std::string> units = Split(path, "/");
 		std::vector<std::string> stacks;
 		for (auto& str : units) {
 			if (str == "..") {
 				if (stacks.empty())
-					return "";
+					return FindParentPathWithReal(_currentPath);
 
 				stacks.pop_back();
 			}
@@ -491,6 +513,17 @@ namespace ofs {
 			}
 		}
 		return std::make_tuple(std::move(real), std::move(name));
+	}
+
+	std::string Client::FindParentPathWithReal(const std::string& path) {
+		std::string real = path;
+
+		if (!real.empty()) {
+			auto pos = real.find_last_of('/');
+			if (pos != std::string::npos)
+				real.erase(pos);
+		}
+		return real;
 	}
 
 	Client::Node * Client::GetNode(Node& node, const char * path) {

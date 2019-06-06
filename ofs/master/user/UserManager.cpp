@@ -5,7 +5,7 @@
 namespace ofs {
 	bool UserManager::Start(const olib::IXmlObject& root) {
 		const char * path = root["user"][0]["path"][0].GetAttributeString("val");
-		_expire = root["user"][0]["token"][0].GetAttributeInt64("duration");
+		_expire = root["user"][0]["token"][0].GetAttributeInt64("duration") * SECOND;
 
 		bool hasOne = false;
 		olib::FileFinder().Search("*.user", [this, &hasOne](const fs::path& file) {

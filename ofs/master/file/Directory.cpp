@@ -17,7 +17,7 @@ namespace ofs {
 
 	int32_t Directory::Remove(User * user, const char * path) {
 		return QueryNode(user, path, [this](User * user, Node * node) -> int32_t {
-			if (node->CheckAuthority(user, true))
+			if (!node->CheckAuthority(user, true))
 				return api::master::ErrorCode::EC_PERMISSION_DENY;
 
 			node->MarkDelete();
