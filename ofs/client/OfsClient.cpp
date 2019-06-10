@@ -3,6 +3,8 @@
 #include "args.h"
 #include <stack>
 #include "time_helper.h"
+#include "OfsFileUploader.h"
+
 #define EXPAND_EXPIRE_INTERVAL MINUTE
 
 namespace ofs {
@@ -31,6 +33,7 @@ namespace ofs {
 		_commands["touch"] = &Client::Touch;
 		_commands["rm"] = &Client::Remove;
 		_commands["ls"] = &Client::List;
+		_commands["put"] = &Client::Put;
 	}
 
 	bool Client::Connect(const std::string& host, int32_t port, const std::string& username, const std::string& password) {
@@ -237,34 +240,7 @@ namespace ofs {
 			return;
 		}
 
-		std::string realPath;
-		std::string realName;
-		std::tie(realPath, realName) = FindRealWithName(args::get(path));
-
-		api::master::CreateFileRequest request;
-		request.set_token(_token);
-		request.set_directory(realPath);
-		request.set_name(realName);
-		request.set_authority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
-
-		api::master::CreateFileResponse response;
-		rpc::OfsRpcController controller(-1);
-
-		_service->Create(&controller, &request, &response, nullptr);
-
-		if (!controller.Failed()) {
-			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
-				Node* node = GetNode(_root, realPath.c_str());
-				if (node)
-					node->expand = false;
-			}
-			else {
-
-			}
-		}
-		else {
-
-		}
+		CreateRemoteFile(args::get(path));
 	}
 
 	void Client::Remove(int32_t argc, char ** argv) {
@@ -346,6 +322,39 @@ namespace ofs {
 		}
 	}
 
+	void Client::Put(int32_t argc, char** argv) {
+		args::ArgumentParser parser("This is a ofs put program.", "");
+		args::HelpFlag help(parser, "help", "Display this help menu", { 'h', "help" });
+		args::Positional<std::string> local(parser, "local path", "local path");
+		args::Positional<std::string> path(parser, "path", "path");
+
+		try
+		{
+			parser.ParseCLI(argc, argv);
+		}
+		catch (args::Help) {
+			std::cout << parser;
+			return;
+		}
+		catch (args::ParseError e) {
+			std::cerr << e.what() << std::endl;
+			std::cerr << parser;
+			return;
+		}
+		catch (args::ValidationError e) {
+			std::cerr << e.what() << std::endl;
+			std::cerr << parser;
+			return;
+		}
+
+		if (CreateRemoteFile(args::get(path))) {
+			std::string realPath = FindReal(args::get(path));
+
+			FileUploader uploader(args::get(local));
+			uploader.Upload(_service, realPath, _token);
+		}
+	}
+
 	int32_t Client::Expand(const char * path) {
 		Node * node = GetNode(_root, path);
 		if (node && !node->dir) {
@@ -366,24 +375,15 @@ namespace ofs {
 				if (!node)
 					node = CreateNode(_root, path);
 
-				if (response.errcode() == api::master::ErrorCode::EC_NONE) {			
+				if (response.errcode() == api::master::ErrorCode::EC_NONE) {
+					for (auto* child : node->children) {
+						delete child;
+					}
+					node->children.clear();
+
 					for (int32_t i = 0; i < (int32_t)response.files_size(); ++i) {
 						const auto& file = response.files(i);
-
-						auto itr = std::find_if(node->children.begin(), node->children.end(), [&file](Node * n) {
-							return n->name == file.name();
-						});
-
-						Node* child = nullptr;
-						if (itr == node->children.end()) {
-							child = new Node;
-
-							child->expand = false;
-							node->children.emplace_back(child);
-						}
-						else
-							child = *itr;
-
+						Node* child = new Node;
 						child->name = file.name();
 						child->owner = file.owner();
 						child->ownerGroup = file.group();
@@ -392,6 +392,9 @@ namespace ofs {
 						child->createTime = file.createtime();
 						child->updateTime = file.updatetime();
 						child->size = file.size();
+						child->expand = false;
+
+						node->children.emplace_back(child);
 					}
 
 					node->expand = true;
@@ -470,6 +473,34 @@ namespace ofs {
 			for (auto* child : node->children)
 				printf("%s\t%s\t%s\t%d\t%s\t%s\n", ToAuthStr(child->authority, child->dir).c_str(), child->owner.c_str(), child->ownerGroup.c_str(), child->dir ? 1024 : child->size, olib::FomateTimeStamp(child->updateTime).c_str(), child->name.c_str());
 		}
+	}
+
+	bool Client::CreateRemoteFile(const std::string& path) {
+		std::string realPath;
+		std::string realName;
+		std::tie(realPath, realName) = FindRealWithName(path);
+
+		api::master::CreateFileRequest request;
+		request.set_token(_token);
+		request.set_directory(realPath);
+		request.set_name(realName);
+		request.set_authority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
+
+		api::master::CreateFileResponse response;
+		rpc::OfsRpcController controller(-1);
+
+		_service->Create(&controller, &request, &response, nullptr);
+
+		if (!controller.Failed()) {
+			if (response.errcode() == api::master::ErrorCode::EC_NONE) {
+				Node* node = GetNode(_root, realPath.c_str());
+				if (node)
+					node->expand = false;
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	std::string Client::FindReal(const std::string& path) {

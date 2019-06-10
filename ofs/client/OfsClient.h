@@ -9,6 +9,12 @@ namespace ofs {
 		typedef void (Client::*CommandDealFuncType)(int32_t argc, char ** argv);
 
 		struct Node {
+			~Node() {
+				for (auto* child : children) {
+					delete child;
+				}
+			}
+
 			std::string name;
 			std::string owner;
 			std::string ownerGroup;
@@ -43,9 +49,11 @@ namespace ofs {
 		void Touch(int32_t argc, char ** argv);
 		void Remove(int32_t argc, char ** argv);
 		void List(int32_t argc, char ** argv);
+		void Put(int32_t argc, char** argv);
 
 		int32_t Expand(const char * path);
 		void DisplayPath(const char* path);
+		bool CreateRemoteFile(const std::string& path);
 
 		std::string FindReal(const std::string& path);
 		std::tuple<std::string, std::string> FindRealWithName(const std::string& path);
