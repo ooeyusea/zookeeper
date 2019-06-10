@@ -6,6 +6,12 @@
 #include "FileSystem.h"
 
 namespace ofs {
+	Directory::~Directory() {
+		for (auto itr = _children.begin(); itr != _children.end(); ++itr)
+			delete itr->second;
+		_children.clear();
+	}
+
 	int32_t Directory::CreateNode(User * user, const char * path, const char * name, int16_t authority, bool dir) {
 		return QueryNode(user, path, [this, authority, dir, name](User * user, Node * node) -> int32_t {
 			if (!node->IsDir())
@@ -18,6 +24,9 @@ namespace ofs {
 	int32_t Directory::Remove(User * user, const char * path) {
 		return QueryNode(user, path, [this](User * user, Node * node) -> int32_t {
 			if (!node->CheckAuthority(user, true))
+				return api::master::ErrorCode::EC_PERMISSION_DENY;
+
+			if (node->IsRoot())
 				return api::master::ErrorCode::EC_PERMISSION_DENY;
 
 			node->MarkDelete();
@@ -121,4 +130,36 @@ namespace ofs {
 		_children[node->GetName()] = node;
 		return api::master::ErrorCode::EC_NONE;
 	}
-}
+
+	void Directory::StartGC(int64_t now) {
+		{
+			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+			for (auto itr = _children.begin(); itr != _children.end(); ++itr) {
+				if (itr->second->IsDir())
+					(static_cast<Directory*>(itr->second))->StartGC(now);
+			}
+		}
+
+		std::lock_guard<hn_shared_mutex> lock(_mutex);
+		_canNotCleanUp = false;
+		auto itr2 = _children.begin();
+		while (itr2 != _children.end()) {
+			auto itr = itr2;
+			++itr2;
+
+			if (!itr->second->IsDir()) {
+				if (static_cast<File*>(itr->second)->IsUsed()) {
+					_canNotCleanUp = true;
+					continue;
+				}
+			}
+
+			if (itr->second->IsDelete() && now > itr->second->GetDeleteTime() + FileSystem::Instance().GetDeleteExpireTime()) {
+				if (!itr->second->IsDir() || static_cast<Directory*>(itr->second)->CanCleanUp()) {
+					delete itr->second;
+					_children.erase(itr);
+				}
+			}
+		}
+	}
+} 

@@ -42,15 +42,20 @@ namespace ofs {
 			return (size / _blockSize) + 1;
 		}
 		inline uint32_t CalcFileSize(int32_t blockIndex, uint32_t newSize) const {
-			return blockIndex * _blockSize + newSize;
+			assert(blockIndex > 0);
+			return (blockIndex - 1) * _blockSize + newSize;
 		}
+
+		inline int64_t GetDeleteExpireTime() const { return _deleteExpireTime; }
 
 	private:
 		bool LoadFromFile(const std::string& path);
 		bool SaveToFile(const std::string& path);
+		void FileGC();
 
 	private:
 		void StartSave(int64_t interval);
+		void StartCleanDeleteFile(int64_t interval);
 
 	private:
 		hn_shared_mutex _mutex;
@@ -60,8 +65,11 @@ namespace ofs {
 		std::string _path;
 		std::unordered_map<int64_t, File*> _files;
 
-		int32_t _blockSize;
+		int32_t _blockSize = 0;
 		hn_ticker* _saveTimer = nullptr;
+
+		int64_t _deleteExpireTime = 0;
+		hn_ticker* _cleanTimer = nullptr;
 	};
 }
 

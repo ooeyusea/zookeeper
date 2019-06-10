@@ -87,7 +87,13 @@ namespace ofs {
 	}
 
 	void DataNodeService::OnClean(const c2m::CleanComplete& ntf) {
+		Block* block = BlockManager::Instance().Get(ntf.blockid());
+		if (!block) {
+			return;
+		}
 
+		block->ClearReplica(ntf.id());
+		block->Release();
 	}
 
 	void DataNodeService::OnHeartbeat(const c2m::Heartbeat& ntf) {

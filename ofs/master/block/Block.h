@@ -29,7 +29,7 @@ namespace ofs {
 		DataNode * _server;
 		int64_t _leaseTick = 0;
 		int64_t _version = 0;
-		bool _fault;
+		bool _fault = false;
 	};
 
 	class Block : public RefObject {
@@ -50,6 +50,8 @@ namespace ofs {
 
 		DataNode * Write(std::vector<int32_t>& re);
 
+		void BrocastCleanUp();
+
 		inline int64_t NextVersion() {
 			return ((((_version) >> 32) & 0xFFFFFFFF) + 1) << 32;
 		}
@@ -59,6 +61,7 @@ namespace ofs {
 		inline int64_t GetLease() const { return _lease; }
 
 		int32_t UpdateReplica(int32_t chunkServerId, int64_t version, int32_t size, bool fault);
+		void ClearReplica(int32_t chunkServerId);
 
 	private:
 		int64_t _id;

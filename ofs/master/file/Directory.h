@@ -9,7 +9,7 @@ namespace ofs {
 	public:
 		Directory() : Node(true) {}
 
-		~Directory() {}
+		virtual ~Directory();
 
 		virtual void DoNotWantToObject() {}
 		
@@ -84,11 +84,16 @@ namespace ofs {
 			return std::make_tuple(std::string(path), nullptr);
 		}
 
+		inline bool CanCleanUp() const { return !_canNotCleanUp; }
+
+		void StartGC(int64_t now);
+
 	private:
 		std::vector<Node*> List();
 		int32_t CreateNode(User * user, const char * name, int16_t authority, bool dir);
 
 	private:
+		bool _canNotCleanUp = false;
 		std::unordered_map<std::string, Node*> _children;
 	};
 }

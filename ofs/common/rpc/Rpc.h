@@ -44,7 +44,7 @@ namespace ofs {
 			virtual ~OfsRpcController() {}
 
 
-			virtual void Reset() {}
+			virtual void Reset() { _failed = false; _error.clear(); }
 			virtual bool Failed() const { return _failed; }
 			virtual std::string ErrorText() const { return _error; }
 			virtual void StartCancel() {}

@@ -517,6 +517,7 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, group_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, authority_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, size_),
+  PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, blocksize_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, createtime_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, updatetime_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::File, dir_),
@@ -525,8 +526,9 @@ const ::google::protobuf::uint32 TableStruct_OfsMaster_2eproto::offsets[] PROTOB
   2,
   3,
   4,
-  5,
   6,
+  5,
+  8,
   7,
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::ListResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::api::master::ListResponse, _internal_metadata_),
@@ -668,20 +670,20 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 40, 49, sizeof(::ofs::api::master::CreateFileRequest)},
   { 53, 59, sizeof(::ofs::api::master::CreateFileResponse)},
   { 60, 67, sizeof(::ofs::api::master::ListRequest)},
-  { 69, 82, sizeof(::ofs::api::master::File)},
-  { 90, 97, sizeof(::ofs::api::master::ListResponse)},
-  { 99, 106, sizeof(::ofs::api::master::RemoveRequest)},
-  { 108, 114, sizeof(::ofs::api::master::RemoveResponse)},
-  { 115, 122, sizeof(::ofs::api::master::FileStatusRequest)},
-  { 124, 131, sizeof(::ofs::api::master::FileStatusRespone)},
-  { 133, 140, sizeof(::ofs::api::master::EndPoint)},
-  { 142, 150, sizeof(::ofs::api::master::ReadRequest)},
-  { 153, 161, sizeof(::ofs::api::master::ReadResponse)},
-  { 164, 176, sizeof(::ofs::api::master::BlockLease)},
-  { 183, 191, sizeof(::ofs::api::master::WriteRequest)},
-  { 194, 201, sizeof(::ofs::api::master::WriteResponse)},
-  { 203, 210, sizeof(::ofs::api::master::AppendRequest)},
-  { 212, 219, sizeof(::ofs::api::master::AppendResponse)},
+  { 69, 83, sizeof(::ofs::api::master::File)},
+  { 92, 99, sizeof(::ofs::api::master::ListResponse)},
+  { 101, 108, sizeof(::ofs::api::master::RemoveRequest)},
+  { 110, 116, sizeof(::ofs::api::master::RemoveResponse)},
+  { 117, 124, sizeof(::ofs::api::master::FileStatusRequest)},
+  { 126, 133, sizeof(::ofs::api::master::FileStatusRespone)},
+  { 135, 142, sizeof(::ofs::api::master::EndPoint)},
+  { 144, 152, sizeof(::ofs::api::master::ReadRequest)},
+  { 155, 163, sizeof(::ofs::api::master::ReadResponse)},
+  { 166, 178, sizeof(::ofs::api::master::BlockLease)},
+  { 185, 193, sizeof(::ofs::api::master::WriteRequest)},
+  { 196, 203, sizeof(::ofs::api::master::WriteResponse)},
+  { 205, 212, sizeof(::ofs::api::master::AppendRequest)},
+  { 214, 221, sizeof(::ofs::api::master::AppendResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -727,72 +729,73 @@ const char descriptor_table_protodef_OfsMaster_2eproto[] =
   "authority\030\002 \002(\005\022\021\n\tdirectory\030\003 \002(\t\022\014\n\004na"
   "me\030\004 \002(\t\"@\n\022CreateFileResponse\022*\n\007errCod"
   "e\030\001 \002(\0162\031.ofs.api.master.ErrorCode\"*\n\013Li"
-  "stRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"\210"
+  "stRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"\233"
   "\001\n\004File\022\014\n\004name\030\001 \002(\t\022\r\n\005owner\030\002 \002(\t\022\r\n\005"
   "group\030\003 \002(\t\022\021\n\tauthority\030\004 \002(\005\022\014\n\004size\030\005"
-  " \002(\005\022\022\n\ncreateTime\030\006 \002(\003\022\022\n\nupdateTime\030\007"
-  " \002(\003\022\013\n\003dir\030\010 \002(\010\"_\n\014ListResponse\022*\n\007err"
-  "Code\030\001 \002(\0162\031.ofs.api.master.ErrorCode\022#\n"
-  "\005files\030\002 \003(\0132\024.ofs.api.master.File\",\n\rRe"
-  "moveRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t"
-  "\"<\n\016RemoveResponse\022*\n\007errCode\030\001 \002(\0162\031.of"
-  "s.api.master.ErrorCode\"0\n\021FileStatusRequ"
-  "est\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"c\n\021File"
-  "StatusRespone\022*\n\007errCode\030\001 \002(\0162\031.ofs.api"
-  ".master.ErrorCode\022\"\n\004file\030\002 \001(\0132\024.ofs.ap"
-  "i.master.File\"&\n\010EndPoint\022\014\n\004host\030\002 \002(\t\022"
-  "\014\n\004port\030\003 \002(\005\">\n\013ReadRequest\022\r\n\005token\030\001 "
-  "\002(\t\022\014\n\004path\030\002 \002(\t\022\022\n\nblockIndex\030\003 \002(\005\"m\n"
-  "\014ReadResponse\022*\n\007errCode\030\001 \002(\0162\031.ofs.api"
-  ".master.ErrorCode\022\n\n\002id\030\002 \001(\003\022%\n\003eps\030\003 \003"
-  "(\0132\030.ofs.api.master.EndPoint\"\225\001\n\nBlockLe"
-  "ase\022\n\n\002id\030\001 \002(\003\022\r\n\005until\030\002 \002(\003\022\017\n\007versio"
-  "n\030\003 \002(\003\022\022\n\nnewVersion\030\004 \002(\003\022$\n\002ep\030\005 \002(\0132"
-  "\030.ofs.api.master.EndPoint\022\024\n\014chunkserver"
-  "s\030\006 \003(\005\022\013\n\003key\030\007 \002(\t\"\?\n\014WriteRequest\022\r\n\005"
-  "token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\022\022\n\nblockIndex\030"
-  "\003 \002(\005\"f\n\rWriteResponse\022*\n\007errCode\030\001 \002(\0162"
-  "\031.ofs.api.master.ErrorCode\022)\n\005lease\030\002 \002("
-  "\0132\032.ofs.api.master.BlockLease\",\n\rAppendR"
-  "equest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\"g\n\016A"
-  "ppendResponse\022*\n\007errCode\030\001 \002(\0162\031.ofs.api"
-  ".master.ErrorCode\022)\n\005lease\030\002 \002(\0132\032.ofs.a"
-  "pi.master.BlockLease*\311\002\n\tErrorCode\022\013\n\007EC"
-  "_NONE\020\000\022\025\n\021EC_FILE_NOT_EIXST\020\001\022\021\n\rEC_FIL"
-  "E_EIXST\020\002\022\026\n\022EC_PERMISSION_DENY\020\003\022\024\n\020EC_"
-  "DIR_NOT_EMPTY\020\004\022\027\n\023EC_AUTHORITY_EXPIRE\020\005"
-  "\022\r\n\tEC_IS_DIR\020\006\022\035\n\031EC_USER_OR_PASSWORD_E"
-  "RROR\020\007\022\022\n\016EC_USER_EXPIRE\020\010\022\027\n\023EC_IS_NOT_"
-  "DIRECTORY\020\t\022 \n\034EC_ALREADY_EXIST_DELETE_F"
-  "ILE\020\n\022\023\n\017EC_OUT_OF_RANGE\020\013\022\026\n\022EC_BLOCK_N"
-  "OT_READY\020\014\022\024\n\020EC_BLOCK_MISSING\020\r*\310\001\n\rAut"
-  "horityType\022\021\n\rAT_OWNER_READ\020\001\022\022\n\016AT_OWNE"
-  "R_WRITE\020\002\022\024\n\020AT_OWNER_EXECUTE\020\004\022\021\n\rAT_GR"
-  "OUP_READ\020\010\022\022\n\016AT_GROUP_WRITE\020\020\022\024\n\020AT_GRO"
-  "UP_EXECUTE\020 \022\021\n\rAT_OTHER_READ\020@\022\023\n\016AT_OT"
-  "HER_WRITE\020\200\001\022\025\n\020AT_OTHER_EXECUTE\020\200\0022\235\005\n\016"
-  "OfsFileService\022@\n\005Login\022\030.ofs.api.master"
-  ".LoginReq\032\035.ofs.api.master.LoginResponse"
-  "\022J\n\007MakeDir\022\036.ofs.api.master.MakeDirRequ"
-  "est\032\037.ofs.api.master.MakeDirResponse\022O\n\006"
-  "Create\022!.ofs.api.master.CreateFileReques"
-  "t\032\".ofs.api.master.CreateFileResponse\022A\n"
-  "\004List\022\033.ofs.api.master.ListRequest\032\034.ofs"
-  ".api.master.ListResponse\022G\n\006Remove\022\035.ofs"
-  ".api.master.RemoveRequest\032\036.ofs.api.mast"
-  "er.RemoveResponse\022N\n\006Status\022!.ofs.api.ma"
-  "ster.FileStatusRequest\032!.ofs.api.master."
-  "FileStatusRespone\022A\n\004Read\022\033.ofs.api.mast"
-  "er.ReadRequest\032\034.ofs.api.master.ReadResp"
-  "onse\022D\n\005Write\022\034.ofs.api.master.WriteRequ"
-  "est\032\035.ofs.api.master.WriteResponse\022G\n\006Ap"
-  "pend\022\035.ofs.api.master.AppendRequest\032\036.of"
-  "s.api.master.AppendResponseB\003\200\001\001"
+  " \002(\005\022\021\n\tblockSize\030\006 \002(\005\022\022\n\ncreateTime\030\007 "
+  "\002(\003\022\022\n\nupdateTime\030\010 \002(\003\022\013\n\003dir\030\t \002(\010\"_\n\014"
+  "ListResponse\022*\n\007errCode\030\001 \002(\0162\031.ofs.api."
+  "master.ErrorCode\022#\n\005files\030\002 \003(\0132\024.ofs.ap"
+  "i.master.File\",\n\rRemoveRequest\022\r\n\005token\030"
+  "\001 \002(\t\022\014\n\004path\030\002 \002(\t\"<\n\016RemoveResponse\022*\n"
+  "\007errCode\030\001 \002(\0162\031.ofs.api.master.ErrorCod"
+  "e\"0\n\021FileStatusRequest\022\r\n\005token\030\001 \002(\t\022\014\n"
+  "\004path\030\002 \002(\t\"c\n\021FileStatusRespone\022*\n\007errC"
+  "ode\030\001 \002(\0162\031.ofs.api.master.ErrorCode\022\"\n\004"
+  "file\030\002 \001(\0132\024.ofs.api.master.File\"&\n\010EndP"
+  "oint\022\014\n\004host\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\">\n\013Read"
+  "Request\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002 \002(\t\022\022\n\n"
+  "blockIndex\030\003 \002(\005\"m\n\014ReadResponse\022*\n\007errC"
+  "ode\030\001 \002(\0162\031.ofs.api.master.ErrorCode\022\n\n\002"
+  "id\030\002 \001(\003\022%\n\003eps\030\003 \003(\0132\030.ofs.api.master.E"
+  "ndPoint\"\225\001\n\nBlockLease\022\n\n\002id\030\001 \002(\003\022\r\n\005un"
+  "til\030\002 \002(\003\022\017\n\007version\030\003 \002(\003\022\022\n\nnewVersion"
+  "\030\004 \002(\003\022$\n\002ep\030\005 \002(\0132\030.ofs.api.master.EndP"
+  "oint\022\024\n\014chunkservers\030\006 \003(\005\022\013\n\003key\030\007 \002(\t\""
+  "\?\n\014WriteRequest\022\r\n\005token\030\001 \002(\t\022\014\n\004path\030\002"
+  " \002(\t\022\022\n\nblockIndex\030\003 \002(\005\"f\n\rWriteRespons"
+  "e\022*\n\007errCode\030\001 \002(\0162\031.ofs.api.master.Erro"
+  "rCode\022)\n\005lease\030\002 \002(\0132\032.ofs.api.master.Bl"
+  "ockLease\",\n\rAppendRequest\022\r\n\005token\030\001 \002(\t"
+  "\022\014\n\004path\030\002 \002(\t\"g\n\016AppendResponse\022*\n\007errC"
+  "ode\030\001 \002(\0162\031.ofs.api.master.ErrorCode\022)\n\005"
+  "lease\030\002 \002(\0132\032.ofs.api.master.BlockLease*"
+  "\311\002\n\tErrorCode\022\013\n\007EC_NONE\020\000\022\025\n\021EC_FILE_NO"
+  "T_EIXST\020\001\022\021\n\rEC_FILE_EIXST\020\002\022\026\n\022EC_PERMI"
+  "SSION_DENY\020\003\022\024\n\020EC_DIR_NOT_EMPTY\020\004\022\027\n\023EC"
+  "_AUTHORITY_EXPIRE\020\005\022\r\n\tEC_IS_DIR\020\006\022\035\n\031EC"
+  "_USER_OR_PASSWORD_ERROR\020\007\022\022\n\016EC_USER_EXP"
+  "IRE\020\010\022\027\n\023EC_IS_NOT_DIRECTORY\020\t\022 \n\034EC_ALR"
+  "EADY_EXIST_DELETE_FILE\020\n\022\023\n\017EC_OUT_OF_RA"
+  "NGE\020\013\022\026\n\022EC_BLOCK_NOT_READY\020\014\022\024\n\020EC_BLOC"
+  "K_MISSING\020\r*\310\001\n\rAuthorityType\022\021\n\rAT_OWNE"
+  "R_READ\020\001\022\022\n\016AT_OWNER_WRITE\020\002\022\024\n\020AT_OWNER"
+  "_EXECUTE\020\004\022\021\n\rAT_GROUP_READ\020\010\022\022\n\016AT_GROU"
+  "P_WRITE\020\020\022\024\n\020AT_GROUP_EXECUTE\020 \022\021\n\rAT_OT"
+  "HER_READ\020@\022\023\n\016AT_OTHER_WRITE\020\200\001\022\025\n\020AT_OT"
+  "HER_EXECUTE\020\200\0022\235\005\n\016OfsFileService\022@\n\005Log"
+  "in\022\030.ofs.api.master.LoginReq\032\035.ofs.api.m"
+  "aster.LoginResponse\022J\n\007MakeDir\022\036.ofs.api"
+  ".master.MakeDirRequest\032\037.ofs.api.master."
+  "MakeDirResponse\022O\n\006Create\022!.ofs.api.mast"
+  "er.CreateFileRequest\032\".ofs.api.master.Cr"
+  "eateFileResponse\022A\n\004List\022\033.ofs.api.maste"
+  "r.ListRequest\032\034.ofs.api.master.ListRespo"
+  "nse\022G\n\006Remove\022\035.ofs.api.master.RemoveReq"
+  "uest\032\036.ofs.api.master.RemoveResponse\022N\n\006"
+  "Status\022!.ofs.api.master.FileStatusReques"
+  "t\032!.ofs.api.master.FileStatusRespone\022A\n\004"
+  "Read\022\033.ofs.api.master.ReadRequest\032\034.ofs."
+  "api.master.ReadResponse\022D\n\005Write\022\034.ofs.a"
+  "pi.master.WriteRequest\032\035.ofs.api.master."
+  "WriteResponse\022G\n\006Append\022\035.ofs.api.master"
+  ".AppendRequest\032\036.ofs.api.master.AppendRe"
+  "sponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsMaster_2eproto = {
   false, InitDefaults_OfsMaster_2eproto, 
   descriptor_table_protodef_OfsMaster_2eproto,
-  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2912,
+  "OfsMaster.proto", &assign_descriptors_table_OfsMaster_2eproto, 2931,
 };
 
 void AddDescriptors_OfsMaster_2eproto() {
@@ -3784,11 +3787,14 @@ class File::HasBitSetters {
   static void set_has_size(File* msg) {
     msg->_has_bits_[0] |= 0x00000010u;
   }
+  static void set_has_blocksize(File* msg) {
+    msg->_has_bits_[0] |= 0x00000040u;
+  }
   static void set_has_createtime(File* msg) {
     msg->_has_bits_[0] |= 0x00000020u;
   }
   static void set_has_updatetime(File* msg) {
-    msg->_has_bits_[0] |= 0x00000040u;
+    msg->_has_bits_[0] |= 0x00000100u;
   }
   static void set_has_dir(File* msg) {
     msg->_has_bits_[0] |= 0x00000080u;
@@ -3801,6 +3807,7 @@ const int File::kOwnerFieldNumber;
 const int File::kGroupFieldNumber;
 const int File::kAuthorityFieldNumber;
 const int File::kSizeFieldNumber;
+const int File::kBlockSizeFieldNumber;
 const int File::kCreateTimeFieldNumber;
 const int File::kUpdateTimeFieldNumber;
 const int File::kDirFieldNumber;
@@ -3829,8 +3836,8 @@ File::File(const File& from)
     group_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.group_);
   }
   ::memcpy(&authority_, &from.authority_,
-    static_cast<size_t>(reinterpret_cast<char*>(&dir_) -
-    reinterpret_cast<char*>(&authority_)) + sizeof(dir_));
+    static_cast<size_t>(reinterpret_cast<char*>(&updatetime_) -
+    reinterpret_cast<char*>(&authority_)) + sizeof(updatetime_));
   // @@protoc_insertion_point(copy_constructor:ofs.api.master.File)
 }
 
@@ -3841,8 +3848,8 @@ void File::SharedCtor() {
   owner_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   group_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&authority_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&dir_) -
-      reinterpret_cast<char*>(&authority_)) + sizeof(dir_));
+      reinterpret_cast<char*>(&updatetime_) -
+      reinterpret_cast<char*>(&authority_)) + sizeof(updatetime_));
 }
 
 File::~File() {
@@ -3888,6 +3895,7 @@ void File::Clear() {
         reinterpret_cast<char*>(&dir_) -
         reinterpret_cast<char*>(&authority_)) + sizeof(dir_));
   }
+  updatetime_ = PROTOBUF_LONGLONG(0);
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -3967,23 +3975,30 @@ const char* File::_InternalParse(const char* begin, const char* end, void* objec
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required int64 createTime = 6;
+      // required int32 blockSize = 6;
       case 6: {
         if (static_cast<::google::protobuf::uint8>(tag) != 48) goto handle_unusual;
+        msg->set_blocksize(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // required int64 createTime = 7;
+      case 7: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 56) goto handle_unusual;
         msg->set_createtime(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required int64 updateTime = 7;
-      case 7: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 56) goto handle_unusual;
+      // required int64 updateTime = 8;
+      case 8: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 64) goto handle_unusual;
         msg->set_updatetime(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required bool dir = 8;
-      case 8: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 64) goto handle_unusual;
+      // required bool dir = 9;
+      case 9: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 72) goto handle_unusual;
         msg->set_dir(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
@@ -4093,9 +4108,22 @@ bool File::MergePartialFromCodedStream(
         break;
       }
 
-      // required int64 createTime = 6;
+      // required int32 blockSize = 6;
       case 6: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (48 & 0xFF)) {
+          HasBitSetters::set_has_blocksize(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &blocksize_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int64 createTime = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (56 & 0xFF)) {
           HasBitSetters::set_has_createtime(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -4106,9 +4134,9 @@ bool File::MergePartialFromCodedStream(
         break;
       }
 
-      // required int64 updateTime = 7;
-      case 7: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (56 & 0xFF)) {
+      // required int64 updateTime = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (64 & 0xFF)) {
           HasBitSetters::set_has_updatetime(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -4119,9 +4147,9 @@ bool File::MergePartialFromCodedStream(
         break;
       }
 
-      // required bool dir = 8;
-      case 8: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (64 & 0xFF)) {
+      // required bool dir = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (72 & 0xFF)) {
           HasBitSetters::set_has_dir(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
@@ -4200,19 +4228,24 @@ void File::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->size(), output);
   }
 
-  // required int64 createTime = 6;
-  if (cached_has_bits & 0x00000020u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->createtime(), output);
-  }
-
-  // required int64 updateTime = 7;
+  // required int32 blockSize = 6;
   if (cached_has_bits & 0x00000040u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(7, this->updatetime(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->blocksize(), output);
   }
 
-  // required bool dir = 8;
+  // required int64 createTime = 7;
+  if (cached_has_bits & 0x00000020u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(7, this->createtime(), output);
+  }
+
+  // required int64 updateTime = 8;
+  if (cached_has_bits & 0x00000100u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(8, this->updatetime(), output);
+  }
+
+  // required bool dir = 9;
   if (cached_has_bits & 0x00000080u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(8, this->dir(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteBool(9, this->dir(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4272,19 +4305,24 @@ void File::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->size(), target);
   }
 
-  // required int64 createTime = 6;
-  if (cached_has_bits & 0x00000020u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->createtime(), target);
-  }
-
-  // required int64 updateTime = 7;
+  // required int32 blockSize = 6;
   if (cached_has_bits & 0x00000040u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(7, this->updatetime(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->blocksize(), target);
   }
 
-  // required bool dir = 8;
+  // required int64 createTime = 7;
+  if (cached_has_bits & 0x00000020u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(7, this->createtime(), target);
+  }
+
+  // required int64 updateTime = 8;
+  if (cached_has_bits & 0x00000100u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(8, this->updatetime(), target);
+  }
+
+  // required bool dir = 9;
   if (cached_has_bits & 0x00000080u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(8, this->dir(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(9, this->dir(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4335,22 +4373,29 @@ size_t File::RequiredFieldsByteSizeFallback() const {
   }
 
   if (has_createtime()) {
-    // required int64 createTime = 6;
+    // required int64 createTime = 7;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->createtime());
   }
 
-  if (has_updatetime()) {
-    // required int64 updateTime = 7;
+  if (has_blocksize()) {
+    // required int32 blockSize = 6;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->updatetime());
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->blocksize());
   }
 
   if (has_dir()) {
-    // required bool dir = 8;
+    // required bool dir = 9;
     total_size += 1 + 1;
+  }
+
+  if (has_updatetime()) {
+    // required int64 updateTime = 8;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->updatetime());
   }
 
   return total_size;
@@ -4364,7 +4409,7 @@ size_t File::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x000000ff) ^ 0x000000ff) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x000001ff) ^ 0x000001ff) == 0) {  // All required fields are present.
     // required string name = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -4390,18 +4435,23 @@ size_t File::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->size());
 
-    // required int64 createTime = 6;
+    // required int64 createTime = 7;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->createtime());
 
-    // required int64 updateTime = 7;
+    // required int32 blockSize = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->blocksize());
+
+    // required bool dir = 9;
+    total_size += 1 + 1;
+
+    // required int64 updateTime = 8;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->updatetime());
-
-    // required bool dir = 8;
-    total_size += 1 + 1;
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -4461,12 +4511,15 @@ void File::MergeFrom(const File& from) {
       createtime_ = from.createtime_;
     }
     if (cached_has_bits & 0x00000040u) {
-      updatetime_ = from.updatetime_;
+      blocksize_ = from.blocksize_;
     }
     if (cached_has_bits & 0x00000080u) {
       dir_ = from.dir_;
     }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    set_updatetime(from.updatetime());
   }
 }
 
@@ -4485,7 +4538,7 @@ void File::CopyFrom(const File& from) {
 }
 
 bool File::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
+  if ((_has_bits_[0] & 0x000001ff) != 0x000001ff) return false;
   return true;
 }
 
@@ -4506,8 +4559,9 @@ void File::InternalSwap(File* other) {
   swap(authority_, other->authority_);
   swap(size_, other->size_);
   swap(createtime_, other->createtime_);
-  swap(updatetime_, other->updatetime_);
+  swap(blocksize_, other->blocksize_);
   swap(dir_, other->dir_);
+  swap(updatetime_, other->updatetime_);
 }
 
 ::google::protobuf::Metadata File::GetMetadata() const {

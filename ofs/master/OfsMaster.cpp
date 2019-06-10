@@ -40,4 +40,3 @@ namespace ofs {
 		return true;
 	}
 }
-

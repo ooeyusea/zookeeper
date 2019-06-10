@@ -83,4 +83,19 @@ namespace ofs {
 		}
 		return 0;
 	}
+
+	void Block::ClearReplica(int32_t chunkServerId) {
+		std::lock_guard<hn_shared_mutex> guard(_mutex);
+		std::remove_if(_chunkServer.begin(), _chunkServer.end(), [chunkServerId](auto& bIs) {
+			return bIs.GetServer()->GetId() == chunkServerId;
+		});
+	}
+
+	void Block::BrocastCleanUp() {
+		c2m::CleanBlock ntf;
+		ntf.set_blockid(_id);
+
+		for (auto& bIs : _chunkServer)
+			DataNodeService::Instance().GetSender()->Send(bIs.GetServer()->GetId(), &ntf);
+	}
 }

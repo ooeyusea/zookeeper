@@ -56,6 +56,10 @@ namespace ofs {
 		inline void MarkDelete() { _delete = true; _deleteTick = olib::GetTimeStamp(); }
 		inline void Recover() { _delete = false; }
 		inline bool IsDelete() const { return _delete; }
+		inline int64_t GetDeleteTime() const { return _deleteTick; }
+
+		inline void SetRoot(bool val) { _root = val; }
+		inline bool IsRoot() const { return _root; }
 
 		bool CheckAuthority(User * user, bool read);
 
@@ -73,6 +77,7 @@ namespace ofs {
 		bool _delete = false;
 		int64_t _deleteTick = 0;
 
+		bool _root = false;
 		Node * _parent = nullptr;
 	};
 }

@@ -1395,26 +1395,33 @@ class File :
   ::google::protobuf::int32 size() const;
   void set_size(::google::protobuf::int32 value);
 
-  // required int64 createTime = 6;
+  // required int64 createTime = 7;
   bool has_createtime() const;
   void clear_createtime();
-  static const int kCreateTimeFieldNumber = 6;
+  static const int kCreateTimeFieldNumber = 7;
   ::google::protobuf::int64 createtime() const;
   void set_createtime(::google::protobuf::int64 value);
 
-  // required int64 updateTime = 7;
-  bool has_updatetime() const;
-  void clear_updatetime();
-  static const int kUpdateTimeFieldNumber = 7;
-  ::google::protobuf::int64 updatetime() const;
-  void set_updatetime(::google::protobuf::int64 value);
+  // required int32 blockSize = 6;
+  bool has_blocksize() const;
+  void clear_blocksize();
+  static const int kBlockSizeFieldNumber = 6;
+  ::google::protobuf::int32 blocksize() const;
+  void set_blocksize(::google::protobuf::int32 value);
 
-  // required bool dir = 8;
+  // required bool dir = 9;
   bool has_dir() const;
   void clear_dir();
-  static const int kDirFieldNumber = 8;
+  static const int kDirFieldNumber = 9;
   bool dir() const;
   void set_dir(bool value);
+
+  // required int64 updateTime = 8;
+  bool has_updatetime() const;
+  void clear_updatetime();
+  static const int kUpdateTimeFieldNumber = 8;
+  ::google::protobuf::int64 updatetime() const;
+  void set_updatetime(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:ofs.api.master.File)
  private:
@@ -1432,8 +1439,9 @@ class File :
   ::google::protobuf::int32 authority_;
   ::google::protobuf::int32 size_;
   ::google::protobuf::int64 createtime_;
-  ::google::protobuf::int64 updatetime_;
+  ::google::protobuf::int32 blocksize_;
   bool dir_;
+  ::google::protobuf::int64 updatetime_;
   friend struct ::TableStruct_OfsMaster_2eproto;
 };
 // -------------------------------------------------------------------
@@ -4464,7 +4472,25 @@ inline void File::set_size(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ofs.api.master.File.size)
 }
 
-// required int64 createTime = 6;
+// required int32 blockSize = 6;
+inline bool File::has_blocksize() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void File::clear_blocksize() {
+  blocksize_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline ::google::protobuf::int32 File::blocksize() const {
+  // @@protoc_insertion_point(field_get:ofs.api.master.File.blockSize)
+  return blocksize_;
+}
+inline void File::set_blocksize(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000040u;
+  blocksize_ = value;
+  // @@protoc_insertion_point(field_set:ofs.api.master.File.blockSize)
+}
+
+// required int64 createTime = 7;
 inline bool File::has_createtime() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
@@ -4482,25 +4508,25 @@ inline void File::set_createtime(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:ofs.api.master.File.createTime)
 }
 
-// required int64 updateTime = 7;
+// required int64 updateTime = 8;
 inline bool File::has_updatetime() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000100u) != 0;
 }
 inline void File::clear_updatetime() {
   updatetime_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline ::google::protobuf::int64 File::updatetime() const {
   // @@protoc_insertion_point(field_get:ofs.api.master.File.updateTime)
   return updatetime_;
 }
 inline void File::set_updatetime(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000100u;
   updatetime_ = value;
   // @@protoc_insertion_point(field_set:ofs.api.master.File.updateTime)
 }
 
-// required bool dir = 8;
+// required bool dir = 9;
 inline bool File::has_dir() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }

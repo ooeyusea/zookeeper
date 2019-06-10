@@ -24,6 +24,8 @@ namespace ofs {
 			return nullptr;
 		}
 
+		void DeleteFileBlock(int64_t fileId, int64_t maxIndex);
+
 		Block * GetOrCreate(int64_t id);
 
 		void Clean(Block * block);
@@ -34,7 +36,7 @@ namespace ofs {
 		hn_shared_mutex _mutex;
 		std::unordered_map<int64_t, Block*> _blocks;
 
-		int32_t _blockCount;
+		int32_t _blockCount = 0;
 	};
 }
 
