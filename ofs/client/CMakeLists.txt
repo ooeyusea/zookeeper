@@ -43,6 +43,8 @@ SET(SRC
 	"${PROJECT_SOURCE_DIR}/main.cpp"
 	"${PROJECT_SOURCE_DIR}/OfsClient.h"
 	"${PROJECT_SOURCE_DIR}/OfsClient.cpp"
+	"${PROJECT_SOURCE_DIR}/OfsFileDownloader.h"
+	"${PROJECT_SOURCE_DIR}/OfsFileDownloader.cpp"
 )
 
 SET(RPC

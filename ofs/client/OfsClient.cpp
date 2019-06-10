@@ -3,6 +3,8 @@
 #include "args.h"
 #include <stack>
 #include "time_helper.h"
+#include "OfsFileDownloader.h"
+
 #define EXPAND_EXPIRE_INTERVAL MINUTE
 
 namespace ofs {
@@ -31,6 +33,7 @@ namespace ofs {
 		_commands["touch"] = &Client::Touch;
 		_commands["rm"] = &Client::Remove;
 		_commands["ls"] = &Client::List;
+		_commands["get"] = &Client::Get;
 	}
 
 	bool Client::Connect(const std::string& host, int32_t port, const std::string& username, const std::string& password) {
@@ -344,6 +347,37 @@ namespace ofs {
 		if (Expand(_currentPath.c_str())) {
 			DisplayPath(_currentPath.c_str());
 		}
+	}
+
+	void Client::Get(int32_t argc, char** argv) {
+		args::ArgumentParser parser("This is a ofs get program.", "");
+		args::HelpFlag help(parser, "help", "Display this help menu", { 'h', "help" });
+		args::Positional<std::string> path(parser, "path", "path");
+		args::Positional<std::string> local(parser, "local", "local path");
+
+		try
+		{
+			parser.ParseCLI(argc, argv);
+		}
+		catch (args::Help) {
+			std::cout << parser;
+			return;
+		}
+		catch (args::ParseError e) {
+			std::cerr << e.what() << std::endl;
+			std::cerr << parser;
+			return;
+		}
+		catch (args::ValidationError e) {
+			std::cerr << e.what() << std::endl;
+			std::cerr << parser;
+			return;
+		}
+
+		std::string realPath = FindReal(args::get(path));
+
+		FileDownloader downloader(_service, _token);
+		downloader.Start(realPath, args::get(local));
 	}
 
 	int32_t Client::Expand(const char * path) {

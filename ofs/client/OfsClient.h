@@ -43,6 +43,7 @@ namespace ofs {
 		void Touch(int32_t argc, char ** argv);
 		void Remove(int32_t argc, char ** argv);
 		void List(int32_t argc, char ** argv);
+		void Get(int32_t argc, char** argv);
 
 		int32_t Expand(const char * path);
 		void DisplayPath(const char* path);

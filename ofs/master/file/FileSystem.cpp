@@ -14,10 +14,14 @@ namespace ofs {
 		_blockSize = root["data"][0]["block"][0].GetAttributeInt32("size") * MB;
 		int64_t interval = root["data"][0]["save"][0].GetAttributeInt64("interval") * SECOND;
 
+		_deleteExpireTime = root["data"][0]["file"][0].GetAttributeInt64("expire") * SECOND;
+		int64_t gc = root["data"][0]["file"][0].GetAttributeInt64("gc") * SECOND;
+
 		if (!LoadFromFile(_path))
 			return false;
 
 		StartSave(interval);
+		StartCleanDeleteFile(gc);
 		return true;
 	}
 
@@ -36,6 +40,7 @@ namespace ofs {
 				return false;
 			}
 
+			_root.SetRoot(true);
 			_root.BuildAllFile();
 			hn_info("load directory complete");
 		}
@@ -45,6 +50,7 @@ namespace ofs {
 			_root.SetAuthority(api::master::AuthorityType::AT_OWNER_READ | api::master::AuthorityType::AT_OWNER_WRITE | api::master::AuthorityType::AT_GROUP_READ | api::master::AuthorityType::AT_OTHER_READ);
 			_root.SetCreateTime(olib::GetTimeStamp());
 			_root.SetUpdateTime(olib::GetTimeStamp());
+			_root.SetRoot(true);
 
 			SaveToFile(path);
 			hn_info("not exist directory file");
@@ -62,12 +68,26 @@ namespace ofs {
 		return !ar.Fail();
 	}
 
+	void FileSystem::FileGC() {
+		_root.StartGC(olib::GetTimeStamp());
+	}
+
 	void FileSystem::StartSave(int64_t interval) {
 		_saveTimer = new hn_ticker(interval);
 
 		hn_fork[this]{
 			for (auto t : *_saveTimer) {
 				SaveToFile(_path);
+			}
+		};
+	}
+
+	void FileSystem::StartCleanDeleteFile(int64_t interval) {
+		_cleanTimer = new hn_ticker(interval);
+
+		hn_fork[this]{
+			for (auto t : *_cleanTimer) {
+				FileGC();
 			}
 		};
 	}

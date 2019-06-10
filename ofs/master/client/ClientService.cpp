@@ -80,6 +80,7 @@ namespace ofs {
 				n->set_group(node->GetOwnerGroup());
 				n->set_authority(node->GetAuthority());
 				n->set_size(node->GetSize());
+				n->set_blocksize(FileSystem::Instance().GetBlockSize());
 				n->set_createtime(node->GetCreateTime());
 				n->set_updatetime(node->GetUpdateTime());
 				n->set_dir(node->IsDir());
@@ -122,6 +123,7 @@ namespace ofs {
 				n->set_group(node->GetOwnerGroup());
 				n->set_authority(node->GetAuthority());
 				n->set_size(node->GetSize());
+				n->set_blocksize(FileSystem::Instance().GetBlockSize());
 				n->set_createtime(node->GetCreateTime());
 				n->set_updatetime(node->GetUpdateTime());
 				n->set_dir(node->IsDir());
@@ -191,7 +193,7 @@ namespace ofs {
 
 				File * file = static_cast<File*>(node);
 				int32_t blockCount = FileSystem::Instance().CalcBlockCount(file->GetSize());
-				if (request->blockindex() < 0 || request->blockindex() >= blockCount)
+				if (request->blockindex() < 1 || request->blockindex() > blockCount)
 					return api::master::ErrorCode::EC_OUT_OF_RANGE;
 
 				Block * block = BlockManager::Instance().Get(BLOCK_ID(file->GetId(), request->blockindex()));

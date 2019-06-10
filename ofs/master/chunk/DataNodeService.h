@@ -18,6 +18,8 @@ namespace ofs {
 
 		std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old);
 
+		inline mq::MessageQueue * GetSender() const { return _queue; }
+
 	private:
 		void OnRegister(const c2m::Register& req);
 
