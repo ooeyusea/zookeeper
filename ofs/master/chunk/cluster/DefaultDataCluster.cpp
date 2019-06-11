@@ -10,7 +10,7 @@ namespace ofs {
 			return nullptr;
 
 		int32_t r = (int32_t)(rand() % _chunkServers.size());
-		int32_t c = (int32_t)_chunkServers.size() - 1;
+		int32_t c = (int32_t)_chunkServers.size();
 		while (c--) {
 			r = (int32_t)((r + 1) % _chunkServers.size());
 
@@ -33,7 +33,7 @@ namespace ofs {
 			return nullptr;
 
 		int32_t r = (int32_t)(rand() % _racks.size());
-		int32_t c = (int32_t)_racks.size() - 1;
+		int32_t c = (int32_t)_racks.size();
 		while (c--) {
 			if (_racks[r] == exclude)
 				r = (int32_t)((r + 1) % _racks.size());
@@ -52,22 +52,33 @@ namespace ofs {
 		return true;
 	}
 
+	DataNode* DefaultDataCluster::Get(int32_t id) {
+		auto itr = _nodes.find(id);
+		if (itr != _nodes.end())
+			return itr->second;
+		return nullptr;
+	}
+
 	DataNode * DefaultDataCluster::Register(int32_t id, int32_t rack, int32_t dc, const std::string& extend) {
-		DataCenter * dataCenter = nullptr;
-		{
-			auto itr = std::lower_bound(_dataCenters.begin(), _dataCenters.end(), dc, [](DataCenter * dc, int32_t id) {
+		DataNode * node = Get(id);
+		if (!node) {
+			auto itr = std::lower_bound(_dataCenters.begin(), _dataCenters.end(), dc, [](DataCenter* dc, int32_t id) {
 				return dc->GetId() < id;
 			});
 
+			DataCenter* dataCenter = nullptr;
 			if (itr != _dataCenters.end() && (*itr)->GetId() == dc)
 				dataCenter = *itr;
 			else {
 				dataCenter = new DataCenter(dc);
 				_dataCenters.insert(itr, dataCenter);
 			}
-		}
 
-		return dataCenter->Get(rack, true)->Get(id, true);
+			node = dataCenter->Get(rack, true)->Get(id, true);
+
+			_nodes[id] = node;
+		}
+		return node;
 	}
 
 	std::vector<DataNode*> DefaultDataCluster::Distribute(const std::vector<DataNode*>& old) {
@@ -134,7 +145,7 @@ namespace ofs {
 			return nullptr;
 
 		int32_t r = (int32_t)(rand() % _dataCenters.size());
-		int32_t c = (int32_t)_dataCenters.size() - 1;
+		int32_t c = (int32_t)_dataCenters.size();
 		while (c--) {
 			if (_dataCenters[r] == exclude)
 				r = (int32_t)((r + 1) % _dataCenters.size());

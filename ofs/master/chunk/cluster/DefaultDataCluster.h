@@ -92,6 +92,7 @@ namespace ofs {
 
 		virtual bool Start(const olib::IXmlObject& root);
 
+		virtual DataNode * Get(int32_t id);
 		virtual DataNode * Register(int32_t id, int32_t rack, int32_t dc, const std::string& extend);
 		virtual std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old);
 
@@ -103,6 +104,7 @@ namespace ofs {
 
 	private:
 		std::vector<DataCenter*> _dataCenters;
+		std::unordered_map<int32_t, DataNode*> _nodes;
 	};
 }
 

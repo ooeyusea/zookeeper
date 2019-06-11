@@ -55,6 +55,8 @@ namespace ofs {
 		dataNode->SetDisk(req.node().disk());
 		dataNode->SetFault(req.node().fault());
 
+		dataNode->UpdateTick();
+
 		lock.unlock();
 	}
 
@@ -123,6 +125,15 @@ namespace ofs {
 	}
 
 	void DataNodeService::OnHeartbeat(const c2m::Heartbeat& ntf) {
+		std::unique_lock<hn_shared_mutex> lock(_mutex);
+		DataNode* dataNode = _dataCluster->Get(ntf.id());
+		assert(dataNode);
 
+		dataNode->SetCpu(ntf.node().cpu());
+		dataNode->SetRss(ntf.node().rss());
+		dataNode->SetVss(ntf.node().vss());
+		dataNode->SetDisk(ntf.node().disk());
+		dataNode->SetFault(ntf.node().fault());
+		dataNode->UpdateTick();
 	}
 }

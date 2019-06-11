@@ -49,7 +49,7 @@ namespace ofs {
 		std::string _host;
 		int32_t _port;
 		std::string _key;
-		int64_t _tick;
+		int64_t _tick = 0;
 
 		bool _fault = false;
 		int32_t _cpu;

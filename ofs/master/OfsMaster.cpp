@@ -3,6 +3,7 @@
 #include "user/UserManager.h"
 #include "client/ClientService.h"
 #include "chunk/DataNodeService.h"
+#include "block/BlockManager.h"
 #include "XmlReader.h"
 
 namespace ofs {
@@ -28,15 +29,22 @@ namespace ofs {
 
 			hn_info("load file system success");
 
-			if (!ClientService::Instance().Start(conf.Root()))
+			if (!BlockManager::Instance().Start(conf.Root())) {
+				hn_error("start block manager failed");
 				return false;
+			}
 
-			hn_info("start client service success");
+			hn_info("start block manager success");
 
 			if (!DataNodeService::Instance().Start(conf.Root()))
 				return false;
 
 			hn_info("start data node service success");
+
+			if (!ClientService::Instance().Start(conf.Root()))
+				return false;
+
+			hn_info("start client service success");
 		}
 		catch (std::exception& e) {
 			hn_error("load config format error: {} {}", e.what(), path);
