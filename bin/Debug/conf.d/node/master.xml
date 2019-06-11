@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <cluster>
+    <master host="127.0.0.1" port="12311" />
+  </cluster>
+</config>

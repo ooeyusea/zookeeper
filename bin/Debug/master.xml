@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<include path="conf.d/*.xml" extend="true" />
+	<include path="conf.d/master/*.xml" extend="true" />
+</config>

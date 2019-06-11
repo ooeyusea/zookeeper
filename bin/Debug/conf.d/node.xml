@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <node>
+    <size val="65531" />
+    <hearbeat val="30000" />
+  </node>
+</config>
