@@ -3,36 +3,55 @@
 #include "proto/Chunk.pb.h"
 #include "block/Block.h"
 #include "block/BlockManager.h"
+#include "client/ClientService.h"
 
 namespace ofs {
 	bool NodeService::Start(const olib::IXmlObject& root) {
 		_id = root["node"][0]["id"][0].GetAttributeInt32("val");
 		int32_t size = root["node"][0]["size"][0].GetAttributeInt32("val");
-		std::string ip = root["node"][0]["host"][0].GetAttributeString("ip");
-		int32_t port = root["node"][0]["host"][0].GetAttributeInt32("port");
+		int64_t heartBeat = root["node"][0]["hearbeat"][0].GetAttributeInt64("val");
 
-		std::string masterIp = root["node"][0]["matser"][0].GetAttributeString("ip");
-		int32_t masterPort = root["node"][0]["matser"][0].GetAttributeInt32("port");
+		hn_info("node id : {}, service total size : {}", _id, size);
+		
+		std::string cluster = root["cluster"][0].GetAttributeString("name");
+		_host = root["cluster"][0].GetAttributeString("host");
+		_port = root["cluster"][0].GetAttributeInt32("port");
 
-		int64_t heartBeat = root["node"][0]["hear_beat"][0].GetAttributeInt64("val");
+		hn_info("node harbor host {}:{}", _host, _port);
+
+		std::string masterIp = root["cluster"][0]["master"][0].GetAttributeString("host");
+		int32_t masterPort = root["cluster"][0]["master"][0].GetAttributeInt32("port");
+
+		
+
+		_rack = root["cluster"][0]["rack"][0].GetAttributeInt32("rack");
+		_dc = root["cluster"][0]["rack"][0].GetAttributeInt32("dc");
+		_extend = root["cluster"][0]["rack"][0].GetAttributeString("extend");
+
+		hn_info("node rack {}:{}=>[{}]", _dc, _rack, _extend);
 
 		_queue = new mq::MessageQueue(_id, size);
-		if (!_queue->Listen(ip, port))
+		if (!_queue->Listen("0.0.0.0", _port))
 			return false;
 
+		hn_info("node harbor listen port {}", _port);
+
+		hn_info("node connect master {}:{}", masterIp, masterPort);
 		_queue->Connect(MASTER_NODE, masterIp, masterPort, [this]() {
+			hn_info("node connect master success");
+
 			Register();
 			BlockManager::Instance().Report();
 		});
 
-		_queue->Register<c2m::WriteNotify>(std::bind(&NodeService::OnWrite, *this, std::placeholders::_1));
-		_queue->Register<c2m::AppendNotify>(std::bind(&NodeService::OnAppend, *this, std::placeholders::_1));
+		_queue->Register<c2m::WriteNotify>(std::bind(&NodeService::OnWrite, this, std::placeholders::_1));
+		_queue->Register<c2m::AppendNotify>(std::bind(&NodeService::OnAppend, this, std::placeholders::_1));
 
-		_queue->Register<c2m::NeighborNotify>(std::bind(&NodeService::OnNeighborNotify, *this, std::placeholders::_1));
-		_queue->Register<c2m::NeighborGossip>(std::bind(&NodeService::OnNeighborGossip, *this, std::placeholders::_1));
+		_queue->Register<c2m::NeighborNotify>(std::bind(&NodeService::OnNeighborNotify, this, std::placeholders::_1));
+		_queue->Register<c2m::NeighborGossip>(std::bind(&NodeService::OnNeighborGossip, this, std::placeholders::_1));
 
-		_queue->Register<c2m::RecoverBlock>(std::bind(&NodeService::OnRecoverBlock, *this, std::placeholders::_1));
-		_queue->Register<c2m::CleanBlock>(std::bind(&NodeService::OnCleanBlock, *this, std::placeholders::_1));
+		_queue->Register<c2m::RecoverBlock>(std::bind(&NodeService::OnRecoverBlock, this, std::placeholders::_1));
+		_queue->Register<c2m::CleanBlock>(std::bind(&NodeService::OnCleanBlock, this, std::placeholders::_1));
 
 		StartHeartbeat(heartBeat);
 		return true;
@@ -41,8 +60,24 @@ namespace ofs {
 	void NodeService::Register() {
 		c2m::Register req;
 		req.set_id(_id);
+		req.set_rack(_rack);
+		req.set_dc(_dc);
+		req.set_extend(_extend);
 
-		//fullfill
+		auto* outpost = req.mutable_outpost();
+		outpost->set_host(ClientService::Instance().GetHost());
+		outpost->set_port(ClientService::Instance().GetPort());
+
+		auto * harbor = req.mutable_harbor();
+		harbor->set_host(_host);
+		harbor->set_port(_port);
+
+		auto * node = req.mutable_node();
+		node->set_cpu(0);
+		node->set_rss(0);
+		node->set_vss(0);
+		node->set_disk(0);
+		node->set_fault(false);
 
 		_queue->Send(MASTER_NODE, &req);
 	}
@@ -145,12 +180,18 @@ namespace ofs {
 	void NodeService::StartHeartbeat(int64_t heartBeat) {
 		_heartBeatTimer = new hn_ticker(heartBeat);
 
+		hn_info("node start heartbeat service for interval : {}", heartBeat);
 		hn_fork[this]{
 			for (auto t : *_heartBeatTimer) {
 				c2m::Heartbeat req;
 				req.set_id(_id);
 
-				//fullfill
+				auto* node = req.mutable_node();
+				node->set_cpu(0);
+				node->set_rss(0);
+				node->set_vss(0);
+				node->set_disk(0);
+				node->set_fault(false);
 
 				_queue->Send(MASTER_NODE, &req);
 			}

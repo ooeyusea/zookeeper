@@ -1,25 +1,63 @@
 #include "OfsFileUploader.h"
+#include <fstream>
+
+#define BATCH_SIZE (4 * 1024)
 
 namespace ofs {
-	void FileUploader::Upload(api::master::OfsFileService* service, const std::string& path, const std::string& token) {
+	bool FileUploader::Start(const std::string& localPath, const std::string& remotePath) {
+		std::ifstream local(localPath, std::ios::binary);
+		if (local.bad())
+			return false;
 
-	}
+		char data[BATCH_SIZE];
+		while (!local.eof()) {
+			api::master::AppendRequest request;
+			request.set_token(_token);
+			request.set_path(remotePath);
 
+			api::master::AppendResponse response;
+			rpc::OfsRpcController controller(-1);
+			_service->Append(&controller, &request, &response, nullptr);
 
-	bool FileUploader::AskAppend(api::master::OfsFileService* service, const std::string& path, const std::string& token) {
-		api::master::AppendRequest request;
-		request.set_token(token);
-		request.set_path(path);
+			if (!controller.Failed() && response.errcode() == api::master::ErrorCode::EC_NONE) {
+				ofs::rpc::OfsRpcChannel channel;
+				api::chunk::OfsNodeService* service = new api::chunk::OfsNodeService::Stub(&channel);
 
-		api::master::AppendResponse response;
-		rpc::OfsRpcController controller(-1);
-		service->Append(&controller, &request, &response, nullptr);
+				if (!channel.Connect(response.lease().ep().host(), response.lease().ep().port())) {
+					return false;
+				}
 
-		if (!controller.Failed() && response.errcode() == api::master::ErrorCode::EC_NONE) {
+				while (!local.eof()) {
+					local.read(data, BATCH_SIZE);
+					std::string* buf = new std::string(data, local.gcount());
 
-			return true;
+					api::chunk::AppendRequest req;
+					req.set_allocated_data(buf);
+
+					auto* lease = req.mutable_lease();
+					lease->set_id(response.lease().id());
+					lease->set_until(response.lease().until());
+					lease->set_version(response.lease().version());
+					lease->set_newversion(response.lease().newversion());
+					lease->set_key(response.lease().key());
+					for (auto server : response.lease().chunkservers())
+						lease->add_chunkservers(server);
+
+					api::chunk::AppendResponse rsp;
+					controller.Reset();
+					service->Append(&controller, &req, &rsp, nullptr);
+
+					if (controller.Failed() || response.errcode() != api::chunk::ErrorCode::EC_NONE) {
+						if (response.errcode() != api::chunk::ErrorCode::EC_BLOCK_FULL && response.errcode() != api::chunk::ErrorCode::EC_LEASE_EXPIRE)
+							return false;
+					}
+				}
+			}
+			else
+				break;
 		}
 
 		return false;
 	}
+
 }

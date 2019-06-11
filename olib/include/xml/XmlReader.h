@@ -39,8 +39,8 @@ namespace olib {
 		const IXmlObject& Root() const;
 
 	private:
-		bool LoadInclude(const char * path);
-		bool LoadIncludeFile(const char * path);
+		bool LoadInclude(const char * path, bool extend);
+		bool LoadIncludeFile(const char * path, bool extend);
 
     private:
 		IXmlObject * _root;

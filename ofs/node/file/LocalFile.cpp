@@ -6,7 +6,7 @@ namespace fs = std::experimental::filesystem;
 
 namespace ofs {
 	int32_t LocalFile::Read(int32_t offset, int32_t size, std::string& data) {
-		std::ifstream input(_path);
+		std::ifstream input(_path, std::ios::binary);
 		if (!input)
 			return api::chunk::ErrorCode::EC_BLOCK_FILE_NOT_EXIST;
 
@@ -16,7 +16,7 @@ namespace ofs {
 		
 		data.resize(size);
 		input.read((char*)data.c_str(), size);
-		if (!input)
+		if (!input || input.gcount() != size)
 			return api::chunk::ErrorCode::EC_BLOCK_READ_FAILED;
 
 		input.close();
@@ -24,7 +24,7 @@ namespace ofs {
 	}
 
 	int32_t LocalFile::Write(int32_t offset, const char * data, int32_t size) {
-		std::ofstream output(_path);
+		std::ofstream output(_path, std::ios::binary);
 		if (!output)
 			return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 
@@ -40,7 +40,7 @@ namespace ofs {
 	}
 
 	int32_t LocalFile::Append(const char * data, int32_t size) {
-		std::ofstream output(_path);
+		std::ofstream output(_path, std::ios::binary);
 		if (!output)
 			return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 

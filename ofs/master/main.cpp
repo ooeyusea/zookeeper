@@ -34,7 +34,7 @@ void start(int32_t argc, char ** argv) {
 #ifndef WIN32
 		path = "/etc/ofs/master.conf";
 #else
-		path = "conf.xml";
+		path = "master.xml";
 #endif
 
 	if (!ofs::Master::Instance().Start(path)) {

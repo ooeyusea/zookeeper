@@ -22,15 +22,21 @@ namespace ofs {
 				return false;
 			}
 
+			hn_info("start node service success");
+
 			if (!BlockManager::Instance().Start(conf.Root())) {
 				hn_error("start block manager failed");
 				return false;
 			}
 
+			hn_info("start block manager success");
+
 			if (!ClientService::Instance().Start(conf.Root())) {
 				hn_error("start client service failed");
 				return false;
 			}
+
+			hn_info("start client service success");
 		}
 		catch (std::exception& e) {
 			hn_error("load config format error: {} {}", e.what(), path);

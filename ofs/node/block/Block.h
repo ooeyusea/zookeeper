@@ -4,12 +4,13 @@
 #include "RefObject.h"
 
 namespace ofs {
+	struct BlockInfo {
+		int64_t id;
+		int64_t version;
+		int32_t size;
+	};
+
 	class Block : public RefObject {
-		struct BlockInfo {
-			int64_t id;
-			int64_t version;
-			int32_t size;
-		};
 	public:
 		Block(int64_t id) : _mutex(true) { _info = { id, 0, 0 }; }
 		~Block() {}

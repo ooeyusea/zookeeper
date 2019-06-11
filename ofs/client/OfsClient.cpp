@@ -352,8 +352,8 @@ namespace ofs {
 		if (CreateRemoteFile(args::get(path))) {
 			std::string realPath = FindReal(args::get(path));
 
-			FileUploader uploader(args::get(local));
-			uploader.Upload(_service, realPath, _token);
+			FileUploader uploader(_service, _token);
+			uploader.Start(args::get(local), realPath);
 		}
 	}
 

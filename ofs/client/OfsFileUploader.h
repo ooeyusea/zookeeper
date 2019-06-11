@@ -8,16 +8,14 @@
 namespace ofs {
 	class FileUploader {
 	public:
-		FileUploader(const std::string& local) : _local(local) {}
+		FileUploader(api::master::OfsFileService* service, const std::string& token) : _service(service), _token(token) {}
 		~FileUploader() {}
 
-		void Upload(api::master::OfsFileService * service, const std::string& path, const std::string& token);
+		bool Start(const std::string& localPath, const std::string& remotePath);
 
 	private:
-		bool AskAppend(api::master::OfsFileService* service, const std::string& path, const std::string& token);
-
-	private:
-		std::string _local;
+		api::master::OfsFileService* _service;
+		std::string _token;
 	};
 }
 

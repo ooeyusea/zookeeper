@@ -34,7 +34,7 @@ void start(int32_t argc, char ** argv) {
 #ifndef WIN32
 		path = "/etc/ofs/node.conf";
 #else
-		path = "conf.xml";
+		path = "node.xml";
 #endif
 
 	if (!ofs::Node::Instance().Start(path)) {

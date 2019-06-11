@@ -37,6 +37,9 @@ namespace olib {
 		virtual ~XmlArray();
 
 		void AddElement(const TiXmlElement * element);
+		inline XmlObject * Get(const int32_t index) const {
+			return _elements[index];
+		}
 
 		virtual int8_t GetAttributeInt8(const char * attr) const { throw std::logic_error("this is a array xml"); return 0; }
 		virtual int16_t GetAttributeInt16(const char * attr) const { throw std::logic_error("this is a array xml"); return 0; }
@@ -100,7 +103,7 @@ namespace olib {
 		virtual const IXmlObject& operator[](const char * name) const {
 			auto itr = _objects.find(name);
 			if (itr == _objects.end()) {
-				throw std::logic_error("where is child ???");
+				throw std::logic_error(std::string("where is child ") + name);
 				return _null;
 			}
 			return *itr->second;
@@ -111,6 +114,12 @@ namespace olib {
 		void Append(const TiXmlElement * element) {
 			LoadAttrs(element);
 			LoadChildren(element);
+			LoadText(element);
+		}
+
+		void Extend(const TiXmlElement* element) {
+			LoadAttrs(element);
+			LoadChildren(element, true);
 			LoadText(element);
 		}
 
@@ -136,11 +145,18 @@ namespace olib {
 			}
 		}
 
-		void LoadChildren(const TiXmlElement * element) {
+		void LoadChildren(const TiXmlElement * element, bool extend = false) {
 			for (auto * node = element->FirstChildElement(); node; node = node->NextSiblingElement()) {
 				if (_objects.find(node->Value()) == _objects.end())
 					_objects[node->Value()] = new XmlArray;
 
+				if (extend) {
+					if (_objects[node->Value()]->Count() > 0) {
+						_objects[node->Value()]->Get(0)->Extend(node);
+
+						continue;
+					}
+				}
 				_objects[node->Value()]->AddElement(node);
 			}
 		}
@@ -208,7 +224,7 @@ namespace olib {
 				return c;
 			});
 #endif
-			if (!LoadInclude(includePath.c_str()))
+			if (!LoadInclude(includePath.c_str(), node->Attribute("extend") ? (strcmp(node->Attribute("extend"), "true") == 0) : false))
 				return false;
 		}
 
@@ -235,9 +251,9 @@ namespace olib {
 		return *_root;
 	}
 
-	bool XmlReader::LoadInclude(const char * path) {
-		olib::FileFinder().Search(path, [this](const fs::path file){
-			if (!LoadIncludeFile(file.string().c_str())) {
+	bool XmlReader::LoadInclude(const char * path, bool extend) {
+		olib::FileFinder().Search(path, [this, extend](const fs::path file){
+			if (!LoadIncludeFile(file.string().c_str(), extend)) {
 				throw std::logic_error(std::string("load include file") + file.string() + " failed");
 			}
 		});
@@ -245,7 +261,7 @@ namespace olib {
 		return true;
 	}
 
-	bool XmlReader::LoadIncludeFile(const char * path) {
+	bool XmlReader::LoadIncludeFile(const char * path, bool extend) {
 		if (_loaded.find(path) != _loaded.end())
 			return true;
 
@@ -263,7 +279,10 @@ namespace olib {
 
 		_loaded.insert(path);
 
-		((XmlObject*)_root)->Append(root);
+		if (extend)
+			((XmlObject*)_root)->Extend(root);
+		else
+			((XmlObject*)_root)->Append(root);
 
 #ifdef WIN32
 		const char * baseEnd = strrchr(path, '\\');
@@ -279,7 +298,7 @@ namespace olib {
 				return c;
 			});
 #endif
-			if (!LoadInclude(includePath.c_str()))
+			if (!LoadInclude(includePath.c_str(), node->Attribute("extend") ? (strcmp(node->Attribute("extend"), "true") == 0) : false))
 				return false;
 		}
 		return true;

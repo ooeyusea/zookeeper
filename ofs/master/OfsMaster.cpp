@@ -2,6 +2,7 @@
 #include "file/FileSystem.h"
 #include "user/UserManager.h"
 #include "client/ClientService.h"
+#include "chunk/DataNodeService.h"
 #include "XmlReader.h"
 
 namespace ofs {
@@ -31,6 +32,11 @@ namespace ofs {
 				return false;
 
 			hn_info("start client service success");
+
+			if (!DataNodeService::Instance().Start(conf.Root()))
+				return false;
+
+			hn_info("start data node service success");
 		}
 		catch (std::exception& e) {
 			hn_error("load config format error: {} {}", e.what(), path);

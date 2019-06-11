@@ -46,6 +46,9 @@ namespace ofs {
 					T request;
 					if (request.ParseFromArray(data, size))
 						fn(request);
+					else {
+						hn_error("parse error : {}", request.InitializationErrorString());
+					}
 				};
 			}
 

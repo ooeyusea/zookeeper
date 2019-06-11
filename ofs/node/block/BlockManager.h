@@ -3,7 +3,6 @@
 #include "hnet.h"
 #include "singleton.h"
 #include "XmlReader.h"
-#include "lru_cache.h"
 #include "Block.h"
 
 namespace ofs {
@@ -47,13 +46,18 @@ namespace ofs {
 		void Report();
 
 		inline int32_t GetBatchSize() const { return _batchSize; }
+		inline int32_t GetBlockSize() const { return _blockSize; }
 
 	private:
+		bool ScanBlock();
 		void StartBlockReportHearbeat(int64_t interval);
+
+		int64_t ReadIdFrom(const std::string& meta);
 
 	private:
 		std::string _blockPath;
-		int32_t _batchSize;
+		int32_t _batchSize = 0;
+		int32_t _blockSize = 0;
 
 		hn_mutex _mutex;
 		std::unordered_map<int64_t, Block *> _blocks;

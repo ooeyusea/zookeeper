@@ -6,9 +6,11 @@ namespace ofs {
 	bool ClientService::Start(const olib::IXmlObject& root) {
 		_rpc.AddService(this);
 
-		const char * host = root["client"][0].GetAttributeString("host");
-		int32_t port = root["client"][0].GetAttributeInt32("port");
-		return _rpc.Start(host, port);
+		_host = root["client"][0].GetAttributeString("host");
+		_port = root["client"][0].GetAttributeInt32("port");
+
+		hn_info("listen for client {}:{}", _host, _port);
+		return _rpc.Start("0.0.0.0", _port);
 	}
 
 	void ClientService::Read(::google::protobuf::RpcController* controller,

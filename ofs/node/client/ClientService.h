@@ -29,8 +29,14 @@ namespace ofs {
 			::ofs::api::chunk::AppendResponse* response,
 			::google::protobuf::Closure* done);
 
+		inline const std::string& GetHost() const { return _host; }
+		inline int32_t GetPort() const { return _port; }
+
 	private:
 		rpc::OfsRpcServer _rpc;
+
+		std::string _host;
+		int32_t _port = 0;
 	};
 }
 

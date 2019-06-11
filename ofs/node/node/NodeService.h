@@ -43,7 +43,12 @@ namespace ofs {
 
 	private:
 		mq::MessageQueue * _queue = nullptr;
-		int32_t _id;
+		int32_t _id = 0;
+		std::string _host;
+		int32_t _port = 0;
+		int32_t _rack = 0;
+		int32_t _dc = 0;
+		std::string _extend;
 
 		hn_ticker * _heartBeatTimer = nullptr;
 	};

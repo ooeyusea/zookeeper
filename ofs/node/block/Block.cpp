@@ -66,6 +66,9 @@ namespace ofs {
 				return api::chunk::ErrorCode::EC_WRITE_BLOCK_VERSION_CHECK_FAILED;
 		}
 
+		if (_info.size + data.size() > BlockManager::Instance().GetBlockSize())
+			return api::chunk::EC_BLOCK_FULL;
+
 		LocalFile file(std::move(path));
 		int32_t ret = file.Append(data.c_str(), (int32_t)data.size());
 		if (ret != api::chunk::EC_NONE)

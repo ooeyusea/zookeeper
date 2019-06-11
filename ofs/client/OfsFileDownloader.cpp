@@ -9,7 +9,7 @@ namespace ofs {
 		if (size < 0 || blockSize == 0)
 			return false;
 
-		std::ofstream local(localPath);
+		std::ofstream local(localPath, std::ios::binary);
 		if (size > 0) {
 			int32_t blockCount = size / blockSize + (size % blockSize == 0 ? 0 : 1);
 			for (int32_t i = 1; i <= blockCount; ++i) {

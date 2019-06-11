@@ -276,7 +276,7 @@ const char descriptor_table_protodef_OfsChunk_2eproto[] =
   "unk.ErrorCode\"G\n\rAppendRequest\022(\n\005lease\030"
   "\001 \002(\0132\031.ofs.api.chunk.BlockLease\022\014\n\004data"
   "\030\002 \002(\t\";\n\016AppendResponse\022)\n\007errCode\030\001 \002("
-  "\0162\030.ofs.api.chunk.ErrorCode*\255\002\n\tErrorCod"
+  "\0162\030.ofs.api.chunk.ErrorCode*\325\002\n\tErrorCod"
   "e\022\013\n\007EC_NONE\020\000\022\026\n\022EC_BLOCK_NOT_EIXST\020\001\022\026"
   "\n\022EC_BLOCK_INCORRECT\020\002\022\030\n\024EC_BLOCK_READ_"
   "FAILED\020\003\022\031\n\025EC_BLOCK_WRITE_FAILED\020\004\022\033\n\027E"
@@ -284,7 +284,8 @@ const char descriptor_table_protodef_OfsChunk_2eproto[] =
   "_OF_RANGE\020\006\022\'\n#EC_BLOCK_OPEN_OR_CREATE_F"
   "ILE_FAILED\020\007\022\'\n#EC_WRITE_BLOCK_VERSION_C"
   "HECK_FAILED\020\010\022$\n EC_WRITE_BLOCK_CHECK_SI"
-  "ZE_FAILED\020\t2\334\001\n\016OfsNodeService\022\?\n\004Read\022\032"
+  "ZE_FAILED\020\t\022\021\n\rEC_BLOCK_FULL\020\n\022\023\n\017EC_LEA"
+  "SE_EXPIRE\020\0132\334\001\n\016OfsNodeService\022\?\n\004Read\022\032"
   ".ofs.api.chunk.ReadRequest\032\033.ofs.api.chu"
   "nk.ReadResponse\022B\n\005Write\022\033.ofs.api.chunk"
   ".WriteRequest\032\034.ofs.api.chunk.WriteRespo"
@@ -294,7 +295,7 @@ const char descriptor_table_protodef_OfsChunk_2eproto[] =
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsChunk_2eproto = {
   false, InitDefaults_OfsChunk_2eproto, 
   descriptor_table_protodef_OfsChunk_2eproto,
-  "OfsChunk.proto", &assign_descriptors_table_OfsChunk_2eproto, 1079,
+  "OfsChunk.proto", &assign_descriptors_table_OfsChunk_2eproto, 1119,
 };
 
 void AddDescriptors_OfsChunk_2eproto() {
@@ -325,6 +326,8 @@ bool ErrorCode_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
+    case 11:
       return true;
     default:
       return false;

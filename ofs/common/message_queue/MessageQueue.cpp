@@ -1,6 +1,7 @@
 #include "MessageQueue.h"
 #include "socket_helper.h"
 #include "time_helper.h"
+#include "coroutine_waiter.h"
 
 #ifdef WIN32
 #define STACK_DYNAMIC_ARR(data, size) char * data = (char *)alloca(size)
@@ -29,6 +30,26 @@ namespace ofs {
 			uint8_t op;
 		};
 #pragma pack(pop)
+
+		inline std::string toHex(const char* buf, int32_t size) {
+			std::string ret;
+			for (int32_t i = 0; i < size; ++i) {
+				char high = (buf[i] >> 4) & 0x0F;
+				char low = buf[i] & 0x0F;
+
+				if (high > 9)
+					ret += ('A' + (high - 10));
+				else
+					ret += ('0' + high);
+
+				if (low > 9)
+					ret += ('A' + (low - 10));
+				else
+					ret += ('0' + low);
+			}
+
+			return ret;
+		}
 
 		bool MessageQueue::Listen(const std::string& ip, int32_t port) {
 			int32_t listenFd = hn_listen(ip.c_str(), port);
@@ -112,7 +133,9 @@ namespace ofs {
 				header.msg = olib::BKDRHash(request->GetDescriptor()->full_name().c_str());
 				header.op = MOT_MESSAGE;
 
-				hn_send(_node[id], data, size);
+				//hn_info("dump {}", toHex(data + sizeof(MessageHeader), size));
+
+				hn_send(_node[id], data, sizeof(MessageHeader) + size);
 			}
 		}
 
@@ -129,7 +152,7 @@ namespace ofs {
 
 			for (auto id : ids) {
 				if (_node[id] > 0)
-					hn_send(_node[id], data, size);
+					hn_send(_node[id], data, sizeof(MessageHeader) + size);
 			}
 		}
 
@@ -146,7 +169,7 @@ namespace ofs {
 
 			for (auto id : ids) {
 				if (_node[id] > 0)
-					hn_send(_node[id], data, size);
+					hn_send(_node[id], data, sizeof(MessageHeader) + size);
 			}
 		}
 
@@ -163,7 +186,7 @@ namespace ofs {
 
 			for (int32_t i = 0; i < _size; ++i) {
 				if (i != except && _node[i] > 0)
-					hn_send(_node[i], data, size);
+					hn_send(_node[i], data, sizeof(MessageHeader) + size);
 			}
 		}
 
@@ -171,7 +194,7 @@ namespace ofs {
 			bool stop = false;
 			int64_t activeTick = olib::GetTickCount();
 
-			hn_fork[&stop, &activeTick, fd, this]{
+			auto co = olib::DoWork([&stop, &activeTick, fd, this]{
 				int64_t sendTick = olib::GetTickCount();
 				while (!stop && !_terminate) {
 					hn_sleep LINE_CHECK_INTERVAL;
@@ -190,31 +213,39 @@ namespace ofs {
 						hn_send(fd, (const char*)&header, sizeof(header));
 					}
 				}
-			};
+			});
 
-			while (!_terminate) {
-				MessageHeader header;
-				olib::SocketReader(LINE_TIMEOUT).ReadType(fd, header);
+			try {
+				while (!_terminate) {
+					MessageHeader header;
+					olib::SocketReader(LINE_TIMEOUT).ReadType(fd, header);
 
-				if (header.op == MessageOpType::MOT_PING) {
-					header.op = MessageOpType::MOT_PONG;
-					hn_send(fd, (const char*)&header, sizeof(header));
+					if (header.op == MessageOpType::MOT_PING) {
+						header.op = MessageOpType::MOT_PONG;
+						hn_send(fd, (const char*)& header, sizeof(header));
+					}
+					else if (header.op == MessageOpType::MOT_PONG)
+						activeTick = olib::GetTickCount();
+					else {
+						std::string data;
+						if (header.size > 0)
+							data = olib::SocketReader(LINE_TIMEOUT).ReadBlock(fd, header.size);
+
+						//hn_info("dump {}", toHex(data.c_str(), data.size()));
+
+						auto itr = _funcs.find(header.msg);
+						if (itr != _funcs.end())
+							itr->second(data.c_str(), data.size());
+					}
 				}
-				else if (header.op == MessageOpType::MOT_PONG)
-					activeTick = olib::GetTickCount();
-				else {
-					std::string data;
-					if (header.size > 0)
-						data = olib::SocketReader(LINE_TIMEOUT).ReadBlock(fd, header.size);
-					
-					auto itr = _funcs.find(header.msg);
-					if (itr != _funcs.end())
-						itr->second(data.c_str(), data.size());
-				}
+			}
+			catch (std::exception& e) {
+
 			}
 
 			stop = true;
 			hn_close(fd);
+			co.Wait();
 		}
 	}
 }

@@ -102,11 +102,13 @@ enum ErrorCode {
   EC_BLOCK_OUT_OF_RANGE = 6,
   EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED = 7,
   EC_WRITE_BLOCK_VERSION_CHECK_FAILED = 8,
-  EC_WRITE_BLOCK_CHECK_SIZE_FAILED = 9
+  EC_WRITE_BLOCK_CHECK_SIZE_FAILED = 9,
+  EC_BLOCK_FULL = 10,
+  EC_LEASE_EXPIRE = 11
 };
 bool ErrorCode_IsValid(int value);
 const ErrorCode ErrorCode_MIN = EC_NONE;
-const ErrorCode ErrorCode_MAX = EC_WRITE_BLOCK_CHECK_SIZE_FAILED;
+const ErrorCode ErrorCode_MAX = EC_LEASE_EXPIRE;
 const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();

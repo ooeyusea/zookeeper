@@ -9,25 +9,25 @@
 #define MASTER_NODE 0
 namespace ofs {
 	bool DataNodeService::Start(const olib::IXmlObject& root) {
-		std::string cluster = root["chunk_server"][0].GetAttributeString("cluster");
-		const char * host = root["chunk_server"][0].GetAttributeString("host");
-		int32_t port = root["chunk_server"][0].GetAttributeInt32("port");
+		std::string cluster = root["cluster"][0].GetAttributeString("name");
+		const char * host = root["cluster"][0].GetAttributeString("host");
+		int32_t port = root["cluster"][0].GetAttributeInt32("port");
 
 		int32_t size = root["node"][0]["size"][0].GetAttributeInt32("val");
 
 		_dataCluster = new DefaultDataCluster;
 
 		_queue = new mq::MessageQueue(MASTER_NODE, size);
-		if (!_queue->Listen(host, port))
+		if (!_queue->Listen("0.0.0.0", port))
 			return false;
 
-		_queue->Register<c2m::Register>(std::bind(&DataNodeService::OnRegister, *this, std::placeholders::_1));
+		_queue->Register<c2m::Register>(std::bind(&DataNodeService::OnRegister, this, std::placeholders::_1));
 
-		_queue->Register<c2m::ReportBlock>(std::bind(&DataNodeService::OnReport, *this, std::placeholders::_1));
-		_queue->Register<c2m::UpdataBlock>(std::bind(&DataNodeService::OnUpdate, *this, std::placeholders::_1));
-		_queue->Register<c2m::CleanComplete>(std::bind(&DataNodeService::OnClean, *this, std::placeholders::_1));
+		_queue->Register<c2m::ReportBlock>(std::bind(&DataNodeService::OnReport, this, std::placeholders::_1));
+		_queue->Register<c2m::UpdataBlock>(std::bind(&DataNodeService::OnUpdate, this, std::placeholders::_1));
+		_queue->Register<c2m::CleanComplete>(std::bind(&DataNodeService::OnClean, this, std::placeholders::_1));
 
-		_queue->Register<c2m::Heartbeat>(std::bind(&DataNodeService::OnHeartbeat, *this, std::placeholders::_1));
+		_queue->Register<c2m::Heartbeat>(std::bind(&DataNodeService::OnHeartbeat, this, std::placeholders::_1));
 		return true;
 	}
 
@@ -59,7 +59,33 @@ namespace ofs {
 	}
 
 	void DataNodeService::OnReport(const c2m::ReportBlock& req) {
+		for (auto& blockInfo : req.blocks()) {
+			File* file = FileSystem::Instance().GetFile(FILE_ID_FROM_BLOCK(blockInfo.id()));
+			if (!file) {
+				c2m::CleanBlock ntf;
+				ntf.set_blockid(blockInfo.id());
 
+				DataNodeService::Instance().GetSender()->Send(req.id(), &ntf);
+				continue;
+			}
+
+			Block* block = BlockManager::Instance().GetOrCreate(blockInfo.id());
+			if (!block) {
+				file->Release();
+				return;
+			}
+
+
+			uint32_t newSize = block->UpdateReplica(req.id(), blockInfo.version(), blockInfo.size(), blockInfo.fault());
+			block->Release();
+
+			if (newSize > 0) {
+				uint32_t fileSize = FileSystem::Instance().CalcFileSize(INDEX_FROM_BLOCK(block->GetId()), newSize);
+				file->UpdateSize(fileSize);
+			}
+
+			file->Release();
+		}
 	}
 
 	void DataNodeService::OnUpdate(const c2m::UpdataBlock& req) {
