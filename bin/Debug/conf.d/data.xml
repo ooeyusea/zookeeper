@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
 	<data>
-		<block count="3" size="64" />
+		<block count="3" size="64" batch="4" />
 		<save interval="60" />
 		<file expire="259200‬" gc="21600‬" />
-    <report interval="3600" />
-  </data>
+		<report interval="3600" />
+	</data>
 </config>
