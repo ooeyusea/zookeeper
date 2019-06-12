@@ -84,6 +84,35 @@ namespace ofs {
 		return 0;
 	}
 
+	int32_t Block::ReportReplica(DataNode* server, int64_t version, int32_t size, bool fault) {
+		std::lock_guard<hn_shared_mutex> guard(_mutex);
+		auto itr = std::find_if(_chunkServer.begin(), _chunkServer.end(), [server](auto& bIs) {
+			return bIs.GetServer()->GetId() == server->GetId();
+		});
+
+		if (itr == _chunkServer.end())
+			itr = _chunkServer.insert(_chunkServer.end(), { server });
+
+		if (itr != _chunkServer.end()) {
+			itr->SetVersion(version);
+			itr->SetFault(fault);
+
+			if (!fault) {
+				if (version > _version)
+					_version = version;
+
+				if (version > _expectVersion)
+					_expectVersion = version;
+
+				if (_size < size) {
+					_size = size;
+					return size;
+				}
+			}
+		}
+		return 0;
+	}
+
 	void Block::ClearReplica(int32_t chunkServerId) {
 		std::lock_guard<hn_shared_mutex> guard(_mutex);
 		std::remove_if(_chunkServer.begin(), _chunkServer.end(), [chunkServerId](auto& bIs) {

@@ -26,7 +26,10 @@ namespace ofs {
 
 		std::string * data = new std::string;
 		int32_t ret = block->Read(request->offset(), BlockManager::Instance().GetBatchSize(), *data);
+
 		response->set_errcode((api::chunk::ErrorCode)ret);
+		response->set_allocated_data(data);
+
 		block->Release();
 	}
 
@@ -76,7 +79,7 @@ namespace ofs {
 		}
 
 		auto& lease = request->lease();
-		Block * block = BlockManager::Instance().Get(lease.id());
+		Block * block = BlockManager::Instance().Get(lease.id(), true);
 		if (!block) {
 			response->set_errcode(api::chunk::ErrorCode::EC_BLOCK_NOT_EIXST);
 			return;

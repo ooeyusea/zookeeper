@@ -7,11 +7,7 @@
 #include <experimental/filesystem>
 namespace fs = std::experimental::filesystem;
 
-#ifdef WIN32
-#define SLASH '\\'
-#else
-#define SLASH '/'
-#endif
+#define SLASH "\\/"
 
 namespace olib {
 	class FileFinder {
@@ -22,7 +18,7 @@ namespace olib {
 		void Search(const std::string& pattern, const std::function<void(const fs::path& file)>& fn) {
 			std::string::size_type star = pattern.rfind('*');
 			if (star != std::string::npos) {
-				std::string::size_type slash = pattern.rfind(SLASH, star);
+				std::string::size_type slash = pattern.find_last_of(SLASH, star);
 				std::string directory = (slash == std::string::npos ? "./" : pattern.substr(0, slash + 1));
 				std::string subpattern = (slash == std::string::npos ? pattern : pattern.substr(slash + 1));
 
@@ -37,7 +33,7 @@ namespace olib {
 			if (pattern == "")
 				fn(path);
 			else {
-				std::string::size_type slash = pattern.find(SLASH);
+				std::string::size_type slash = pattern.find_first_of(SLASH);
 				std::string check = (slash == std::string::npos ? pattern : pattern.substr(0, slash));
 				std::string subpattern = (slash == std::string::npos ? "" : pattern.substr(slash + 1));
 				std::vector<std::string> cuts = Cut(check, '*');

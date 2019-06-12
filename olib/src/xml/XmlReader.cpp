@@ -128,6 +128,8 @@ namespace olib {
 			auto itr = _attrs.find(attr);
 			if (itr != _attrs.end())
 				return &itr->second;
+
+			throw std::logic_error(std::string("where is attr ") + attr);
 			return nullptr;
 		}
 

@@ -6,13 +6,13 @@
 namespace ofs {
 	#define TICK_FROM_ID(id) ((id) >> 31)
 	#define TICK_FROM_TIMESTAMP(ts) (((ts) / SECOND) & 0x1FFFFFFFF)
-	#define SEQ_FROM_ID(id) ((id) & 0x3FFF)
-	#define MAX_SEQ 0x3FFF
-	#define BUILD_FILE_ID(t, subId) ((((t) & 0x1FFFFFFFF) << 31) | ((subId) & 0x3FFF))
+	#define SEQ_FROM_ID(id) ((id) & 0x3FF)
+	#define MAX_SEQ 0x3FF
+	#define BUILD_FILE_ID(t, subId) ((((t) & 0x1FFFFFFFF) << 31) | ((subId) & 0x3FF))
 
 	#define BLOCK_ID(fileId, index) ((fileId) | ((((int64_t)(index)) & 0x1FFFFF) << 10))
 	#define MAX_BLOCK_INDEX 0x1FFFFF
-	#define FILE_ID_FROM_BLOCK(blockId) ((blockId) & 0xFFFFFFFF80003FFF)
+	#define FILE_ID_FROM_BLOCK(blockId) ((blockId) & 0xFFFFFFFF800003FF)
 	#define INDEX_FROM_BLOCK(blockId) (((blockId) >> 10) & 0x1FFFFF)
 
 	struct IdGenerator {

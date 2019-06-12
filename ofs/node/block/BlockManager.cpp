@@ -58,6 +58,7 @@ namespace ofs {
 			status->set_id(itr->second->GetId());
 			status->set_version(itr->second->GetVersion());
 			status->set_size(itr->second->GetSize());
+			status->set_fault(false);
 		}
 		lock.unlock();
 

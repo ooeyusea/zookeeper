@@ -64,19 +64,21 @@ namespace ofs {
 
 	void Client::DoCommand(const std::string& line) {
 		std::vector<std::string> units = Split(line, " \t");
-		std::vector<char*> ptrs;
-		for (auto& unit : units)
-			ptrs.push_back((char*)unit.c_str());
+		if (!units.empty()) {
+			std::vector<char*> ptrs;
+			for (auto& unit : units)
+				ptrs.push_back((char*)unit.c_str());
 
-		int32_t argc = (int32_t)ptrs.size();
-		char ** argv = ptrs.data();
+			int32_t argc = (int32_t)ptrs.size();
+			char** argv = ptrs.data();
 
-		auto itr = _commands.find(argv[0]);
-		if (itr != _commands.end()) {
-			(this->*(itr->second))(argc, argv);
-		}
-		else {
-			std::cout << argv[0] << " : command not found" << std::endl;
+			auto itr = _commands.find(argv[0]);
+			if (itr != _commands.end()) {
+				(this->*(itr->second))(argc, argv);
+			}
+			else {
+				std::cout << argv[0] << " : command not found" << std::endl;
+			}
 		}
 	}
 

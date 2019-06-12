@@ -357,7 +357,7 @@ class ReadResponse :
 
   // accessors -------------------------------------------------------
 
-  // optional string data = 2;
+  // optional bytes data = 2;
   bool has_data() const;
   void clear_data();
   static const int kDataFieldNumber = 2;
@@ -367,7 +367,7 @@ class ReadResponse :
   void set_data(::std::string&& value);
   #endif
   void set_data(const char* value);
-  void set_data(const char* value, size_t size);
+  void set_data(const void* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
@@ -671,7 +671,7 @@ class WriteRequest :
 
   // accessors -------------------------------------------------------
 
-  // required string data = 3;
+  // required bytes data = 3;
   bool has_data() const;
   void clear_data();
   static const int kDataFieldNumber = 3;
@@ -681,7 +681,7 @@ class WriteRequest :
   void set_data(::std::string&& value);
   #endif
   void set_data(const char* value);
-  void set_data(const char* value, size_t size);
+  void set_data(const void* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
@@ -942,7 +942,7 @@ class AppendRequest :
 
   // accessors -------------------------------------------------------
 
-  // required string data = 2;
+  // required bytes data = 2;
   bool has_data() const;
   void clear_data();
   static const int kDataFieldNumber = 2;
@@ -952,7 +952,7 @@ class AppendRequest :
   void set_data(::std::string&& value);
   #endif
   void set_data(const char* value);
-  void set_data(const char* value, size_t size);
+  void set_data(const void* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
@@ -1246,7 +1246,7 @@ inline void ReadResponse::set_errcode(::ofs::api::chunk::ErrorCode value) {
   // @@protoc_insertion_point(field_set:ofs.api.chunk.ReadResponse.errCode)
 }
 
-// optional string data = 2;
+// optional bytes data = 2;
 inline bool ReadResponse::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1277,7 +1277,7 @@ inline void ReadResponse::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ofs.api.chunk.ReadResponse.data)
 }
-inline void ReadResponse::set_data(const char* value, size_t size) {
+inline void ReadResponse::set_data(const void* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -1543,7 +1543,7 @@ inline void WriteRequest::set_offset(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ofs.api.chunk.WriteRequest.offset)
 }
 
-// required string data = 3;
+// required bytes data = 3;
 inline bool WriteRequest::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1574,7 +1574,7 @@ inline void WriteRequest::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ofs.api.chunk.WriteRequest.data)
 }
-inline void WriteRequest::set_data(const char* value, size_t size) {
+inline void WriteRequest::set_data(const void* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -1679,7 +1679,7 @@ inline void AppendRequest::set_allocated_lease(::ofs::api::chunk::BlockLease* le
   // @@protoc_insertion_point(field_set_allocated:ofs.api.chunk.AppendRequest.lease)
 }
 
-// required string data = 2;
+// required bytes data = 2;
 inline bool AppendRequest::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1710,7 +1710,7 @@ inline void AppendRequest::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ofs.api.chunk.AppendRequest.data)
 }
-inline void AppendRequest::set_data(const char* value, size_t size) {
+inline void AppendRequest::set_data(const void* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

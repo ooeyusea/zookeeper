@@ -35,7 +35,7 @@ namespace ofs {
 		}
 
 		inline int32_t CalcBlockCount(uint32_t size) const {
-			return (size / _blockSize) + (size % _blockSize == 0) ? 0 : 1;
+			return (size / _blockSize) + ((size % _blockSize == 0) ? 0 : 1);
 		}
 
 		inline int32_t CalcAppendBlock(uint32_t size) const {

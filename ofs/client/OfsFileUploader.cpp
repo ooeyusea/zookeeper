@@ -29,7 +29,7 @@ namespace ofs {
 
 				while (!local.eof()) {
 					local.read(data, BATCH_SIZE);
-					std::string* buf = new std::string(data, local.gcount());
+					std::string* buf = new std::string(data, BATCH_SIZE);// local.gcount());
 
 					api::chunk::AppendRequest req;
 					req.set_allocated_data(buf);
@@ -47,9 +47,12 @@ namespace ofs {
 					controller.Reset();
 					service->Append(&controller, &req, &rsp, nullptr);
 
-					if (controller.Failed() || response.errcode() != api::chunk::ErrorCode::EC_NONE) {
-						if (response.errcode() != api::chunk::ErrorCode::EC_BLOCK_FULL && response.errcode() != api::chunk::ErrorCode::EC_LEASE_EXPIRE)
+					if (controller.Failed() || rsp.errcode() != api::chunk::ErrorCode::EC_NONE) {
+						if (rsp.errcode() != api::chunk::ErrorCode::EC_BLOCK_FULL && rsp.errcode() != api::chunk::ErrorCode::EC_LEASE_EXPIRE)
 							return false;
+
+						local.seekg(-local.gcount(), std::ios::cur);
+						break;
 					}
 				}
 			}

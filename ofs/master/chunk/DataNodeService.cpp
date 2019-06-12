@@ -77,8 +77,8 @@ namespace ofs {
 				return;
 			}
 
-
-			uint32_t newSize = block->UpdateReplica(req.id(), blockInfo.version(), blockInfo.size(), blockInfo.fault());
+			DataNode* server = _dataCluster->Get(req.id());
+			uint32_t newSize = block->ReportReplica(server, blockInfo.version(), blockInfo.size(), blockInfo.fault());
 			block->Release();
 
 			if (newSize > 0) {

@@ -266,16 +266,16 @@ const char descriptor_table_protodef_OfsChunk_2eproto[] =
   "\n\016OfsChunk.proto\022\rofs.api.chunk\".\n\013ReadR"
   "equest\022\017\n\007blockId\030\001 \002(\003\022\016\n\006offset\030\002 \002(\005\""
   "G\n\014ReadResponse\022)\n\007errCode\030\001 \002(\0162\030.ofs.a"
-  "pi.chunk.ErrorCode\022\014\n\004data\030\002 \001(\t\"o\n\nBloc"
+  "pi.chunk.ErrorCode\022\014\n\004data\030\002 \001(\014\"o\n\nBloc"
   "kLease\022\n\n\002id\030\001 \002(\003\022\r\n\005until\030\002 \002(\003\022\017\n\007ver"
   "sion\030\003 \002(\003\022\022\n\nnewVersion\030\004 \002(\003\022\024\n\014chunks"
   "ervers\030\006 \003(\005\022\013\n\003key\030\007 \002(\t\"V\n\014WriteReques"
   "t\022(\n\005lease\030\001 \002(\0132\031.ofs.api.chunk.BlockLe"
-  "ase\022\016\n\006offset\030\002 \002(\005\022\014\n\004data\030\003 \002(\t\":\n\rWri"
+  "ase\022\016\n\006offset\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\":\n\rWri"
   "teResponse\022)\n\007errCode\030\001 \002(\0162\030.ofs.api.ch"
   "unk.ErrorCode\"G\n\rAppendRequest\022(\n\005lease\030"
   "\001 \002(\0132\031.ofs.api.chunk.BlockLease\022\014\n\004data"
-  "\030\002 \002(\t\";\n\016AppendResponse\022)\n\007errCode\030\001 \002("
+  "\030\002 \002(\014\";\n\016AppendResponse\022)\n\007errCode\030\001 \002("
   "\0162\030.ofs.api.chunk.ErrorCode*\325\002\n\tErrorCod"
   "e\022\013\n\007EC_NONE\020\000\022\026\n\022EC_BLOCK_NOT_EIXST\020\001\022\026"
   "\n\022EC_BLOCK_INCORRECT\020\002\022\030\n\024EC_BLOCK_READ_"
@@ -784,18 +784,17 @@ const char* ReadResponse::_InternalParse(const char* begin, const char* end, voi
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // optional string data = 2;
+      // optional bytes data = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.api.chunk.ReadResponse.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
           goto string_till_end;
         }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -853,15 +852,11 @@ bool ReadResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional string data = 2;
+      // optional bytes data = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->data().data(), static_cast<int>(this->data().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.api.chunk.ReadResponse.data");
         } else {
           goto handle_unusual;
         }
@@ -902,13 +897,9 @@ void ReadResponse::SerializeWithCachedSizes(
       1, this->errcode(), output);
   }
 
-  // optional string data = 2;
+  // optional bytes data = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.chunk.ReadResponse.data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->data(), output);
   }
 
@@ -932,14 +923,10 @@ void ReadResponse::SerializeWithCachedSizes(
       1, this->errcode(), target);
   }
 
-  // optional string data = 2;
+  // optional bytes data = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.chunk.ReadResponse.data");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         2, this->data(), target);
   }
 
@@ -969,11 +956,11 @@ size_t ReadResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string data = 2;
+  // optional bytes data = 2;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
@@ -1789,18 +1776,17 @@ const char* WriteRequest::_InternalParse(const char* begin, const char* end, voi
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required string data = 3;
+      // required bytes data = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.api.chunk.WriteRequest.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
           goto string_till_end;
         }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -1863,15 +1849,11 @@ bool WriteRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // required string data = 3;
+      // required bytes data = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->data().data(), static_cast<int>(this->data().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.api.chunk.WriteRequest.data");
         } else {
           goto handle_unusual;
         }
@@ -1917,13 +1899,9 @@ void WriteRequest::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->offset(), output);
   }
 
-  // required string data = 3;
+  // required bytes data = 3;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.chunk.WriteRequest.data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       3, this->data(), output);
   }
 
@@ -1953,14 +1931,10 @@ void WriteRequest::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->offset(), target);
   }
 
-  // required string data = 3;
+  // required bytes data = 3;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.chunk.WriteRequest.data");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         3, this->data(), target);
   }
 
@@ -1977,9 +1951,9 @@ size_t WriteRequest::RequiredFieldsByteSizeFallback() const {
   size_t total_size = 0;
 
   if (has_data()) {
-    // required string data = 3;
+    // required bytes data = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
@@ -2009,9 +1983,9 @@ size_t WriteRequest::ByteSizeLong() const {
         _internal_metadata_.unknown_fields());
   }
   if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
-    // required string data = 3;
+    // required bytes data = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
 
     // required .ofs.api.chunk.BlockLease lease = 1;
@@ -2516,18 +2490,17 @@ const char* AppendRequest::_InternalParse(const char* begin, const char* end, vo
             {parser_till_end, object}, ptr - size, ptr));
         break;
       }
-      // required string data = 2;
+      // required bytes data = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.api.chunk.AppendRequest.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
           goto string_till_end;
         }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -2577,15 +2550,11 @@ bool AppendRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // required string data = 2;
+      // required bytes data = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->data().data(), static_cast<int>(this->data().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.api.chunk.AppendRequest.data");
         } else {
           goto handle_unusual;
         }
@@ -2626,13 +2595,9 @@ void AppendRequest::SerializeWithCachedSizes(
       1, HasBitSetters::lease(this), output);
   }
 
-  // required string data = 2;
+  // required bytes data = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.chunk.AppendRequest.data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->data(), output);
   }
 
@@ -2657,14 +2622,10 @@ void AppendRequest::SerializeWithCachedSizes(
         1, HasBitSetters::lease(this), target);
   }
 
-  // required string data = 2;
+  // required bytes data = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.api.chunk.AppendRequest.data");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         2, this->data(), target);
   }
 
@@ -2681,9 +2642,9 @@ size_t AppendRequest::RequiredFieldsByteSizeFallback() const {
   size_t total_size = 0;
 
   if (has_data()) {
-    // required string data = 2;
+    // required bytes data = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
@@ -2706,9 +2667,9 @@ size_t AppendRequest::ByteSizeLong() const {
         _internal_metadata_.unknown_fields());
   }
   if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string data = 2;
+    // required bytes data = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
 
     // required .ofs.api.chunk.BlockLease lease = 1;

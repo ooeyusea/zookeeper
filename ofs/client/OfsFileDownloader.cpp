@@ -74,7 +74,7 @@ namespace ofs {
 					controller.Reset();
 					service->Read(&controller, &req, &rsp, nullptr);
 
-					if (!controller.Failed() && response.errcode() == api::chunk::ErrorCode::EC_NONE) {
+					if (!controller.Failed() && rsp.errcode() == api::chunk::ErrorCode::EC_NONE) {
 						const std::string& data = rsp.data();
 						out.write(data.c_str(), data.size());
 
@@ -86,6 +86,9 @@ namespace ofs {
 					else
 						break;
 				}
+
+				if (offset >= size)
+					return true;
 			}
 		}
 		return false;

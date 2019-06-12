@@ -153,7 +153,7 @@ namespace ofs {
 
 				File * file = static_cast<File*>(node);
 				int32_t blockCount = FileSystem::Instance().CalcBlockCount(file->GetSize());
-				if (request->blockindex() < 0 || request->blockindex() >= blockCount)
+				if (request->blockindex() < 1 || request->blockindex() > blockCount)
 					return api::master::ErrorCode::EC_OUT_OF_RANGE;
 
 				Block * block = BlockManager::Instance().Get(BLOCK_ID(file->GetId(), request->blockindex()));
