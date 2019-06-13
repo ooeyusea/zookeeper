@@ -16,7 +16,8 @@ namespace ofs {
 
 		bool Start(const olib::IXmlObject& root);
 
-		std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old);
+		std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except);
+		std::vector<DataNode*> SelectUnnecessary(std::vector<DataNode*>&& old);
 
 		inline mq::MessageQueue * GetSender() const { return _queue; }
 
@@ -33,7 +34,7 @@ namespace ofs {
 		mq::MessageQueue * _queue = nullptr;
 
 		hn_shared_mutex _mutex;
-		IDataCluster * _dataCluster;
+		IDataCluster * _dataCluster = nullptr;
 	};
 }
 

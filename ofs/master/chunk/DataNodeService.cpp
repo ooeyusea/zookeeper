@@ -31,13 +31,22 @@ namespace ofs {
 		return true;
 	}
 
-	std::vector<DataNode*> DataNodeService::Distribute(const std::vector<DataNode*>& old) {
+	std::vector<DataNode*> DataNodeService::Distribute(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except) {
 		int32_t blockCount = BlockManager::Instance().GetBlockCount();
 		if (old.size() >= blockCount)
 			return {};
 
 		hn_shared_lock<hn_shared_mutex> lock(_mutex);
-		return _dataCluster->Distribute(old);
+		return _dataCluster->Distribute(old, except);
+	}
+
+	std::vector<DataNode*> DataNodeService::SelectUnnecessary(std::vector<DataNode*>&& old) {
+		int32_t blockCount = BlockManager::Instance().GetBlockCount();
+		if (old.size() <= blockCount)
+			return {};
+
+		hn_shared_lock<hn_shared_mutex> lock(_mutex);
+		return _dataCluster->SelectUnnecessary(old);
 	}
 
 	void DataNodeService::OnRegister(const c2m::Register& req) {

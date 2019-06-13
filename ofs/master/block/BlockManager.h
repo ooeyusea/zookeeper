@@ -31,12 +31,21 @@ namespace ofs {
 		void Clean(Block * block);
 
 		inline int32_t GetBlockCount() const { return _blockCount; }
+		inline int64_t GetWriteLease() const { return _writeLease; }
+		inline int64_t GetRecoverLease() const { return _recoverLease; }
+		inline int64_t GetRecoverAndWriteInterval() const { return _recoverAndWriteInterval; }
+
+	private:
+		void StartRecoverBlock();
 
 	private:
 		hn_shared_mutex _mutex;
 		std::unordered_map<int64_t, Block*> _blocks;
 
 		int32_t _blockCount = 0;
+		int64_t _writeLease = 0;
+		int64_t _recoverLease = 0;
+		int64_t _recoverAndWriteInterval = 0;
 	};
 }
 

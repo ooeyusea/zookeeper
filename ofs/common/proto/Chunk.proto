@@ -58,8 +58,7 @@ message ReportBlock {
 message RecoverBlock {
 	required int64 blockid = 1;
 	required int64 version = 2;
-	required int64 newVersion = 3;
-	required int32 copyTo = 4;
+	repeated int32 copyTo = 3;
 }
 
 message CleanBlock {

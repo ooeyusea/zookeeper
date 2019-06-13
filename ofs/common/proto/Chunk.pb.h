@@ -1512,6 +1512,18 @@ class RecoverBlock :
 
   // accessors -------------------------------------------------------
 
+  // repeated int32 copyTo = 3;
+  int copyto_size() const;
+  void clear_copyto();
+  static const int kCopyToFieldNumber = 3;
+  ::google::protobuf::int32 copyto(int index) const;
+  void set_copyto(int index, ::google::protobuf::int32 value);
+  void add_copyto(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      copyto() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_copyto();
+
   // required int64 blockid = 1;
   bool has_blockid() const;
   void clear_blockid();
@@ -1526,20 +1538,6 @@ class RecoverBlock :
   ::google::protobuf::int64 version() const;
   void set_version(::google::protobuf::int64 value);
 
-  // required int64 newVersion = 3;
-  bool has_newversion() const;
-  void clear_newversion();
-  static const int kNewVersionFieldNumber = 3;
-  ::google::protobuf::int64 newversion() const;
-  void set_newversion(::google::protobuf::int64 value);
-
-  // required int32 copyTo = 4;
-  bool has_copyto() const;
-  void clear_copyto();
-  static const int kCopyToFieldNumber = 4;
-  ::google::protobuf::int32 copyto() const;
-  void set_copyto(::google::protobuf::int32 value);
-
   // @@protoc_insertion_point(class_scope:ofs.c2m.RecoverBlock)
  private:
   class HasBitSetters;
@@ -1550,10 +1548,9 @@ class RecoverBlock :
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > copyto_;
   ::google::protobuf::int64 blockid_;
   ::google::protobuf::int64 version_;
-  ::google::protobuf::int64 newversion_;
-  ::google::protobuf::int32 copyto_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3134,40 +3131,34 @@ inline void RecoverBlock::set_version(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.version)
 }
 
-// required int64 newVersion = 3;
-inline bool RecoverBlock::has_newversion() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void RecoverBlock::clear_newversion() {
-  newversion_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline ::google::protobuf::int64 RecoverBlock::newversion() const {
-  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.newVersion)
-  return newversion_;
-}
-inline void RecoverBlock::set_newversion(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000004u;
-  newversion_ = value;
-  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.newVersion)
-}
-
-// required int32 copyTo = 4;
-inline bool RecoverBlock::has_copyto() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+// repeated int32 copyTo = 3;
+inline int RecoverBlock::copyto_size() const {
+  return copyto_.size();
 }
 inline void RecoverBlock::clear_copyto() {
-  copyto_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  copyto_.Clear();
 }
-inline ::google::protobuf::int32 RecoverBlock::copyto() const {
+inline ::google::protobuf::int32 RecoverBlock::copyto(int index) const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.copyTo)
+  return copyto_.Get(index);
+}
+inline void RecoverBlock::set_copyto(int index, ::google::protobuf::int32 value) {
+  copyto_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.copyTo)
+}
+inline void RecoverBlock::add_copyto(::google::protobuf::int32 value) {
+  copyto_.Add(value);
+  // @@protoc_insertion_point(field_add:ofs.c2m.RecoverBlock.copyTo)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecoverBlock::copyto() const {
+  // @@protoc_insertion_point(field_list:ofs.c2m.RecoverBlock.copyTo)
   return copyto_;
 }
-inline void RecoverBlock::set_copyto(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000008u;
-  copyto_ = value;
-  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.copyTo)
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecoverBlock::mutable_copyto() {
+  // @@protoc_insertion_point(field_mutable_list:ofs.c2m.RecoverBlock.copyTo)
+  return &copyto_;
 }
 
 // -------------------------------------------------------------------

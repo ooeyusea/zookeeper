@@ -4,43 +4,23 @@
 #include "chunk/DataNodeService.h"
 #include "chunk/DataNode.h"
 #include "file/FileSystem.h"
+#include "BlockManager.h"
 
 namespace ofs {
 	DataNode * Block::Write(std::vector<int32_t>& re) {
 		std::lock_guard<hn_shared_mutex> guard(_mutex);
 		if (_chunkServer.empty()) {
-			auto servers = DataNodeService::Instance().Distribute({});
+			auto servers = DataNodeService::Instance().Distribute({}, {});
 			for (auto * server : servers)
 				_chunkServer.push_back({ server });
 		}
 
-		Replica * mainReplica = nullptr;
-		Replica * lowerReplca = nullptr;
-
 		int64_t now = olib::GetTimeStamp();
-		for (auto& bIs : _chunkServer) {
-			if (bIs.GetVersion() != _version)
-				continue;
-
-			if (mainReplica)
-				break;
-
-			if (bIs.GetLease() > now) {
-				if (!bIs.GetServer()->IsUseAble())
-					return nullptr;
-				mainReplica = &bIs;
-			}
-			else if (lowerReplca == nullptr && bIs.GetServer()->IsUseAble())
-				lowerReplca = &bIs;
-		}
-
-		if (!mainReplica)
-			mainReplica = lowerReplca;
-		
+		Replica * mainReplica = FindMainReplica(now);
 		if (mainReplica) {
 			int64_t tick = mainReplica->GetLease();
 			if (tick <= now) {
-				tick = now + MINUTE;
+				tick = now + BlockManager::Instance().GetWriteLease();
 				mainReplica->SetLease(tick);
 				_lease = tick;
 
@@ -120,11 +100,97 @@ namespace ofs {
 		});
 	}
 
+	Replica * Block::FindMainReplica(int64_t now) {
+		Replica* mainReplica = nullptr;
+		Replica* lowerReplca = nullptr;
+
+		for (auto& bIs : _chunkServer) {
+			if (bIs.GetVersion() != _version)
+				continue;
+
+			if (mainReplica)
+				break;
+
+			if (bIs.GetLease() > now) {
+				if (!bIs.GetServer()->IsUseAble())
+					return nullptr;
+				mainReplica = &bIs;
+			}
+			else if (lowerReplca == nullptr && bIs.GetServer()->IsUseAble())
+				lowerReplca = &bIs;
+		}
+
+		if (!mainReplica)
+			mainReplica = lowerReplca;
+
+		return mainReplica;
+	}
+
 	void Block::BrocastCleanUp() {
 		c2m::CleanBlock ntf;
 		ntf.set_blockid(_id);
 
 		for (auto& bIs : _chunkServer)
 			DataNodeService::Instance().GetSender()->Send(bIs.GetServer()->GetId(), &ntf);
+	}
+
+	void Block::CheckReplica(int32_t blockCount) {
+		std::lock_guard<hn_shared_mutex> guard(_mutex);
+		int64_t now = olib::GetTimeStamp();
+		if (_recoverLease > now)
+			return;
+
+		std::vector<DataNode*> has;
+		std::vector<DataNode*> except;
+
+		Replica* mainReplica = FindMainReplica(now);
+		if (!mainReplica) {
+			hn_warn("block {} is unuseful", _id);
+			return;
+		}
+
+		if (mainReplica->GetLease() + BlockManager::Instance().GetRecoverAndWriteInterval() > now) {
+			hn_trace("block {} is writed recently so wait for some time", _id);
+			return;
+		}
+
+		c2m::CleanBlock ntf;
+		ntf.set_blockid(_id);
+
+		for (auto& bIs : _chunkServer) {
+			if (!bIs.IsFault() && bIs.GetVersion() == _version && bIs.GetServer()->IsUseAble())
+				has.push_back(bIs.GetServer());
+			else {
+				except.push_back(bIs.GetServer());
+
+				DataNodeService::Instance().GetSender()->Send(bIs.GetServer()->GetId(), &ntf);
+			}
+		}
+
+		if (has.size() < blockCount) {
+			auto servers = DataNodeService::Instance().Distribute(has, except);
+			if (!servers.empty()) {
+				c2m::RecoverBlock cmd;
+				cmd.set_blockid(_id);
+				cmd.set_version(_version);
+
+				for (auto* server : servers) {
+					_chunkServer.push_back({ server });
+
+					cmd.add_copyto(server->GetId());
+				}
+
+				DataNodeService::Instance().GetSender()->Send(mainReplica->GetServer()->GetId(), &cmd);
+
+				_recoverLease = now + BlockManager::Instance().GetRecoverLease();
+			}
+		}
+		else if (has.size() > blockCount) {
+			std::vector<DataNode*> ret = DataNodeService::Instance().SelectUnnecessary(std::move(has));
+			for (auto& bIs : _chunkServer) {
+				if (std::find(ret.begin(), ret.end(), bIs.GetServer()) != ret.end())
+					DataNodeService::Instance().GetSender()->Send(bIs.GetServer()->GetId(), &ntf);
+			}
+		}
 	}
 }

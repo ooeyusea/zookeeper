@@ -5,6 +5,11 @@
 namespace ofs {
 	bool BlockManager::Start(const olib::IXmlObject& root) {
 		_blockCount = root["data"][0]["block"][0].GetAttributeInt32("count");
+		_writeLease = root["data"][0]["lease"][0].GetAttributeInt32("write");
+		_recoverLease = root["data"][0]["lease"][0].GetAttributeInt32("recover");
+		_recoverAndWriteInterval = root["data"][0]["lease"][0].GetAttributeInt32("recover_and_write_interval");
+
+		StartRecoverBlock();
 		return true;
 	}
 
@@ -49,5 +54,15 @@ namespace ofs {
 		block->BrocastCleanUp();
 		_blocks.erase(block->GetId());
 		delete block;
+	}
+
+	void BlockManager::StartRecoverBlock() {
+		//hn_fork [this]() {
+		//	hn_wait IdleDetectService::Instance().GetNextIdleTime();
+		//
+		//	hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+		//	for (auto itr = _blocks.begin(); itr != _blocks.end(); ++itr)
+		//		itr->second->CheckReplica();
+		//};
 	}
 }

@@ -44,7 +44,7 @@ namespace ofs {
 			return nullptr;
 		}
 
-		DataNode * ChooseChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add);
+		DataNode * ChooseChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add);
 
 	private:
 		int32_t _id;
@@ -78,7 +78,7 @@ namespace ofs {
 			return nullptr;
 		}
 
-		DataNode * ChooseChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add, Rack * exclude);
+		DataNode * ChooseChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add, Rack * exclude);
 
 	private:
 		int32_t _id;
@@ -94,13 +94,14 @@ namespace ofs {
 
 		virtual DataNode * Get(int32_t id);
 		virtual DataNode * Register(int32_t id, int32_t rack, int32_t dc, const std::string& extend);
-		virtual std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old);
+		virtual std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except);
+		virtual std::vector<DataNode*> SelectUnnecessary(std::vector<DataNode*>&& old);
 
 	private:
-		DataNode * ChooseLocalChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add);
-		DataNode * ChooseLocalRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, std::vector<DataNode*>& add);
-		DataNode * ChooseRemoteRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, std::vector<DataNode*>& add);
-		DataNode * ChooseRandomChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add, DataCenter * exclude);
+		DataNode * ChooseLocalChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add);
+		DataNode * ChooseLocalRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add);
+		DataNode * ChooseRemoteRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add);
+		DataNode * ChooseRandomChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add, DataCenter * exclude);
 
 	private:
 		std::vector<DataCenter*> _dataCenters;

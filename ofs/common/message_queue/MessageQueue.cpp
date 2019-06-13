@@ -67,8 +67,12 @@ namespace ofs {
 								if (header.op != MOT_NODE)
 									return;
 
+								hn_info("message queue for {} is opened", (int32_t)header.msg);
+
 								_node[(int32_t)header.msg] = fd;
 								Poll((int32_t)header.msg, fd);
+
+								hn_info("message queue for {} is closed", (int32_t)header.msg);
 							}
 							catch (std::exception&) {
 							}
@@ -116,7 +120,9 @@ namespace ofs {
 					if (fn)
 						fn();
 
+					hn_info("message queue for {} is opened", id);
 					Poll(id, fd);
+					hn_info("message queue for {} is closed", id);
 				};
 			};
 		}
@@ -234,13 +240,19 @@ namespace ofs {
 						//hn_info("dump {}", toHex(data.c_str(), data.size()));
 
 						auto itr = _funcs.find(header.msg);
-						if (itr != _funcs.end())
+						if (itr != _funcs.end()) {
 							itr->second(data.c_str(), data.size());
+
+							hn_trace("do message {} from {}", header.msg, id);
+						}
+						else {
+							hn_warn("unknown message {} from {}", header.msg, id);
+						}
 					}
 				}
 			}
 			catch (std::exception& e) {
-
+				hn_error("read message from queue {} failed : {}", id, e.what());
 			}
 
 			stop = true;

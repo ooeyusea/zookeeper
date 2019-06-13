@@ -3,9 +3,11 @@
 #include "block/BlockManager.h"
 #include "file/File.h"
 #include "file/FileSystem.h"
+#include <algorithm>
+#include <random>
 
 namespace ofs {
-	DataNode * Rack::ChooseChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add) {
+	DataNode * Rack::ChooseChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add) {
 		if (_chunkServers.empty())
 			return nullptr;
 
@@ -18,7 +20,13 @@ namespace ofs {
 			if (std::find(old.begin(), old.end(), cs) != old.end())
 				continue;
 
+			if (std::find(except.begin(), except.end(), cs) != except.end())
+				continue;
+
 			if (std::find(add.begin(), add.end(), cs) != add.end())
+				continue;
+
+			if (!cs->IsUseAble())
 				continue;
 
 			add.push_back(cs);
@@ -28,7 +36,7 @@ namespace ofs {
 		return nullptr;
 	}
 
-	DataNode * DataCenter::ChooseChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add, Rack * exclude) {
+	DataNode * DataCenter::ChooseChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add, Rack * exclude) {
 		if (_racks.empty())
 			return nullptr;
 
@@ -38,7 +46,7 @@ namespace ofs {
 			if (_racks[r] == exclude)
 				r = (int32_t)((r + 1) % _racks.size());
 
-			DataNode * ret = _racks[r]->ChooseChunkServer(old, add);
+			DataNode * ret = _racks[r]->ChooseChunkServer(old, except, add);
 			if (ret)
 				return ret;
 
@@ -81,29 +89,29 @@ namespace ofs {
 		return node;
 	}
 
-	std::vector<DataNode*> DefaultDataCluster::Distribute(const std::vector<DataNode*>& old) {
+	std::vector<DataNode*> DefaultDataCluster::Distribute(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except) {
 		int32_t blockCount = BlockManager::Instance().GetBlockCount();
 		if (old.size() >= blockCount)
 			return {};
 
 		std::vector<DataNode*> ret;
-		DataNode * local = ChooseLocalChunkServer(old, ret);
+		DataNode * local = ChooseLocalChunkServer(old, except, ret);
 		if (!local || blockCount == 1)
 			return ret;
 
-		DataNode * second = ChooseRemoteRackChunkServer(local, old, ret);
+		DataNode * second = ChooseRemoteRackChunkServer(local, old, except, ret);
 		if (second) {
 			if (blockCount == 2)
 				return ret;
 
-			DataNode * third = ChooseLocalRackChunkServer(second, old, ret);
+			DataNode * third = ChooseLocalRackChunkServer(second, old, except, ret);
 			if (third && blockCount == 3)
 				return ret;
 		}
 
 		if (blockCount > 3) {
 			for (int32_t i = 3; i < blockCount; ++i) {
-				if (!ChooseRandomChunkServer(old, ret, nullptr))
+				if (!ChooseRandomChunkServer(old, except, ret, nullptr))
 					return ret;
 			}
 		}
@@ -111,14 +119,39 @@ namespace ofs {
 		return ret;
 	}
 
-	DataNode * DefaultDataCluster::ChooseLocalChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add) {
+	std::vector<DataNode*> DefaultDataCluster::SelectUnnecessary(std::vector<DataNode*>&& old) {
+		std::sort(old.begin(), old.end(), [](DataNode * a, DataNode * b) {
+			return static_cast<ChunkServer*>(a)->GetRack()->GetId() < static_cast<ChunkServer*>(b)->GetRack()->GetId();
+		});
+
+		Rack * rack = nullptr;
+		int32_t count = 0;
+		for (DataNode * node : old) {
+			Rack* nodeRack = static_cast<ChunkServer*>(node)->GetRack();
+			if (nodeRack != rack) {
+				rack = nodeRack;
+				count = 0;
+			}
+			else {
+				++count;
+				if (count > 2)
+					break;
+			}
+		}
+
+		std::shuffle(old.begin(), old.end(), std::default_random_engine());
+
+		return old;
+	}
+
+	DataNode * DefaultDataCluster::ChooseLocalChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add) {
 		if (old.empty())
-			return ChooseRandomChunkServer(old, add, nullptr);
+			return ChooseRandomChunkServer(old, except, add, nullptr);
 
 		return old.front();
 	}
 
-	DataNode * DefaultDataCluster::ChooseLocalRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, std::vector<DataNode*>& add) {
+	DataNode * DefaultDataCluster::ChooseLocalRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add) {
 		if (old.size() >= 2) {
 			for (int32_t i = 1; i < (int32_t)old.size(); ++i) {
 				if (static_cast<ChunkServer*>(old[i])->GetRack() != static_cast<ChunkServer*>(base)->GetRack())
@@ -129,18 +162,18 @@ namespace ofs {
 				return nullptr;
 		}
 
-		return static_cast<ChunkServer*>(base)->GetRack()->ChooseChunkServer(old, add);
+		return static_cast<ChunkServer*>(base)->GetRack()->ChooseChunkServer(old, except, add);
 	}
 
-	DataNode * DefaultDataCluster::ChooseRemoteRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, std::vector<DataNode*>& add) {
-		DataNode * ret = static_cast<ChunkServer*>(base)->GetRack()->GetDataCenter()->ChooseChunkServer(old, add, static_cast<ChunkServer*>(base)->GetRack());
+	DataNode * DefaultDataCluster::ChooseRemoteRackChunkServer(DataNode * base, const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add) {
+		DataNode * ret = static_cast<ChunkServer*>(base)->GetRack()->GetDataCenter()->ChooseChunkServer(old, except, add, static_cast<ChunkServer*>(base)->GetRack());
 		if (ret)
 			return ret;
 
-		return ChooseRandomChunkServer(old, add, static_cast<ChunkServer*>(base)->GetRack()->GetDataCenter());
+		return ChooseRandomChunkServer(old, except, add, static_cast<ChunkServer*>(base)->GetRack()->GetDataCenter());
 	}
 
-	DataNode * DefaultDataCluster::ChooseRandomChunkServer(const std::vector<DataNode*>& old, std::vector<DataNode*>& add, DataCenter * exclude) {
+	DataNode * DefaultDataCluster::ChooseRandomChunkServer(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except, std::vector<DataNode*>& add, DataCenter * exclude) {
 		if (_dataCenters.empty())
 			return nullptr;
 
@@ -148,13 +181,13 @@ namespace ofs {
 		int32_t c = (int32_t)_dataCenters.size();
 		while (c--) {
 			if (_dataCenters[r] == exclude)
-				r = (int32_t)((r + 1) % _dataCenters.size());
+				r = (int32_t)((r + 1) % (int32_t)_dataCenters.size());
 
-			DataNode * ret = _dataCenters[r]->ChooseChunkServer(old, add, nullptr);
+			DataNode * ret = _dataCenters[r]->ChooseChunkServer(old, except, add, nullptr);
 			if (ret)
 				return ret;
 
-			r = (int32_t)((r + 1) % _dataCenters.size());
+			r = (int32_t)((r + 1) % (int32_t)_dataCenters.size());
 		}
 
 		return nullptr;

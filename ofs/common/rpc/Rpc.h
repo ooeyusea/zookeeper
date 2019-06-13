@@ -77,6 +77,13 @@ namespace ofs {
 			google::protobuf::Message * response;
 		};
 
+		enum class RpcServerExecuteType {
+			RSET_NET,
+			RSET_NETCOWORKER,
+			RSET_WORKER,
+			RSET_INSTRUCTION_SEQUENCE,
+		};
+
 		class OfsRpcServer : public instruction_sequence::TExecutor<RpcCommamd> {
 		public:
 			OfsRpcServer() {}

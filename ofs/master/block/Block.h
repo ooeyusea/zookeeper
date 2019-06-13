@@ -23,7 +23,7 @@ namespace ofs {
 		inline int64_t GetVersion() const { return _version; }
 
 		inline void SetFault(bool fault) { _fault = fault; }
-		inline bool IsVersion() const { return _fault; }
+		inline bool IsFault() const { return _fault; }
 
 	private:
 		DataNode * _server;
@@ -50,8 +50,6 @@ namespace ofs {
 
 		DataNode * Write(std::vector<int32_t>& re);
 
-		void BrocastCleanUp();
-
 		inline int64_t NextVersion() {
 			return ((((_version) >> 32) & 0xFFFFFFFF) + 1) << 32;
 		}
@@ -64,6 +62,11 @@ namespace ofs {
 		int32_t ReportReplica(DataNode* server, int64_t version, int32_t size, bool fault);
 		void ClearReplica(int32_t chunkServerId);
 
+		Replica * FindMainReplica(int64_t now);
+
+		void BrocastCleanUp();
+		void CheckReplica(int32_t blockCount);
+
 	private:
 		int64_t _id;
 		mutable hn_shared_mutex _mutex;
@@ -71,6 +74,7 @@ namespace ofs {
 		int64_t _expectVersion = 0;
 		int64_t _lease = 0;
 		int32_t _size;
+		int64_t _recoverLease = 0;
 
 		std::vector<Replica> _chunkServer;
 	};

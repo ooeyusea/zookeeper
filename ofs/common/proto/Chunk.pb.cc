@@ -431,12 +431,10 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlock, blockid_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlock, version_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlock, newversion_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlock, copyto_),
   0,
   1,
-  2,
-  3,
+  ~0u,
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::CleanBlock, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::CleanBlock, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -499,12 +497,12 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 72, 79, sizeof(::ofs::c2m::Heartbeat)},
   { 81, 88, sizeof(::ofs::c2m::UpdataBlock)},
   { 90, 97, sizeof(::ofs::c2m::ReportBlock)},
-  { 99, 108, sizeof(::ofs::c2m::RecoverBlock)},
-  { 112, 118, sizeof(::ofs::c2m::CleanBlock)},
-  { 119, 126, sizeof(::ofs::c2m::CleanComplete)},
-  { 128, 134, sizeof(::ofs::c2m::NeighborGossip)},
-  { 135, 145, sizeof(::ofs::c2m::WriteNotify)},
-  { 150, 159, sizeof(::ofs::c2m::AppendNotify)},
+  { 99, 107, sizeof(::ofs::c2m::RecoverBlock)},
+  { 110, 116, sizeof(::ofs::c2m::CleanBlock)},
+  { 117, 124, sizeof(::ofs::c2m::CleanComplete)},
+  { 126, 132, sizeof(::ofs::c2m::NeighborGossip)},
+  { 133, 143, sizeof(::ofs::c2m::WriteNotify)},
+  { 148, 157, sizeof(::ofs::c2m::AppendNotify)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -549,22 +547,21 @@ const char descriptor_table_protodef_Chunk_2eproto[] =
   "fo\">\n\013UpdataBlock\022\n\n\002id\030\001 \002(\005\022#\n\005block\030\002"
   " \002(\0132\024.ofs.c2m.BlockStatus\"\?\n\013ReportBloc"
   "k\022\n\n\002id\030\001 \002(\005\022$\n\006blocks\030\002 \003(\0132\024.ofs.c2m."
-  "BlockStatus\"T\n\014RecoverBlock\022\017\n\007blockid\030\001"
-  " \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewVersion\030\003 \002("
-  "\003\022\016\n\006copyTo\030\004 \002(\005\"\035\n\nCleanBlock\022\017\n\007block"
-  "id\030\001 \002(\003\",\n\rCleanComplete\022\n\n\002id\030\001 \002(\005\022\017\n"
-  "\007blockid\030\002 \002(\003\"5\n\016NeighborGossip\022#\n\010neig"
-  "hbor\030\001 \002(\0132\021.ofs.c2m.Neighbor\"a\n\013WriteNo"
+  "BlockStatus\"@\n\014RecoverBlock\022\017\n\007blockid\030\001"
+  " \002(\003\022\017\n\007version\030\002 \002(\003\022\016\n\006copyTo\030\003 \003(\005\"\035\n"
+  "\nCleanBlock\022\017\n\007blockid\030\001 \002(\003\",\n\rCleanCom"
+  "plete\022\n\n\002id\030\001 \002(\005\022\017\n\007blockid\030\002 \002(\003\"5\n\016Ne"
+  "ighborGossip\022#\n\010neighbor\030\001 \002(\0132\021.ofs.c2m"
+  ".Neighbor\"a\n\013WriteNotify\022\017\n\007blockid\030\001 \002("
+  "\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewversion\030\003 \002(\003\022\016"
+  "\n\006offset\030\004 \002(\005\022\014\n\004data\030\005 \002(\t\"R\n\014AppendNo"
   "tify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022"
-  "\n\nnewversion\030\003 \002(\003\022\016\n\006offset\030\004 \002(\005\022\014\n\004da"
-  "ta\030\005 \002(\t\"R\n\014AppendNotify\022\017\n\007blockid\030\001 \002("
-  "\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnewversion\030\003 \002(\003\022\014"
-  "\n\004data\030\004 \002(\t"
+  "\n\nnewversion\030\003 \002(\003\022\014\n\004data\030\004 \002(\t"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_Chunk_2eproto = {
   false, InitDefaults_Chunk_2eproto, 
   descriptor_table_protodef_Chunk_2eproto,
-  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1092,
+  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1072,
 };
 
 void AddDescriptors_Chunk_2eproto() {
@@ -4382,18 +4379,11 @@ class RecoverBlock::HasBitSetters {
   static void set_has_version(RecoverBlock* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
-  static void set_has_newversion(RecoverBlock* msg) {
-    msg->_has_bits_[0] |= 0x00000004u;
-  }
-  static void set_has_copyto(RecoverBlock* msg) {
-    msg->_has_bits_[0] |= 0x00000008u;
-  }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RecoverBlock::kBlockidFieldNumber;
 const int RecoverBlock::kVersionFieldNumber;
-const int RecoverBlock::kNewVersionFieldNumber;
 const int RecoverBlock::kCopyToFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -4405,18 +4395,19 @@ RecoverBlock::RecoverBlock()
 RecoverBlock::RecoverBlock(const RecoverBlock& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(nullptr),
-      _has_bits_(from._has_bits_) {
+      _has_bits_(from._has_bits_),
+      copyto_(from.copyto_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&blockid_, &from.blockid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&copyto_) -
-    reinterpret_cast<char*>(&blockid_)) + sizeof(copyto_));
+    static_cast<size_t>(reinterpret_cast<char*>(&version_) -
+    reinterpret_cast<char*>(&blockid_)) + sizeof(version_));
   // @@protoc_insertion_point(copy_constructor:ofs.c2m.RecoverBlock)
 }
 
 void RecoverBlock::SharedCtor() {
   ::memset(&blockid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&copyto_) -
-      reinterpret_cast<char*>(&blockid_)) + sizeof(copyto_));
+      reinterpret_cast<char*>(&version_) -
+      reinterpret_cast<char*>(&blockid_)) + sizeof(version_));
 }
 
 RecoverBlock::~RecoverBlock() {
@@ -4442,11 +4433,12 @@ void RecoverBlock::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  copyto_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000003u) {
     ::memset(&blockid_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&copyto_) -
-        reinterpret_cast<char*>(&blockid_)) + sizeof(copyto_));
+        reinterpret_cast<char*>(&version_) -
+        reinterpret_cast<char*>(&blockid_)) + sizeof(version_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -4479,18 +4471,24 @@ const char* RecoverBlock::_InternalParse(const char* begin, const char* end, voi
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required int64 newVersion = 3;
+      // repeated int32 copyTo = 3;
       case 3: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
-        msg->set_newversion(::google::protobuf::internal::ReadVarint(&ptr));
+        if (static_cast<::google::protobuf::uint8>(tag) == 24) {
+          do {
+            msg->add_copyto(::google::protobuf::internal::ReadVarint(&ptr));
+            GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+            if (ptr >= end) break;
+          } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 24 && (ptr += 1));
+          break;
+        } else if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        break;
-      }
-      // required int32 copyTo = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
-        msg->set_copyto(::google::protobuf::internal::ReadVarint(&ptr));
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::google::protobuf::internal::PackedInt32Parser;
+        object = msg->mutable_copyto();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
         break;
       }
       default: {
@@ -4508,6 +4506,9 @@ const char* RecoverBlock::_InternalParse(const char* begin, const char* end, voi
     }  // switch
   }  // while
   return ptr;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool RecoverBlock::MergePartialFromCodedStream(
@@ -4546,26 +4547,16 @@ bool RecoverBlock::MergePartialFromCodedStream(
         break;
       }
 
-      // required int64 newVersion = 3;
+      // repeated int32 copyTo = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
-          HasBitSetters::set_has_newversion(this);
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &newversion_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // required int32 copyTo = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
-          HasBitSetters::set_has_copyto(this);
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &copyto_)));
+                 1, 24u, input, this->mutable_copyto())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_copyto())));
         } else {
           goto handle_unusual;
         }
@@ -4610,14 +4601,10 @@ void RecoverBlock::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->version(), output);
   }
 
-  // required int64 newVersion = 3;
-  if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->newversion(), output);
-  }
-
-  // required int32 copyTo = 4;
-  if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->copyto(), output);
+  // repeated int32 copyTo = 3;
+  for (int i = 0, n = this->copyto_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(
+      3, this->copyto(i), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4644,15 +4631,9 @@ void RecoverBlock::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->version(), target);
   }
 
-  // required int64 newVersion = 3;
-  if (cached_has_bits & 0x00000004u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->newversion(), target);
-  }
-
-  // required int32 copyTo = 4;
-  if (cached_has_bits & 0x00000008u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->copyto(), target);
-  }
+  // repeated int32 copyTo = 3;
+  target = ::google::protobuf::internal::WireFormatLite::
+    WriteInt32ToArray(3, this->copyto_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
@@ -4680,20 +4661,6 @@ size_t RecoverBlock::RequiredFieldsByteSizeFallback() const {
         this->version());
   }
 
-  if (has_newversion()) {
-    // required int64 newVersion = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->newversion());
-  }
-
-  if (has_copyto()) {
-    // required int32 copyTo = 4;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->copyto());
-  }
-
   return total_size;
 }
 size_t RecoverBlock::ByteSizeLong() const {
@@ -4705,7 +4672,7 @@ size_t RecoverBlock::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required int64 blockid = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -4716,22 +4683,21 @@ size_t RecoverBlock::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->version());
 
-    // required int64 newVersion = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->newversion());
-
-    // required int32 copyTo = 4;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->copyto());
-
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated int32 copyTo = 3;
+  {
+    size_t data_size = ::google::protobuf::internal::WireFormatLite::
+      Int32Size(this->copyto_);
+    total_size += 1 *
+                  ::google::protobuf::internal::FromIntSize(this->copyto_size());
+    total_size += data_size;
+  }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -4760,19 +4726,14 @@ void RecoverBlock::MergeFrom(const RecoverBlock& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  copyto_.MergeFrom(from.copyto_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       blockid_ = from.blockid_;
     }
     if (cached_has_bits & 0x00000002u) {
       version_ = from.version_;
-    }
-    if (cached_has_bits & 0x00000004u) {
-      newversion_ = from.newversion_;
-    }
-    if (cached_has_bits & 0x00000008u) {
-      copyto_ = from.copyto_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -4793,7 +4754,7 @@ void RecoverBlock::CopyFrom(const RecoverBlock& from) {
 }
 
 bool RecoverBlock::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   return true;
 }
 
@@ -4805,10 +4766,9 @@ void RecoverBlock::InternalSwap(RecoverBlock* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  copyto_.InternalSwap(&other->copyto_);
   swap(blockid_, other->blockid_);
   swap(version_, other->version_);
-  swap(newversion_, other->newversion_);
-  swap(copyto_, other->copyto_);
 }
 
 ::google::protobuf::Metadata RecoverBlock::GetMetadata() const {
