@@ -120,26 +120,63 @@ namespace ofs {
 	}
 
 	std::vector<DataNode*> DefaultDataCluster::SelectUnnecessary(std::vector<DataNode*>&& old) {
-		std::sort(old.begin(), old.end(), [](DataNode * a, DataNode * b) {
-			return static_cast<ChunkServer*>(a)->GetRack()->GetId() < static_cast<ChunkServer*>(b)->GetRack()->GetId();
-		});
+		std::vector<RackStat> stats;
+		stats.reserve(old.size());
 
-		Rack * rack = nullptr;
-		int32_t count = 0;
 		for (DataNode * node : old) {
-			Rack* nodeRack = static_cast<ChunkServer*>(node)->GetRack();
-			if (nodeRack != rack) {
-				rack = nodeRack;
-				count = 0;
-			}
-			else {
-				++count;
-				if (count > 2)
-					break;
+			Rack * nodeRack = static_cast<ChunkServer*>(node)->GetRack();
+
+			auto itr = std::find_if(stats.begin(), stats.end(), [nodeRack](const RackStat& a) {
+				return a.rack == nodeRack;
+			});
+
+			if (itr == stats.end())
+				stats.emplace_back(nodeRack, 0);
+			else
+				++itr->count;
+		}
+
+		std::vector<RackStat>::iterator stat = stats.end();
+		int32_t rate = 1;
+		for (auto itr = stats.begin(); itr != stats.end(); ++itr) {
+			if (itr->count >= 2) {
+				if (stat == stats.end() || rand() % rate == 0)
+					stat = itr;
+				++rate;
 			}
 		}
 
 		std::shuffle(old.begin(), old.end(), std::default_random_engine());
+
+		int32_t cut = (int32_t)old.size() - BlockManager::Instance().GetBlockCount();
+		if (stat == stats.end()) {
+			while (cut--)
+				old.pop_back();
+		}
+		else {
+			int32_t rackCut = stat->count - 2;
+			cut -= rackCut;
+
+			auto itr = old.rbegin();
+			while (itr != old.rend()) {
+				if (static_cast<ChunkServer*>(*itr)->GetRack() == stat->rack) {
+					if (rackCut > 0) {
+						itr = std::vector<DataNode*>::reverse_iterator(old.erase((++itr).base()));
+						--rackCut;
+						continue;
+					}
+				}
+				else {
+					if (cut > 0) {
+						itr = std::vector<DataNode*>::reverse_iterator(old.erase((++itr).base()));
+						--cut;
+						continue;
+					}
+				}
+
+				++itr;
+			}
+		}
 
 		return old;
 	}

@@ -4,6 +4,7 @@
 #include "client/ClientService.h"
 #include "chunk/DataNodeService.h"
 #include "block/BlockManager.h"
+#include "chunk/IdleDetectService.h"
 #include "XmlReader.h"
 
 namespace ofs {
@@ -28,6 +29,13 @@ namespace ofs {
 				return false;
 
 			hn_info("load file system success");
+
+			if (!IdleDetectService::Instance().Start(conf.Root())) {
+				hn_error("start idle delete service failed");
+				return false;
+			}
+
+			hn_info("start idle delete service success");
 
 			if (!BlockManager::Instance().Start(conf.Root())) {
 				hn_error("start block manager failed");

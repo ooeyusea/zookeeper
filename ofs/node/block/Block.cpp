@@ -3,6 +3,8 @@
 #include "BlockManager.h"
 #include "api/OfsChunk.pb.h"
 #include "file/LocalFile.h"
+#include "time_helper.h"
+#include "proto/Chunk.pb.h"
 
 namespace ofs {
 	int32_t Block::Read(int32_t offset, int32_t size, std::string& data) {
@@ -99,5 +101,25 @@ namespace ofs {
 
 		LocalFile meta(metaPath);
 		meta.Remove();
+	}
+
+	void Block::StartRecover(int64_t version, int64_t lease, int32_t copyTo) {
+		Acquire();
+		hn_fork[this, version, lease, copyTo]{
+			hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+			if (_info.version < version) {
+				hn_error("block {} try to recover to {}, but version mismatch {} <-> {}", _info.id, copyTo, _info.version, version);
+				return;
+			}
+
+			int64_t now = olib::GetTimeStamp();
+			if (now >= lease) {
+				hn_error("block {} try to recover to {}, but lease is passout", _info.id, copyTo);
+				return;
+			}
+
+			BlockCopyToAction action(_id, _info.version);
+			action.Start(copyTo);
+		};
 	}
 }

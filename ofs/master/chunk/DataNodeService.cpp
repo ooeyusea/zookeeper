@@ -46,7 +46,7 @@ namespace ofs {
 			return {};
 
 		hn_shared_lock<hn_shared_mutex> lock(_mutex);
-		return _dataCluster->SelectUnnecessary(old);
+		return _dataCluster->SelectUnnecessary(std::move(old));
 	}
 
 	void DataNodeService::OnRegister(const c2m::Register& req) {

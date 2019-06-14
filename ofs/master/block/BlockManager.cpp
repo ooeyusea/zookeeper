@@ -1,6 +1,7 @@
 #include "BlockManager.h"
 #include "Block.h"
 #include "OfsId.h"
+#include "chunk/IdleDetectService.h"
 
 namespace ofs {
 	bool BlockManager::Start(const olib::IXmlObject& root) {
@@ -9,7 +10,9 @@ namespace ofs {
 		_recoverLease = root["data"][0]["lease"][0].GetAttributeInt32("recover");
 		_recoverAndWriteInterval = root["data"][0]["lease"][0].GetAttributeInt32("recover_and_write_interval");
 
-		StartRecoverBlock();
+		int64_t interval = root["data"][0]["block"][0].GetAttributeInt64("recover_check_interval") * SECOND;
+
+		StartRecoverBlock(interval);
 		return true;
 	}
 
@@ -56,13 +59,17 @@ namespace ofs {
 		delete block;
 	}
 
-	void BlockManager::StartRecoverBlock() {
-		//hn_fork [this]() {
-		//	hn_wait IdleDetectService::Instance().GetNextIdleTime();
-		//
-		//	hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
-		//	for (auto itr = _blocks.begin(); itr != _blocks.end(); ++itr)
-		//		itr->second->CheckReplica();
-		//};
+	void BlockManager::StartRecoverBlock(int64_t interval) {
+		_recoverBlockTimer = new hn_ticker(interval);
+
+		hn_fork [this]() {
+			for (auto t : *_recoverBlockTimer) {
+				if (IdleDetectService::Instance().IsIdle()) {
+					hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
+					for (auto itr = _blocks.begin(); itr != _blocks.end(); ++itr)
+						itr->second->CheckReplica(_blockCount);
+				}
+			}
+		};
 	}
 }

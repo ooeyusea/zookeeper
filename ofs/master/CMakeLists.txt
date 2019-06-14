@@ -82,6 +82,8 @@ SET(CHUNK
 	"${PROJECT_SOURCE_DIR}/chunk/DataNodeService.cpp"
 	"${PROJECT_SOURCE_DIR}/chunk/DataNode.h"
 	"${PROJECT_SOURCE_DIR}/chunk/DataNode.cpp"
+	"${PROJECT_SOURCE_DIR}/chunk/IdleDetectService.h"
+	"${PROJECT_SOURCE_DIR}/chunk/IdleDetectService.cpp"
 )
 
 SET(CHUNK_CLUSTER

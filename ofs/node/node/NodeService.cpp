@@ -170,7 +170,14 @@ namespace ofs {
 	}
 
 	void NodeService::OnRecoverBlock(const c2m::RecoverBlock& cmd) {
+		Block* block = BlockManager::Instance().Get(cmd.blockid());
+		if (!block)
+			return;
 
+		for (auto node : cmd.copyto())
+			block->StartRecover(cmd.version(), cmd.lease(), node);
+
+		block->Release();
 	}
 
 	void NodeService::OnCleanBlock(const c2m::CleanBlock& cmd) {

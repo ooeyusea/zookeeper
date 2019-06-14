@@ -170,9 +170,12 @@ namespace ofs {
 		if (has.size() < blockCount) {
 			auto servers = DataNodeService::Instance().Distribute(has, except);
 			if (!servers.empty()) {
+				_recoverLease = now + BlockManager::Instance().GetRecoverLease();
+
 				c2m::RecoverBlock cmd;
 				cmd.set_blockid(_id);
 				cmd.set_version(_version);
+				cmd.set_lease(_recoverLease);
 
 				for (auto* server : servers) {
 					_chunkServer.push_back({ server });
@@ -181,8 +184,6 @@ namespace ofs {
 				}
 
 				DataNodeService::Instance().GetSender()->Send(mainReplica->GetServer()->GetId(), &cmd);
-
-				_recoverLease = now + BlockManager::Instance().GetRecoverLease();
 			}
 		}
 		else if (has.size() > blockCount) {

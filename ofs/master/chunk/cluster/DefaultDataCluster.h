@@ -85,6 +85,13 @@ namespace ofs {
 		std::vector<Rack*> _racks;
 	};
 
+	struct RackStat {
+		Rack * rack;
+		int32_t count;
+
+		RackStat(Rack * r, int32_t c ) : rack(r), count(c) {}
+	};
+
 	class DefaultDataCluster : public IDataCluster {
 	public:
 		DefaultDataCluster() {}

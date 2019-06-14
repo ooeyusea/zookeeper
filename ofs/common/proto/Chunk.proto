@@ -58,7 +58,8 @@ message ReportBlock {
 message RecoverBlock {
 	required int64 blockid = 1;
 	required int64 version = 2;
-	repeated int32 copyTo = 3;
+	required int64 lease = 3;
+	repeated int32 copyTo = 4;
 }
 
 message CleanBlock {
@@ -87,4 +88,24 @@ message AppendNotify {
 	required int64 version = 2;
 	required int64 newversion = 3;
 	required string data = 4;
+}
+
+message ResizeBlock {
+	required int64 blockid = 1;
+	required int64 version = 2;
+	required int64 lease = 3;
+	required int32 size = 4;
+}
+
+message RecoverBlockData {
+	required int64 blockid = 1;
+	required int64 version = 2;
+	required int64 lease = 3;
+	required int32 offset = 4;
+	required string data = 5;
+}
+
+message RecoverBlockComplete {
+	required int64 blockid = 1;
+	required int64 version = 2;
 }

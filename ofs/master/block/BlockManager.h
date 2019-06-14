@@ -36,7 +36,7 @@ namespace ofs {
 		inline int64_t GetRecoverAndWriteInterval() const { return _recoverAndWriteInterval; }
 
 	private:
-		void StartRecoverBlock();
+		void StartRecoverBlock(int64_t interval);
 
 	private:
 		hn_shared_mutex _mutex;
@@ -46,6 +46,8 @@ namespace ofs {
 		int64_t _writeLease = 0;
 		int64_t _recoverLease = 0;
 		int64_t _recoverAndWriteInterval = 0;
+
+		hn_ticker * _recoverBlockTimer = nullptr;
 	};
 }
 

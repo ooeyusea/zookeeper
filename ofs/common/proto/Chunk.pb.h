@@ -41,7 +41,7 @@ struct TableStruct_Chunk_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[15]
+  static const ::google::protobuf::internal::ParseTable schema[18]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -83,12 +83,21 @@ extern NodeInfoDefaultTypeInternal _NodeInfo_default_instance_;
 class RecoverBlock;
 class RecoverBlockDefaultTypeInternal;
 extern RecoverBlockDefaultTypeInternal _RecoverBlock_default_instance_;
+class RecoverBlockComplete;
+class RecoverBlockCompleteDefaultTypeInternal;
+extern RecoverBlockCompleteDefaultTypeInternal _RecoverBlockComplete_default_instance_;
+class RecoverBlockData;
+class RecoverBlockDataDefaultTypeInternal;
+extern RecoverBlockDataDefaultTypeInternal _RecoverBlockData_default_instance_;
 class Register;
 class RegisterDefaultTypeInternal;
 extern RegisterDefaultTypeInternal _Register_default_instance_;
 class ReportBlock;
 class ReportBlockDefaultTypeInternal;
 extern ReportBlockDefaultTypeInternal _ReportBlock_default_instance_;
+class ResizeBlock;
+class ResizeBlockDefaultTypeInternal;
+extern ResizeBlockDefaultTypeInternal _ResizeBlock_default_instance_;
 class UpdataBlock;
 class UpdataBlockDefaultTypeInternal;
 extern UpdataBlockDefaultTypeInternal _UpdataBlock_default_instance_;
@@ -110,8 +119,11 @@ template<> ::ofs::c2m::NeighborGossip* Arena::CreateMaybeMessage<::ofs::c2m::Nei
 template<> ::ofs::c2m::NeighborNotify* Arena::CreateMaybeMessage<::ofs::c2m::NeighborNotify>(Arena*);
 template<> ::ofs::c2m::NodeInfo* Arena::CreateMaybeMessage<::ofs::c2m::NodeInfo>(Arena*);
 template<> ::ofs::c2m::RecoverBlock* Arena::CreateMaybeMessage<::ofs::c2m::RecoverBlock>(Arena*);
+template<> ::ofs::c2m::RecoverBlockComplete* Arena::CreateMaybeMessage<::ofs::c2m::RecoverBlockComplete>(Arena*);
+template<> ::ofs::c2m::RecoverBlockData* Arena::CreateMaybeMessage<::ofs::c2m::RecoverBlockData>(Arena*);
 template<> ::ofs::c2m::Register* Arena::CreateMaybeMessage<::ofs::c2m::Register>(Arena*);
 template<> ::ofs::c2m::ReportBlock* Arena::CreateMaybeMessage<::ofs::c2m::ReportBlock>(Arena*);
+template<> ::ofs::c2m::ResizeBlock* Arena::CreateMaybeMessage<::ofs::c2m::ResizeBlock>(Arena*);
 template<> ::ofs::c2m::UpdataBlock* Arena::CreateMaybeMessage<::ofs::c2m::UpdataBlock>(Arena*);
 template<> ::ofs::c2m::WriteNotify* Arena::CreateMaybeMessage<::ofs::c2m::WriteNotify>(Arena*);
 }  // namespace protobuf
@@ -1512,10 +1524,10 @@ class RecoverBlock :
 
   // accessors -------------------------------------------------------
 
-  // repeated int32 copyTo = 3;
+  // repeated int32 copyTo = 4;
   int copyto_size() const;
   void clear_copyto();
-  static const int kCopyToFieldNumber = 3;
+  static const int kCopyToFieldNumber = 4;
   ::google::protobuf::int32 copyto(int index) const;
   void set_copyto(int index, ::google::protobuf::int32 value);
   void add_copyto(::google::protobuf::int32 value);
@@ -1538,6 +1550,13 @@ class RecoverBlock :
   ::google::protobuf::int64 version() const;
   void set_version(::google::protobuf::int64 value);
 
+  // required int64 lease = 3;
+  bool has_lease() const;
+  void clear_lease();
+  static const int kLeaseFieldNumber = 3;
+  ::google::protobuf::int64 lease() const;
+  void set_lease(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:ofs.c2m.RecoverBlock)
  private:
   class HasBitSetters;
@@ -1551,6 +1570,7 @@ class RecoverBlock :
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > copyto_;
   ::google::protobuf::int64 blockid_;
   ::google::protobuf::int64 version_;
+  ::google::protobuf::int64 lease_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2247,6 +2267,450 @@ class AppendNotify :
   ::google::protobuf::int64 blockid_;
   ::google::protobuf::int64 version_;
   ::google::protobuf::int64 newversion_;
+  friend struct ::TableStruct_Chunk_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ResizeBlock :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.c2m.ResizeBlock) */ {
+ public:
+  ResizeBlock();
+  virtual ~ResizeBlock();
+
+  ResizeBlock(const ResizeBlock& from);
+
+  inline ResizeBlock& operator=(const ResizeBlock& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ResizeBlock(ResizeBlock&& from) noexcept
+    : ResizeBlock() {
+    *this = ::std::move(from);
+  }
+
+  inline ResizeBlock& operator=(ResizeBlock&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const ResizeBlock& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ResizeBlock* internal_default_instance() {
+    return reinterpret_cast<const ResizeBlock*>(
+               &_ResizeBlock_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  void Swap(ResizeBlock* other);
+  friend void swap(ResizeBlock& a, ResizeBlock& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ResizeBlock* New() const final {
+    return CreateMaybeMessage<ResizeBlock>(nullptr);
+  }
+
+  ResizeBlock* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ResizeBlock>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ResizeBlock& from);
+  void MergeFrom(const ResizeBlock& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ResizeBlock* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int64 blockid = 1;
+  bool has_blockid() const;
+  void clear_blockid();
+  static const int kBlockidFieldNumber = 1;
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
+
+  // required int64 version = 2;
+  bool has_version() const;
+  void clear_version();
+  static const int kVersionFieldNumber = 2;
+  ::google::protobuf::int64 version() const;
+  void set_version(::google::protobuf::int64 value);
+
+  // required int64 lease = 3;
+  bool has_lease() const;
+  void clear_lease();
+  static const int kLeaseFieldNumber = 3;
+  ::google::protobuf::int64 lease() const;
+  void set_lease(::google::protobuf::int64 value);
+
+  // required int32 size = 4;
+  bool has_size() const;
+  void clear_size();
+  static const int kSizeFieldNumber = 4;
+  ::google::protobuf::int32 size() const;
+  void set_size(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:ofs.c2m.ResizeBlock)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::int64 blockid_;
+  ::google::protobuf::int64 version_;
+  ::google::protobuf::int64 lease_;
+  ::google::protobuf::int32 size_;
+  friend struct ::TableStruct_Chunk_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RecoverBlockData :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.c2m.RecoverBlockData) */ {
+ public:
+  RecoverBlockData();
+  virtual ~RecoverBlockData();
+
+  RecoverBlockData(const RecoverBlockData& from);
+
+  inline RecoverBlockData& operator=(const RecoverBlockData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  RecoverBlockData(RecoverBlockData&& from) noexcept
+    : RecoverBlockData() {
+    *this = ::std::move(from);
+  }
+
+  inline RecoverBlockData& operator=(RecoverBlockData&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const RecoverBlockData& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RecoverBlockData* internal_default_instance() {
+    return reinterpret_cast<const RecoverBlockData*>(
+               &_RecoverBlockData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  void Swap(RecoverBlockData* other);
+  friend void swap(RecoverBlockData& a, RecoverBlockData& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RecoverBlockData* New() const final {
+    return CreateMaybeMessage<RecoverBlockData>(nullptr);
+  }
+
+  RecoverBlockData* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<RecoverBlockData>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const RecoverBlockData& from);
+  void MergeFrom(const RecoverBlockData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RecoverBlockData* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required string data = 5;
+  bool has_data() const;
+  void clear_data();
+  static const int kDataFieldNumber = 5;
+  const ::std::string& data() const;
+  void set_data(const ::std::string& value);
+  #if LANG_CXX11
+  void set_data(::std::string&& value);
+  #endif
+  void set_data(const char* value);
+  void set_data(const char* value, size_t size);
+  ::std::string* mutable_data();
+  ::std::string* release_data();
+  void set_allocated_data(::std::string* data);
+
+  // required int64 blockid = 1;
+  bool has_blockid() const;
+  void clear_blockid();
+  static const int kBlockidFieldNumber = 1;
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
+
+  // required int64 version = 2;
+  bool has_version() const;
+  void clear_version();
+  static const int kVersionFieldNumber = 2;
+  ::google::protobuf::int64 version() const;
+  void set_version(::google::protobuf::int64 value);
+
+  // required int64 lease = 3;
+  bool has_lease() const;
+  void clear_lease();
+  static const int kLeaseFieldNumber = 3;
+  ::google::protobuf::int64 lease() const;
+  void set_lease(::google::protobuf::int64 value);
+
+  // required int32 offset = 4;
+  bool has_offset() const;
+  void clear_offset();
+  static const int kOffsetFieldNumber = 4;
+  ::google::protobuf::int32 offset() const;
+  void set_offset(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:ofs.c2m.RecoverBlockData)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr data_;
+  ::google::protobuf::int64 blockid_;
+  ::google::protobuf::int64 version_;
+  ::google::protobuf::int64 lease_;
+  ::google::protobuf::int32 offset_;
+  friend struct ::TableStruct_Chunk_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RecoverBlockComplete :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ofs.c2m.RecoverBlockComplete) */ {
+ public:
+  RecoverBlockComplete();
+  virtual ~RecoverBlockComplete();
+
+  RecoverBlockComplete(const RecoverBlockComplete& from);
+
+  inline RecoverBlockComplete& operator=(const RecoverBlockComplete& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  RecoverBlockComplete(RecoverBlockComplete&& from) noexcept
+    : RecoverBlockComplete() {
+    *this = ::std::move(from);
+  }
+
+  inline RecoverBlockComplete& operator=(RecoverBlockComplete&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const RecoverBlockComplete& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RecoverBlockComplete* internal_default_instance() {
+    return reinterpret_cast<const RecoverBlockComplete*>(
+               &_RecoverBlockComplete_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  void Swap(RecoverBlockComplete* other);
+  friend void swap(RecoverBlockComplete& a, RecoverBlockComplete& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RecoverBlockComplete* New() const final {
+    return CreateMaybeMessage<RecoverBlockComplete>(nullptr);
+  }
+
+  RecoverBlockComplete* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<RecoverBlockComplete>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const RecoverBlockComplete& from);
+  void MergeFrom(const RecoverBlockComplete& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RecoverBlockComplete* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int64 blockid = 1;
+  bool has_blockid() const;
+  void clear_blockid();
+  static const int kBlockidFieldNumber = 1;
+  ::google::protobuf::int64 blockid() const;
+  void set_blockid(::google::protobuf::int64 value);
+
+  // required int64 version = 2;
+  bool has_version() const;
+  void clear_version();
+  static const int kVersionFieldNumber = 2;
+  ::google::protobuf::int64 version() const;
+  void set_version(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:ofs.c2m.RecoverBlockComplete)
+ private:
+  class HasBitSetters;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::int64 blockid_;
+  ::google::protobuf::int64 version_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
 // ===================================================================
@@ -3131,7 +3595,25 @@ inline void RecoverBlock::set_version(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.version)
 }
 
-// repeated int32 copyTo = 3;
+// required int64 lease = 3;
+inline bool RecoverBlock::has_lease() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void RecoverBlock::clear_lease() {
+  lease_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::google::protobuf::int64 RecoverBlock::lease() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlock.lease)
+  return lease_;
+}
+inline void RecoverBlock::set_lease(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  lease_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlock.lease)
+}
+
+// repeated int32 copyTo = 4;
 inline int RecoverBlock::copyto_size() const {
   return copyto_.size();
 }
@@ -3530,9 +4012,267 @@ inline void AppendNotify::set_allocated_data(::std::string* data) {
   // @@protoc_insertion_point(field_set_allocated:ofs.c2m.AppendNotify.data)
 }
 
+// -------------------------------------------------------------------
+
+// ResizeBlock
+
+// required int64 blockid = 1;
+inline bool ResizeBlock::has_blockid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ResizeBlock::clear_blockid() {
+  blockid_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::google::protobuf::int64 ResizeBlock::blockid() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.ResizeBlock.blockid)
+  return blockid_;
+}
+inline void ResizeBlock::set_blockid(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  blockid_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.blockid)
+}
+
+// required int64 version = 2;
+inline bool ResizeBlock::has_version() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ResizeBlock::clear_version() {
+  version_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::int64 ResizeBlock::version() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.ResizeBlock.version)
+  return version_;
+}
+inline void ResizeBlock::set_version(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  version_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.version)
+}
+
+// required int64 lease = 3;
+inline bool ResizeBlock::has_lease() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ResizeBlock::clear_lease() {
+  lease_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::google::protobuf::int64 ResizeBlock::lease() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.ResizeBlock.lease)
+  return lease_;
+}
+inline void ResizeBlock::set_lease(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  lease_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.lease)
+}
+
+// required int32 size = 4;
+inline bool ResizeBlock::has_size() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ResizeBlock::clear_size() {
+  size_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::google::protobuf::int32 ResizeBlock::size() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.ResizeBlock.size)
+  return size_;
+}
+inline void ResizeBlock::set_size(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000008u;
+  size_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.size)
+}
+
+// -------------------------------------------------------------------
+
+// RecoverBlockData
+
+// required int64 blockid = 1;
+inline bool RecoverBlockData::has_blockid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void RecoverBlockData::clear_blockid() {
+  blockid_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::int64 RecoverBlockData::blockid() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.blockid)
+  return blockid_;
+}
+inline void RecoverBlockData::set_blockid(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  blockid_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.blockid)
+}
+
+// required int64 version = 2;
+inline bool RecoverBlockData::has_version() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void RecoverBlockData::clear_version() {
+  version_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::google::protobuf::int64 RecoverBlockData::version() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.version)
+  return version_;
+}
+inline void RecoverBlockData::set_version(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  version_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.version)
+}
+
+// required int64 lease = 3;
+inline bool RecoverBlockData::has_lease() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void RecoverBlockData::clear_lease() {
+  lease_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::google::protobuf::int64 RecoverBlockData::lease() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.lease)
+  return lease_;
+}
+inline void RecoverBlockData::set_lease(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000008u;
+  lease_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.lease)
+}
+
+// required int32 offset = 4;
+inline bool RecoverBlockData::has_offset() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void RecoverBlockData::clear_offset() {
+  offset_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::google::protobuf::int32 RecoverBlockData::offset() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.offset)
+  return offset_;
+}
+inline void RecoverBlockData::set_offset(::google::protobuf::int32 value) {
+  _has_bits_[0] |= 0x00000010u;
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.offset)
+}
+
+// required string data = 5;
+inline bool RecoverBlockData::has_data() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void RecoverBlockData::clear_data() {
+  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::std::string& RecoverBlockData::data() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.data)
+  return data_.GetNoArena();
+}
+inline void RecoverBlockData::set_data(const ::std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.data)
+}
+#if LANG_CXX11
+inline void RecoverBlockData::set_data(::std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  data_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ofs.c2m.RecoverBlockData.data)
+}
+#endif
+inline void RecoverBlockData::set_data(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ofs.c2m.RecoverBlockData.data)
+}
+inline void RecoverBlockData::set_data(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ofs.c2m.RecoverBlockData.data)
+}
+inline ::std::string* RecoverBlockData::mutable_data() {
+  _has_bits_[0] |= 0x00000001u;
+  // @@protoc_insertion_point(field_mutable:ofs.c2m.RecoverBlockData.data)
+  return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RecoverBlockData::release_data() {
+  // @@protoc_insertion_point(field_release:ofs.c2m.RecoverBlockData.data)
+  if (!has_data()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return data_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RecoverBlockData::set_allocated_data(::std::string* data) {
+  if (data != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
+  // @@protoc_insertion_point(field_set_allocated:ofs.c2m.RecoverBlockData.data)
+}
+
+// -------------------------------------------------------------------
+
+// RecoverBlockComplete
+
+// required int64 blockid = 1;
+inline bool RecoverBlockComplete::has_blockid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void RecoverBlockComplete::clear_blockid() {
+  blockid_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::google::protobuf::int64 RecoverBlockComplete::blockid() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockComplete.blockid)
+  return blockid_;
+}
+inline void RecoverBlockComplete::set_blockid(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  blockid_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockComplete.blockid)
+}
+
+// required int64 version = 2;
+inline bool RecoverBlockComplete::has_version() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void RecoverBlockComplete::clear_version() {
+  version_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::int64 RecoverBlockComplete::version() const {
+  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockComplete.version)
+  return version_;
+}
+inline void RecoverBlockComplete::set_version(::google::protobuf::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  version_ = value;
+  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockComplete.version)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
