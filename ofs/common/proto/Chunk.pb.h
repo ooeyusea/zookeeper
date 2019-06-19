@@ -2387,17 +2387,10 @@ class ResizeBlock :
   ::google::protobuf::int64 version() const;
   void set_version(::google::protobuf::int64 value);
 
-  // required int64 lease = 3;
-  bool has_lease() const;
-  void clear_lease();
-  static const int kLeaseFieldNumber = 3;
-  ::google::protobuf::int64 lease() const;
-  void set_lease(::google::protobuf::int64 value);
-
-  // required int32 size = 4;
+  // required int32 size = 3;
   bool has_size() const;
   void clear_size();
-  static const int kSizeFieldNumber = 4;
+  static const int kSizeFieldNumber = 3;
   ::google::protobuf::int32 size() const;
   void set_size(::google::protobuf::int32 value);
 
@@ -2413,7 +2406,6 @@ class ResizeBlock :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::int64 blockid_;
   ::google::protobuf::int64 version_;
-  ::google::protobuf::int64 lease_;
   ::google::protobuf::int32 size_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
@@ -2521,17 +2513,17 @@ class RecoverBlockData :
 
   // accessors -------------------------------------------------------
 
-  // required string data = 5;
+  // required bytes data = 4;
   bool has_data() const;
   void clear_data();
-  static const int kDataFieldNumber = 5;
+  static const int kDataFieldNumber = 4;
   const ::std::string& data() const;
   void set_data(const ::std::string& value);
   #if LANG_CXX11
   void set_data(::std::string&& value);
   #endif
   void set_data(const char* value);
-  void set_data(const char* value, size_t size);
+  void set_data(const void* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
@@ -2550,17 +2542,10 @@ class RecoverBlockData :
   ::google::protobuf::int64 version() const;
   void set_version(::google::protobuf::int64 value);
 
-  // required int64 lease = 3;
-  bool has_lease() const;
-  void clear_lease();
-  static const int kLeaseFieldNumber = 3;
-  ::google::protobuf::int64 lease() const;
-  void set_lease(::google::protobuf::int64 value);
-
-  // required int32 offset = 4;
+  // required int32 offset = 3;
   bool has_offset() const;
   void clear_offset();
-  static const int kOffsetFieldNumber = 4;
+  static const int kOffsetFieldNumber = 3;
   ::google::protobuf::int32 offset() const;
   void set_offset(::google::protobuf::int32 value);
 
@@ -2577,7 +2562,6 @@ class RecoverBlockData :
   ::google::protobuf::internal::ArenaStringPtr data_;
   ::google::protobuf::int64 blockid_;
   ::google::protobuf::int64 version_;
-  ::google::protobuf::int64 lease_;
   ::google::protobuf::int32 offset_;
   friend struct ::TableStruct_Chunk_2eproto;
 };
@@ -4052,38 +4036,20 @@ inline void ResizeBlock::set_version(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.version)
 }
 
-// required int64 lease = 3;
-inline bool ResizeBlock::has_lease() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void ResizeBlock::clear_lease() {
-  lease_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline ::google::protobuf::int64 ResizeBlock::lease() const {
-  // @@protoc_insertion_point(field_get:ofs.c2m.ResizeBlock.lease)
-  return lease_;
-}
-inline void ResizeBlock::set_lease(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000004u;
-  lease_ = value;
-  // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.lease)
-}
-
-// required int32 size = 4;
+// required int32 size = 3;
 inline bool ResizeBlock::has_size() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void ResizeBlock::clear_size() {
   size_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::google::protobuf::int32 ResizeBlock::size() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.ResizeBlock.size)
   return size_;
 }
 inline void ResizeBlock::set_size(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
   size_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.ResizeBlock.size)
 }
@@ -4128,43 +4094,25 @@ inline void RecoverBlockData::set_version(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.version)
 }
 
-// required int64 lease = 3;
-inline bool RecoverBlockData::has_lease() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void RecoverBlockData::clear_lease() {
-  lease_ = PROTOBUF_LONGLONG(0);
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline ::google::protobuf::int64 RecoverBlockData::lease() const {
-  // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.lease)
-  return lease_;
-}
-inline void RecoverBlockData::set_lease(::google::protobuf::int64 value) {
-  _has_bits_[0] |= 0x00000008u;
-  lease_ = value;
-  // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.lease)
-}
-
-// required int32 offset = 4;
+// required int32 offset = 3;
 inline bool RecoverBlockData::has_offset() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void RecoverBlockData::clear_offset() {
   offset_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::google::protobuf::int32 RecoverBlockData::offset() const {
   // @@protoc_insertion_point(field_get:ofs.c2m.RecoverBlockData.offset)
   return offset_;
 }
 inline void RecoverBlockData::set_offset(::google::protobuf::int32 value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
   offset_ = value;
   // @@protoc_insertion_point(field_set:ofs.c2m.RecoverBlockData.offset)
 }
 
-// required string data = 5;
+// required bytes data = 4;
 inline bool RecoverBlockData::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -4195,7 +4143,7 @@ inline void RecoverBlockData::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ofs.c2m.RecoverBlockData.data)
 }
-inline void RecoverBlockData::set_data(const char* value, size_t size) {
+inline void RecoverBlockData::set_data(const void* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

@@ -53,6 +53,8 @@ SET(CLIENT
 SET(BLOCK
 	"${PROJECT_SOURCE_DIR}/block/Block.h"
 	"${PROJECT_SOURCE_DIR}/block/Block.cpp"
+	"${PROJECT_SOURCE_DIR}/block/BlockCopyToAction.h"
+	"${PROJECT_SOURCE_DIR}/block/BlockCopyToAction.cpp"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.h"
 	"${PROJECT_SOURCE_DIR}/block/BlockManager.cpp"	
 )

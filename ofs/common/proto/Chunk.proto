@@ -93,16 +93,14 @@ message AppendNotify {
 message ResizeBlock {
 	required int64 blockid = 1;
 	required int64 version = 2;
-	required int64 lease = 3;
-	required int32 size = 4;
+	required int32 size = 3;
 }
 
 message RecoverBlockData {
 	required int64 blockid = 1;
 	required int64 version = 2;
-	required int64 lease = 3;
-	required int32 offset = 4;
-	required string data = 5;
+	required int32 offset = 3;
+	required bytes data = 4;
 }
 
 message RecoverBlockComplete {

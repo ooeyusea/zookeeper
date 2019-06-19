@@ -6,9 +6,9 @@
 namespace ofs {
 	bool BlockManager::Start(const olib::IXmlObject& root) {
 		_blockCount = root["data"][0]["block"][0].GetAttributeInt32("count");
-		_writeLease = root["data"][0]["lease"][0].GetAttributeInt32("write");
-		_recoverLease = root["data"][0]["lease"][0].GetAttributeInt32("recover");
-		_recoverAndWriteInterval = root["data"][0]["lease"][0].GetAttributeInt32("recover_and_write_interval");
+		_writeLease = root["data"][0]["lease"][0].GetAttributeInt64("write") * SECOND;
+		_recoverLease = root["data"][0]["lease"][0].GetAttributeInt64("recover") * SECOND;
+		_recoverAndWriteInterval = root["data"][0]["lease"][0].GetAttributeInt64("recover_and_write_interval") * SECOND;
 
 		int64_t interval = root["data"][0]["block"][0].GetAttributeInt64("recover_check_interval") * SECOND;
 

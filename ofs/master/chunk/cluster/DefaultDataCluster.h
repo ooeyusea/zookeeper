@@ -102,6 +102,7 @@ namespace ofs {
 		virtual DataNode * Get(int32_t id);
 		virtual DataNode * Register(int32_t id, int32_t rack, int32_t dc, const std::string& extend);
 		virtual std::vector<DataNode*> Distribute(const std::vector<DataNode*>& old, const std::vector<DataNode*>& except);
+		virtual DataNode* ChooseOne(DataNode* except);
 		virtual std::vector<DataNode*> SelectUnnecessary(std::vector<DataNode*>&& old);
 
 	private:

@@ -24,7 +24,7 @@ namespace ofs {
 	}
 
 	int32_t LocalFile::Write(int32_t offset, const char * data, int32_t size) {
-		std::ofstream output(_path, std::ios::binary);
+		std::ofstream output(_path, std::ios::app | std::ios::binary);
 		if (!output)
 			return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 

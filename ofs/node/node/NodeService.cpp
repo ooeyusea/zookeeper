@@ -184,6 +184,38 @@ namespace ofs {
 		BlockManager::Instance().Clean(cmd.blockid());
 	}
 
+	void NodeService::OnRecoverResizeBlockSize(const c2m::ResizeBlock& resize) {
+		Block* block = BlockManager::Instance().Get(resize.blockid(), true);
+		if (!block)
+			return;
+
+		block->Resize(resize.version(), resize.size());
+
+		block->Release();
+	}
+
+	void NodeService::OnRecoverBlockData(const c2m::RecoverBlockData& data) {
+		Block* block = BlockManager::Instance().Get(data.blockid());
+		if (!block)
+			return;
+
+		block->RecoverData(data.version(), data.offset(), data.data());
+
+		block->Release();
+	}
+
+	void NodeService::OnRecoverBlockComplete(const c2m::RecoverBlockComplete& complete) {
+		Block* block = BlockManager::Instance().Get(complete.blockid());
+		if (!block)
+			return;
+
+		if (block->CompleteRecover(complete.version())) {
+			Report(block);
+		}
+
+		block->Release();
+	}
+
 	void NodeService::StartHeartbeat(int64_t heartBeat) {
 		_heartBeatTimer = new hn_ticker(heartBeat);
 

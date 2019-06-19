@@ -119,6 +119,14 @@ namespace ofs {
 		return ret;
 	}
 
+	DataNode * DefaultDataCluster::ChooseOne(DataNode* except) {
+		std::vector<DataNode*> ret;
+		if (ChooseRandomChunkServer({}, { except }, ret, nullptr))
+			return ret.front();
+
+		return nullptr;
+	}
+
 	std::vector<DataNode*> DefaultDataCluster::SelectUnnecessary(std::vector<DataNode*>&& old) {
 		std::vector<RackStat> stats;
 		stats.reserve(old.size());

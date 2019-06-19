@@ -3,22 +3,22 @@
 #include "hnet.h"
 
 namespace olib {
-	class NetErrorException : std::exception {
+	class NetErrorException : public std::exception {
 	public:
-		NetErrorException(const std::string& msg) : std::exception(msg.c_str()) {}
-		NetErrorException(const char * msg) : std::exception(msg) {}
+		explicit NetErrorException(const std::string& msg) : std::exception(msg.c_str()) {}
+		explicit NetErrorException(const char * msg) : std::exception(msg) {}
 	};
 
-	class NetTimeoutException : std::exception {
+	class NetTimeoutException : public std::exception {
 	public:
-		NetTimeoutException(const std::string& msg) : std::exception(msg.c_str()) {}
-		NetTimeoutException(const char* msg) : std::exception(msg) {}
+		explicit NetTimeoutException(const std::string& msg) : std::exception(msg.c_str()) {}
+		explicit NetTimeoutException(const char* msg) : std::exception(msg) {}
 	};
 
-	class NetNotException : std::exception {
+	class NetNotException : public std::exception {
 	public:
-		NetNotException(const std::string& msg) : std::exception(msg.c_str()) {}
-		NetNotException(const char* msg) : std::exception(msg) {}
+		explicit NetNotException(const std::string& msg) : std::exception(msg.c_str()) {}
+		explicit NetNotException(const char* msg) : std::exception(msg) {}
 	};
 
 	struct SocketReader {

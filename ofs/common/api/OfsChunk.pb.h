@@ -104,11 +104,12 @@ enum ErrorCode {
   EC_WRITE_BLOCK_VERSION_CHECK_FAILED = 8,
   EC_WRITE_BLOCK_CHECK_SIZE_FAILED = 9,
   EC_BLOCK_FULL = 10,
-  EC_LEASE_EXPIRE = 11
+  EC_LEASE_EXPIRE = 11,
+  EC_BLOCK_IS_RECOVERING = 12
 };
 bool ErrorCode_IsValid(int value);
 const ErrorCode ErrorCode_MIN = EC_NONE;
-const ErrorCode ErrorCode_MAX = EC_LEASE_EXPIRE;
+const ErrorCode ErrorCode_MAX = EC_BLOCK_IS_RECOVERING;
 const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();

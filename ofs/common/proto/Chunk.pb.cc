@@ -552,12 +552,10 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, blockid_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, version_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, lease_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, size_),
   0,
   1,
   2,
-  3,
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -565,13 +563,11 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, blockid_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, version_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, lease_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, offset_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockData, data_),
   1,
   2,
   3,
-  4,
   0,
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockComplete, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::ofs::c2m::RecoverBlockComplete, _internal_metadata_),
@@ -599,9 +595,9 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 128, 134, sizeof(::ofs::c2m::NeighborGossip)},
   { 135, 145, sizeof(::ofs::c2m::WriteNotify)},
   { 150, 159, sizeof(::ofs::c2m::AppendNotify)},
-  { 163, 172, sizeof(::ofs::c2m::ResizeBlock)},
-  { 176, 186, sizeof(::ofs::c2m::RecoverBlockData)},
-  { 191, 198, sizeof(::ofs::c2m::RecoverBlockComplete)},
+  { 163, 171, sizeof(::ofs::c2m::ResizeBlock)},
+  { 174, 183, sizeof(::ofs::c2m::RecoverBlockData)},
+  { 187, 194, sizeof(::ofs::c2m::RecoverBlockComplete)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -659,18 +655,17 @@ const char descriptor_table_protodef_Chunk_2eproto[] =
   "version\030\003 \002(\003\022\016\n\006offset\030\004 \002(\005\022\014\n\004data\030\005 "
   "\002(\t\"R\n\014AppendNotify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007"
   "version\030\002 \002(\003\022\022\n\nnewversion\030\003 \002(\003\022\014\n\004dat"
-  "a\030\004 \002(\t\"L\n\013ResizeBlock\022\017\n\007blockid\030\001 \002(\003\022"
-  "\017\n\007version\030\002 \002(\003\022\r\n\005lease\030\003 \002(\003\022\014\n\004size\030"
-  "\004 \002(\005\"a\n\020RecoverBlockData\022\017\n\007blockid\030\001 \002"
-  "(\003\022\017\n\007version\030\002 \002(\003\022\r\n\005lease\030\003 \002(\003\022\016\n\006of"
-  "fset\030\004 \002(\005\022\014\n\004data\030\005 \002(\t\"8\n\024RecoverBlock"
-  "Complete\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002 \002"
-  "(\003"
+  "a\030\004 \002(\t\"=\n\013ResizeBlock\022\017\n\007blockid\030\001 \002(\003\022"
+  "\017\n\007version\030\002 \002(\003\022\014\n\004size\030\003 \002(\005\"R\n\020Recove"
+  "rBlockData\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002"
+  " \002(\003\022\016\n\006offset\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"8\n\024Re"
+  "coverBlockComplete\022\017\n\007blockid\030\001 \002(\003\022\017\n\007v"
+  "ersion\030\002 \002(\003"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_Chunk_2eproto = {
   false, InitDefaults_Chunk_2eproto, 
   descriptor_table_protodef_Chunk_2eproto,
-  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1322,
+  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1292,
 };
 
 void AddDescriptors_Chunk_2eproto() {
@@ -6890,18 +6885,14 @@ class ResizeBlock::HasBitSetters {
   static void set_has_version(ResizeBlock* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
-  static void set_has_lease(ResizeBlock* msg) {
-    msg->_has_bits_[0] |= 0x00000004u;
-  }
   static void set_has_size(ResizeBlock* msg) {
-    msg->_has_bits_[0] |= 0x00000008u;
+    msg->_has_bits_[0] |= 0x00000004u;
   }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ResizeBlock::kBlockidFieldNumber;
 const int ResizeBlock::kVersionFieldNumber;
-const int ResizeBlock::kLeaseFieldNumber;
 const int ResizeBlock::kSizeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -6951,7 +6942,7 @@ void ResizeBlock::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000007u) {
     ::memset(&blockid_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&size_) -
         reinterpret_cast<char*>(&blockid_)) + sizeof(size_));
@@ -6987,16 +6978,9 @@ const char* ResizeBlock::_InternalParse(const char* begin, const char* end, void
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required int64 lease = 3;
+      // required int32 size = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
-        msg->set_lease(::google::protobuf::internal::ReadVarint(&ptr));
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        break;
-      }
-      // required int32 size = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
         msg->set_size(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
@@ -7054,22 +7038,9 @@ bool ResizeBlock::MergePartialFromCodedStream(
         break;
       }
 
-      // required int64 lease = 3;
+      // required int32 size = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
-          HasBitSetters::set_has_lease(this);
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &lease_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // required int32 size = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
           HasBitSetters::set_has_size(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -7118,14 +7089,9 @@ void ResizeBlock::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->version(), output);
   }
 
-  // required int64 lease = 3;
+  // required int32 size = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->lease(), output);
-  }
-
-  // required int32 size = 4;
-  if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->size(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->size(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7152,14 +7118,9 @@ void ResizeBlock::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->version(), target);
   }
 
-  // required int64 lease = 3;
+  // required int32 size = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->lease(), target);
-  }
-
-  // required int32 size = 4;
-  if (cached_has_bits & 0x00000008u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->size(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->size(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7188,15 +7149,8 @@ size_t ResizeBlock::RequiredFieldsByteSizeFallback() const {
         this->version());
   }
 
-  if (has_lease()) {
-    // required int64 lease = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->lease());
-  }
-
   if (has_size()) {
-    // required int32 size = 4;
+    // required int32 size = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->size());
@@ -7213,7 +7167,7 @@ size_t ResizeBlock::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required int64 blockid = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -7224,12 +7178,7 @@ size_t ResizeBlock::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->version());
 
-    // required int64 lease = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->lease());
-
-    // required int32 size = 4;
+    // required int32 size = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->size());
@@ -7269,7 +7218,7 @@ void ResizeBlock::MergeFrom(const ResizeBlock& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       blockid_ = from.blockid_;
     }
@@ -7277,9 +7226,6 @@ void ResizeBlock::MergeFrom(const ResizeBlock& from) {
       version_ = from.version_;
     }
     if (cached_has_bits & 0x00000004u) {
-      lease_ = from.lease_;
-    }
-    if (cached_has_bits & 0x00000008u) {
       size_ = from.size_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -7301,7 +7247,7 @@ void ResizeBlock::CopyFrom(const ResizeBlock& from) {
 }
 
 bool ResizeBlock::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
   return true;
 }
 
@@ -7315,7 +7261,6 @@ void ResizeBlock::InternalSwap(ResizeBlock* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(blockid_, other->blockid_);
   swap(version_, other->version_);
-  swap(lease_, other->lease_);
   swap(size_, other->size_);
 }
 
@@ -7337,11 +7282,8 @@ class RecoverBlockData::HasBitSetters {
   static void set_has_version(RecoverBlockData* msg) {
     msg->_has_bits_[0] |= 0x00000004u;
   }
-  static void set_has_lease(RecoverBlockData* msg) {
-    msg->_has_bits_[0] |= 0x00000008u;
-  }
   static void set_has_offset(RecoverBlockData* msg) {
-    msg->_has_bits_[0] |= 0x00000010u;
+    msg->_has_bits_[0] |= 0x00000008u;
   }
   static void set_has_data(RecoverBlockData* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
@@ -7351,7 +7293,6 @@ class RecoverBlockData::HasBitSetters {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RecoverBlockData::kBlockidFieldNumber;
 const int RecoverBlockData::kVersionFieldNumber;
-const int RecoverBlockData::kLeaseFieldNumber;
 const int RecoverBlockData::kOffsetFieldNumber;
 const int RecoverBlockData::kDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -7413,7 +7354,7 @@ void RecoverBlockData::Clear() {
   if (cached_has_bits & 0x00000001u) {
     data_.ClearNonDefaultToEmptyNoArena();
   }
-  if (cached_has_bits & 0x0000001eu) {
+  if (cached_has_bits & 0x0000000eu) {
     ::memset(&blockid_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&offset_) -
         reinterpret_cast<char*>(&blockid_)) + sizeof(offset_));
@@ -7449,32 +7390,24 @@ const char* RecoverBlockData::_InternalParse(const char* begin, const char* end,
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required int64 lease = 3;
+      // required int32 offset = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
-        msg->set_lease(::google::protobuf::internal::ReadVarint(&ptr));
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        break;
-      }
-      // required int32 offset = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
         msg->set_offset(::google::protobuf::internal::ReadVarint(&ptr));
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required string data = 5;
-      case 5: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+      // required bytes data = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.c2m.RecoverBlockData.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
           goto string_till_end;
         }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -7539,22 +7472,9 @@ bool RecoverBlockData::MergePartialFromCodedStream(
         break;
       }
 
-      // required int64 lease = 3;
+      // required int32 offset = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
-          HasBitSetters::set_has_lease(this);
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &lease_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // required int32 offset = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
           HasBitSetters::set_has_offset(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -7565,15 +7485,11 @@ bool RecoverBlockData::MergePartialFromCodedStream(
         break;
       }
 
-      // required string data = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+      // required bytes data = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->data().data(), static_cast<int>(this->data().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.c2m.RecoverBlockData.data");
         } else {
           goto handle_unusual;
         }
@@ -7618,24 +7534,15 @@ void RecoverBlockData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->version(), output);
   }
 
-  // required int64 lease = 3;
+  // required int32 offset = 3;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->lease(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->offset(), output);
   }
 
-  // required int32 offset = 4;
-  if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->offset(), output);
-  }
-
-  // required string data = 5;
+  // required bytes data = 4;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.c2m.RecoverBlockData.data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->data(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      4, this->data(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7662,25 +7569,16 @@ void RecoverBlockData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->version(), target);
   }
 
-  // required int64 lease = 3;
+  // required int32 offset = 3;
   if (cached_has_bits & 0x00000008u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->lease(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->offset(), target);
   }
 
-  // required int32 offset = 4;
-  if (cached_has_bits & 0x00000010u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->offset(), target);
-  }
-
-  // required string data = 5;
+  // required bytes data = 4;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.c2m.RecoverBlockData.data");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->data(), target);
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        4, this->data(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7696,9 +7594,9 @@ size_t RecoverBlockData::RequiredFieldsByteSizeFallback() const {
   size_t total_size = 0;
 
   if (has_data()) {
-    // required string data = 5;
+    // required bytes data = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
@@ -7716,15 +7614,8 @@ size_t RecoverBlockData::RequiredFieldsByteSizeFallback() const {
         this->version());
   }
 
-  if (has_lease()) {
-    // required int64 lease = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->lease());
-  }
-
   if (has_offset()) {
-    // required int32 offset = 4;
+    // required int32 offset = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->offset());
@@ -7741,10 +7632,10 @@ size_t RecoverBlockData::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x0000001f) ^ 0x0000001f) == 0) {  // All required fields are present.
-    // required string data = 5;
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+    // required bytes data = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
 
     // required int64 blockid = 1;
@@ -7757,12 +7648,7 @@ size_t RecoverBlockData::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->version());
 
-    // required int64 lease = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->lease());
-
-    // required int32 offset = 4;
+    // required int32 offset = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->offset());
@@ -7802,7 +7688,7 @@ void RecoverBlockData::MergeFrom(const RecoverBlockData& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
@@ -7814,9 +7700,6 @@ void RecoverBlockData::MergeFrom(const RecoverBlockData& from) {
       version_ = from.version_;
     }
     if (cached_has_bits & 0x00000008u) {
-      lease_ = from.lease_;
-    }
-    if (cached_has_bits & 0x00000010u) {
       offset_ = from.offset_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -7838,7 +7721,7 @@ void RecoverBlockData::CopyFrom(const RecoverBlockData& from) {
 }
 
 bool RecoverBlockData::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   return true;
 }
 
@@ -7854,7 +7737,6 @@ void RecoverBlockData::InternalSwap(RecoverBlockData* other) {
     GetArenaNoVirtual());
   swap(blockid_, other->blockid_);
   swap(version_, other->version_);
-  swap(lease_, other->lease_);
   swap(offset_, other->offset_);
 }
 

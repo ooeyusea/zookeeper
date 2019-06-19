@@ -276,7 +276,7 @@ const char descriptor_table_protodef_OfsChunk_2eproto[] =
   "unk.ErrorCode\"G\n\rAppendRequest\022(\n\005lease\030"
   "\001 \002(\0132\031.ofs.api.chunk.BlockLease\022\014\n\004data"
   "\030\002 \002(\014\";\n\016AppendResponse\022)\n\007errCode\030\001 \002("
-  "\0162\030.ofs.api.chunk.ErrorCode*\325\002\n\tErrorCod"
+  "\0162\030.ofs.api.chunk.ErrorCode*\361\002\n\tErrorCod"
   "e\022\013\n\007EC_NONE\020\000\022\026\n\022EC_BLOCK_NOT_EIXST\020\001\022\026"
   "\n\022EC_BLOCK_INCORRECT\020\002\022\030\n\024EC_BLOCK_READ_"
   "FAILED\020\003\022\031\n\025EC_BLOCK_WRITE_FAILED\020\004\022\033\n\027E"
@@ -285,17 +285,18 @@ const char descriptor_table_protodef_OfsChunk_2eproto[] =
   "ILE_FAILED\020\007\022\'\n#EC_WRITE_BLOCK_VERSION_C"
   "HECK_FAILED\020\010\022$\n EC_WRITE_BLOCK_CHECK_SI"
   "ZE_FAILED\020\t\022\021\n\rEC_BLOCK_FULL\020\n\022\023\n\017EC_LEA"
-  "SE_EXPIRE\020\0132\334\001\n\016OfsNodeService\022\?\n\004Read\022\032"
-  ".ofs.api.chunk.ReadRequest\032\033.ofs.api.chu"
-  "nk.ReadResponse\022B\n\005Write\022\033.ofs.api.chunk"
-  ".WriteRequest\032\034.ofs.api.chunk.WriteRespo"
-  "nse\022E\n\006Append\022\034.ofs.api.chunk.AppendRequ"
-  "est\032\035.ofs.api.chunk.AppendResponseB\003\200\001\001"
+  "SE_EXPIRE\020\013\022\032\n\026EC_BLOCK_IS_RECOVERING\020\0142"
+  "\334\001\n\016OfsNodeService\022\?\n\004Read\022\032.ofs.api.chu"
+  "nk.ReadRequest\032\033.ofs.api.chunk.ReadRespo"
+  "nse\022B\n\005Write\022\033.ofs.api.chunk.WriteReques"
+  "t\032\034.ofs.api.chunk.WriteResponse\022E\n\006Appen"
+  "d\022\034.ofs.api.chunk.AppendRequest\032\035.ofs.ap"
+  "i.chunk.AppendResponseB\003\200\001\001"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_OfsChunk_2eproto = {
   false, InitDefaults_OfsChunk_2eproto, 
   descriptor_table_protodef_OfsChunk_2eproto,
-  "OfsChunk.proto", &assign_descriptors_table_OfsChunk_2eproto, 1119,
+  "OfsChunk.proto", &assign_descriptors_table_OfsChunk_2eproto, 1147,
 };
 
 void AddDescriptors_OfsChunk_2eproto() {
@@ -328,6 +329,7 @@ bool ErrorCode_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
       return true;
     default:
       return false;

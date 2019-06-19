@@ -29,6 +29,11 @@ namespace ofs {
 		void ReportClean(int64_t blockId);
 		void ReportBlocks(c2m::ReportBlock& report);
 
+		template <typename T>
+		inline void Send(int32_t id, const T& msg) {
+			_queue->Send(id, &msg);
+		}
+
 	private:
 		void OnWrite(const c2m::WriteNotify& ntf);
 		void OnAppend(const c2m::AppendNotify& ntf);
@@ -38,6 +43,10 @@ namespace ofs {
 
 		void OnRecoverBlock(const c2m::RecoverBlock& cmd);
 		void OnCleanBlock(const c2m::CleanBlock& cmd);
+
+		void OnRecoverResizeBlockSize(const c2m::ResizeBlock& resize);
+		void OnRecoverBlockData(const c2m::RecoverBlockData& data);
+		void OnRecoverBlockComplete(const c2m::RecoverBlockComplete& complete);
 
 		void StartHeartbeat(int64_t heartBeat);
 

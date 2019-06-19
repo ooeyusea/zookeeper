@@ -66,7 +66,28 @@ namespace ofs {
 
 		dataNode->UpdateTick();
 
+		DataNode * neighbor = _dataCluster->ChooseOne(dataNode);
+
 		lock.unlock();
+
+		if (neighbor) {
+			c2m::NeighborNotify ntf;
+
+			auto * n = ntf.mutable_neighbor();
+			n->set_id(neighbor->GetId());
+
+			auto * harbor = n->mutable_harbor();
+			harbor->set_host(neighbor->GetHost());
+			harbor->set_port(neighbor->GetPort());
+
+			_queue->Send(req.id(), &ntf);
+
+			n->set_id(dataNode->GetId());
+			harbor->set_host(dataNode->GetHost());
+			harbor->set_port(dataNode->GetPort());
+
+			_queue->Send(neighbor->GetId(), &ntf);
+		}
 	}
 
 	void DataNodeService::OnReport(const c2m::ReportBlock& req) {
