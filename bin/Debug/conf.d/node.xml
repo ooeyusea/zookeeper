@@ -3,5 +3,6 @@
   <node>
     <size val="65531" />
     <hearbeat val="30000" />
+    <idle path="./data/idle" start="5" end="6" />
   </node>
 </config>

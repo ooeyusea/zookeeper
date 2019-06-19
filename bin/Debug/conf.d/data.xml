@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
 	<data>
-		<block count="3" size="64" batch="4" />
+		<block count="3" size="64" batch="4" recover_check_interval="30" />
 		<save interval="60" />
 		<file expire="259200‬" gc="21600‬" />
 		<report interval="3600" />
+    <lease write="60" recover="180" recover_and_write_interval="15" />
 	</data>
 </config>
