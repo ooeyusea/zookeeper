@@ -53,6 +53,10 @@ namespace ofs {
 		_queue->Register<c2m::RecoverBlock>(std::bind(&NodeService::OnRecoverBlock, this, std::placeholders::_1));
 		_queue->Register<c2m::CleanBlock>(std::bind(&NodeService::OnCleanBlock, this, std::placeholders::_1));
 
+		_queue->Register<c2m::ResizeBlock>(std::bind(&NodeService::OnRecoverResizeBlockSize, this, std::placeholders::_1));
+		_queue->Register<c2m::RecoverBlockData>(std::bind(&NodeService::OnRecoverBlockData, this, std::placeholders::_1));
+		_queue->Register<c2m::RecoverBlockComplete>(std::bind(&NodeService::OnRecoverBlockComplete, this, std::placeholders::_1));
+
 		StartHeartbeat(heartBeat);
 		return true;
 	}
@@ -143,7 +147,7 @@ namespace ofs {
 	}
 
 	void NodeService::OnAppend(const c2m::AppendNotify& ntf) {
-		Block * block = BlockManager::Instance().Get(ntf.blockid());
+		Block * block = BlockManager::Instance().Get(ntf.blockid(), true);
 		if (!block)
 			return;
 

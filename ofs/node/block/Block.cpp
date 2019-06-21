@@ -186,6 +186,12 @@ namespace ofs {
 		}
 
 		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
+		if (!fs::exists(path)) {
+			std::ofstream out(path, std::ios::binary);
+			out.write("c", 1);
+			out.flush();
+			out.close();
+		}
 		fs::resize_file(path, size);
 	}
 

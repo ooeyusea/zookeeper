@@ -28,7 +28,7 @@ namespace ofs {
 		if (!output)
 			return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 
-		output.seekp(offset);
+		output.seekp(offset, std::ios::beg);
 		output.write(data, size);
 
 		if (!output)
