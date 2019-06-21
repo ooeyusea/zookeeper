@@ -139,7 +139,7 @@ namespace ofs {
 				header.msg = olib::BKDRHash(request->GetDescriptor()->full_name().c_str());
 				header.op = MOT_MESSAGE;
 
-				//hn_info("dump {}", toHex(data + sizeof(MessageHeader), size));
+				hn_info("dump {} => {}", header.msg, toHex(data + sizeof(MessageHeader), size));
 
 				hn_send(_node[id], data, sizeof(MessageHeader) + size);
 			}

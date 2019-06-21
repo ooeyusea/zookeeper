@@ -2053,7 +2053,7 @@ class WriteNotify :
 
   // accessors -------------------------------------------------------
 
-  // required string data = 5;
+  // required bytes data = 5;
   bool has_data() const;
   void clear_data();
   static const int kDataFieldNumber = 5;
@@ -2063,7 +2063,7 @@ class WriteNotify :
   void set_data(::std::string&& value);
   #endif
   void set_data(const char* value);
-  void set_data(const char* value, size_t size);
+  void set_data(const void* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
@@ -2217,7 +2217,7 @@ class AppendNotify :
 
   // accessors -------------------------------------------------------
 
-  // required string data = 4;
+  // required bytes data = 4;
   bool has_data() const;
   void clear_data();
   static const int kDataFieldNumber = 4;
@@ -2227,7 +2227,7 @@ class AppendNotify :
   void set_data(::std::string&& value);
   #endif
   void set_data(const char* value);
-  void set_data(const char* value, size_t size);
+  void set_data(const void* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
@@ -3818,7 +3818,7 @@ inline void WriteNotify::set_offset(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.WriteNotify.offset)
 }
 
-// required string data = 5;
+// required bytes data = 5;
 inline bool WriteNotify::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -3849,7 +3849,7 @@ inline void WriteNotify::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ofs.c2m.WriteNotify.data)
 }
-inline void WriteNotify::set_data(const char* value, size_t size) {
+inline void WriteNotify::set_data(const void* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -3936,7 +3936,7 @@ inline void AppendNotify::set_newversion(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:ofs.c2m.AppendNotify.newversion)
 }
 
-// required string data = 4;
+// required bytes data = 4;
 inline bool AppendNotify::has_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -3967,7 +3967,7 @@ inline void AppendNotify::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ofs.c2m.AppendNotify.data)
 }
-inline void AppendNotify::set_data(const char* value, size_t size) {
+inline void AppendNotify::set_data(const void* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

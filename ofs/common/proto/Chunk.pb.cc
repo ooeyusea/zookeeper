@@ -653,9 +653,9 @@ const char descriptor_table_protodef_Chunk_2eproto[] =
   "\001 \002(\0132\021.ofs.c2m.Neighbor\"a\n\013WriteNotify\022"
   "\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\022\n\nnew"
   "version\030\003 \002(\003\022\016\n\006offset\030\004 \002(\005\022\014\n\004data\030\005 "
-  "\002(\t\"R\n\014AppendNotify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007"
+  "\002(\014\"R\n\014AppendNotify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007"
   "version\030\002 \002(\003\022\022\n\nnewversion\030\003 \002(\003\022\014\n\004dat"
-  "a\030\004 \002(\t\"=\n\013ResizeBlock\022\017\n\007blockid\030\001 \002(\003\022"
+  "a\030\004 \002(\014\"=\n\013ResizeBlock\022\017\n\007blockid\030\001 \002(\003\022"
   "\017\n\007version\030\002 \002(\003\022\014\n\004size\030\003 \002(\005\"R\n\020Recove"
   "rBlockData\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002"
   " \002(\003\022\016\n\006offset\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"8\n\024Re"
@@ -5983,18 +5983,17 @@ const char* WriteNotify::_InternalParse(const char* begin, const char* end, void
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required string data = 5;
+      // required bytes data = 5;
       case 5: {
         if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.c2m.WriteNotify.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
           goto string_till_end;
         }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -6085,15 +6084,11 @@ bool WriteNotify::MergePartialFromCodedStream(
         break;
       }
 
-      // required string data = 5;
+      // required bytes data = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->data().data(), static_cast<int>(this->data().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.c2m.WriteNotify.data");
         } else {
           goto handle_unusual;
         }
@@ -6148,13 +6143,9 @@ void WriteNotify::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->offset(), output);
   }
 
-  // required string data = 5;
+  // required bytes data = 5;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.c2m.WriteNotify.data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       5, this->data(), output);
   }
 
@@ -6192,14 +6183,10 @@ void WriteNotify::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->offset(), target);
   }
 
-  // required string data = 5;
+  // required bytes data = 5;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.c2m.WriteNotify.data");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         5, this->data(), target);
   }
 
@@ -6216,9 +6203,9 @@ size_t WriteNotify::RequiredFieldsByteSizeFallback() const {
   size_t total_size = 0;
 
   if (has_data()) {
-    // required string data = 5;
+    // required bytes data = 5;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
@@ -6262,9 +6249,9 @@ size_t WriteNotify::ByteSizeLong() const {
         _internal_metadata_.unknown_fields());
   }
   if (((_has_bits_[0] & 0x0000001f) ^ 0x0000001f) == 0) {  // All required fields are present.
-    // required string data = 5;
+    // required bytes data = 5;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
 
     // required int64 blockid = 1;
@@ -6511,18 +6498,17 @@ const char* AppendNotify::_InternalParse(const char* begin, const char* end, voi
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // required string data = 4;
+      // required bytes data = 4;
       case 4: {
         if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("ofs.c2m.AppendNotify.data");
         object = msg->mutable_data();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8Verify;
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
           goto string_till_end;
         }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8Verify(ptr, size, ctx));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -6600,15 +6586,11 @@ bool AppendNotify::MergePartialFromCodedStream(
         break;
       }
 
-      // required string data = 4;
+      // required bytes data = 4;
       case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->data().data(), static_cast<int>(this->data().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "ofs.c2m.AppendNotify.data");
         } else {
           goto handle_unusual;
         }
@@ -6658,13 +6640,9 @@ void AppendNotify::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->newversion(), output);
   }
 
-  // required string data = 4;
+  // required bytes data = 4;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.c2m.AppendNotify.data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       4, this->data(), output);
   }
 
@@ -6697,14 +6675,10 @@ void AppendNotify::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->newversion(), target);
   }
 
-  // required string data = 4;
+  // required bytes data = 4;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->data().data(), static_cast<int>(this->data().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "ofs.c2m.AppendNotify.data");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         4, this->data(), target);
   }
 
@@ -6721,9 +6695,9 @@ size_t AppendNotify::RequiredFieldsByteSizeFallback() const {
   size_t total_size = 0;
 
   if (has_data()) {
-    // required string data = 4;
+    // required bytes data = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
@@ -6760,9 +6734,9 @@ size_t AppendNotify::ByteSizeLong() const {
         _internal_metadata_.unknown_fields());
   }
   if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
-    // required string data = 4;
+    // required bytes data = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
 
     // required int64 blockid = 1;

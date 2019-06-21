@@ -171,6 +171,7 @@ namespace ofs {
 			auto servers = DataNodeService::Instance().Distribute(has, except);
 			if (!servers.empty()) {
 				_recoverLease = now + BlockManager::Instance().GetRecoverLease();
+				int32_t mainReplicaId = mainReplica->GetServer()->GetId();
 
 				c2m::RecoverBlock cmd;
 				cmd.set_blockid(_id);
@@ -183,7 +184,7 @@ namespace ofs {
 					cmd.add_copyto(server->GetId());
 				}
 
-				DataNodeService::Instance().GetSender()->Send(mainReplica->GetServer()->GetId(), &cmd);
+				DataNodeService::Instance().GetSender()->Send(mainReplicaId, &cmd);
 			}
 		}
 		else if (has.size() > blockCount) {

@@ -21,6 +21,14 @@ namespace ofs {
 		inline void SetPort(int32_t val) { _port = val; }
 		inline int32_t GetPort() const { return _port; }
 
+		inline void SetClusterHost(const std::string& val) { _clusterHost = val; }
+		inline void SetClusterHost(const char* val) { _clusterHost = val; }
+		inline void SetClusterHost(std::string&& val) { _clusterHost = val; }
+		inline const std::string& GetClusterHost() const { return _clusterHost; }
+
+		inline void SetClusterPort(int32_t val) { _clusterPort = val; }
+		inline int32_t GetClusterPort() const { return _clusterPort; }
+
 		inline void SetKey(const std::string& val) { _key = val; }
 		inline void SetKey(const char * val) { _key = val; }
 		inline void SetKey(std::string&& val) { _key = val; }
@@ -45,17 +53,19 @@ namespace ofs {
 		std::string CalcKey(int64_t id, int64_t lease, int64_t version, int64_t expectVersion);
 
 	protected:
-		int32_t _id;
+		int32_t _id = 0;
 		std::string _host;
-		int32_t _port;
+		int32_t _port = 0;
+		std::string _clusterHost;
+		int32_t _clusterPort = 0;
 		std::string _key;
 		int64_t _tick = 0;
 
 		bool _fault = false;
-		int32_t _cpu;
-		int32_t _rss;
-		int32_t _vss;
-		int32_t _disk;
+		int32_t _cpu = 0;
+		int32_t _rss = 0;
+		int32_t _vss = 0;
+		int32_t _disk = 0;
 	};
 }
 

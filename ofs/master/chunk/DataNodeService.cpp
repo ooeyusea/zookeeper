@@ -57,6 +57,9 @@ namespace ofs {
 		dataNode->SetHost(req.outpost().host());
 		dataNode->SetPort(req.outpost().port());
 
+		dataNode->SetClusterHost(req.harbor().host());
+		dataNode->SetClusterPort(req.harbor().port());
+
 		//to update data node
 		dataNode->SetCpu(req.node().cpu());
 		dataNode->SetRss(req.node().rss());
@@ -77,14 +80,14 @@ namespace ofs {
 			n->set_id(neighbor->GetId());
 
 			auto * harbor = n->mutable_harbor();
-			harbor->set_host(neighbor->GetHost());
-			harbor->set_port(neighbor->GetPort());
+			harbor->set_host(neighbor->GetClusterHost());
+			harbor->set_port(neighbor->GetClusterPort());
 
 			_queue->Send(req.id(), &ntf);
 
 			n->set_id(dataNode->GetId());
-			harbor->set_host(dataNode->GetHost());
-			harbor->set_port(dataNode->GetPort());
+			harbor->set_host(dataNode->GetClusterHost());
+			harbor->set_port(dataNode->GetClusterPort());
 
 			_queue->Send(neighbor->GetId(), &ntf);
 		}

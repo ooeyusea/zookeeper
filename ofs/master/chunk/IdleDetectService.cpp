@@ -21,7 +21,7 @@ namespace ofs {
 
 	bool IdleDetectService::IsIdle() {
 
-		return false;
+		return true;
 	}
 
 }

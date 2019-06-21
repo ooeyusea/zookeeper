@@ -80,14 +80,14 @@ message WriteNotify {
 	required int64 version = 2;
 	required int64 newversion = 3;
 	required int32 offset = 4;
-	required string data = 5;
+	required bytes data = 5;
 }
 
 message AppendNotify {
 	required int64 blockid = 1;
 	required int64 version = 2;
 	required int64 newversion = 3;
-	required string data = 4;
+	required bytes data = 4;
 }
 
 message ResizeBlock {
