@@ -59,6 +59,8 @@ SET(SRC
 	"${PROJECT_SOURCE_DIR}/include/time_helper.h"
 	"${PROJECT_SOURCE_DIR}/include/uuid.h"
 	"${PROJECT_SOURCE_DIR}/src/uuid.cpp"
+	"${PROJECT_SOURCE_DIR}/include/random_access_file.h"
+	"${PROJECT_SOURCE_DIR}/src/random_access_file.cpp"
 )
 
 SOURCE_GROUP(xml FILES ${XML})
