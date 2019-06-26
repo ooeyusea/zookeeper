@@ -27,10 +27,10 @@ namespace ofs {
 	}
 
 	bool Block::RecoverController::Recover(int64_t id, int64_t version, int32_t offset, const std::string& data) {
-		if (_version != version) {
+		if (_version == version) {
 			if (!_output) {
 				std::string path = BlockManager::Instance().GetBlockFile(id);
-				_output.open(path, std::ios::app | std::ios::binary);
+				_output.open(path, std::ios::in | std::ios::out | std::ios::binary);
 			}
 
 			if (_output) {

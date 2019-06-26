@@ -24,18 +24,18 @@ namespace ofs {
 	}
 
 	int32_t LocalFile::Write(int32_t offset, const char * data, int32_t size) {
-		std::ofstream output(_path, std::ios::app | std::ios::binary);
-		if (!output)
+		FILE* fp = fopen(_path.c_str(), "ab+");
+		if (!fp)
 			return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 
-		output.seekp(offset, std::ios::beg);
-		output.write(data, size);
+		fseek(fp, offset, SEEK_SET);
+		size_t len = fwrite(data, size, 1, fp);
 
-		if (!output)
+		if (len < 1)
 			return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
 
-		output.flush();
-		output.close();
+		fflush(fp);
+		fclose(fp);
 		return api::chunk::ErrorCode::EC_NONE;
 	}
 

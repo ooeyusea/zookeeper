@@ -69,6 +69,8 @@ namespace ofs {
 
 		dataNode->UpdateTick();
 
+		hn_info("chunk server {}/{}/{} register for : outpost {}:{}, harbor {}:{}", req.id(), req.rack(), req.dc(), req.outpost().host(), req.outpost().port(), req.harbor().host(), req.harbor().port());
+
 		DataNode * neighbor = _dataCluster->ChooseOne(dataNode);
 
 		lock.unlock();
@@ -95,6 +97,8 @@ namespace ofs {
 
 	void DataNodeService::OnReport(const c2m::ReportBlock& req) {
 		for (auto& blockInfo : req.blocks()) {
+			hn_info("chunk server {} report block {} status {}:{}", req.id(), blockInfo.id(), blockInfo.version(), blockInfo.size());
+
 			File* file = FileSystem::Instance().GetFile(FILE_ID_FROM_BLOCK(blockInfo.id()));
 			if (!file) {
 				c2m::CleanBlock ntf;
@@ -124,6 +128,8 @@ namespace ofs {
 	}
 
 	void DataNodeService::OnUpdate(const c2m::UpdataBlock& req) {
+		hn_info("chunk server {} update block {} status {}:{}", req.id(), req.block().id(), req.block().version(), req.block().size());
+
 		Block * block = BlockManager::Instance().Get(req.block().id());
 		if (!block) {
 			return;

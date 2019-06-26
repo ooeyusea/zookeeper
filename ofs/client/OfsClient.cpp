@@ -351,12 +351,23 @@ namespace ofs {
 			return;
 		}
 
-		if (CreateRemoteFile(args::get(path))) {
-			std::string realPath = FindReal(args::get(path));
+		std::string realPath = FindReal(args::get(path));
 
-			FileUploader uploader(_service, _token);
-			uploader.Start(args::get(local), realPath);
+		int32_t blockSize = 0;
+		int32_t size = GetSize(realPath, &blockSize);
+		if (size == -1) {
+			hn_trace("file is not exist, so create");
+			if (!CreateRemoteFile(args::get(path))) {
+				hn_trace("create file failed");
+				return;
+			}
 		}
+		else {
+			hn_trace("file is exist, size {}", size);
+		}
+
+		FileUploader uploader(_service, _token);
+		uploader.Start(size, blockSize, args::get(local), realPath);
 	}
 
 	void Client::Get(int32_t argc, char** argv) {
@@ -508,6 +519,25 @@ namespace ofs {
 			for (auto* child : node->children)
 				printf("%s\t%s\t%s\t%d\t%s\t%s\n", ToAuthStr(child->authority, child->dir).c_str(), child->owner.c_str(), child->ownerGroup.c_str(), child->dir ? 1024 : child->size, olib::FomateTimeStamp(child->updateTime).c_str(), child->name.c_str());
 		}
+	}
+
+	int32_t Client::GetSize(const std::string& path, int32_t * blockSize) {
+		api::master::FileStatusRequest request;
+		request.set_token(_token);
+		request.set_path(path);
+
+		api::master::FileStatusRespone response;
+		rpc::OfsRpcController controller(-1);
+		_service->Status(&controller, &request, &response, nullptr);
+
+		if (!controller.Failed() && response.errcode() == api::master::ErrorCode::EC_NONE) {
+			if (blockSize)
+				*blockSize = response.file().blocksize();
+
+			return response.file().size();;
+		}
+
+		return -1;
 	}
 
 	bool Client::CreateRemoteFile(const std::string& path) {

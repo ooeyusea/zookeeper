@@ -17,13 +17,6 @@ namespace ofs {
 		}
 
 		try {
-			if (!NodeService::Instance().Start(conf.Root())) {
-				hn_error("start node service failed");
-				return false;
-			}
-
-			hn_info("start node service success");
-
 			if (!BlockManager::Instance().Start(conf.Root())) {
 				hn_error("start block manager failed");
 				return false;
@@ -37,6 +30,13 @@ namespace ofs {
 			}
 
 			hn_info("start client service success");
+
+			if (!NodeService::Instance().Start(conf.Root())) {
+				hn_error("start node service failed");
+				return false;
+			}
+
+			hn_info("start node service success");
 		}
 		catch (std::exception& e) {
 			hn_error("load config format error: {} {}", e.what(), path);

@@ -54,6 +54,7 @@ namespace ofs {
 
 		int32_t Expand(const char * path);
 		void DisplayPath(const char* path);
+		int32_t GetSize(const std::string& path, int32_t* blockSize);
 		bool CreateRemoteFile(const std::string& path);
 
 		std::string FindReal(const std::string& path);

@@ -31,7 +31,7 @@ namespace ofs {
 			int32_t _size;
 
 			std::vector<bool> _dataFlags;
-			std::ofstream _output;
+			std::fstream _output;
 		};
 	public:
 		Block(int64_t id) : _mutex(true) { _info = { id, 0, 0 }; }

@@ -11,7 +11,7 @@ namespace ofs {
 		FileUploader(api::master::OfsFileService* service, const std::string& token) : _service(service), _token(token) {}
 		~FileUploader() {}
 
-		bool Start(const std::string& localPath, const std::string& remotePath);
+		bool Start(int32_t oldSize, int32_t blockSize, const std::string& localPath, const std::string& remotePath);
 
 	private:
 		api::master::OfsFileService* _service;
