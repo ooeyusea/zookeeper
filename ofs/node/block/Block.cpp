@@ -2,7 +2,7 @@
 #include "XmlReader.h"
 #include "BlockManager.h"
 #include "api/OfsChunk.pb.h"
-#include "file/LocalFile.h"
+#include "random_access_file.h"
 #include "time_helper.h"
 #include "BlockCopyToAction.h"
 #include "file_system.h"
@@ -57,8 +57,17 @@ namespace ofs {
 		if (_recover)
 			return api::chunk::ErrorCode::EC_BLOCK_IS_RECOVERING;
 
-		LocalFile file(std::move(path));
-		return file.Read(offset, size, data);
+		data.resize(size);
+		auto ret = olib::RandomAccessFile(path.c_str(), "r").Read(offset, (char*)data.c_str(), size);
+		switch (ret) {
+		case olib::RandomAccessFileResult::SUCCESS: return api::chunk::ErrorCode::EC_NONE;
+		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_FILE_NOT_EXIST;
+		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_READ_FAILED;
+		case olib::RandomAccessFileResult::OP_INCOMPELETE: return api::chunk::ErrorCode::EC_BLOCK_READ_FAILED;
+		case olib::RandomAccessFileResult::OP_OUT_OF_RANGE: return api::chunk::ErrorCode::EC_BLOCK_OUT_OF_RANGE;
+		}
+
+		return api::chunk::ErrorCode::EC_BLOCK_READ_FAILED;
 	}
 
 	int32_t Block::Write(int64_t exceptVersion, int64_t newVersion, int32_t offset, const std::string& data, bool strict) {
@@ -81,10 +90,12 @@ namespace ofs {
 				return api::chunk::ErrorCode::EC_WRITE_BLOCK_VERSION_CHECK_FAILED;
 		}
 
-		LocalFile file(std::move(path));
-		int32_t ret = file.Write(offset, data.c_str(), (int32_t)data.size());
-		if (ret != api::chunk::EC_NONE)
-			return ret;
+		auto ret = olib::RandomAccessFile(path.c_str(), "w").Write(offset, data.c_str(), data.size());
+		switch (ret) {
+		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
+		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		case olib::RandomAccessFileResult::OP_INCOMPELETE: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		}
 
 		if (strict)
 			_info.version = newVersion;
@@ -95,8 +106,15 @@ namespace ofs {
 				++_info.version;
 		}
 
-		LocalFile meta(metaPath);
-		return meta.Write(0, (const char *)&_info, sizeof(_info));
+		ret = olib::RandomAccessFile(metaPath.c_str(), "w").Write(0, (const char*)& _info, sizeof(_info));
+		switch (ret) {
+		case olib::RandomAccessFileResult::SUCCESS: return api::chunk::ErrorCode::EC_NONE;
+		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
+		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		case olib::RandomAccessFileResult::OP_INCOMPELETE: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		}
+		
+		return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
 	}
 
 	int32_t Block::Append(int64_t exceptVersion, int64_t newVersion, const std::string& data, bool strict) {
@@ -119,10 +137,12 @@ namespace ofs {
 		if (_info.size + data.size() > BlockManager::Instance().GetBlockSize())
 			return api::chunk::EC_BLOCK_FULL;
 
-		LocalFile file(std::move(path));
-		int32_t ret = file.Append(data.c_str(), (int32_t)data.size());
-		if (ret != api::chunk::EC_NONE)
-			return ret;
+		auto ret = olib::RandomAccessFile(path.c_str(), "w").Append(data.c_str(), data.size());
+		switch (ret) {
+		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
+		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		case olib::RandomAccessFileResult::OP_INCOMPELETE: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		}
 
 		_info.size += (int32_t)data.size();
 
@@ -135,8 +155,15 @@ namespace ofs {
 				++_info.version;
 		}
 
-		LocalFile meta(metaPath);
-		return meta.Write(0, (const char *)&_info, sizeof(_info));
+		ret = olib::RandomAccessFile(metaPath.c_str(), "w").Write(0, (const char*)& _info, sizeof(_info));
+		switch (ret) {
+		case olib::RandomAccessFileResult::SUCCESS: return api::chunk::ErrorCode::EC_NONE;
+		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
+		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		case olib::RandomAccessFileResult::OP_INCOMPELETE: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
+		}
+
+		return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
 	}
 
 	void Block::Remove() {
@@ -144,11 +171,8 @@ namespace ofs {
 		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
 
 		std::lock_guard<hn_shared_mutex> guard(_mutex);
-		LocalFile file(std::move(path));
-		file.Remove();
-
-		LocalFile meta(metaPath);
-		meta.Remove();
+		fs::remove(path);
+		fs::remove(metaPath);
 	}
 
 	void Block::StartRecover(int64_t version, int64_t lease, int32_t copyTo) {
@@ -170,6 +194,7 @@ namespace ofs {
 			}
 
 			BlockCopyToAction().Start(_info.id, _info.version, _info.size, copyTo);
+			Release();
 		};
 	}
 
@@ -211,10 +236,9 @@ namespace ofs {
 			_recover = nullptr;
 
 			std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
-			LocalFile meta(metaPath);
-			if (meta.Write(0, (const char*)& _info, sizeof(_info)) != api::chunk::ErrorCode::EC_NONE) {
+			auto ret = olib::RandomAccessFile(metaPath.c_str(), "w").Write(0, (const char*)& _info, sizeof(_info));
+			if (ret == olib::RandomAccessFileResult::SUCCESS)
 				return true;
-			}
 		}
 
 		return false;
