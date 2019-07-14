@@ -243,7 +243,7 @@ namespace ofs {
 						if (itr != _funcs.end()) {
 							itr->second(data.c_str(), data.size());
 
-							hn_trace("do message {} from {}", header.msg, id);
+							//hn_trace("do message {} from {}", header.msg, id);
 						}
 						else {
 							hn_warn("unknown message {} from {}", header.msg, id);

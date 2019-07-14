@@ -1,6 +1,7 @@
 #include "ClientService.h"
 #include "block/BlockManager.h"
 #include "node/NodeService.h"
+#include "time_helper.h"
 
 namespace ofs {
 	bool ClientService::Start(const olib::IXmlObject& root) {
@@ -39,14 +40,17 @@ namespace ofs {
 		::google::protobuf::Closure* done) {
 
 		//check key
-		//check lease
+		auto& lease = request->lease();
+		if (lease.until() < olib::GetTimeStamp()) {
+			response->set_errcode(api::chunk::ErrorCode::EC_LEASE_EXPIRE);
+			return;
+		}
 
 		if (request->data().size() != BlockManager::Instance().GetBatchSize()) {
 			response->set_errcode(api::chunk::ErrorCode::EC_WRITE_BLOCK_CHECK_SIZE_FAILED);
 			return;
 		}
 
-		auto& lease = request->lease();
 		Block * block = BlockManager::Instance().Get(lease.id());
 		if (!block) {
 			response->set_errcode(api::chunk::ErrorCode::EC_BLOCK_NOT_EIXST);
@@ -71,14 +75,17 @@ namespace ofs {
 		::google::protobuf::Closure* done) {
 
 		//check key
-		//check lease
+		auto& lease = request->lease();
+		if (lease.until() < olib::GetTimeStamp()) {
+			response->set_errcode(api::chunk::ErrorCode::EC_LEASE_EXPIRE);
+			return;
+		}
 
 		if (request->data().size() != BlockManager::Instance().GetBatchSize()) {
 			response->set_errcode(api::chunk::ErrorCode::EC_WRITE_BLOCK_CHECK_SIZE_FAILED);
 			return;
 		}
 
-		auto& lease = request->lease();
 		Block * block = BlockManager::Instance().Get(lease.id(), true);
 		if (!block) {
 			response->set_errcode(api::chunk::ErrorCode::EC_BLOCK_NOT_EIXST);

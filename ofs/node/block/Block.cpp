@@ -48,17 +48,25 @@ namespace ofs {
 	}
 
 	int32_t Block::Read(int32_t offset, int32_t size, std::string& data) {
-		if (_info.size < offset + size)
+		if (_info.size < offset + size) {
+			hn_trace("read block {} form offset {}:{} out of range", _info.id, offset, size);
 			return api::chunk::ErrorCode::EC_BLOCK_OUT_OF_RANGE;
+		}
 
 		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
 
 		hn_shared_lock_guard<hn_shared_mutex> guard(_mutex);
-		if (_recover)
+		if (_recover) {
+			hn_trace("read block {} but is recovering", _info.id);
 			return api::chunk::ErrorCode::EC_BLOCK_IS_RECOVERING;
+		}
 
 		data.resize(size);
 		auto ret = olib::RandomAccessFile(path.c_str(), "r").Read(offset, (char*)data.c_str(), size);
+		if (ret != olib::RandomAccessFileResult::SUCCESS) {
+			hn_warn("read block {} from offset {}:{} error {}", _info.id, offset, size, (int8_t)ret);
+		}
+
 		switch (ret) {
 		case olib::RandomAccessFileResult::SUCCESS: return api::chunk::ErrorCode::EC_NONE;
 		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_FILE_NOT_EXIST;
@@ -71,26 +79,37 @@ namespace ofs {
 	}
 
 	int32_t Block::Write(int64_t exceptVersion, int64_t newVersion, int32_t offset, const std::string& data, bool strict) {
-		if (_info.size < offset + data.size())
+		if (_info.size < offset + data.size()) {
+			hn_trace("write block {} from offset {}:{} but out of range", _info.id, offset, data.size());
 			return api::chunk::ErrorCode::EC_BLOCK_OUT_OF_RANGE;
+		}
 
 		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
 		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
 
 		std::lock_guard<hn_shared_mutex> guard(_mutex);
-		if (_recover)
+		if (_recover) {
+			hn_trace("write block {} from offset {}:{} but is recovering", _info.id, offset, data.size());
 			return api::chunk::ErrorCode::EC_BLOCK_IS_RECOVERING;
+		}
 
 		if (strict) {
-			if (_info.version != exceptVersion)
+			if (_info.version != exceptVersion) {
+				hn_warn("write block {} from offset {}:{} but is version is not math {}!={}", _info.id, offset, data.size(), _info.version, exceptVersion);
 				return api::chunk::ErrorCode::EC_WRITE_BLOCK_VERSION_CHECK_FAILED;
+			}
 		}
 		else {
-			if (_info.version < exceptVersion)
+			if (_info.version < exceptVersion) {
+				hn_trace("write block {} from offset {}:{} but is version is not math {}<{}", _info.id, offset, data.size(), _info.version, exceptVersion);
 				return api::chunk::ErrorCode::EC_WRITE_BLOCK_VERSION_CHECK_FAILED;
+			}
 		}
 
 		auto ret = olib::RandomAccessFile(path.c_str(), "w").Write(offset, data.c_str(), data.size());
+		if (ret != olib::RandomAccessFileResult::SUCCESS) {
+			hn_warn("write block {} from offset {}:{} error {}", _info.id, offset, data.size(), (int8_t)ret);
+		}
 		switch (ret) {
 		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
@@ -107,6 +126,9 @@ namespace ofs {
 		}
 
 		ret = olib::RandomAccessFile(metaPath.c_str(), "w").Write(0, (const char*)& _info, sizeof(_info));
+		if (ret != olib::RandomAccessFileResult::SUCCESS) {
+			hn_warn("write block {} from offset {}:{} write meta error {}", _info.id, offset, data.size(), (int8_t)ret);
+		}
 		switch (ret) {
 		case olib::RandomAccessFileResult::SUCCESS: return api::chunk::ErrorCode::EC_NONE;
 		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
@@ -122,22 +144,33 @@ namespace ofs {
 		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
 
 		std::lock_guard<hn_shared_mutex> guard(_mutex);
-		if (_recover)
+		if (_recover) {
+			hn_trace("append block {} for size {} but is recovering", _info.id, data.size());
 			return api::chunk::ErrorCode::EC_BLOCK_IS_RECOVERING;
+		}
 
 		if (strict) {
-			if (_info.version != exceptVersion)
+			if (_info.version != exceptVersion) {
+				hn_warn("append block {} for size {} but is version is not math {}!={}", _info.id, data.size(), _info.version, exceptVersion);
 				return api::chunk::ErrorCode::EC_WRITE_BLOCK_VERSION_CHECK_FAILED;
+			}
 		}
 		else {
-			if (_info.version < exceptVersion)
+			if (_info.version < exceptVersion) {
+				hn_trace("append block {} for size {} but is version is not math {}<{}", _info.id, data.size(), _info.version, exceptVersion);
 				return api::chunk::ErrorCode::EC_WRITE_BLOCK_VERSION_CHECK_FAILED;
+			}
 		}
 
-		if (_info.size + data.size() > BlockManager::Instance().GetBlockSize())
+		if (_info.size + data.size() > BlockManager::Instance().GetBlockSize()) {
+			hn_warn("append block {} for size {} block has not enougth space", _info.id, data.size());
 			return api::chunk::EC_BLOCK_FULL;
+		}
 
 		auto ret = olib::RandomAccessFile(path.c_str(), "w").Append(data.c_str(), data.size());
+		if (ret != olib::RandomAccessFileResult::SUCCESS) {
+			hn_warn("append block {} for size {} error {}", _info.id, data.size(), (int8_t)ret);
+		}
 		switch (ret) {
 		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
 		case olib::RandomAccessFileResult::OP_FAILED: return api::chunk::ErrorCode::EC_BLOCK_WRITE_FAILED;
@@ -156,6 +189,9 @@ namespace ofs {
 		}
 
 		ret = olib::RandomAccessFile(metaPath.c_str(), "w").Write(0, (const char*)& _info, sizeof(_info));
+		if (ret != olib::RandomAccessFileResult::SUCCESS) {
+			hn_warn("append block {} for size {} write meta error {}", _info.id, data.size(), (int8_t)ret);
+		}
 		switch (ret) {
 		case olib::RandomAccessFileResult::SUCCESS: return api::chunk::ErrorCode::EC_NONE;
 		case olib::RandomAccessFileResult::FILE_OPEN_FAILED: return api::chunk::ErrorCode::EC_BLOCK_OPEN_OR_CREATE_FILE_FAILED;
@@ -167,6 +203,8 @@ namespace ofs {
 	}
 
 	void Block::Remove() {
+		hn_info("remove block {} size {}", _info.id, _info.size);
+
 		std::string path = BlockManager::Instance().GetBlockFile(_info.id);
 		std::string metaPath = BlockManager::Instance().GetBlockMetaFile(_info.id);
 

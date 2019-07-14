@@ -4,7 +4,7 @@
 #include "time_helper.h"
 
 namespace olib {
-	enum class RandomAccessFileResult {
+	enum class RandomAccessFileResult : int8_t {
 		SUCCESS,
 		FILE_OPEN_FAILED,
 		OP_FAILED,
