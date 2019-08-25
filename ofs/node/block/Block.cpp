@@ -28,16 +28,15 @@ namespace ofs {
 
 	bool Block::RecoverController::Recover(int64_t id, int64_t version, int32_t offset, const std::string& data) {
 		if (_version == version) {
-			if (!_output) {
+			if (!_file) {
 				std::string path = BlockManager::Instance().GetBlockFile(id);
-				_output.open(path, std::ios::in | std::ios::out | std::ios::binary);
+				_file = new olib::RandomAccessFile(path.c_str(), "w");
 			}
 
-			if (_output) {
-				_output.seekp(offset);
-				_output.write(data.c_str(), data.size());
+			if (_file) {
+				auto ret = _file->Write(offset, data.c_str(), data.size());
 
-				if (_output) {
+				if (ret == olib::RandomAccessFileResult::SUCCESS) {
 					_dataFlags[offset / BlockManager::Instance().GetBatchSize()] = true;
 					return true;
 				}

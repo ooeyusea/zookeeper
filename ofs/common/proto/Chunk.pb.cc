@@ -82,10 +82,10 @@ class AppendNotifyDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<AppendNotify> _instance;
 } _AppendNotify_default_instance_;
-class ResizeBlockDefaultTypeInternal {
+class StartRecoverBlockDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ResizeBlock> _instance;
-} _ResizeBlock_default_instance_;
+  ::google::protobuf::internal::ExplicitlyConstructed<StartRecoverBlock> _instance;
+} _StartRecoverBlock_default_instance_;
 class RecoverBlockDataDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<RecoverBlockData> _instance;
@@ -314,19 +314,19 @@ static void InitDefaultsAppendNotify_Chunk_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_AppendNotify_Chunk_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsAppendNotify_Chunk_2eproto}, {}};
 
-static void InitDefaultsResizeBlock_Chunk_2eproto() {
+static void InitDefaultsStartRecoverBlock_Chunk_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::ofs::c2m::_ResizeBlock_default_instance_;
-    new (ptr) ::ofs::c2m::ResizeBlock();
+    void* ptr = &::ofs::c2m::_StartRecoverBlock_default_instance_;
+    new (ptr) ::ofs::c2m::StartRecoverBlock();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::ofs::c2m::ResizeBlock::InitAsDefaultInstance();
+  ::ofs::c2m::StartRecoverBlock::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_ResizeBlock_Chunk_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsResizeBlock_Chunk_2eproto}, {}};
+::google::protobuf::internal::SCCInfo<0> scc_info_StartRecoverBlock_Chunk_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsStartRecoverBlock_Chunk_2eproto}, {}};
 
 static void InitDefaultsRecoverBlockData_Chunk_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -372,7 +372,7 @@ void InitDefaults_Chunk_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_NeighborGossip_Chunk_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_WriteNotify_Chunk_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_AppendNotify_Chunk_2eproto.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_ResizeBlock_Chunk_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_StartRecoverBlock_Chunk_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_RecoverBlockData_Chunk_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_RecoverBlockComplete_Chunk_2eproto.base);
 }
@@ -545,14 +545,14 @@ const ::google::protobuf::uint32 TableStruct_Chunk_2eproto::offsets[] PROTOBUF_S
   2,
   3,
   0,
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::StartRecoverBlock, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::StartRecoverBlock, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, blockid_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, version_),
-  PROTOBUF_FIELD_OFFSET(::ofs::c2m::ResizeBlock, size_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::StartRecoverBlock, blockid_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::StartRecoverBlock, version_),
+  PROTOBUF_FIELD_OFFSET(::ofs::c2m::StartRecoverBlock, size_),
   0,
   1,
   2,
@@ -595,7 +595,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 128, 134, sizeof(::ofs::c2m::NeighborGossip)},
   { 135, 145, sizeof(::ofs::c2m::WriteNotify)},
   { 150, 159, sizeof(::ofs::c2m::AppendNotify)},
-  { 163, 171, sizeof(::ofs::c2m::ResizeBlock)},
+  { 163, 171, sizeof(::ofs::c2m::StartRecoverBlock)},
   { 174, 183, sizeof(::ofs::c2m::RecoverBlockData)},
   { 187, 194, sizeof(::ofs::c2m::RecoverBlockComplete)},
 };
@@ -616,7 +616,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_NeighborGossip_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_WriteNotify_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_AppendNotify_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_ResizeBlock_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_StartRecoverBlock_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_RecoverBlockData_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::ofs::c2m::_RecoverBlockComplete_default_instance_),
 };
@@ -655,17 +655,17 @@ const char descriptor_table_protodef_Chunk_2eproto[] =
   "version\030\003 \002(\003\022\016\n\006offset\030\004 \002(\005\022\014\n\004data\030\005 "
   "\002(\014\"R\n\014AppendNotify\022\017\n\007blockid\030\001 \002(\003\022\017\n\007"
   "version\030\002 \002(\003\022\022\n\nnewversion\030\003 \002(\003\022\014\n\004dat"
-  "a\030\004 \002(\014\"=\n\013ResizeBlock\022\017\n\007blockid\030\001 \002(\003\022"
-  "\017\n\007version\030\002 \002(\003\022\014\n\004size\030\003 \002(\005\"R\n\020Recove"
-  "rBlockData\022\017\n\007blockid\030\001 \002(\003\022\017\n\007version\030\002"
-  " \002(\003\022\016\n\006offset\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"8\n\024Re"
-  "coverBlockComplete\022\017\n\007blockid\030\001 \002(\003\022\017\n\007v"
-  "ersion\030\002 \002(\003"
+  "a\030\004 \002(\014\"C\n\021StartRecoverBlock\022\017\n\007blockid\030"
+  "\001 \002(\003\022\017\n\007version\030\002 \002(\003\022\014\n\004size\030\003 \002(\005\"R\n\020"
+  "RecoverBlockData\022\017\n\007blockid\030\001 \002(\003\022\017\n\007ver"
+  "sion\030\002 \002(\003\022\016\n\006offset\030\003 \002(\005\022\014\n\004data\030\004 \002(\014"
+  "\"8\n\024RecoverBlockComplete\022\017\n\007blockid\030\001 \002("
+  "\003\022\017\n\007version\030\002 \002(\003"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_Chunk_2eproto = {
   false, InitDefaults_Chunk_2eproto, 
   descriptor_table_protodef_Chunk_2eproto,
-  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1292,
+  "Chunk.proto", &assign_descriptors_table_Chunk_2eproto, 1298,
 };
 
 void AddDescriptors_Chunk_2eproto() {
@@ -6849,33 +6849,33 @@ void AppendNotify::InternalSwap(AppendNotify* other) {
 
 // ===================================================================
 
-void ResizeBlock::InitAsDefaultInstance() {
+void StartRecoverBlock::InitAsDefaultInstance() {
 }
-class ResizeBlock::HasBitSetters {
+class StartRecoverBlock::HasBitSetters {
  public:
-  static void set_has_blockid(ResizeBlock* msg) {
+  static void set_has_blockid(StartRecoverBlock* msg) {
     msg->_has_bits_[0] |= 0x00000001u;
   }
-  static void set_has_version(ResizeBlock* msg) {
+  static void set_has_version(StartRecoverBlock* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
-  static void set_has_size(ResizeBlock* msg) {
+  static void set_has_size(StartRecoverBlock* msg) {
     msg->_has_bits_[0] |= 0x00000004u;
   }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ResizeBlock::kBlockidFieldNumber;
-const int ResizeBlock::kVersionFieldNumber;
-const int ResizeBlock::kSizeFieldNumber;
+const int StartRecoverBlock::kBlockidFieldNumber;
+const int StartRecoverBlock::kVersionFieldNumber;
+const int StartRecoverBlock::kSizeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ResizeBlock::ResizeBlock()
+StartRecoverBlock::StartRecoverBlock()
   : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(constructor:ofs.c2m.StartRecoverBlock)
 }
-ResizeBlock::ResizeBlock(const ResizeBlock& from)
+StartRecoverBlock::StartRecoverBlock(const StartRecoverBlock& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(nullptr),
       _has_bits_(from._has_bits_) {
@@ -6883,34 +6883,34 @@ ResizeBlock::ResizeBlock(const ResizeBlock& from)
   ::memcpy(&blockid_, &from.blockid_,
     static_cast<size_t>(reinterpret_cast<char*>(&size_) -
     reinterpret_cast<char*>(&blockid_)) + sizeof(size_));
-  // @@protoc_insertion_point(copy_constructor:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(copy_constructor:ofs.c2m.StartRecoverBlock)
 }
 
-void ResizeBlock::SharedCtor() {
+void StartRecoverBlock::SharedCtor() {
   ::memset(&blockid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&size_) -
       reinterpret_cast<char*>(&blockid_)) + sizeof(size_));
 }
 
-ResizeBlock::~ResizeBlock() {
-  // @@protoc_insertion_point(destructor:ofs.c2m.ResizeBlock)
+StartRecoverBlock::~StartRecoverBlock() {
+  // @@protoc_insertion_point(destructor:ofs.c2m.StartRecoverBlock)
   SharedDtor();
 }
 
-void ResizeBlock::SharedDtor() {
+void StartRecoverBlock::SharedDtor() {
 }
 
-void ResizeBlock::SetCachedSize(int size) const {
+void StartRecoverBlock::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ResizeBlock& ResizeBlock::default_instance() {
-  ::google::protobuf::internal::InitSCC(&::scc_info_ResizeBlock_Chunk_2eproto.base);
+const StartRecoverBlock& StartRecoverBlock::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_StartRecoverBlock_Chunk_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void ResizeBlock::Clear() {
-// @@protoc_insertion_point(message_clear_start:ofs.c2m.ResizeBlock)
+void StartRecoverBlock::Clear() {
+// @@protoc_insertion_point(message_clear_start:ofs.c2m.StartRecoverBlock)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -6926,9 +6926,9 @@ void ResizeBlock::Clear() {
 }
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* ResizeBlock::_InternalParse(const char* begin, const char* end, void* object,
+const char* StartRecoverBlock::_InternalParse(const char* begin, const char* end, void* object,
                   ::google::protobuf::internal::ParseContext* ctx) {
-  auto msg = static_cast<ResizeBlock*>(object);
+  auto msg = static_cast<StartRecoverBlock*>(object);
   ::google::protobuf::int32 size; (void)size;
   int depth; (void)depth;
   ::google::protobuf::uint32 tag;
@@ -6976,11 +6976,11 @@ const char* ResizeBlock::_InternalParse(const char* begin, const char* end, void
   return ptr;
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool ResizeBlock::MergePartialFromCodedStream(
+bool StartRecoverBlock::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(parse_start:ofs.c2m.StartRecoverBlock)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -7037,18 +7037,18 @@ bool ResizeBlock::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(parse_success:ofs.c2m.StartRecoverBlock)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(parse_failure:ofs.c2m.StartRecoverBlock)
   return false;
 #undef DO_
 }
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
-void ResizeBlock::SerializeWithCachedSizes(
+void StartRecoverBlock::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(serialize_start:ofs.c2m.StartRecoverBlock)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7072,12 +7072,12 @@ void ResizeBlock::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(serialize_end:ofs.c2m.StartRecoverBlock)
 }
 
-::google::protobuf::uint8* ResizeBlock::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* StartRecoverBlock::InternalSerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(serialize_to_array_start:ofs.c2m.StartRecoverBlock)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7101,12 +7101,12 @@ void ResizeBlock::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(serialize_to_array_end:ofs.c2m.StartRecoverBlock)
   return target;
 }
 
-size_t ResizeBlock::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:ofs.c2m.ResizeBlock)
+size_t StartRecoverBlock::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:ofs.c2m.StartRecoverBlock)
   size_t total_size = 0;
 
   if (has_blockid()) {
@@ -7132,8 +7132,8 @@ size_t ResizeBlock::RequiredFieldsByteSizeFallback() const {
 
   return total_size;
 }
-size_t ResizeBlock::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ofs.c2m.ResizeBlock)
+size_t StartRecoverBlock::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ofs.c2m.StartRecoverBlock)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7169,23 +7169,23 @@ size_t ResizeBlock::ByteSizeLong() const {
   return total_size;
 }
 
-void ResizeBlock::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ofs.c2m.ResizeBlock)
+void StartRecoverBlock::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ofs.c2m.StartRecoverBlock)
   GOOGLE_DCHECK_NE(&from, this);
-  const ResizeBlock* source =
-      ::google::protobuf::DynamicCastToGenerated<ResizeBlock>(
+  const StartRecoverBlock* source =
+      ::google::protobuf::DynamicCastToGenerated<StartRecoverBlock>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ofs.c2m.StartRecoverBlock)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.c2m.ResizeBlock)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ofs.c2m.StartRecoverBlock)
     MergeFrom(*source);
   }
 }
 
-void ResizeBlock::MergeFrom(const ResizeBlock& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ofs.c2m.ResizeBlock)
+void StartRecoverBlock::MergeFrom(const StartRecoverBlock& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ofs.c2m.StartRecoverBlock)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -7206,30 +7206,30 @@ void ResizeBlock::MergeFrom(const ResizeBlock& from) {
   }
 }
 
-void ResizeBlock::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ofs.c2m.ResizeBlock)
+void StartRecoverBlock::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ofs.c2m.StartRecoverBlock)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ResizeBlock::CopyFrom(const ResizeBlock& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ofs.c2m.ResizeBlock)
+void StartRecoverBlock::CopyFrom(const StartRecoverBlock& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ofs.c2m.StartRecoverBlock)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ResizeBlock::IsInitialized() const {
+bool StartRecoverBlock::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
   return true;
 }
 
-void ResizeBlock::Swap(ResizeBlock* other) {
+void StartRecoverBlock::Swap(StartRecoverBlock* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void ResizeBlock::InternalSwap(ResizeBlock* other) {
+void StartRecoverBlock::InternalSwap(StartRecoverBlock* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
@@ -7238,7 +7238,7 @@ void ResizeBlock::InternalSwap(ResizeBlock* other) {
   swap(size_, other->size_);
 }
 
-::google::protobuf::Metadata ResizeBlock::GetMetadata() const {
+::google::protobuf::Metadata StartRecoverBlock::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_Chunk_2eproto);
   return ::file_level_metadata_Chunk_2eproto[kIndexInFileMessages];
 }
@@ -8117,8 +8117,8 @@ template<> PROTOBUF_NOINLINE ::ofs::c2m::WriteNotify* Arena::CreateMaybeMessage<
 template<> PROTOBUF_NOINLINE ::ofs::c2m::AppendNotify* Arena::CreateMaybeMessage< ::ofs::c2m::AppendNotify >(Arena* arena) {
   return Arena::CreateInternal< ::ofs::c2m::AppendNotify >(arena);
 }
-template<> PROTOBUF_NOINLINE ::ofs::c2m::ResizeBlock* Arena::CreateMaybeMessage< ::ofs::c2m::ResizeBlock >(Arena* arena) {
-  return Arena::CreateInternal< ::ofs::c2m::ResizeBlock >(arena);
+template<> PROTOBUF_NOINLINE ::ofs::c2m::StartRecoverBlock* Arena::CreateMaybeMessage< ::ofs::c2m::StartRecoverBlock >(Arena* arena) {
+  return Arena::CreateInternal< ::ofs::c2m::StartRecoverBlock >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ofs::c2m::RecoverBlockData* Arena::CreateMaybeMessage< ::ofs::c2m::RecoverBlockData >(Arena* arena) {
   return Arena::CreateInternal< ::ofs::c2m::RecoverBlockData >(arena);

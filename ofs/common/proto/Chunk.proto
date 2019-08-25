@@ -90,7 +90,7 @@ message AppendNotify {
 	required bytes data = 4;
 }
 
-message ResizeBlock {
+message StartRecoverBlock {
 	required int64 blockid = 1;
 	required int64 version = 2;
 	required int32 size = 3;

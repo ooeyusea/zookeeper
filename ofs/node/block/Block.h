@@ -3,6 +3,7 @@
 #include "hnet.h"
 #include "RefObject.h"
 #include <fstream>
+#include "random_access_file.h"
 
 namespace ofs {
 	struct BlockInfo {
@@ -15,7 +16,9 @@ namespace ofs {
 		class RecoverController {
 		public:
 			RecoverController(int64_t version, int32_t size);
-			~RecoverController() {}
+			~RecoverController() {
+				delete _file;
+			}
 
 			bool Resize(int64_t version, int32_t size);
 			bool Recover(int64_t id, int64_t version, int32_t offset, const std::string& data);
@@ -31,7 +34,7 @@ namespace ofs {
 			int32_t _size;
 
 			std::vector<bool> _dataFlags;
-			std::fstream _output;
+			olib::RandomAccessFile * _file = nullptr;
 		};
 	public:
 		Block(int64_t id) : _mutex(true) { _info = { id, 0, 0 }; }

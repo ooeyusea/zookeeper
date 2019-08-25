@@ -44,7 +44,7 @@ namespace ofs {
 		void OnRecoverBlock(const c2m::RecoverBlock& cmd);
 		void OnCleanBlock(const c2m::CleanBlock& cmd);
 
-		void OnRecoverResizeBlockSize(const c2m::ResizeBlock& resize);
+		void OnRecoverBlockStart(const c2m::StartRecoverBlock& resize);
 		void OnRecoverBlockData(const c2m::RecoverBlockData& data);
 		void OnRecoverBlockComplete(const c2m::RecoverBlockComplete& complete);
 

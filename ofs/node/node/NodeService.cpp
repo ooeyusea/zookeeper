@@ -53,7 +53,7 @@ namespace ofs {
 		_queue->Register<c2m::RecoverBlock>(std::bind(&NodeService::OnRecoverBlock, this, std::placeholders::_1));
 		_queue->Register<c2m::CleanBlock>(std::bind(&NodeService::OnCleanBlock, this, std::placeholders::_1));
 
-		_queue->Register<c2m::ResizeBlock>(std::bind(&NodeService::OnRecoverResizeBlockSize, this, std::placeholders::_1));
+		_queue->Register<c2m::StartRecoverBlock>(std::bind(&NodeService::OnRecoverBlockStart, this, std::placeholders::_1));
 		_queue->Register<c2m::RecoverBlockData>(std::bind(&NodeService::OnRecoverBlockData, this, std::placeholders::_1));
 		_queue->Register<c2m::RecoverBlockComplete>(std::bind(&NodeService::OnRecoverBlockComplete, this, std::placeholders::_1));
 
@@ -188,7 +188,7 @@ namespace ofs {
 		BlockManager::Instance().Clean(cmd.blockid());
 	}
 
-	void NodeService::OnRecoverResizeBlockSize(const c2m::ResizeBlock& resize) {
+	void NodeService::OnRecoverBlockStart(const c2m::StartRecoverBlock& resize) {
 		Block* block = BlockManager::Instance().Get(resize.blockid(), true);
 		if (!block)
 			return;

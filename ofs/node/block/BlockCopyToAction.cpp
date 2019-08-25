@@ -23,7 +23,7 @@ namespace ofs {
 		if ((size % BlockManager::Instance().GetBatchSize()) != 0)
 			return;
 
-		c2m::ResizeBlock resize;
+		c2m::StartRecoverBlock resize;
 		resize.set_blockid(id);
 		resize.set_version(version);
 		resize.set_size(size);
