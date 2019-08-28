@@ -203,6 +203,8 @@ namespace ofs {
 		if (!block)
 			return;
 
+		hn_trace("recv recover block {} data {}", data.blockid(), data.offset());
+
 		block->RecoverData(data.version(), data.offset(), data.data());
 
 		block->Release();

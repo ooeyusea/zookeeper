@@ -40,6 +40,9 @@ namespace ofs {
 					_dataFlags[offset / BlockManager::Instance().GetBatchSize()] = true;
 					return true;
 				}
+				else {
+					hn_error("block {} recover offset {} failed", id, offset);
+				}
 			}
 		}
 

@@ -99,7 +99,7 @@ namespace olib {
 				if (err == ERROR_IO_PENDING)
 					continue;
 
-				hn_warn("write file {} at offset {}[{}] for size {} failed {}", _path, offset, writeOffset, size, err);
+				hn_error("write file {} at offset {}[{}] for size {} failed {}", _path, offset, writeOffset, size, err);
 				return RandomAccessFileResult::OP_FAILED;
 			}
 #else
